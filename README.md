@@ -19,9 +19,9 @@ This README would normally document whatever steps are necessary to get your app
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
+* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
+* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
 
 ### Who do I talk to? ###
 
