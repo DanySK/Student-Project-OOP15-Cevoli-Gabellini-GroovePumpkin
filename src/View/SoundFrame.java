@@ -37,7 +37,7 @@ public class SoundFrame extends JFrame {
 		//this.setLayout(new BorderLayout());
 		
 		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		final JMenuBar menuBar = new JMenuBar();
+		final SoundMenu menuBar = new SoundMenu();
 		final JPanel mainPanel = new JPanel(new BorderLayout());
 
 		menuCreator(menuBar);
@@ -58,59 +58,9 @@ public class SoundFrame extends JFrame {
 		jtp.add("Groove Box", new GroovePanel());
 	}
 
-	/**
-	 * This method populates the JMenùBar created as a field of this class
-	 * 1) Option-> show various options avaiable, like the infos about this application
-	 * 2) Open Sound Recorder-> Allows the user to open, in a different window the audio recorder device
-	  
-	 * @param jbm, the Java Menu Bar to be populated
-	 */
 	private void menuCreator(final JMenuBar jbm){
 		
 		
-		final JMenu option= new JMenu("Options");
-		jbm.add(option);
-		/*
-		final JMenuItem config=new JMenuItem("Configuration");
-		
-		config.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//TODO
-			}
-		});
-		option.add(config);
-		*/
-		
-		final JMenuItem about= new JMenuItem("About");
-		about.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//TODO
-			}
-		});
-		option.add(about);
-		
-		final JMenuItem exit = new JMenuItem("Exit");
-		exit.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		option.add(exit);
-		
-		final JButton soundRec= new JButton("Open Sound Recorder");
-		soundRec.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				 new Recorder();
-			}
-		});
-		jbm.add(soundRec);
 		
 	}
 

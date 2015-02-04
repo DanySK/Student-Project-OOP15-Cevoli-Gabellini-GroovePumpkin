@@ -16,6 +16,6 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 }
