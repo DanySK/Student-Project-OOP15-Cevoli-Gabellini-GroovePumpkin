@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -33,7 +34,7 @@ public class SoundFrame extends JFrame {
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout());
+		//this.setLayout(new BorderLayout());
 		
 		final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		final JMenuBar menuBar = new JMenuBar();
@@ -101,7 +102,7 @@ public class SoundFrame extends JFrame {
 		});
 		option.add(exit);
 		
-		final JMenu soundRec= new JMenu("Open Sound Recorder");
+		final JButton soundRec= new JButton("Open Sound Recorder");
 		soundRec.addActionListener(new ActionListener() {
 			
 			@Override
