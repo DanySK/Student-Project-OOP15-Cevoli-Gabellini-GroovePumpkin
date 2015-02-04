@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,12 +20,12 @@ import javax.swing.JMenuItem;
 public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;
-	private JMenuBar jbm = new JMenuBar();
 	private Recorder rec;
 
 	public SoundMenu() {
+		this.setBackground(new Color(255, 255, 255));
 		final JMenu option = new JMenu("Options");
-		jbm.add(option);
+		this.add(option);
 		/*
 		 * final JMenuItem config=new JMenuItem("Configuration");
 		 * 
@@ -55,23 +56,20 @@ public class SoundMenu extends JMenuBar {
 		option.add(exit);
 
 		final JMenu view = new JMenu("View");
-		jbm.add(view);
+		this.add(view);
 
-		final JMenuItem soundRec = new JMenuItem("Show Sound Recorder");
+		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
 		soundRec.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (rec == null) {
-					rec = new Recorder();
+					rec = new Recorder(SoundMenu.this);
 					rec.setVisible(true);
-					soundRec.setText("Hide Sound Recorder");
 				} else if (rec != null && !rec.isVisible()) {
 					rec.setVisible(true);
-					soundRec.setText("Hide Sound Recorder");
 				} else {
-					rec.setVisible(true);
-					soundRec.setText("Hide Sound Recorder");
+					rec.setVisible(false);
 				}
 
 			}
