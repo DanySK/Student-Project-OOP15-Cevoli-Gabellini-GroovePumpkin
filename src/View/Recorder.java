@@ -2,25 +2,55 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 
+@SuppressWarnings("unused")
 public class Recorder extends JFrame {
 
 	private static final long serialVersionUID = -4303337519550483522L;
-	
+	private final JButton recButton = new JButton("Rec");
+	private final JButton pauseButton = new JButton("Pause");
+	private final JLabel timerLabel = new JLabel("00:00:00");
+
 	public Recorder(final JMenuBar jbm) {
-		this.setBackground(new Color(255, 255, 255));
+		this.setTitle("Audio Recorder");
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 8);
 
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setLayout(new BorderLayout());
-		this.setName("Audio Recorder");
+		
+		final JPanel mainPanel = new JPanel(new FlowLayout());
+		
+		mainPanel.setBackground(new Color(255, 255, 255));
+		mainPanel.add(new RecorderRecSpace(recButton, pauseButton));
+		mainPanel.add(new RecorderPauseSpace(pauseButton));
+		mainPanel.add(timerLabel);
+		this.setContentPane(mainPanel);
 		
 		this.setResizable(false);
 		this.setVisible(false);
+	}
+
+	public JLabel getTimeLabel() {
+		return this.timerLabel;
+	}
+	
+	public boolean isRecording(){
+		return recButton.getText().equals("Stop");
+	}
+	
+	public boolean isPaused(){
+		return pauseButton.getText().equals("Start");
 	}
 }

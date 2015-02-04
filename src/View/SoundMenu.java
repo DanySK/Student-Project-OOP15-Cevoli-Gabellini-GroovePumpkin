@@ -26,6 +26,7 @@ public class SoundMenu extends JMenuBar {
 		this.setBackground(new Color(255, 255, 255));
 		final JMenu option = new JMenu("Options");
 		this.add(option);
+		
 		/*
 		 * final JMenuItem config=new JMenuItem("Configuration");
 		 * 
