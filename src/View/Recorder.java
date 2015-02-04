@@ -19,8 +19,7 @@ import javax.swing.JMenuBar;
 public class Recorder extends JFrame {
 
 	private static final long serialVersionUID = -4303337519550483522L;
-	private final JButton recButton = new JButton("Rec");
-	private final JButton pauseButton = new JButton("Pause");
+	
 	private final JLabel timerLabel = new JLabel("00:00:00");
 
 	public Recorder(final JMenuBar jbm) {
@@ -31,10 +30,11 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
 		final JPanel mainPanel = new JPanel(new FlowLayout());
-		
 		mainPanel.setBackground(new Color(255, 255, 255));
-		mainPanel.add(new RecorderRecSpace(recButton, pauseButton));
-		mainPanel.add(new RecorderPauseSpace(pauseButton));
+		
+		final RecorderPauseSpace rps= new RecorderPauseSpace();
+		mainPanel.add(new RecorderRecSpace(rps.getPause()));
+		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 		this.setContentPane(mainPanel);
 		
@@ -44,13 +44,5 @@ public class Recorder extends JFrame {
 
 	public JLabel getTimeLabel() {
 		return this.timerLabel;
-	}
-	
-	public boolean isRecording(){
-		return recButton.getText().equals("Stop");
-	}
-	
-	public boolean isPaused(){
-		return pauseButton.getText().equals("Start");
 	}
 }
