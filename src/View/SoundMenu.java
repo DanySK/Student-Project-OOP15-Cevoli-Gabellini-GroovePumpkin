@@ -43,16 +43,20 @@ public class SoundMenu extends JMenuBar {
 		 */
 
 		final JMenuItem about = new JMenuItem("About");
+		about.setBackground(new Color(50, 50, 50));
+		about.setForeground(new Color(255, 255, 255));
 		about.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				// Show Information about this Application
 			}
 		});
 		option.add(about);
 
 		final JMenuItem exit = new JMenuItem("Exit");
+		exit.setBackground(new Color(50, 50, 50));
+		exit.setForeground(new Color(255, 255, 255));
 		exit.addActionListener(new ActionListener() {
 
 			@Override
@@ -67,6 +71,8 @@ public class SoundMenu extends JMenuBar {
 		this.add(view);
 
 		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
+		soundRec.setBackground(new Color(50, 50, 50));
+		soundRec.setForeground(new Color(255, 255, 255));
 		soundRec.addActionListener(new ActionListener() {
 
 			@Override
