@@ -14,45 +14,35 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 @SuppressWarnings("unused")
-public class RecorderPauseSpace extends JPanel {
+public class RecorderPauseSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -8958765355776362631L;
-	private static final ImageIcon img= new ImageIcon("data"+ System.getProperty("file.separator") + "1423071159_47954.ico");
 	
-	private final JButton pauseButton = new JButton();
-	private final JLabel label= new JLabel("Pause");
-	public RecorderPauseSpace() {
+	
+	public RecorderPauseSpace(final String imgPath) {
 		
-		this.setLayout(new BorderLayout());
-		this.add(label, BorderLayout.NORTH);
-		this.setBackground(new Color(255, 255, 255));
-		
-		//pauseButton.setIcon(img);
-		pauseButton.setBackground(new Color(255, 255, 255));
-		pauseButton.addActionListener(new ActionListener() {
+		super.getLabel().setText("Pause");
+		super.getButton().setText("||");
+		super.getButton().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (label.getText().equals("Pause")) {
-					label.setText("Start");
+				if (RecorderPauseSpace.super.getLabel().getText().equals("Pause")) {
+					RecorderPauseSpace.super.getLabel().setText("Start");
+					RecorderPauseSpace.super.getButton().setText(">");
 					// pause the recording
 				} else {
-					label.setText("Pause");
+					RecorderPauseSpace.super.getLabel().setText("Pause");
+					RecorderPauseSpace.super.getButton().setText("||");
 					// restart the recording
 				}
 
 			}
 		});
-		pauseButton.setEnabled(false);
-		this.add(pauseButton, BorderLayout.CENTER);
-		
-	}
-	
-	protected JButton getPause(){
-		return this.pauseButton;
+		super.getButton().setEnabled(false);
 	}
 	
 	public boolean isPaused(){
-		return label.getText().equals("Start");
+		return super.getLabel().getText().equals("Start");
 	}
 }

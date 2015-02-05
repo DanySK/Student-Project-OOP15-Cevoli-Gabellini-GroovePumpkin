@@ -19,7 +19,7 @@ import javax.swing.JMenuBar;
 public class Recorder extends JFrame {
 
 	private static final long serialVersionUID = -4303337519550483522L;
-	
+
 	private final JLabel timerLabel = new JLabel("00:00:00");
 
 	public Recorder(final JMenuBar jbm) {
@@ -28,16 +28,20 @@ public class Recorder extends JFrame {
 				Toolkit.getDefaultToolkit().getScreenSize().height / 8);
 
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		
+
 		final JPanel mainPanel = new JPanel(new FlowLayout());
 		mainPanel.setBackground(new Color(255, 255, 255));
+
+		final RecorderPauseSpace rps = new RecorderPauseSpace("data"
+				+ System.getProperty("file.separator") + "");
+		mainPanel.add(new RecorderRecSpace(rps.getButton(), rps.getLabel(),
+				"data" + System.getProperty("file.separator")
+						+ "1423071159_47954.ico"));
 		
-		final RecorderPauseSpace rps= new RecorderPauseSpace();
-		mainPanel.add(new RecorderRecSpace(rps.getPause()));
 		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 		this.setContentPane(mainPanel);
-		
+
 		this.setResizable(false);
 		this.setVisible(false);
 	}

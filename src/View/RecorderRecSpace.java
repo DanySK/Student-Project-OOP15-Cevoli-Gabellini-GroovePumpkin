@@ -2,50 +2,55 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class RecorderRecSpace extends JPanel {
+@SuppressWarnings("unused")
+public class RecorderRecSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -2653526539862883988L;
-	private final JButton recButton = new JButton();
-	private JButton pauseButton;
-	private JLabel label= new JLabel("Rec");
 	
-	public RecorderRecSpace(final JButton pause) {
-		this.pauseButton= pause;
+	
+	public RecorderRecSpace(final JButton pause, final JLabel pauseLabel, final String imgPath) {
 		
-		this.setLayout(new BorderLayout());
-		this.add(label, BorderLayout.NORTH);
-		this.setBackground(new Color(255, 255, 255));
-		
-		recButton.setBackground(new Color(255, 255, 255));
-		recButton.addActionListener(new ActionListener() {
+		super.getLabel().setText("Rec");
+		super.getButton().setText("O");
+		super.getButton().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pauseButton.setEnabled(true);
 
-				if (label.getText().equals("Rec")) {
-					label.setText("Stop");
+				if (RecorderRecSpace.super.getLabel().getText().equals("Rec")) {
+					RecorderRecSpace.super.getLabel().setText("Stop");
+					RecorderRecSpace.super.getButton().setText("[/]");
+					pause.setEnabled(true);
+					
 					// start recording the sound
+					
 				} else {
-					label.setText("Rec");
-					pauseButton.setEnabled(false);
+					RecorderRecSpace.super.getLabel().setText("Rec");
+					RecorderRecSpace.super.getButton().setText("O");
+					pauseLabel.setText("Pause");
+					pause.setText("||");
+					pause.setEnabled(false);
+					
 					// stop recording
+					
 				}
 
 			}
 		});
-		
-		this.add(recButton, BorderLayout.CENTER);
 	}
 	
 	public boolean isRecording(){
-		return label.getText().equals("Stop");
+		return super.getLabel().getText().equals("Stop");
 	}
 }
