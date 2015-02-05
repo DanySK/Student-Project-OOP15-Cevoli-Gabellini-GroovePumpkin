@@ -19,8 +19,8 @@ import javax.swing.JTabbedPane;
 public class SoundFrame extends JFrame {
 
 	private static final long serialVersionUID = 8764967532381350730L;
-	private final ImageIcon background= new ImageIcon("data"+ System.getProperty("file.separator") + "BG.jpg");
-	private final JLabel bg= new JLabel(background);
+	//private final ImageIcon background= new ImageIcon("data"+ System.getProperty("file.separator") + "BG.jpg");
+	//private final JLabel bg= new JLabel(background);
 	
 	/**
 	 * This method populates the whole class
@@ -29,20 +29,21 @@ public class SoundFrame extends JFrame {
 
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
-		
+		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Groove&Pumpkin");
 		this.setLayout(new BorderLayout());
 		
-		
 		final SoundTab tabbedPane = new SoundTab(JTabbedPane.TOP);
 		final SoundMenu menuBar = new SoundMenu();
 		final JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setOpaque(false);
+		mainPanel.setOpaque(true);
 		mainPanel.setBackground(new Color(255, 255, 255));
 		mainPanel.add(menuBar, BorderLayout.NORTH);
 		mainPanel.add(tabbedPane, BorderLayout.CENTER);
 		
+		//bg.setLayout(new BorderLayout());
+		//bg.add(mainPanel);
 		this.setContentPane(mainPanel);
 		this.setVisible(true);
 	}

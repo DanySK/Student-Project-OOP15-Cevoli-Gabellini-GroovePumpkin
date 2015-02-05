@@ -27,8 +27,10 @@ public class SoundMenu extends JMenuBar {
 	
 	public SoundMenu() {
 		
-		this.setBackground(new Color(255, 255, 255));
+		this.setBackground(new Color(50, 50, 50));
+		this.setForeground(new Color(255, 255, 255));
 		final JMenu option = new JMenu("Options");
+		option.setForeground(new Color(255, 255, 255));
 		this.add(option);
 		
 		/*
@@ -61,6 +63,7 @@ public class SoundMenu extends JMenuBar {
 		option.add(exit);
 
 		final JMenu view = new JMenu("View");
+		view.setForeground(new Color(255, 255, 255));
 		this.add(view);
 
 		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
