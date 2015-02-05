@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -17,12 +19,14 @@ import javax.swing.JMenuItem;
  *
  */
 
+@SuppressWarnings("unused")
 public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;
 	private Recorder rec;
-
+	
 	public SoundMenu() {
+		
 		this.setBackground(new Color(255, 255, 255));
 		final JMenu option = new JMenu("Options");
 		this.add(option);

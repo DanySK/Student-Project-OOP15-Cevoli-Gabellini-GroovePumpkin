@@ -24,26 +24,26 @@ public class Recorder extends JFrame {
 
 	public Recorder(final JMenuBar jbm) {
 		this.setTitle("Audio Recorder");
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 7);
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 5);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final JPanel mainPanel = new JPanel(new FlowLayout());
 		mainPanel.setBackground(new Color(255, 255, 255));
-		
+
 		final RecorderPauseSpace rps = new RecorderPauseSpace();
-		
+
 		mainPanel.add(new RecorderRecSpace(rps));
-		
+
 		mainPanel.add(rps);
-		
+
 		mainPanel.add(timerLabel);
-		
-		final JPanel southPanel= new JPanel(new FlowLayout());
-		
-		southPanel.setBackground(new Color(255,255,255));
-		
+
+		final JPanel southPanel = new JPanel(new FlowLayout());
+
+		southPanel.setBackground(new Color(255, 255, 255));
+
 		southPanel.add(new RecorderSaveSpace());
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);

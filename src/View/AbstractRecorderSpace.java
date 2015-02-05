@@ -3,7 +3,6 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +11,6 @@ public abstract class AbstractRecorderSpace extends JPanel {
 
 	private static final long serialVersionUID = 4199364808400772243L;
 	
-	private final ImageIcon img= new ImageIcon();
 	private final JLabel label= new JLabel();
 	private final JButton button = new JButton();
 	
@@ -31,9 +29,5 @@ public abstract class AbstractRecorderSpace extends JPanel {
 	
 	protected JLabel getLabel(){
 		return label;
-	}
-	
-	protected ImageIcon getIcon(){
-		return img;
 	}
 }

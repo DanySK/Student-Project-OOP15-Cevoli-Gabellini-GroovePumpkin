@@ -22,12 +22,11 @@ import javax.swing.border.Border;
 public class RecorderSaveSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = 2740908838399780756L;
-	private final String saveImgPath= "data"+ System.getProperty("file.separator") + "Save.png";
+	private final ImageIcon saveImg= new ImageIcon("data"+ System.getProperty("file.separator") + "Save.png");
 	
 	public RecorderSaveSpace() {
 		super.getLabel().setText("Save Recording");
-		super.getButton().setText("[#]");
-		
+		super.getButton().setIcon(saveImg);
 
 		super.getButton().addActionListener(new ActionListener() {
 
@@ -38,7 +37,9 @@ public class RecorderSaveSpace extends AbstractRecorderSpace {
 				chooser.setVisible(true);
 				int val = chooser.showSaveDialog(RecorderSaveSpace.this);
 				if (val == JFileChooser.APPROVE_OPTION) {
+					
 					// save the file
+					
 				} else if (val != JFileChooser.CANCEL_OPTION) {
 					JOptionPane.showMessageDialog(RecorderSaveSpace.this,
 							"An Error has occurred", "Error Message",

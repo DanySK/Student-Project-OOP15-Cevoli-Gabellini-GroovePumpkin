@@ -10,5 +10,6 @@ public class GroovePanel extends JPanel {
 	
 	public GroovePanel() {
 		this.setBackground(new Color(255, 255, 255));
+		this.setOpaque(true);
 	}
 }

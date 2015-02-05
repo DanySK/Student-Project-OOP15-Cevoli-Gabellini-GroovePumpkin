@@ -17,7 +17,7 @@ public class SoundTab extends JTabbedPane {
 		
 		super(JTabbedPane.TOP);
 		this.setBackground(new Color(255, 255, 255));
-		
+		this.setOpaque(true);
 		final PlaybackPanel play= new PlaybackPanel();
 		play.setBackground(new Color(255, 255, 255));
 		this.add("Play Music", play);
