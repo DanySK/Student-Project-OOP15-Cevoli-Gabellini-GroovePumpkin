@@ -20,21 +20,18 @@ import javax.swing.JTable;
 public class PlaybackPanel extends JPanel {
 
 	private static final long serialVersionUID = -2515046442887709479L;
-
+	private static final Color GRAY= new Color(50, 50, 50);
+	private static final Color WHITE= new Color(255, 255, 255);
+	
 	public PlaybackPanel() {
 		this.setLayout(new BorderLayout());
 
-		final JPanel jukePanel = new JPanel(new BorderLayout());
-		populateJukePanel(jukePanel);
-
 		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new CompositeWestPanel(), jukePanel);
-
+				new CompositeWestPanel(), new CompositeEastPanel());
+		splitter.setBackground(WHITE);
+		splitter.setForeground(GRAY);
+		
 		this.add(splitter);
-	}
-
-	private void populateJukePanel(final JPanel jukePanel) {
-
 	}
 
 }

@@ -23,14 +23,16 @@ import javax.swing.JMenuItem;
 public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;
+	private static final Color GRAY= new Color(50, 50, 50);
+	private static final Color WHITE= new Color(255, 255, 255);
 	private Recorder rec;
 	
 	public SoundMenu() {
 		
-		this.setBackground(new Color(50, 50, 50));
-		this.setForeground(new Color(255, 255, 255));
+		this.setBackground(WHITE);
+		this.setForeground(GRAY);
 		final JMenu option = new JMenu("Options");
-		option.setForeground(new Color(255, 255, 255));
+		option.setBackground(WHITE);
 		this.add(option);
 		
 		/*
@@ -43,8 +45,8 @@ public class SoundMenu extends JMenuBar {
 		 */
 
 		final JMenuItem about = new JMenuItem("About");
-		about.setBackground(new Color(50, 50, 50));
-		about.setForeground(new Color(255, 255, 255));
+		about.setBackground(WHITE);
+		about.setForeground(GRAY);
 		about.addActionListener(new ActionListener() {
 
 			@Override
@@ -55,8 +57,8 @@ public class SoundMenu extends JMenuBar {
 		option.add(about);
 
 		final JMenuItem exit = new JMenuItem("Exit");
-		exit.setBackground(new Color(50, 50, 50));
-		exit.setForeground(new Color(255, 255, 255));
+		exit.setBackground(WHITE);
+		exit.setForeground(GRAY);
 		exit.addActionListener(new ActionListener() {
 
 			@Override
@@ -67,12 +69,12 @@ public class SoundMenu extends JMenuBar {
 		option.add(exit);
 
 		final JMenu view = new JMenu("View");
-		view.setForeground(new Color(255, 255, 255));
+		view.setBackground(WHITE);
 		this.add(view);
 
 		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
-		soundRec.setBackground(new Color(50, 50, 50));
-		soundRec.setForeground(new Color(255, 255, 255));
+		soundRec.setBackground(WHITE);
+		soundRec.setForeground(GRAY);
 		soundRec.addActionListener(new ActionListener() {
 
 			@Override
