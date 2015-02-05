@@ -17,9 +17,10 @@ import javax.swing.JPanel;
 public class RecorderRecSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -2653526539862883988L;
+	private final String recImgPath= "data"+ System.getProperty("file.separator") + "Rec.png";
+	private final String stopImgPath= "data"+ System.getProperty("file.separator") + "Stop.png";
 	
-	
-	public RecorderRecSpace(final JButton pause, final JLabel pauseLabel, final String imgPath) {
+	public RecorderRecSpace(final RecorderPauseSpace rps) {
 		
 		super.getLabel().setText("Rec");
 		super.getButton().setText("O");
@@ -31,16 +32,16 @@ public class RecorderRecSpace extends AbstractRecorderSpace {
 				if (RecorderRecSpace.super.getLabel().getText().equals("Rec")) {
 					RecorderRecSpace.super.getLabel().setText("Stop");
 					RecorderRecSpace.super.getButton().setText("[/]");
-					pause.setEnabled(true);
+					rps.getButton().setEnabled(true);
 					
 					// start recording the sound
 					
 				} else {
 					RecorderRecSpace.super.getLabel().setText("Rec");
 					RecorderRecSpace.super.getButton().setText("O");
-					pauseLabel.setText("Pause");
-					pause.setText("||");
-					pause.setEnabled(false);
+					rps.getLabel().setText("Pause");
+					rps.getButton().setText("||");
+					rps.getButton().setEnabled(false);
 					
 					// stop recording
 					

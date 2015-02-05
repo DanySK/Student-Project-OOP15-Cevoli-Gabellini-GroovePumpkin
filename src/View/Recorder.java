@@ -24,23 +24,29 @@ public class Recorder extends JFrame {
 
 	public Recorder(final JMenuBar jbm) {
 		this.setTitle("Audio Recorder");
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 8);
-
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/4,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 7);
+		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final JPanel mainPanel = new JPanel(new FlowLayout());
 		mainPanel.setBackground(new Color(255, 255, 255));
-
-		final RecorderPauseSpace rps = new RecorderPauseSpace("data"
-				+ System.getProperty("file.separator") + "");
-		mainPanel.add(new RecorderRecSpace(rps.getButton(), rps.getLabel(),
-				"data" + System.getProperty("file.separator")
-						+ "1423071159_47954.ico"));
+		
+		final RecorderPauseSpace rps = new RecorderPauseSpace();
+		
+		mainPanel.add(new RecorderRecSpace(rps));
 		
 		mainPanel.add(rps);
+		
 		mainPanel.add(timerLabel);
-		this.setContentPane(mainPanel);
+		
+		final JPanel southPanel= new JPanel(new FlowLayout());
+		
+		southPanel.setBackground(new Color(255,255,255));
+		
+		southPanel.add(new RecorderSaveSpace());
+		this.add(southPanel, BorderLayout.SOUTH);
+		this.add(mainPanel, BorderLayout.CENTER);
 
 		this.setResizable(false);
 		this.setVisible(false);

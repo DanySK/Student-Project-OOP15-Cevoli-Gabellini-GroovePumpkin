@@ -17,9 +17,10 @@ import javax.swing.JPanel;
 public class RecorderPauseSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -8958765355776362631L;
+	private final String pauseImgPath= "data"+ System.getProperty("file.separator") + "Pause.png";
+	private final String playImgPath= "data"+ System.getProperty("file.separator") + "Play.png";
 	
-	
-	public RecorderPauseSpace(final String imgPath) {
+	public RecorderPauseSpace() {
 		
 		super.getLabel().setText("Pause");
 		super.getButton().setText("||");

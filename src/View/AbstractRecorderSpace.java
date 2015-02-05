@@ -21,6 +21,7 @@ public abstract class AbstractRecorderSpace extends JPanel {
 		this.add(label, BorderLayout.NORTH);
 		this.setBackground(new Color(255, 255, 255));
 		button.setBackground(new Color(255, 255, 255));
+		button.setForeground(new Color(255, 0, 0));
 		this.add(button, BorderLayout.CENTER);
 	}
 	
