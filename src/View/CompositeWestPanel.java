@@ -5,56 +5,154 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * Personalized Panel for the PlayBackPanel class
  * @author Alessandro
  *
  */
-public class CompositeWestPanel extends JPanel {
+public class CompositeWestPanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = 5045956389400601388L;
-	private final JTable playlist = new JTable(50, 1);
-
+	
+	/**
+	 * FILE deve essere esteso o wrappato da una classe SONG, che permetta una migliore interazione con la JTable
+	 */
+	
+	private final List<File> songs= new ArrayList<>(50);
+	
 	private static final Color GRAY= new Color(50, 50, 50);
 	private static final Color WHITE= new Color(255, 255, 255);
+	
+	/**
+	 * Creation of an anonymous class as a model for the JTable class
+	 * 
+	 */
+	private final TableModel dataModel = new AbstractTableModel(){
+		
+		private static final long serialVersionUID = 3639938590302106582L;
+		private final String[] names= new String[]{"Song"};
+		
+		@Override
+		public int getRowCount() {
+			return songs.size();
+		}
+
+		@Override
+		public int getColumnCount() {
+			return names.length;
+		}
+
+		@Override
+		public Object getValueAt(int rowIndex, int columnIndex) {
+			try{
+				Object obj= songs.get(rowIndex);
+				return obj;
+			} catch(IndexOutOfBoundsException e){
+				return null;
+			}
+		}
+		
+		@Override
+		public String getColumnName(int column) {
+			if(column>= names.length){
+				return null;
+			}
+			return names[column];
+		};
+	};
+	
+	private final JTable playlist = new JTable(dataModel);
 
 	public CompositeWestPanel() {
-		this.setLayout(new BorderLayout());
-		
-		playlist.setRowSelectionAllowed(true);
-		playlist.setBackground(WHITE);
-		playlist.setForeground(GRAY);
+		super(new BorderLayout());
 		
 		final JScrollPane jsp = new JScrollPane();
-		jsp.setViewportView(playlist);
-		jsp.setBackground(WHITE);
-		jsp.setForeground(GRAY);
+		this.populateJSP(jsp);
 		
-		final JPanel buttonRow = new JPanel(new FlowLayout());
-		populateButtonRow(buttonRow);
+		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
+		this.populateButtonRow(buttonRow);
 
 		this.add(jsp, BorderLayout.CENTER);
 		this.add(buttonRow, BorderLayout.SOUTH);
 	}
 	
-	private void populateButtonRow(final JPanel buttonRow) {
+	private void populateJSP(JScrollPane jsp) {
+		playlist.setBackground(WHITE);
+		playlist.setForeground(GRAY);
+		playlist.setRowSelectionAllowed(true);
+		playlist.getColumn("Song").setResizable(false);
+		
+		jsp.setViewportView(playlist);
+		jsp.setBackground(WHITE);
+		jsp.setForeground(GRAY);
+	}
+
+	private void populateButtonRow(final PersonalJPanel buttonRow) {
 		final JButton add= new JButton("Add");
 		add.setBackground(WHITE);
 		add.setForeground(GRAY);
+		
 		add.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//aggiungi una canzone
+				//songs.add("Unravel");
+				
+				//NOTA IL CODICE SEGUENTE DEVE ANDARE NEL MODEL
+				JFileChooser chooser = new JFileChooser(System
+						.getProperty("user.home"));
+				
+				chooser.addChoosableFileFilter(new FileFilter() {
+					
+					@Override
+					public String getDescription() {
+						return "*.midi, *.wav, *.aac";
+					}
+					
+					@Override
+					public boolean accept(File f) {
+						
+						if(f.getName().endsWith(".midi") || f.getName().endsWith(".wav") || f.getName().endsWith(".aac")){
+							return true;
+						}
+						
+						return false;
+					}
+				});
+				
+				chooser.setVisible(true);
+				int val = chooser.showOpenDialog(CompositeWestPanel.this);
+				if (val == JFileChooser.APPROVE_OPTION) {
+					final File f= chooser.getSelectedFile();
+					songs.add(f);
+					System.out.println(f.getName());
+				} else if (val != JFileChooser.CANCEL_OPTION) {
+					JOptionPane.showMessageDialog(CompositeWestPanel.this,
+							"An Error has occurred", "Error Message",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+				//ricrea la nuova tabella
+				playlist.tableChanged(new TableModelEvent(dataModel));
 			}
 		});
 		final JButton remove= new JButton("Remove");
+		
 		remove.setBackground(WHITE);
 		remove.setForeground(GRAY);
 		remove.addActionListener(new ActionListener() {
@@ -62,12 +160,17 @@ public class CompositeWestPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//rimuovi una canzone
+				
+				try{
+					songs.remove(playlist.getSelectedRow());
+					playlist.tableChanged(new TableModelEvent(dataModel));
+				} catch(Exception ex){
+					//do nothing
+				}
 			}
 		});
 		
 		buttonRow.add(add);
 		buttonRow.add(remove);
-		buttonRow.setBackground(WHITE);
-		buttonRow.setForeground(GRAY);
 	}
 }

@@ -20,13 +20,9 @@ import javax.swing.JPanel;
 public class RecorderPauseSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -8958765355776362631L;
-	protected final ImageIcon pauseImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Pause.png");
-	private final ImageIcon playImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Play.png");
 	
 	public RecorderPauseSpace() {
-		
+		super(new BorderLayout());
 		super.getLabel().setText("Pause");
 		super.getButton().setIcon(pauseImg);
 		

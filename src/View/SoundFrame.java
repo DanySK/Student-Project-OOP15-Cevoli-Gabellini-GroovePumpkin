@@ -37,9 +37,7 @@ public class SoundFrame extends JFrame {
 		
 		final SoundTab tabbedPane = new SoundTab(JTabbedPane.TOP);
 		final SoundMenu menuBar = new SoundMenu();
-		final JPanel mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setOpaque(true);
-		mainPanel.setBackground(new Color(255, 255, 255));
+		final PersonalJPanel mainPanel = new PersonalJPanel(new BorderLayout());
 		mainPanel.add(menuBar, BorderLayout.NORTH);
 		mainPanel.add(tabbedPane, BorderLayout.CENTER);
 		

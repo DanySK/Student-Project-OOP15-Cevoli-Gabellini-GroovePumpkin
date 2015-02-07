@@ -22,11 +22,12 @@ import javax.swing.border.Border;
 public class RecorderSaveSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = 2740908838399780756L;
-	private final ImageIcon saveImg= new ImageIcon("data"+ System.getProperty("file.separator") + "Save.png");
+	
 	
 	public RecorderSaveSpace() {
+		super(new BorderLayout());
 		super.getLabel().setText("Save Recording");
-		super.getButton().setIcon(saveImg);
+		super.getButton().setIcon(AbstractRecorderSpace.saveImg);
 
 		super.getButton().addActionListener(new ActionListener() {
 

@@ -17,20 +17,19 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
 @SuppressWarnings("unused")
-public class PlaybackPanel extends JPanel {
+public class PlaybackPanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = -2515046442887709479L;
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
+	
 	
 	public PlaybackPanel() {
-		this.setLayout(new BorderLayout());
+		super(new BorderLayout());
 
 		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				new CompositeWestPanel(), new CompositeEastPanel());
 		splitter.setBackground(WHITE);
 		splitter.setForeground(GRAY);
-		
+		splitter.setContinuousLayout(true);
 		this.add(splitter);
 	}
 

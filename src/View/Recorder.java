@@ -26,33 +26,29 @@ public class Recorder extends JFrame {
 		this.setTitle("Audio Recorder");
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 5);
+		this.setResizable(false);
+		this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 4);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-		final JPanel mainPanel = new JPanel(new FlowLayout());
-		mainPanel.setBackground(new Color(255, 255, 255));
+		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
 
 		final RecorderPauseSpace rps = new RecorderPauseSpace();
-
 		mainPanel.add(new RecorderRecSpace(rps));
-
 		mainPanel.add(rps);
-
 		mainPanel.add(timerLabel);
 
-		final JPanel southPanel = new JPanel(new FlowLayout());
-
-		southPanel.setBackground(new Color(255, 255, 255));
-
+		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
 		southPanel.add(new RecorderSaveSpace());
+		
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);
 
-		this.setResizable(false);
 		this.setVisible(false);
 	}
 
-	public JLabel getTimeLabel() {
+	public JLabel getTimerLabel() {
 		return this.timerLabel;
 	}
 }

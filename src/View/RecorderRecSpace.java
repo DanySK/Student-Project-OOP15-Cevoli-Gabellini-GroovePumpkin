@@ -17,13 +17,12 @@ import javax.swing.JPanel;
 public class RecorderRecSpace extends AbstractRecorderSpace {
 
 	private static final long serialVersionUID = -2653526539862883988L;
-	private final ImageIcon recImg= new ImageIcon("data"+ System.getProperty("file.separator") + "Rec.png");
-	private final ImageIcon stopImg= new ImageIcon("data"+ System.getProperty("file.separator") + "Stop.png");
 	
 	public RecorderRecSpace(final RecorderPauseSpace rps) {
 		
+		super(new BorderLayout());
 		super.getLabel().setText("Rec");
-		super.getButton().setIcon(recImg);
+		super.getButton().setIcon(AbstractRecorderSpace.recImg);
 		super.getButton().addActionListener(new ActionListener() {
 
 			@Override
@@ -31,7 +30,7 @@ public class RecorderRecSpace extends AbstractRecorderSpace {
 
 				if (RecorderRecSpace.super.getLabel().getText().equals("Rec")) {
 					RecorderRecSpace.super.getLabel().setText("Stop");
-					RecorderRecSpace.super.getButton().setIcon(stopImg);
+					RecorderRecSpace.super.getButton().setIcon(AbstractRecorderSpace.stopImg);
 					rps.getButton().setEnabled(true);
 					
 					// start recording the sound
@@ -40,7 +39,7 @@ public class RecorderRecSpace extends AbstractRecorderSpace {
 					RecorderRecSpace.super.getLabel().setText("Rec");
 					RecorderRecSpace.super.getButton().setIcon(recImg);
 					rps.getLabel().setText("Pause");
-					rps.getButton().setIcon(rps.pauseImg);
+					rps.getButton().setIcon(PersonalJPanel.pauseImg);
 					rps.getButton().setEnabled(false);
 					
 					// stop recording

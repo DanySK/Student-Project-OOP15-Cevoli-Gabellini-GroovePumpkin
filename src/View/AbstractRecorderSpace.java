@@ -2,33 +2,40 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.LayoutManager;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public abstract class AbstractRecorderSpace extends JPanel {
+@SuppressWarnings("unused")
+public abstract class AbstractRecorderSpace extends PersonalJPanel {
 
 	private static final long serialVersionUID = 4199364808400772243L;
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
-	
-	private final JLabel label= new JLabel();
+
+	protected static final ImageIcon saveImg = new ImageIcon("data"
+			+ System.getProperty("file.separator") + "Save.png");
+	protected static final ImageIcon recImg = new ImageIcon("data"
+			+ System.getProperty("file.separator") + "Rec.png");
+	protected static final ImageIcon stopImg = new ImageIcon("data"
+			+ System.getProperty("file.separator") + "Stop.png");
+
+	private final JLabel label = new JLabel();
 	private final JButton button = new JButton();
-	
-	protected AbstractRecorderSpace() {
-		this.setLayout(new BorderLayout());
+
+	protected AbstractRecorderSpace(final LayoutManager layout) {
+		super(layout);
 		this.add(label, BorderLayout.NORTH);
-		this.setBackground(WHITE);
 		button.setBackground(WHITE);
 		this.add(button, BorderLayout.CENTER);
 	}
-	
-	protected JButton getButton(){
+
+	protected JButton getButton() {
 		return this.button;
 	}
-	
-	protected JLabel getLabel(){
+
+	protected JLabel getLabel() {
 		return label;
 	}
 }

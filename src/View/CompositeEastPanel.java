@@ -5,11 +5,17 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 /**
  * Personalized JPanel for the PlayBackPanel
  * 
@@ -17,81 +23,89 @@ import javax.swing.JPanel;
  *
  */
 @SuppressWarnings("unused")
-public class CompositeEastPanel extends JPanel {
+public class CompositeEastPanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = 4164776505153007930L;
-	
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
-	
-	private final ImageIcon pauseImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Pause.png");
-	private final ImageIcon playImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Play.png");
-	private final ImageIcon fwImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "FW.png");
-	private final ImageIcon rwImg = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "RW.png");
+
+	private final JLabel songName = new JLabel("< Nothing Else Matters >");
+
+	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
 
 	public CompositeEastPanel() {
-		this.setLayout(new BorderLayout());
-		this.setBackground(WHITE);
-		this.setForeground(GRAY);
-
-		final JPanel north = new JPanel(new FlowLayout());
-		north.setBackground(WHITE);
-		north.setForeground(WHITE);
-		final JLabel songName = new JLabel("< Nothing Else Matters >");
+		super(new BorderLayout());
+		
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
 		songName.setOpaque(true);
+
+		final PersonalJPanel north = new PersonalJPanel(new FlowLayout());
 		north.add(songName);
-		
 		this.add(north, BorderLayout.NORTH);
-		
-		final JPanel centre = new JPanel(new FlowLayout());
+
+		final PersonalJPanel centre = new PersonalJPanel(new FlowLayout());
 		populateCentralPanel(centre);
-		
 		this.add(centre, BorderLayout.CENTER);
+		
+		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout());
+		this.populateGainPanel(gainPanel);
+		this.add(gainPanel, BorderLayout.SOUTH);
 	}
 
-	private void populateCentralPanel(final JPanel centre) {
-		centre.setBackground(WHITE);
-		centre.setForeground(GRAY);
+	private void populateGainPanel(PersonalJPanel gainPanel) {
 		
-		final JButton play = new JButton(playImg);
-		play.setBackground(WHITE);
+		final JLabel gainLabel = new JLabel("Volume: " + gain.getValue());
 		
-		play.addActionListener(new ActionListener() {
-			
+		gain.setBackground(WHITE);
+		gain.setForeground(GRAY);
+		gain.setEnabled(true);
+		gain.addChangeListener(new ChangeListener() {
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				//play selected song
+			public void stateChanged(ChangeEvent e) {
+				// Change the Volume of the song
+				gainLabel.setText("Volume: " + gain.getValue());
+				
 			}
 		});
-		final JButton fw = new JButton(fwImg);
+		
+		gainPanel.add(gainLabel, BorderLayout.NORTH);
+		gainPanel.add(gain, BorderLayout.CENTER);
+	}
+
+	private void populateCentralPanel(final PersonalJPanel centre) {
+
+		final JButton play = new JButton(PersonalJPanel.playImg);
+		play.setBackground(WHITE);
+		play.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// play selected song
+			}
+		});
+
+		final JButton fw = new JButton(PersonalJPanel.fwImg);
 		fw.setBackground(WHITE);
 		fw.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//go to the next song
+				// go to the next song
 			}
 		});
-		final JButton rw = new JButton(rwImg);
+
+		final JButton rw = new JButton(PersonalJPanel.rwImg);
 		rw.setBackground(WHITE);
 		rw.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//go back to the previous song
+				// go back to the previous song
 			}
 		});
-		
+
 		centre.add(rw);
 		centre.add(play);
 		centre.add(fw);
 	}
-	
-	
 }
