@@ -43,7 +43,7 @@ public class GroovePanel extends PersonalJPanel {
 		timePanel.add(timeDialerText);
 		westPanel.add(timePanel, BorderLayout.NORTH);
 		
-		final PersonalJPanel buttonPanel= new PersonalJPanel(new BorderLayout());
+		final PersonalJPanel buttonPanel= new PersonalJPanel();
 		final PersonalJButton play= new PersonalJButton(PersonalJButton.playImg);
 		final PersonalJButton loop= new PersonalJButton(PersonalJButton.loopImg);
 		buttonPanel.add(play, BorderLayout.NORTH);
