@@ -34,13 +34,13 @@ public class Recorder extends JFrame {
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
 
-		final RecorderPauseSpace rps = new RecorderPauseSpace();
-		mainPanel.add(new RecorderRecSpace(rps));
+		final PlayAndPauseSpace rps = new PlayAndPauseSpace("Pause", PersonalJButton.PAUSE_IMG, false);
+		mainPanel.add(new RecSpace(rps));
 		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 
 		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
-		southPanel.add(new RecorderSaveSpace());
+		southPanel.add(new SaveSpace());
 		
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);

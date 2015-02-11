@@ -36,7 +36,6 @@ public class CompositeEastPanel extends PersonalJPanel {
 		
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
-		songName.setOpaque(true);
 
 		final PersonalJPanel north = new PersonalJPanel(new FlowLayout());
 		north.add(songName);
@@ -74,15 +73,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 
 	private void populateCentralPanel(final PersonalJPanel centre) {
 
-		final PersonalJButton play = new PersonalJButton(PersonalJButton.PLAY_IMG);
-		play.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// play selected song
-				//if(play.)
-			}
-		});
+		final PlayAndPauseSpace play = new PlayAndPauseSpace(PersonalJButton.PLAY_IMG, true);
 
 		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
 		fw.addActionListener(new ActionListener() {

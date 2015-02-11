@@ -24,28 +24,28 @@ import javax.swing.border.Border;
  *
  */
 @SuppressWarnings("unused")
-public class RecorderSaveSpace extends AbstractCompositeJSpace {
+public class SaveSpace extends AbstractCompositeJSpace {
 
 	private static final long serialVersionUID = 2740908838399780756L;
 	
 	
-	public RecorderSaveSpace() {
+	public SaveSpace() {
 		super("Save Recording", PersonalJButton.SAVE_IMG);
 
-		super.getButton().addActionListener(new ActionListener() {
+		super.setButtonActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser(System
 						.getProperty("user.home"));
 				chooser.setVisible(true);
-				int val = chooser.showSaveDialog(RecorderSaveSpace.this);
+				int val = chooser.showSaveDialog(SaveSpace.this);
 				if (val == JFileChooser.APPROVE_OPTION) {
 					
 					// save the file
 					
 				} else if (val != JFileChooser.CANCEL_OPTION) {
-					JOptionPane.showMessageDialog(RecorderSaveSpace.this,
+					JOptionPane.showMessageDialog(SaveSpace.this,
 							"An Error has occurred", "Error Message",
 							JOptionPane.ERROR_MESSAGE);
 				}

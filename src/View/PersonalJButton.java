@@ -37,6 +37,7 @@ public class PersonalJButton extends JButton {
 	public PersonalJButton() {
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
+		this.setAlignmentX(CENTER_ALIGNMENT);
 	}
 
 	/**
