@@ -27,7 +27,7 @@ public class RecorderPauseSpace extends AbstractCompositeJSpace {
 	private static final long serialVersionUID = -8958765355776362631L;
 	
 	public RecorderPauseSpace() {
-		super("Pause", PersonalJButton.pauseImg);
+		super("Pause", PersonalJButton.PAUSE_IMG);
 		
 		super.getButton().addActionListener(new ActionListener() {
 
@@ -35,11 +35,11 @@ public class RecorderPauseSpace extends AbstractCompositeJSpace {
 			public void actionPerformed(ActionEvent e) {
 				if (RecorderPauseSpace.super.getLabel().getText().equals("Pause")) {
 					RecorderPauseSpace.super.getLabel().setText("Start");
-					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.playImg);;
+					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.PLAY_IMG);;
 					// pause the recording
 				} else {
 					RecorderPauseSpace.super.getLabel().setText("Pause");
-					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.pauseImg);
+					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.PAUSE_IMG);
 					// restart the recording
 				}
 

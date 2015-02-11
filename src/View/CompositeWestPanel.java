@@ -19,28 +19,30 @@ import javax.swing.table.TableModel;
 
 /**
  * Personalized Panel for the PlayBackPanel class
+ * 
  * @author Alessandro
  *
  */
 public class CompositeWestPanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = 5045956389400601388L;
-	
+
 	/**
-	 * FILE deve essere esteso o wrappato da una classe SONG, che permetta una migliore interazione con la JTable
+	 * FILE deve essere esteso o wrappato da una classe SONG, che permetta una
+	 * migliore interazione con la JTable
 	 */
-	
-	private final List<File> songs= new ArrayList<>(50);
-	
+
+	private final List<File> songs = new ArrayList<>(50);
+
 	/**
 	 * Creation of an anonymous class as a model for the JTable class
 	 * 
 	 */
-	private final TableModel dataModel = new AbstractTableModel(){
-		
+	private final TableModel dataModel = new AbstractTableModel() {
+
 		private static final long serialVersionUID = 3639938590302106582L;
-		private final String[] names= new String[]{"Song"};
-		
+		private final String[] names = new String[] { "Song" };
+
 		@Override
 		public int getRowCount() {
 			return songs.size();
@@ -53,85 +55,91 @@ public class CompositeWestPanel extends PersonalJPanel {
 
 		@Override
 		public Object getValueAt(int rowIndex, int columnIndex) {
-			try{
-				Object obj= songs.get(rowIndex);
+			try {
+				Object obj = songs.get(rowIndex);
 				return obj;
-			} catch(IndexOutOfBoundsException e){
+			} catch (IndexOutOfBoundsException e) {
 				return null;
 			}
 		}
-		
+
 		@Override
 		public String getColumnName(int column) {
-			if(column>= names.length){
+			if (column >= names.length) {
 				return null;
 			}
 			return names[column];
 		};
 	};
-	
+
 	private final JTable playlist = new JTable(dataModel);
 
 	public CompositeWestPanel() {
 		super(new BorderLayout());
-		
+
 		final JScrollPane jsp = new JScrollPane();
 		this.populateJSP(jsp);
-		
+
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		this.populateButtonRow(buttonRow);
 
 		this.add(jsp, BorderLayout.CENTER);
 		this.add(buttonRow, BorderLayout.SOUTH);
 	}
-	
+
 	private void populateJSP(JScrollPane jsp) {
 		playlist.setBackground(WHITE);
 		playlist.setForeground(GRAY);
 		playlist.setRowSelectionAllowed(true);
 		playlist.getColumn("Song").setResizable(false);
-		
+
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(GRAY);
 	}
 
 	private void populateButtonRow(final PersonalJPanel buttonRow) {
-		final PersonalJButton add= new PersonalJButton("Add");
-		
+		final PersonalJButton add = new PersonalJButton("Add");
+
 		add.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//aggiungi una canzone
-				//songs.add("Unravel");
-				
-				//NOTA IL CODICE SEGUENTE DEVE ANDARE NEL MODEL
+				// aggiungi una canzone
+				// songs.add("Unravel");
+
+				// NOTA IL CODICE SEGUENTE DEVE ANDARE NEL MODEL
 				JFileChooser chooser = new JFileChooser(System
 						.getProperty("user.home"));
-				
+
 				chooser.addChoosableFileFilter(new FileFilter() {
-					
+
 					@Override
 					public String getDescription() {
 						return "*.midi, *.wav, *.aac";
 					}
-					
+
 					@Override
 					public boolean accept(File f) {
-						
-						if(f.getName().endsWith(".midi") || f.getName().endsWith(".wav") || f.getName().endsWith(".aac")){
+
+						if (f.isDirectory()) {
 							return true;
 						}
-						
+
+						if (f.getName().endsWith(".midi")
+								|| f.getName().endsWith(".wav")
+								|| f.getName().endsWith(".aac")) {
+							return true;
+						}
+
 						return false;
 					}
 				});
-				
+
 				chooser.setVisible(true);
 				int val = chooser.showOpenDialog(CompositeWestPanel.this);
 				if (val == JFileChooser.APPROVE_OPTION) {
-					final File f= chooser.getSelectedFile();
+					final File f = chooser.getSelectedFile();
 					songs.add(f);
 					System.out.println(f.getName());
 				} else if (val != JFileChooser.CANCEL_OPTION) {
@@ -139,28 +147,28 @@ public class CompositeWestPanel extends PersonalJPanel {
 							"An Error has occurred", "Error Message",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
-				//ricrea la nuova tabella
+
+				// ricrea la nuova tabella
 				playlist.tableChanged(new TableModelEvent(dataModel));
 			}
 		});
-		final PersonalJButton remove= new PersonalJButton("Remove");
-		
+		final PersonalJButton remove = new PersonalJButton("Remove");
+
 		remove.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//rimuovi una canzone
-				
-				try{
+				// rimuovi una canzone
+
+				try {
 					songs.remove(playlist.getSelectedRow());
 					playlist.tableChanged(new TableModelEvent(dataModel));
-				} catch(Exception ex){
-					//do nothing
+				} catch (Exception ex) {
+					// do nothing
 				}
 			}
 		});
-		
+
 		buttonRow.add(add);
 		buttonRow.add(remove);
 	}

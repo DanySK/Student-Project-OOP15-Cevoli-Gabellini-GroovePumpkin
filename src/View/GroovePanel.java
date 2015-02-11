@@ -1,17 +1,21 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.plaf.BorderUIResource.EtchedBorderUIResource;
+
 /**
  * 
  * @author Alessandro
@@ -21,38 +25,81 @@ import javax.swing.JTextField;
 public class GroovePanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = 1116768170189928089L;
-	private final JTextField timeDialerText= new JTextField("120");
-	
+
+	private final Double[] items = new Double[] { 40d, 60d, 80d, 100d, 120d,
+			140d, 160d, 180d };
+
+	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
+
 	public GroovePanel() {
 		super(new BorderLayout());
-		final PersonalJPanel westPanel= new PersonalJPanel(new BorderLayout());
+		timeDialerOptions.setBackground(WHITE);
+		timeDialerOptions.setForeground(GRAY);
+		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout());
 		populateWestPanel(westPanel);
-		
-		
+
 		this.add(westPanel, BorderLayout.WEST);
 	}
-	
-	private void  populateWestPanel(final PersonalJPanel westPanel){
-		
-		final JLabel timeDialerLabel= new JLabel("Time Dial: ");
+
+	private void populateWestPanel(final PersonalJPanel westPanel) {
+
+		final JLabel timeDialerLabel = new JLabel("Time Dial: ");
 		timeDialerLabel.setBackground(WHITE);
 		timeDialerLabel.setForeground(GRAY);
-		
-		final PersonalJPanel timePanel= new PersonalJPanel(new FlowLayout());
+
+		final PersonalJPanel timePanel = new PersonalJPanel(new FlowLayout());
 		timePanel.add(timeDialerLabel);
-		timePanel.add(timeDialerText);
+		timePanel.add(timeDialerOptions);
 		westPanel.add(timePanel, BorderLayout.NORTH);
-		
-		final PersonalJPanel buttonPanel= new PersonalJPanel();
-		final PersonalJButton play= new PersonalJButton(PersonalJButton.playImg);
-		final PersonalJButton loop= new PersonalJButton(PersonalJButton.loopImg);
-		buttonPanel.add(play, BorderLayout.NORTH);
-		buttonPanel.add(loop, BorderLayout.CENTER);
+
+		final PersonalJPanel buttonPanel = new PersonalJPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+		final PersonalJPanel emptyR = new PersonalJPanel();
+		final PersonalJPanel emptyL = new PersonalJPanel();
+		final PersonalJButton play = new PersonalJButton(
+				PersonalJButton.PLAY_IMG, "play");
+		play.setAlignmentX(CENTER_ALIGNMENT);
+		play.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// play the groove
+				if(play.getName().equals("play")){
+					play.setName("stop");
+					play.setIcon(PersonalJButton.PAUSE_IMG);
+				} else {
+					play.setName("play");
+					play.setIcon(PersonalJButton.PLAY_IMG);
+				}
+			}
+		});
+
+		final PersonalJButton loop = new PersonalJButton(
+				PersonalJButton.LOOP_OFF_IMG, "off");
+		loop.setAlignmentX(CENTER_ALIGNMENT);
+		loop.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Loop the groove
+				if(loop.getName().equals("off")){
+					loop.setName("on");
+					loop.setIcon(PersonalJButton.LOOP_ON_IMG);
+				} else{
+					loop.setName("off");
+					loop.setIcon(PersonalJButton.LOOP_OFF_IMG);
+				}
+			}
+		});
+
+		buttonPanel.add(play);
+		buttonPanel.add(loop);
+
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
-		
 	}
-	
-	public JTextField getTextField(){
-		return timeDialerText;
+
+	public Double getDial() {
+		return (Double) timeDialerOptions.getSelectedItem();
 	}
 }

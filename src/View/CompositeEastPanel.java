@@ -74,16 +74,17 @@ public class CompositeEastPanel extends PersonalJPanel {
 
 	private void populateCentralPanel(final PersonalJPanel centre) {
 
-		final PersonalJButton play = new PersonalJButton(PersonalJButton.playImg);
+		final PersonalJButton play = new PersonalJButton(PersonalJButton.PLAY_IMG);
 		play.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// play selected song
+				//if(play.)
 			}
 		});
 
-		final PersonalJButton fw = new PersonalJButton(PersonalJButton.fwImg);
+		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
 		fw.addActionListener(new ActionListener() {
 
 			@Override
@@ -92,7 +93,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 			}
 		});
 
-		final PersonalJButton rw = new PersonalJButton(PersonalJButton.rwImg);
+		final PersonalJButton rw = new PersonalJButton(PersonalJButton.RW_IMG);
 		rw.addActionListener(new ActionListener() {
 
 			@Override

@@ -25,7 +25,7 @@ public class RecorderRecSpace extends AbstractCompositeJSpace {
 	
 	public RecorderRecSpace(final RecorderPauseSpace rps) {
 		
-		super("Rec", PersonalJButton.recImg);
+		super("Rec", PersonalJButton.REC_IMG);
 		
 		super.getButton().addActionListener(new ActionListener() {
 
@@ -34,16 +34,16 @@ public class RecorderRecSpace extends AbstractCompositeJSpace {
 
 				if (RecorderRecSpace.super.getLabel().getText().equals("Rec")) {
 					RecorderRecSpace.super.getLabel().setText("Stop");
-					RecorderRecSpace.super.getButton().setIcon(PersonalJButton.stopImg);
+					RecorderRecSpace.super.getButton().setIcon(PersonalJButton.STOP_IMG);
 					rps.getButton().setEnabled(true);
 					
 					// start recording the sound
 					
 				} else {
 					RecorderRecSpace.super.getLabel().setText("Rec");
-					RecorderRecSpace.super.getButton().setIcon(PersonalJButton.recImg);
+					RecorderRecSpace.super.getButton().setIcon(PersonalJButton.REC_IMG);
 					rps.getLabel().setText("Pause");
-					rps.getButton().setIcon(PersonalJButton.pauseImg);
+					rps.getButton().setIcon(PersonalJButton.PAUSE_IMG);
 					rps.getButton().setEnabled(false);
 					
 					// stop recording
