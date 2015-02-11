@@ -2,6 +2,7 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
@@ -25,9 +26,9 @@ public class SoundFrame extends JFrame {
 	 */
 	public SoundFrame() {
 
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
-		this.setResizable(false);
+		this.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2));
+		//this.setResizable(false);
 		this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 4);
 		

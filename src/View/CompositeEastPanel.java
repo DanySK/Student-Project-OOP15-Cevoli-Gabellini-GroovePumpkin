@@ -74,8 +74,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 
 	private void populateCentralPanel(final PersonalJPanel centre) {
 
-		final JButton play = new JButton(PersonalJPanel.playImg);
-		play.setBackground(WHITE);
+		final PersonalJButton play = new PersonalJButton(PersonalJButton.playImg);
 		play.addActionListener(new ActionListener() {
 
 			@Override
@@ -84,8 +83,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 			}
 		});
 
-		final JButton fw = new JButton(PersonalJPanel.fwImg);
-		fw.setBackground(WHITE);
+		final PersonalJButton fw = new PersonalJButton(PersonalJButton.fwImg);
 		fw.addActionListener(new ActionListener() {
 
 			@Override
@@ -94,8 +92,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 			}
 		});
 
-		final JButton rw = new JButton(PersonalJPanel.rwImg);
-		rw.setBackground(WHITE);
+		final PersonalJButton rw = new PersonalJButton(PersonalJButton.rwImg);
 		rw.addActionListener(new ActionListener() {
 
 			@Override

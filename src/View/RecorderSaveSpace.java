@@ -18,16 +18,19 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 @SuppressWarnings("unused")
-public class RecorderSaveSpace extends AbstractRecorderSpace {
+public class RecorderSaveSpace extends AbstractCompositeJSpace {
 
 	private static final long serialVersionUID = 2740908838399780756L;
 	
 	
 	public RecorderSaveSpace() {
-		super(new BorderLayout());
-		super.getLabel().setText("Save Recording");
-		super.getButton().setIcon(AbstractRecorderSpace.saveImg);
+		super("Save Recording", PersonalJButton.saveImg);
 
 		super.getButton().addActionListener(new ActionListener() {
 

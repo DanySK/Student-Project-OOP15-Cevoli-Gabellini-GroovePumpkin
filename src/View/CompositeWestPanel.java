@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +8,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -33,9 +31,6 @@ public class CompositeWestPanel extends PersonalJPanel {
 	 */
 	
 	private final List<File> songs= new ArrayList<>(50);
-	
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
 	
 	/**
 	 * Creation of an anonymous class as a model for the JTable class
@@ -102,9 +97,7 @@ public class CompositeWestPanel extends PersonalJPanel {
 	}
 
 	private void populateButtonRow(final PersonalJPanel buttonRow) {
-		final JButton add= new JButton("Add");
-		add.setBackground(WHITE);
-		add.setForeground(GRAY);
+		final PersonalJButton add= new PersonalJButton("Add");
 		
 		add.addActionListener(new ActionListener() {
 			
@@ -151,10 +144,8 @@ public class CompositeWestPanel extends PersonalJPanel {
 				playlist.tableChanged(new TableModelEvent(dataModel));
 			}
 		});
-		final JButton remove= new JButton("Remove");
+		final PersonalJButton remove= new PersonalJButton("Remove");
 		
-		remove.setBackground(WHITE);
-		remove.setForeground(GRAY);
 		remove.addActionListener(new ActionListener() {
 			
 			@Override

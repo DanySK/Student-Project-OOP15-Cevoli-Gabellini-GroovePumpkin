@@ -16,15 +16,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 @SuppressWarnings("unused")
-public class RecorderPauseSpace extends AbstractRecorderSpace {
+public class RecorderPauseSpace extends AbstractCompositeJSpace {
 
 	private static final long serialVersionUID = -8958765355776362631L;
 	
 	public RecorderPauseSpace() {
-		super(new BorderLayout());
-		super.getLabel().setText("Pause");
-		super.getButton().setIcon(pauseImg);
+		super("Pause", PersonalJButton.pauseImg);
 		
 		super.getButton().addActionListener(new ActionListener() {
 
@@ -32,11 +35,11 @@ public class RecorderPauseSpace extends AbstractRecorderSpace {
 			public void actionPerformed(ActionEvent e) {
 				if (RecorderPauseSpace.super.getLabel().getText().equals("Pause")) {
 					RecorderPauseSpace.super.getLabel().setText("Start");
-					RecorderPauseSpace.super.getButton().setIcon(playImg);;
+					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.playImg);;
 					// pause the recording
 				} else {
 					RecorderPauseSpace.super.getLabel().setText("Pause");
-					RecorderPauseSpace.super.getButton().setIcon(pauseImg);
+					RecorderPauseSpace.super.getButton().setIcon(PersonalJButton.pauseImg);
 					// restart the recording
 				}
 
