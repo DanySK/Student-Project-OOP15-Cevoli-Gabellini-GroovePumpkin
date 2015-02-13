@@ -17,9 +17,6 @@ public class PersonalJPanel extends JPanel {
 	protected static final Color GRAY= new Color(50, 50, 50);
 	protected static final Color WHITE= new Color(255, 255, 255);
 	
-	//final PersonalJPanel emptyR = new PersonalJPanel();
-	//final EmptyBorder empty = new EmptyBorder(10, 10, 4, 10);
-	
 	public PersonalJPanel(){
 		super();
 		this.setBackground(WHITE);

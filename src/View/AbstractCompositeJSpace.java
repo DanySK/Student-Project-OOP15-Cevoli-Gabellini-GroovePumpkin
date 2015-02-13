@@ -23,24 +23,27 @@ public abstract class AbstractCompositeJSpace extends PersonalJPanel {
 
 	private final JLabel label = new JLabel();
 	private final PersonalJButton button = new PersonalJButton();
-	
+
 	/**
-	 * 
+	 * @param layout
 	 * @param img
 	 */
-	public AbstractCompositeJSpace(final ImageIcon img) {
-		super(new BorderLayout());
+	public AbstractCompositeJSpace(final LayoutManager layout,
+			final ImageIcon img) {
+		super(layout);
 		this.button.setIcon(img);
 		this.add(button, BorderLayout.CENTER);
 	}
 
 	/**
-	 * 
+	 * @param layout
 	 * @param name
 	 * @param img
 	 */
-	public AbstractCompositeJSpace(final String name, final ImageIcon img) {
-		this(img);
+	public AbstractCompositeJSpace(final LayoutManager layout,
+			final String name, final ImageIcon img) {
+		
+		this(layout, img);
 		this.label.setText(name);
 		showLabel();
 	}

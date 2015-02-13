@@ -33,7 +33,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 
 	public CompositeEastPanel() {
 		super(new BorderLayout());
-		
+
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
 
@@ -44,16 +44,16 @@ public class CompositeEastPanel extends PersonalJPanel {
 		final PersonalJPanel centre = new PersonalJPanel(new FlowLayout());
 		populateCentralPanel(centre);
 		this.add(centre, BorderLayout.CENTER);
-		
-		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout());
+
+		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(10, 5));
 		this.populateGainPanel(gainPanel);
 		this.add(gainPanel, BorderLayout.SOUTH);
 	}
 
 	private void populateGainPanel(PersonalJPanel gainPanel) {
-		
-		final JLabel gainLabel = new JLabel("Volume: " + gain.getValue());
-		
+
+		final JLabel gainLabel = new JLabel("Volume: " + gain.getValue(), JLabel.CENTER);
+
 		gain.setBackground(WHITE);
 		gain.setForeground(GRAY);
 		gain.setEnabled(true);
@@ -63,17 +63,18 @@ public class CompositeEastPanel extends PersonalJPanel {
 			public void stateChanged(ChangeEvent e) {
 				// Change the Volume of the song
 				gainLabel.setText("Volume: " + gain.getValue());
-				
+
 			}
 		});
-		
+
 		gainPanel.add(gainLabel, BorderLayout.NORTH);
 		gainPanel.add(gain, BorderLayout.CENTER);
 	}
 
 	private void populateCentralPanel(final PersonalJPanel centre) {
 
-		final PlayAndPauseSpace play = new PlayAndPauseSpace(PersonalJButton.PLAY_IMG, true);
+		final PlayAndPauseSpace play = new PlayAndPauseSpace(
+				new BorderLayout(), true);
 
 		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
 		fw.addActionListener(new ActionListener() {

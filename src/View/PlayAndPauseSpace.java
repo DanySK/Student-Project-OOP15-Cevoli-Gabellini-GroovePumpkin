@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
@@ -28,15 +29,19 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 	protected static final String PLAY = "Play";
 	protected static final String PAUSE = "Pause";
 
-	public PlayAndPauseSpace(final String name, final ImageIcon img, final boolean buttonEnabled) {
-		super(name, img);
+	public PlayAndPauseSpace(final LayoutManager layout, final String name,
+			final boolean buttonEnabled) {
+
+		super(layout, name, PersonalJButton.PLAY_IMG);
 
 		super.setButtonActionListener(new PlayListener(this));
 		super.getButton().setEnabled(buttonEnabled);
 	}
-	
-	public PlayAndPauseSpace(final ImageIcon img, final boolean buttonEnabled){
-		super(img);
+
+	public PlayAndPauseSpace(final LayoutManager layout,
+			final boolean buttonEnabled) {
+
+		super(layout, PersonalJButton.PLAY_IMG);
 		super.setButtonActionListener(new PlayListener(this));
 		super.getButton().setEnabled(buttonEnabled);
 	}
@@ -56,13 +61,11 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 		public void actionPerformed(ActionEvent e) {
 			if (panel.getLabel().getText().equals(PAUSE)) {
 				panel.getLabel().setText(PLAY);
-				panel.getButton().setIcon(
-						PersonalJButton.PLAY_IMG);
+				panel.getButton().setIcon(PersonalJButton.PLAY_IMG);
 				// pause the recording
 			} else {
 				panel.getLabel().setText(PAUSE);
-				panel.getButton().setIcon(
-						PersonalJButton.PAUSE_IMG);
+				panel.getButton().setIcon(PersonalJButton.PAUSE_IMG);
 				// restart the recording
 			}
 

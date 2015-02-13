@@ -30,7 +30,7 @@ public class SaveSpace extends AbstractCompositeJSpace {
 	
 	
 	public SaveSpace() {
-		super("Save Recording", PersonalJButton.SAVE_IMG);
+		super(new BorderLayout(), "Save Recording", PersonalJButton.SAVE_IMG);
 
 		super.setButtonActionListener(new ActionListener() {
 

@@ -25,7 +25,7 @@ public class RecSpace extends AbstractCompositeJSpace {
 	
 	public RecSpace(final PlayAndPauseSpace rps) {
 		
-		super("Rec", PersonalJButton.REC_IMG);
+		super(new BorderLayout(), "Rec", PersonalJButton.REC_IMG);
 		
 		super.setButtonActionListener(new ActionListener() {
 
