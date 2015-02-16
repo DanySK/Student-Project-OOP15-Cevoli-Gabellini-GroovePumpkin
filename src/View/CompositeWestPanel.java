@@ -14,8 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+
+import Model.PlaylistTableModel;
 
 /**
  * Personalized Panel for the PlayBackPanel class
@@ -38,39 +39,7 @@ public class CompositeWestPanel extends PersonalJPanel {
 	 * Creation of an anonymous class as a model for the JTable class
 	 * 
 	 */
-	private final TableModel dataModel = new AbstractTableModel() {
-
-		private static final long serialVersionUID = 3639938590302106582L;
-		private final String[] names = new String[] { "Song" };
-
-		@Override
-		public int getRowCount() {
-			return songs.size();
-		}
-
-		@Override
-		public int getColumnCount() {
-			return names.length;
-		}
-
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			try {
-				Object obj = songs.get(rowIndex);
-				return obj;
-			} catch (IndexOutOfBoundsException e) {
-				return null;
-			}
-		}
-
-		@Override
-		public String getColumnName(int column) {
-			if (column >= names.length) {
-				return null;
-			}
-			return names[column];
-		};
-	};
+	private final TableModel dataModel = new PlaylistTableModel<File>(songs);
 
 	private final JTable playlist = new JTable(dataModel);
 
@@ -91,8 +60,9 @@ public class CompositeWestPanel extends PersonalJPanel {
 		playlist.setBackground(WHITE);
 		playlist.setForeground(GRAY);
 		playlist.setRowSelectionAllowed(true);
-		playlist.getColumn("Song").setResizable(false);
-
+		//playlist.getColumn("Song").setResizable(false);
+		// jsp.setBorder(new CompoundBorder(new
+		// EtchedBorder(EtchedBorder.LOWERED), new EmptyBorder(3, 3, 3, 3)));
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(GRAY);
@@ -106,7 +76,6 @@ public class CompositeWestPanel extends PersonalJPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// aggiungi una canzone
-				// songs.add("Unravel");
 
 				// NOTA IL CODICE SEGUENTE DEVE ANDARE NEL MODEL
 				JFileChooser chooser = new JFileChooser(System
@@ -116,7 +85,7 @@ public class CompositeWestPanel extends PersonalJPanel {
 
 					@Override
 					public String getDescription() {
-						return "*.midi, *.wav, *.aac";
+						return "*mp3, *.midi, *.wav, *.aac";
 					}
 
 					@Override
@@ -128,7 +97,8 @@ public class CompositeWestPanel extends PersonalJPanel {
 
 						if (f.getName().endsWith(".midi")
 								|| f.getName().endsWith(".wav")
-								|| f.getName().endsWith(".aac")) {
+								|| f.getName().endsWith(".aac")
+								|| f.getName().endsWith(".mp3")) {
 							return true;
 						}
 
@@ -151,7 +121,9 @@ public class CompositeWestPanel extends PersonalJPanel {
 				// ricrea la nuova tabella
 				playlist.tableChanged(new TableModelEvent(dataModel));
 			}
+
 		});
+
 		final PersonalJButton remove = new PersonalJButton("Remove");
 
 		remove.addActionListener(new ActionListener() {
