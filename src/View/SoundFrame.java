@@ -29,7 +29,7 @@ public class SoundFrame extends JFrame {
 		this.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 2));
 		//this.setResizable(false);
-		//I was looking for a method of JFrame to get the frame always proportional to teh screen, but I haven't found it
+		//I was looking for a method of JFrame to get the frame always proportional to the screen, but I haven't found it
 		
 		this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 4);

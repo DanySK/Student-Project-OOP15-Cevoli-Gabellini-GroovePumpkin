@@ -19,7 +19,9 @@ import javax.swing.table.TableModel;
 import Model.PlaylistTableModel;
 
 /**
- * Personalized Panel for the PlayBackPanel class
+ * Personalized Panel for the PlayBackPanel class, 
+ * this class "haldles" the playlist,
+ * adding or removing song from it.
  * 
  * @author Alessandro
  *
@@ -39,13 +41,13 @@ public class CompositeWestPanel extends PersonalJPanel {
 	 * Creation of an anonymous class as a model for the JTable class
 	 * 
 	 */
-	private final TableModel dataModel = new PlaylistTableModel<File>(songs);
+	private final TableModel dataModel = new PlaylistTableModel(songs);
 
 	private final JTable playlist = new JTable(dataModel);
 
 	public CompositeWestPanel() {
 		super(new BorderLayout());
-
+		this.setBuiltInBorder();
 		final JScrollPane jsp = new JScrollPane();
 		this.populateJSP(jsp);
 
@@ -60,7 +62,7 @@ public class CompositeWestPanel extends PersonalJPanel {
 		playlist.setBackground(WHITE);
 		playlist.setForeground(GRAY);
 		playlist.setRowSelectionAllowed(true);
-		//playlist.getColumn("Song").setResizable(false);
+		// playlist.getColumn("Song").setResizable(false);
 		// jsp.setBorder(new CompoundBorder(new
 		// EtchedBorder(EtchedBorder.LOWERED), new EmptyBorder(3, 3, 3, 3)));
 		jsp.setViewportView(playlist);
@@ -81,6 +83,10 @@ public class CompositeWestPanel extends PersonalJPanel {
 				JFileChooser chooser = new JFileChooser(System
 						.getProperty("user.home"));
 
+				/*
+				 * I've built an anonymous class for the file filter, it'll
+				 * problably go as a properly stand-alone class
+				 */
 				chooser.addChoosableFileFilter(new FileFilter() {
 
 					@Override

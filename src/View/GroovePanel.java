@@ -21,6 +21,7 @@ import Model.GrooveTableModel;
 import Model.GrooveValues;
 
 /**
+ * This class rapresent the GUI space for the groovebox
  * 
  * @author Alessandro
  *
@@ -32,8 +33,9 @@ public class GroovePanel extends PersonalJPanel {
 
 	private final Double[] items = new Double[] { 40d, 60d, 80d, 100d, 120d,
 			140d, 160d, 180d };
-	int row;
-	int col;
+	
+	private int row;
+	private int col;
 
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
 	private final TableModel tableModel = new GrooveTableModel();
@@ -41,22 +43,23 @@ public class GroovePanel extends PersonalJPanel {
 
 	public GroovePanel() {
 		super(new BorderLayout());
+		
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(GRAY);
-		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
-				5));
+		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,5));
+		westPanel.setBuiltInBorder();
 		populateWestPanel(westPanel);
 		this.add(westPanel, BorderLayout.WEST);
 
-		final PersonalJPanel eastPanel = new PersonalJPanel(new BorderLayout(5,
-				5));
+		final PersonalJPanel eastPanel = new PersonalJPanel(new BorderLayout(5,5));
 		populateEastPanel(eastPanel);
 
 		this.add(new JScrollPane(eastPanel), BorderLayout.CENTER);
 	}
-
+	
+	//Maybe this on a own class, for cutting code line
 	private void populateEastPanel(final PersonalJPanel eastPanel) {
-
+		
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 
 			private static final long serialVersionUID = -5252083106955434257L;
@@ -69,8 +72,8 @@ public class GroovePanel extends PersonalJPanel {
 		for (int i = 1; i < GrooveTableModel.GrooveTimeValues.length; i++) {
 			grooveBox.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
-
-		// Listener for row changes
+		
+		//Listener for row changes
 		grooveBox.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
@@ -80,9 +83,6 @@ public class GroovePanel extends PersonalJPanel {
 						if (!sm.isSelectionEmpty()) {
 							row = sm.getMinSelectionIndex();
 						}
-						
-						grooveBox.tableChanged(new TableModelEvent(
-								tableModel));
 					}
 				});
 
@@ -98,13 +98,13 @@ public class GroovePanel extends PersonalJPanel {
 						}
 						
 						if (col != 0) {
-							Color c = GrooveValues.values()[row].getColor();
+							Color c = GrooveValues.values()[row].getColor(col-1);
 							if (c.equals(Color.WHITE)) {
 								GrooveValues.values()[row]
-										.setColor(Color.DARK_GRAY);
+										.setColor(Color.DARK_GRAY, col-1);
 							} else {
 								GrooveValues.values()[row]
-										.setColor(Color.WHITE);
+										.setColor(Color.WHITE, col-1);
 							}
 						}
 						
@@ -161,7 +161,10 @@ public class GroovePanel extends PersonalJPanel {
 
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 	}
-
+	
+	/**
+	 * @return The time dial in beat for minute
+	 */
 	public Double getDial() {
 		return (Double) timeDialerOptions.getSelectedItem();
 	}

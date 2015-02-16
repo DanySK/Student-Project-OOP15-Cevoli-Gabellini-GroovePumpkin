@@ -5,19 +5,22 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 /**
+ * This class is a personalized Table Model for a playlist
  * 
  * @author Alessandro
  *
- * @param <X>
  */
 
-public class PlaylistTableModel<X> extends AbstractTableModel{
+public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
 	private final String[] names = new String[] { "Song" };
-	private List<X> songs; 
+	private List<File> songs; 
 	
-	public PlaylistTableModel(final List<X> playlist) {
+	/**
+	 * @param playlist, the playlist to be associated with this table
+	 */
+	public PlaylistTableModel(final List<File> playlist) {
 		songs= playlist;
 	}
 	
@@ -52,40 +55,3 @@ public class PlaylistTableModel<X> extends AbstractTableModel{
 		return super.getColumnClass(columnIndex);
 	}
 }
-
-
-/*
- * new AbstractTableModel() {
-		
-		private static final long serialVersionUID = 3639938590302106582L;
-		private final String[] names = new String[] { "Song" };
-		
-		@Override
-		public int getRowCount() {
-			return songs.size();
-		}
-
-		@Override
-		public int getColumnCount() {
-			return names.length;
-		}
-
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			try {
-				Object obj = ((File)songs.get(rowIndex)).getName();
-				return obj;
-			} catch (IndexOutOfBoundsException e) {
-				return null;
-			}
-		}
-
-		@Override
-		public String getColumnName(int column) {
-			if (column >= names.length) {
-				return null;
-			}
-			return names[column];
-		}
-	};
-	*/

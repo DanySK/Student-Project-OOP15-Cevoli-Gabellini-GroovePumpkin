@@ -14,7 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 @SuppressWarnings("unused")
 public class Recorder extends JFrame {
 
@@ -33,7 +37,7 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
-
+		//mainPanel.setBuiltInBorder();
 		final PlayAndPauseSpace rps = new PlayAndPauseSpace(new BorderLayout(),
 				"Pause", false);
 		mainPanel.add(new RecSpace(rps));
@@ -41,6 +45,7 @@ public class Recorder extends JFrame {
 		mainPanel.add(timerLabel);
 
 		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
+		//southPanel.setBuiltInBorder();
 		southPanel.add(new SaveSpace());
 
 		this.add(southPanel, BorderLayout.SOUTH);

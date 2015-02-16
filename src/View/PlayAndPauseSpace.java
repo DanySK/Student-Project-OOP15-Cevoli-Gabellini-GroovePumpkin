@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * This class extends the abstract composite (Label+Button) space 
+ * to build a play and pause system for this software
  * 
  * @author Alessandro
  *
@@ -28,7 +30,13 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 	private static final long serialVersionUID = -8958765355776362631L;
 	protected static final String PLAY = "Play";
 	protected static final String PAUSE = "Pause";
-
+	
+	/**
+	 * 
+	 * @param layout to be attached
+	 * @param name to be applied on the label
+	 * @param buttonEnabled if the button have to be enable or not
+	 */
 	public PlayAndPauseSpace(final LayoutManager layout, final String name,
 			final boolean buttonEnabled) {
 
@@ -37,7 +45,12 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 		super.setButtonActionListener(new PlayListener(this));
 		super.getButton().setEnabled(buttonEnabled);
 	}
-
+	
+	/**
+	 * 
+	 * @param layout to be attached
+	 * @param buttonEnabled if the button have to be enabled or not
+	 */
 	public PlayAndPauseSpace(final LayoutManager layout,
 			final boolean buttonEnabled) {
 
@@ -45,12 +58,16 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 		super.setButtonActionListener(new PlayListener(this));
 		super.getButton().setEnabled(buttonEnabled);
 	}
-
+	
+	/**
+	 * 
+	 * @return if the song is pause or is running
+	 */
 	public boolean isPaused() {
 		return super.getLabel().getText().equals(PLAY);
 	}
-
-	protected static class PlayListener implements ActionListener {
+	
+	private static class PlayListener implements ActionListener {
 		private PlayAndPauseSpace panel;
 
 		public PlayListener(final PlayAndPauseSpace panel) {

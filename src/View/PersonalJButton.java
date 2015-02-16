@@ -1,10 +1,15 @@
 package View;
 
 import java.awt.Color;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+/**
+ * A personal JButton class that stores all the imagines for the oject of this class
+ * and the color of Background and Foreground
+ * 
+ * @author Alessandro
+ *
+ */
 public class PersonalJButton extends JButton {
 
 	private static final long serialVersionUID = -7937866815197131576L;
@@ -32,7 +37,7 @@ public class PersonalJButton extends JButton {
 	protected static final ImageIcon LOOP_OFF_IMG = new ImageIcon("data"
 			+ System.getProperty("file.separator") + "loop_RED.png");
 
-	private String name = new String("");
+	private String id = new String("");
 
 	public PersonalJButton() {
 		this.setBackground(WHITE);
@@ -67,16 +72,22 @@ public class PersonalJButton extends JButton {
 	 * @param name
 	 *            , a name to be associated to the button
 	 */
-	public PersonalJButton(final ImageIcon img, final String name) {
+	public PersonalJButton(final ImageIcon img, final String id) {
 		this(img);
-		this.name = name;
+		this.id = id;
 	}
-
+	
+	/**
+	 * @return the id of this button
+	 */
 	public String getName() {
-		return name;
+		return id;
 	}
-
-	public void setName(final String newName) {
-		this.name = newName;
+	
+	/**
+	 * @param newID the new ID to be associated with this button
+	 */
+	public void setName(final String newID) {
+		this.id = newID;
 	}
 }

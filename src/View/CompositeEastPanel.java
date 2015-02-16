@@ -17,7 +17,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Personalized JPanel for the PlayBackPanel
+ * Personalized JPanel for the PlayBackPanel,
+ * this class "handles" the playing and pausing of a choosen song.
  * 
  * @author Alessandro
  *
@@ -33,7 +34,7 @@ public class CompositeEastPanel extends PersonalJPanel {
 
 	public CompositeEastPanel() {
 		super(new BorderLayout());
-
+		this.setBuiltInBorder();
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
 

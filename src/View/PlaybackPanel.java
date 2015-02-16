@@ -16,6 +16,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
+/**
+ * The Panel for the song player and playlist
+ * 
+ * @author Alessandro
+ *
+ */
 @SuppressWarnings("unused")
 public class PlaybackPanel extends PersonalJPanel {
 

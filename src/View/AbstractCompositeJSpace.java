@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * This Class is thiked to built a small PersonalizedJPanel
+ * with a JButton and if wanted a JLabel
  * 
  * @author Alessandro
  *
@@ -21,12 +23,12 @@ public abstract class AbstractCompositeJSpace extends PersonalJPanel {
 
 	private static final long serialVersionUID = 4199364808400772243L;
 
-	private final JLabel label = new JLabel();
+	private JLabel label;
 	private final PersonalJButton button = new PersonalJButton();
 
 	/**
-	 * @param layout
-	 * @param img
+	 * @param layout to be applied
+	 * @param img to be showed
 	 */
 	public AbstractCompositeJSpace(final LayoutManager layout,
 			final ImageIcon img) {
@@ -36,28 +38,42 @@ public abstract class AbstractCompositeJSpace extends PersonalJPanel {
 	}
 
 	/**
-	 * @param layout
-	 * @param name
-	 * @param img
+	 * @param layout to be applied at the JPanel
+	 * @param name to be applied on the label
+	 * @param img to be showed on the Icon
 	 */
 	public AbstractCompositeJSpace(final LayoutManager layout,
 			final String name, final ImageIcon img) {
 		
 		this(layout, img);
-		this.label.setText(name);
+		this.label= new JLabel(name);
 		showLabel();
 	}
-
+	
+	/**
+	 * Directly set the Action Listener for the built-in button
+	 * 
+	 * @param buttonListener
+	 */
 	public void setButtonActionListener(final ActionListener buttonListener) {
 		this.button.addActionListener(buttonListener);
 	}
-
+	
+	/**
+	 * 
+	 * @return the built-in JButton
+	 */
 	public JButton getButton() {
 		return this.button;
 	}
-
+	
+	/**
+	 * 
+	 * @return the label if it's enabled
+	 */
 	public JLabel getLabel() {
-		return label;
+		return label== null ? label : null;
+		
 	}
 
 	public void showLabel() {
