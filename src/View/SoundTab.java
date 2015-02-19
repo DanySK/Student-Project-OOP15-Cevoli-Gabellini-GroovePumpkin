@@ -23,7 +23,7 @@ public class SoundTab extends JTabbedPane {
 		
 		super(JTabbedPane.TOP);
 		
-		final PlaybackPanel play= new PlaybackPanel();
+		final PlayPanel play= new PlayPanel();
 		this.add("Play Music", play);
 		
 		final GroovePanel grooveBox= new GroovePanel();

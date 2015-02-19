@@ -3,10 +3,10 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
+
 import Model.GrooveTableModel;
 import Model.GrooveValues;
 
@@ -33,7 +34,7 @@ public class GroovePanel extends PersonalJPanel {
 
 	private final Double[] items = new Double[] { 40d, 60d, 80d, 100d, 120d,
 			140d, 160d, 180d };
-	
+
 	private int row;
 	private int col;
 
@@ -42,24 +43,31 @@ public class GroovePanel extends PersonalJPanel {
 	private final JTable grooveBox = new JTable(tableModel);
 
 	public GroovePanel() {
-		super(new BorderLayout());
-		
+		super(new BorderLayout(5, 5));
+
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(GRAY);
-		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,5));
+
+		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
+				5));
 		westPanel.setBuiltInBorder();
+
 		populateWestPanel(westPanel);
 		this.add(westPanel, BorderLayout.WEST);
 
-		final PersonalJPanel eastPanel = new PersonalJPanel(new BorderLayout(5,5));
-		populateEastPanel(eastPanel);
-
-		this.add(new JScrollPane(eastPanel), BorderLayout.CENTER);
+		this.add(populateGrooveBox(), BorderLayout.CENTER);
 	}
-	
-	//Maybe this on a own class, for cutting code line
-	private void populateEastPanel(final PersonalJPanel eastPanel) {
-		
+
+	// Maybe this 'll got a own class, for cutting code line
+	private JScrollPane populateGrooveBox() {
+
+		grooveBox.getColumn(GrooveTableModel.GrooveTimeValues[0]).setMinWidth(
+				120);
+
+		// Thank you STACKOVERFLOW <3
+		grooveBox.getTableHeader().setReorderingAllowed(false);
+		grooveBox.getTableHeader().setResizingAllowed(false);
+
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 
 			private static final long serialVersionUID = -5252083106955434257L;
@@ -72,8 +80,7 @@ public class GroovePanel extends PersonalJPanel {
 		for (int i = 1; i < GrooveTableModel.GrooveTimeValues.length; i++) {
 			grooveBox.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
-		
-		//Listener for row changes
+
 		grooveBox.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
@@ -86,7 +93,6 @@ public class GroovePanel extends PersonalJPanel {
 					}
 				});
 
-		// Listener for column changes
 		grooveBox.getColumnModel().getSelectionModel()
 				.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
@@ -96,24 +102,24 @@ public class GroovePanel extends PersonalJPanel {
 						if (!sm.isSelectionEmpty()) {
 							col = sm.getMinSelectionIndex();
 						}
-						
+
 						if (col != 0) {
-							Color c = GrooveValues.values()[row].getColor(col-1);
+							Color c = GrooveValues.values()[row]
+									.getColor(col - 1);
 							if (c.equals(Color.WHITE)) {
-								GrooveValues.values()[row]
-										.setColor(Color.DARK_GRAY, col-1);
+								GrooveValues.values()[row].setColor(
+										GrooveValues.getRandomColor(), col - 1);
 							} else {
-								GrooveValues.values()[row]
-										.setColor(Color.WHITE, col-1);
+								GrooveValues.values()[row].setColor(
+										Color.WHITE, col - 1);
 							}
 						}
-						
-						grooveBox.tableChanged(new TableModelEvent(
-								tableModel));
+
+						grooveBox.tableChanged(new TableModelEvent(tableModel));
 					}
 				});
 
-		eastPanel.add(grooveBox, BorderLayout.CENTER);
+		return new JScrollPane(grooveBox);
 	}
 
 	private void populateWestPanel(final PersonalJPanel westPanel) {
@@ -129,39 +135,42 @@ public class GroovePanel extends PersonalJPanel {
 		westPanel.add(timePanel, BorderLayout.NORTH);
 
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
-		buttonPanel.setLayout(new GridLayout(4, 1, 3, 3));
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-		final PlayAndPauseSpace play = new PlayAndPauseSpace(new FlowLayout(),
-				true);
-
-		final PersonalJPanel loopPanel = new PersonalJPanel(new FlowLayout(
-				FlowLayout.CENTER, 3, 3));
+		final PlayAndPauseSpace play = new PlayAndPauseSpace(PersonalJButton.PLAY_IMG);
+		play.setBorder(PersonalJButton.getCompoundTitledBorder("Play"));
+		
+		play.addActionListener(new PlayAndPauseSpace.PlayListener(play));		
+		
 		final PersonalJButton loop = new PersonalJButton(
 				PersonalJButton.LOOP_OFF_IMG, "off");
-		loop.setAlignmentX(CENTER_ALIGNMENT);
+		loop.setBorder(PersonalJButton.getCompoundTitledBorder("Loop"));
+		
 		loop.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (loop.getName().equals("off")) {
-					loop.setName("on");
+				if (loop.getID().equals("off")) {
+					loop.setID("on");
 					loop.setIcon(PersonalJButton.LOOP_ON_IMG);
 					// Loop the groove
 				} else {
-					loop.setName("off");
+					loop.setID("off");
 					loop.setIcon(PersonalJButton.LOOP_OFF_IMG);
 					// UnLoop the groove
 				}
 			}
 		});
 
-		loopPanel.add(loop);
+		final SaveSpace save = new SaveSpace(true);
+		
 		buttonPanel.add(play);
-		buttonPanel.add(loopPanel);
+		buttonPanel.add(loop);
+		buttonPanel.add(save);
 
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 	}
-	
+
 	/**
 	 * @return The time dial in beat for minute
 	 */

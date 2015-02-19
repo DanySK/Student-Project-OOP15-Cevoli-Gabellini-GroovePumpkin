@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,30 +28,44 @@ import javax.swing.border.Border;
 public class SaveSpace extends AbstractCompositeJSpace {
 
 	private static final long serialVersionUID = 2740908838399780756L;
+	private static final String LABEL= "Save";
 	
-	
-	public SaveSpace() {
-		super(new BorderLayout(), "Save Recording", PersonalJButton.SAVE_IMG);
+	public SaveSpace(final boolean showLabel) {
 		
-		super.setButtonActionListener(new ActionListener() {
+		super(PersonalJButton.SAVE_IMG);
+		
+		if(showLabel){
+			super.showTitle(LABEL);
+		}
+		
+		this.addActionListener(new SaveListener(this));
+	}
+	
+	public static class SaveListener implements ActionListener{
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser(System
-						.getProperty("user.home"));
-				chooser.setVisible(true);
-				int val = chooser.showSaveDialog(SaveSpace.this);
-				if (val == JFileChooser.APPROVE_OPTION) {
-					
-					// save the file
-					
-				} else if (val != JFileChooser.CANCEL_OPTION) {
-					JOptionPane.showMessageDialog(SaveSpace.this,
-							"An Error has occurred", "Error Message",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
+		private PersonalJButton save;
+		
+		public SaveListener(final PersonalJButton save) {
+			this.save= save;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser chooser = new JFileChooser(System
+					.getProperty("user.home"));
+			
+			chooser.setVisible(true);
+			int val = chooser.showSaveDialog(save);
+			if (val == JFileChooser.APPROVE_OPTION) {
+				
+				// save the file
+				
+			} else if (val != JFileChooser.CANCEL_OPTION) {
+				JOptionPane.showMessageDialog(save,
+						"An Error has occurred", "Error Message",
+						JOptionPane.ERROR_MESSAGE);
 			}
-		});
+			
+		}
 	}
 }

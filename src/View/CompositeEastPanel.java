@@ -13,12 +13,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * Personalized JPanel for the PlayBackPanel,
- * this class "handles" the playing and pausing of a choosen song.
+ * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
+ * and pausing of a choosen song.
  * 
  * @author Alessandro
  *
@@ -46,36 +48,43 @@ public class CompositeEastPanel extends PersonalJPanel {
 		populateCentralPanel(centre);
 		this.add(centre, BorderLayout.CENTER);
 
-		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(10, 5));
+		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
+				10, 5));
 		this.populateGainPanel(gainPanel);
 		this.add(gainPanel, BorderLayout.SOUTH);
 	}
 
 	private void populateGainPanel(PersonalJPanel gainPanel) {
 
-		final JLabel gainLabel = new JLabel("Volume: " + gain.getValue(), JLabel.CENTER);
+		final CompoundBorder gainLabel = (CompoundBorder) PersonalJButton
+				.getCompoundTitledBorder("Volume: " + gain.getValue());
 
+		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(GRAY);
+		gain.setBorder(gainLabel);
 		gain.setBackground(WHITE);
 		gain.setForeground(GRAY);
 		gain.setEnabled(true);
+		
 		gain.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
 				// Change the Volume of the song
-				gainLabel.setText("Volume: " + gain.getValue());
-
+				((TitledBorder) gainLabel.getOutsideBorder())
+						.setTitle("Volume: " + gain.getValue());
+				
+				gain.repaint();
 			}
 		});
 
-		gainPanel.add(gainLabel, BorderLayout.NORTH);
 		gainPanel.add(gain, BorderLayout.CENTER);
 	}
 
 	private void populateCentralPanel(final PersonalJPanel centre) {
 
 		final PlayAndPauseSpace play = new PlayAndPauseSpace(
-				new BorderLayout(), true);
+				PersonalJButton.PLAY_IMG);
+		play.setButtonEnabled(true);
 
 		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
 		fw.addActionListener(new ActionListener() {

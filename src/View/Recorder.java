@@ -1,25 +1,16 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 /**
  * 
  * @author Alessandro
  *
  */
-@SuppressWarnings("unused")
 public class Recorder extends JFrame {
 
 	private static final long serialVersionUID = -4303337519550483522L;
@@ -37,16 +28,17 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
-		//mainPanel.setBuiltInBorder();
-		final PlayAndPauseSpace rps = new PlayAndPauseSpace(new BorderLayout(),
-				"Pause", false);
+		final PlayAndPauseSpace rps = new PlayAndPauseSpace(PersonalJButton.PAUSE_IMG);
+		rps.setButtonEnabled(false);
+		rps.showTitle(PlayAndPauseSpace.PAUSE);
+		
 		mainPanel.add(new RecSpace(rps));
 		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 
 		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
-		//southPanel.setBuiltInBorder();
-		southPanel.add(new SaveSpace());
+	
+		southPanel.add(new SaveSpace(true));
 
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);

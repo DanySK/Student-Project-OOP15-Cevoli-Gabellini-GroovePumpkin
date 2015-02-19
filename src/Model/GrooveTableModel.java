@@ -25,15 +25,20 @@ public class GrooveTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -8015327194349106508L;
 	
 	/**
+	 * 
 	 * The names of all the columns, 
 	 * i've used a static array instead of an ArrayList 
 	 * because i was already sure it won't have changed
+	 * 
+	 * @GrooveTimeValues
 	 */
 	public static final String[] GrooveTimeValues = new String[]{
-		"Instruments", "#1", "A", "B", "C", "#2", "A", "B", "C", "#3", "A",
-		"B", "C", "#4", "A", "B", "C" , "#5", "A", "B", "C", "#6", "A", "B",
-		"C", "#7", "A", "B", "C", "#8", "A", "B", "C", "#9", "A", "B", "C",
-		"#10", "A", "B", "C"};
+		"-Instruments-",
+		"0", "A", "B", "C", "1", "A", "B", "C", 
+		"2", "A", "B", "C", "3", "A", "B", "C", 
+		"4", "A", "B", "C", "5", "A", "B", "C", 
+		"6", "A", "B", "C", "7", "A", "B", "C", 
+		"8", "A", "B", "C", "9", "A", "B", "C"};
 
 	private GrooveValues grooveValues;
 
@@ -81,9 +86,9 @@ public class GrooveTableModel extends AbstractTableModel {
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		if (rowIndex != 0) {
-			if (columnIndex == 0 && aValue instanceof String) {
+			if (columnIndex == 0) {
 				GrooveValues.values()[rowIndex].setName((String) aValue);
-			} else if(aValue instanceof Color){
+			} else {
 				GrooveValues.values()[rowIndex].setColor((Color) aValue, columnIndex-1);
 			}
 		}

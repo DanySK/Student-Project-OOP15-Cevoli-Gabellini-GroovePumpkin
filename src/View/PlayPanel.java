@@ -23,12 +23,12 @@ import javax.swing.JTable;
  *
  */
 @SuppressWarnings("unused")
-public class PlaybackPanel extends PersonalJPanel {
+public class PlayPanel extends PersonalJPanel {
 
 	private static final long serialVersionUID = -2515046442887709479L;
 	
 	
-	public PlaybackPanel() {
+	public PlayPanel() {
 		super(new BorderLayout());
 
 		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
