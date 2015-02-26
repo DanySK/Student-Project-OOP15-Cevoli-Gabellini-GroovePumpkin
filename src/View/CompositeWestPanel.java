@@ -62,9 +62,7 @@ public class CompositeWestPanel extends PersonalJPanel {
 		playlist.setBackground(WHITE);
 		playlist.setForeground(GRAY);
 		playlist.setRowSelectionAllowed(true);
-		// playlist.getColumn("Song").setResizable(false);
-		// jsp.setBorder(new CompoundBorder(new
-		// EtchedBorder(EtchedBorder.LOWERED), new EmptyBorder(3, 3, 3, 3)));
+		
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(GRAY);

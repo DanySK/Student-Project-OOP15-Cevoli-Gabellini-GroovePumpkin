@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,22 +32,25 @@ public class CompositeEastPanel extends PersonalJPanel {
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
-
+	private final PlaySpace play = new PlaySpace(PersonalJButton.PLAY_IMG);
+	private final PersonalJButton stop = new PersonalJButton(PersonalJButton.STOP_IMG);
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
 
 	public CompositeEastPanel() {
 		super(new BorderLayout());
+		
 		this.setBuiltInBorder();
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
 
-		final PersonalJPanel north = new PersonalJPanel(new FlowLayout());
-		north.add(songName);
+		final PersonalJPanel north = new PersonalJPanel(new BorderLayout());
+		populateNorthPanel(north);
 		this.add(north, BorderLayout.NORTH);
 
-		final PersonalJPanel centre = new PersonalJPanel(new FlowLayout());
-		populateCentralPanel(centre);
-		this.add(centre, BorderLayout.CENTER);
+		final PersonalJPanel central = new PersonalJPanel();
+		central.setLayout(new BoxLayout(central, BoxLayout.Y_AXIS));
+		this.populateCentralPanel(central);
+		this.add(central, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
 				10, 5));
@@ -54,37 +58,14 @@ public class CompositeEastPanel extends PersonalJPanel {
 		this.add(gainPanel, BorderLayout.SOUTH);
 	}
 
-	private void populateGainPanel(PersonalJPanel gainPanel) {
+	private void populateNorthPanel(final PersonalJPanel north) {
 
-		final CompoundBorder gainLabel = (CompoundBorder) PersonalJButton
-				.getCompoundTitledBorder("Volume: " + gain.getValue());
+		final PersonalJPanel northLabel = new PersonalJPanel(new FlowLayout());
+		northLabel.add(songName);
 
-		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(GRAY);
-		gain.setBorder(gainLabel);
-		gain.setBackground(WHITE);
-		gain.setForeground(GRAY);
-		gain.setEnabled(true);
-		
-		gain.addChangeListener(new ChangeListener() {
+		north.add(northLabel, BorderLayout.NORTH);
 
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				// Change the Volume of the song
-				((TitledBorder) gainLabel.getOutsideBorder())
-						.setTitle("Volume: " + gain.getValue());
-				
-				gain.repaint();
-			}
-		});
-
-		gainPanel.add(gain, BorderLayout.CENTER);
-	}
-
-	private void populateCentralPanel(final PersonalJPanel centre) {
-
-		final PlayAndPauseSpace play = new PlayAndPauseSpace(
-				PersonalJButton.PLAY_IMG);
-		play.setButtonEnabled(true);
+		final PersonalJPanel northCentral = new PersonalJPanel(new FlowLayout());
 
 		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
 		fw.addActionListener(new ActionListener() {
@@ -104,8 +85,77 @@ public class CompositeEastPanel extends PersonalJPanel {
 			}
 		});
 
-		centre.add(rw);
-		centre.add(play);
-		centre.add(fw);
+		northCentral.add(rw);
+		northCentral.add(play);
+		northCentral.add(fw);
+
+		north.add(northCentral, BorderLayout.CENTER);
+	}
+
+	private void populateCentralPanel(final PersonalJPanel east) {
+		
+		final PersonalJButton loop = new PersonalJButton(
+				PersonalJButton.LOOP_OFF_IMG, "off");
+
+		loop.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (loop.getID().equals("off")) {
+					loop.setID("on");
+					loop.setIcon(PersonalJButton.LOOP_ON_IMG);
+					// Loop the playlist
+				} else {
+					loop.setID("off");
+					loop.setIcon(PersonalJButton.LOOP_OFF_IMG);
+					// UnLoop the playlist
+				}
+			}
+		});
+		
+		this.stop.setEnabled(false);
+		
+		this.stop.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CompositeEastPanel.this.play.isPaused()){
+					CompositeEastPanel.this.stop.setEnabled(false);
+					
+				} else{
+					CompositeEastPanel.this.stop.setEnabled(true);
+					
+				}
+			}
+		});
+
+		east.add(loop);
+		east.add(this.stop);
+	}
+
+	private void populateGainPanel(PersonalJPanel gainPanel) {
+
+		final CompoundBorder gainLabel = (CompoundBorder) PersonalJButton
+				.getACompoundTitledBorder("Volume: " + gain.getValue());
+
+		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(GRAY);
+		gain.setBorder(gainLabel);
+		gain.setBackground(WHITE);
+		gain.setForeground(GRAY);
+		gain.setEnabled(true);
+
+		gain.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// Change the Volume of the song
+				((TitledBorder) gainLabel.getOutsideBorder())
+						.setTitle("Volume: " + gain.getValue());
+
+				gain.repaint();
+			}
+		});
+
+		gainPanel.add(gain, BorderLayout.CENTER);
 	}
 }

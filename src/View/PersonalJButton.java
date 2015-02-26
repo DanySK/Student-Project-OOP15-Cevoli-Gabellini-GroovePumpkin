@@ -12,7 +12,8 @@ import javax.swing.border.TitledBorder;
 
 /**
  * A personal JButton class that stores all the imagines for the oject of this
- * class and the color of Background and Foreground
+ * class and the color of Background and Foreground; It manages also the border
+ * of the button
  * 
  * @author Alessandro
  *
@@ -47,9 +48,10 @@ public class PersonalJButton extends JButton {
 
 	private String id = new String("");
 
+	/**
+	 * Basic constructor for the personal JButton
+	 */
 	public PersonalJButton() {
-
-		// BorderFactory.
 
 		this.setBorder(new CompoundBorder(new SoftBevelBorder(
 				SoftBevelBorder.RAISED, L_GRAY, GRAY), new EmptyBorder(6, 16,
@@ -61,9 +63,8 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * 
 	 * @param text
-	 *            , the text do be applied to setText(text)
+	 *            to be applied to setText(text)
 	 */
 	public PersonalJButton(final String text) {
 		this();
@@ -71,9 +72,8 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * 
 	 * @param img
-	 *            , an image to be applied to the button
+	 *            to be applied to the button
 	 */
 	public PersonalJButton(final ImageIcon img) {
 		this();
@@ -81,23 +81,49 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * 
 	 * @param img
-	 *            , an image to be applied to the button
+	 *            to be applied to the button
 	 * @param name
-	 *            , a name to be associated to the button
+	 *            to be associated to the button
 	 */
 	public PersonalJButton(final ImageIcon img, final String id) {
 		this(img);
 		this.id = id;
 	}
 
-	public static Border getCompoundTitledBorder(final String title) {
+	public static Border getACompoundTitledBorder(final String title) {
 
 		return new CompoundBorder(new TitledBorder(new SoftBevelBorder(
 				SoftBevelBorder.RAISED, L_GRAY, GRAY), title,
 				TitledBorder.ABOVE_TOP, TitledBorder.CENTER), new EmptyBorder(
 				4, 16, 4, 16));
+	}
+
+	/**
+	 * 
+	 * @param name
+	 *            to be shown on the TitledBorder
+	 */
+
+	public void showTitle(final String name) {
+
+		this.setBorder(getACompoundTitledBorder(name));
+	}
+
+	/**
+	 * 
+	 * @return the TitledBorder if it exists, otherways null
+	 */
+	public TitledBorder getTitledBorder() {
+
+		if (this.getBorder() instanceof CompoundBorder
+				&& ((CompoundBorder) this.getBorder())
+						.getOutsideBorder() instanceof TitledBorder){
+			return ((TitledBorder) ((CompoundBorder) this.getBorder())
+					.getOutsideBorder());
+		}
+		
+		return null;
 	}
 
 	/**

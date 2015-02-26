@@ -40,6 +40,7 @@ public class GroovePanel extends PersonalJPanel {
 
 		populateWestPanel(westPanel);
 		this.add(westPanel, BorderLayout.WEST);
+		
 		grooveBox.initGrooveBox();
 		this.add(new JScrollPane(grooveBox), BorderLayout.CENTER);
 	}
@@ -59,14 +60,12 @@ public class GroovePanel extends PersonalJPanel {
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-		final PlayAndPauseSpace play = new PlayAndPauseSpace(PersonalJButton.PLAY_IMG);
-		play.setBorder(PersonalJButton.getCompoundTitledBorder("Play"));
-		
-		play.addActionListener(new PlayAndPauseSpace.PlayListener(play));		
+		final PlaySpace play = new PlaySpace(PersonalJButton.PLAY_IMG);
+		play.showTitle("Play");
 		
 		final PersonalJButton loop = new PersonalJButton(
 				PersonalJButton.LOOP_OFF_IMG, "off");
-		loop.setBorder(PersonalJButton.getCompoundTitledBorder("Loop"));
+		loop.showTitle("Loop");
 		
 		loop.addActionListener(new ActionListener() {
 

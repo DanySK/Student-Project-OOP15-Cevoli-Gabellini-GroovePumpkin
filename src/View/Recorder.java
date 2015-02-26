@@ -28,9 +28,9 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
-		final PlayAndPauseSpace rps = new PlayAndPauseSpace(PersonalJButton.PAUSE_IMG);
+		final PlaySpace rps = new PlaySpace(PersonalJButton.PAUSE_IMG);
 		rps.setButtonEnabled(false);
-		rps.showTitle(PlayAndPauseSpace.PAUSE);
+		rps.showTitle(PlaySpace.PAUSE);
 		
 		mainPanel.add(new RecSpace(rps));
 		mainPanel.add(rps);

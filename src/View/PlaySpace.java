@@ -27,7 +27,7 @@ import javax.swing.border.TitledBorder;
  *
  */
 @SuppressWarnings("unused")
-public class PlayAndPauseSpace extends AbstractCompositeJSpace {
+public class PlaySpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -8958765355776362631L;
 
@@ -41,7 +41,7 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 	 * @param buttonEnabled
 	 *            if the button have to be enabled or not
 	 */
-	public PlayAndPauseSpace(final ImageIcon img) {
+	public PlaySpace(final ImageIcon img) {
 
 		super(img);
 		this.addActionListener(new PlayListener(this));
@@ -60,7 +60,7 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 	 * @return if the song is pause or is running
 	 */
 	public boolean isPaused() {
-		return super.getTitle().equals(PLAY);
+		return super.getID().equals(PLAY);
 	}
 
 	/**
@@ -73,46 +73,32 @@ public class PlayAndPauseSpace extends AbstractCompositeJSpace {
 	}
 
 	public static class PlayListener implements ActionListener {
-		private TitledBorder label;
-		private PersonalJButton play;
+		
+		private PlaySpace play;
 
-		public PlayListener(final PersonalJButton play) {
+		public PlayListener(final PlaySpace play) {
 			this.play = play;
-
-			if (play.getBorder() instanceof CompoundBorder
-					&& ((CompoundBorder) play.getBorder()).getOutsideBorder() instanceof TitledBorder) {
-				this.label = (TitledBorder) ((CompoundBorder) play.getBorder())
-						.getOutsideBorder();
-			}
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (label == null) {
-
-				if (play.getID().equals(PAUSE)) {
-					play.setID(PLAY);
-					play.setIcon(PersonalJButton.PLAY_IMG);
-					// pause the recording
-				} else {
-					play.setID(PAUSE);
-					play.setIcon(PersonalJButton.PAUSE_IMG);
-					// restart the recording
+			if (play.getID().equals(PLAY)) {
+				System.out.println("OK");
+				play.setID(PAUSE);
+				if (play.getTitledBorder() != null) {
+					play.getTitledBorder().setTitle(PAUSE);
 				}
-
+				play.setIcon(PersonalJButton.PAUSE_IMG);
+				// start 
 			} else {
-
-				if (label.getTitle().equals(PAUSE)) {
-					label.setTitle(PLAY);
-					play.setIcon(PersonalJButton.PLAY_IMG);
-					// pause the recording
-				} else {
-					label.setTitle(PAUSE);
-					play.setIcon(PersonalJButton.PAUSE_IMG);
-					// restart the recording
+				System.out.println("OoK");
+				play.setID(PLAY);
+				if (play.getTitledBorder() != null) {
+					play.getTitledBorder().setTitle(PLAY);
 				}
-
+				play.setIcon(PersonalJButton.PLAY_IMG);
+				// pause
 			}
 		}
 	}

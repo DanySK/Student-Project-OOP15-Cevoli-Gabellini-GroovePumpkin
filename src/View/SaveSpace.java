@@ -25,7 +25,7 @@ import javax.swing.border.Border;
  *
  */
 @SuppressWarnings("unused")
-public class SaveSpace extends AbstractCompositeJSpace {
+public class SaveSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String LABEL= "Save";

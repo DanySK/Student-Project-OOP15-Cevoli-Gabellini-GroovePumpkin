@@ -21,13 +21,13 @@ import javax.swing.border.TitledBorder;
  *
  */
 @SuppressWarnings("unused")
-public class RecSpace extends AbstractCompositeJSpace {
+public class RecSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -2653526539862883988L;
 	public static final String REC = "Rec";
 	public static final String STOP = "Stop";
 
-	public RecSpace(final PlayAndPauseSpace rps) {
+	public RecSpace(final PlaySpace rps) {
 
 		super(PersonalJButton.REC_IMG);
 		this.showTitle(REC);
@@ -36,36 +36,33 @@ public class RecSpace extends AbstractCompositeJSpace {
 	}
 
 	public boolean isRecording() {
-		return super.getTitle().equals("Stop");
+		return super.getTitledBorder().getTitle().equals("Stop");
 	}
 
 	public static class RECListener implements ActionListener {
 
 		private PersonalJButton rec;
-		private PlayAndPauseSpace rps;
-		private TitledBorder label;
+		private PlaySpace rps;
+		
 
 		public RECListener(final PersonalJButton rec,
-				final PlayAndPauseSpace rps) {
+				final PlaySpace rps) {
 			this.rec = rec;
 			this.rps = rps;
-
-			this.label = (TitledBorder) ((CompoundBorder) rec.getBorder())
-					.getOutsideBorder();
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (label.getTitle().equals(REC)) {
-				label.setTitle(STOP);
+			if (rec.getTitledBorder().getTitle().equals(REC)) {
+				rec.getTitledBorder().setTitle(STOP);
 				rec.setIcon(PersonalJButton.STOP_IMG);
 				rps.setEnabled(true);
 
 				// start recording the sound
 
 			} else {
-				label.setTitle(REC);
+				rec.getTitledBorder().setTitle(REC);
 				rec.setIcon(PersonalJButton.REC_IMG);
 				rps.getTitledBorder().setTitle("Pause");
 				rps.setIcon(PersonalJButton.PAUSE_IMG);

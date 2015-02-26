@@ -1,10 +1,8 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.lang.management.GarbageCollectorMXBean;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class
@@ -12,7 +10,6 @@ import javax.swing.JTabbedPane;
  * @author Alessandro
  *
  */
-@SuppressWarnings("unused")
 public class SoundTab extends JTabbedPane {
 
 	private static final long serialVersionUID = 5184587254735736323L;
@@ -23,7 +20,15 @@ public class SoundTab extends JTabbedPane {
 		
 		super(JTabbedPane.TOP);
 		
-		final PlayPanel play= new PlayPanel();
+		final PersonalJPanel play= new PersonalJPanel(new BorderLayout());
+		
+		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				new CompositeWestPanel(), new CompositeEastPanel());
+		splitter.setBackground(WHITE);
+		splitter.setForeground(GRAY);
+		splitter.setContinuousLayout(true);
+		
+		play.add(splitter);
 		this.add("Play Music", play);
 		
 		final GroovePanel grooveBox= new GroovePanel();
