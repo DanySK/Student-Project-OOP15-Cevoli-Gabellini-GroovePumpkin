@@ -13,8 +13,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
+import Model.BetaGrooveValues;
 import Model.GrooveTableModel;
-import Model.GrooveValues;
 
 /**
  * The Class that implements the groovebox
@@ -26,35 +26,34 @@ import Model.GrooveValues;
 public class GrooveBox extends JTable {
 
 	private static final long serialVersionUID = -7907789613027061207L;
-	public static final TableModel TABLEMODEL = new GrooveTableModel();
-	
-	private int row=0;
-	private int col=0;
-	
+	private GrooveTableModel tableModel;
+
+	private int row = 0;
+	private int col = 0;
+
 	public GrooveBox(final TableModel tm) {
 		super(tm);
+		tableModel = (GrooveTableModel) tm;
 	}
-	
-	
-	public int getRow(){
+
+	public int getRow() {
 		return row;
 	}
-	
-	public int getColumn(){
+
+	public int getColumn() {
 		return col;
 	}
-	
-	public void setRow(final int row){
-		this.row=row;
+
+	public void setRow(final int row) {
+		this.row = row;
 	}
-	
-	public void setColumn(final int col){
-		this.col=col;
+
+	public void setColumn(final int col) {
+		this.col = col;
 	}
-	
-	public void initGrooveBox(){
-		this.getColumn(GrooveTableModel.GrooveTimeValues[0]).setMinWidth(
-				120);
+
+	public void initGrooveBox() {
+		this.getColumn(BetaGrooveValues.GROOVE_TIME_VALUES[0]).setMinWidth(120);
 
 		// Thank you STACKOVERFLOW <3
 		this.getTableHeader().setReorderingAllowed(false);
@@ -64,7 +63,7 @@ public class GrooveBox extends JTable {
 		this.getTableHeader().setBorder(
 				new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),
 						new EmptyBorder(5, 5, 5, 5)));
-		
+
 		this.setGridColor(PersonalJPanel.GRAY);
 		this.setForeground(Color.RED);
 
@@ -73,11 +72,11 @@ public class GrooveBox extends JTable {
 			private static final long serialVersionUID = -5252083106955434257L;
 
 			public void setValue(Object value) {
-				setBackground(Color.WHITE);
+				setBackground((Color) value);
 			}
 		};
 
-		for (int i = 1; i < GrooveTableModel.GrooveTimeValues.length; i++) {
+		for (int i = 1; i < BetaGrooveValues.GROOVE_TIME_VALUES.length; i++) {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 
@@ -104,18 +103,24 @@ public class GrooveBox extends JTable {
 						}
 
 						if (GrooveBox.this.getColumn() != 0) {
-							Color c = GrooveValues.values()[GrooveBox.this.getRow()]
+							Color c = tableModel.getList()
+									.get(GrooveBox.this.getRow())
 									.getColor(GrooveBox.this.getColumn() - 1);
 							if (c.equals(Color.WHITE)) {
-								GrooveValues.values()[GrooveBox.this.getRow()].setColor(
-										GrooveValues.getRandomColor(), GrooveBox.this.getColumn() - 1);
+								tableModel.getList()
+										.get(GrooveBox.this.getRow())
+										.setColor(BetaGrooveValues.getRandomColor(),
+												GrooveBox.this.getColumn() - 1);
 							} else {
-								GrooveValues.values()[GrooveBox.this.getRow()].setColor(
-										Color.WHITE, GrooveBox.this.getColumn() - 1);
+								tableModel.getList()
+										.get(GrooveBox.this.getRow())
+										.setColor(Color.WHITE,
+												GrooveBox.this.getColumn() - 1);
 							}
 						}
 
-						GrooveBox.this.tableChanged(new TableModelEvent(GrooveBox.TABLEMODEL));
+						GrooveBox.this.tableChanged(new TableModelEvent(
+								tableModel));
 					}
 				});
 

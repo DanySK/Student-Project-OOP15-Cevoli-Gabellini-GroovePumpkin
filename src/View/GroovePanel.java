@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+
+import Model.BetaGrooveValues;
+import Model.GrooveTableModel;
 
 
 /**
@@ -26,7 +30,8 @@ public class GroovePanel extends PersonalJPanel {
 			140d, 160d, 180d };
 
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
-	private final GrooveBox grooveBox = new GrooveBox(GrooveBox.TABLEMODEL);
+	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(BetaGrooveValues.
+			initAListOfValues(new ArrayList<BetaGrooveValues>(50))));
 	
 	public GroovePanel() {
 		super(new BorderLayout(5, 5));

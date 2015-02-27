@@ -11,12 +11,43 @@ import java.util.Random;
  * @author Alessandro
  *
  */
-public enum GrooveValues {
+public class BetaGrooveValues {
+	
+	/**
+	 * This enum rapresent the default values that can be used with the groovebox
+	 * 
+	 */
+	static enum Values{
+		ACOUSTICBASSDRUM("Acoustic bass drum", 0), BASSDRUM1("Bass drum 1", 1), SIDESTICK(
+				"Side stick", 2), ACOUSTICSNARE("Acoustic snare", 3), ELECTRICSNARE(
+				"Hand clap", 4), LOWFLOORTOM("Electric snare", 5), CLOSEDHITHAT(
+				"Low floor tom", 6);
+		
+		private final String instrument;
+		private final Integer id;
+		
+		private Values(final String instrument, final int id) {
+			this.instrument = instrument;
+			this.id = id;
+		}
+		
+		/**
+		 * 
+		 * @return the main identifier for this object
+		 */
+		public String getInstrument() {
+			return new String(instrument);
+		}
+		
+		/**
+		 * @return the ID of this object
+		 */
 
-	ACOUSTICBASSDRUM("Acoustic bass drum", 0), BASSDRUM1("Bass drum 1", 1), SIDESTICK(
-			"Side stick", 2), ACOUSTICSNARE("Acoustic snare", 3), ELECTRICSNARE(
-			"Hand clap", 4), LOWFLOORTOM("Electric snare", 5), CLOSEDHITHAT(
-			"Low floor tom", 6);
+		public Integer getID() {
+			return new Integer(id);
+		}
+		
+	}
 	
 	/**
 	 * 
@@ -34,43 +65,28 @@ public enum GrooveValues {
 		"6", "A", "B", "C", "7", "A", "B", "C", 
 		"8", "A", "B", "C", "9", "A", "B", "C"};
 	
+	/* This list rapresent the row of the groovebox, 
+	 * <White>= unactive; 
+	 * <Colored>= active;
+	 * 
+	 * The position inside the list rapresent the time quantum 
+	 * when the effect have to be played (40 should be approsimatively 5 sec)
+	 */
 	private final List<Color> colors = new ArrayList<Color>(40);
-	private String instrument;
+	
 	private String name = "";
-
-	private Integer id;
-
-	private GrooveValues(final String instrument, final int id) {
-		this.instrument = instrument;
-		this.id = id;
+	
+	public BetaGrooveValues() {
 
 		for (int i = 0; i < 40; i++) {
 			colors.add(Color.WHITE);
-			// System.out.println(colors.size());
 		}
 	}
 
 	private void checkBounds(final int index) {
-		// System.out.println(index);
 		if (index >= colors.size()) {
 			throw new IndexOutOfBoundsException();
 		}
-	}
-
-	/**
-	 * 
-	 * @return the main identifier for this object
-	 */
-	public String getInstrument() {
-		return new String(instrument);
-	}
-
-	/**
-	 * 
-	 * @return the alternative identifier for this object
-	 */
-	public String getName() {
-		return new String(name);
 	}
 
 	/**
@@ -81,13 +97,13 @@ public enum GrooveValues {
 		checkBounds(index);
 		return colors.get(index);
 	}
-
+	
 	/**
-	 * @return the ID of this object
+	 * 
+	 * @return the identifier for this object
 	 */
-
-	public Integer getID() {
-		return new Integer(id);
+	public String getName() {
+		return new String(name);
 	}
 
 	/**
@@ -103,15 +119,25 @@ public enum GrooveValues {
 		checkBounds(index);
 		colors.set(index, c);
 	}
-
+	
 	/**
-	 * set a alternative indentifier for this object
+	 * set a indentifier for this object
 	 * 
 	 * @param name
 	 */
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+	
+	public static List<BetaGrooveValues> initAListOfValues(final List<BetaGrooveValues> list){
+		
+		for(int i=0; i<Values.values().length; i++){
+			
+			list.add(new BetaGrooveValues());
+		}
+		
+		return list;
 	}
 
 	/**
@@ -121,9 +147,10 @@ public enum GrooveValues {
 	 */
 	public static Color getRandomColor() {
 		final Random rnd = new Random();
-		int c = rnd.nextInt() % 3;
+		int c = rnd.nextInt() % 4;
+		
 		return c == 0 ? Color.RED : (c == 1 ? Color.GREEN
-				: (c == 1 ? Color.YELLOW : Color.BLUE));
-
+				: (c == 2 ? Color.YELLOW : Color.BLUE));
+		
 	}
 }
