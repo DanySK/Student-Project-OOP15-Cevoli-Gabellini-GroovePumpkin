@@ -113,17 +113,13 @@ public class CompositeEastPanel extends PersonalJPanel {
 			}
 		});
 		
-		this.stop.setEnabled(false);
-		
 		this.stop.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(CompositeEastPanel.this.play.isPaused()){
-					CompositeEastPanel.this.stop.setEnabled(false);
 					
 				} else{
-					CompositeEastPanel.this.stop.setEnabled(true);
 					
 				}
 			}

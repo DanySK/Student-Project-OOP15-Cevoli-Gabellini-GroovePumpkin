@@ -113,7 +113,7 @@ public enum GrooveValues {
 	public void setName(final String name) {
 		this.name = name;
 	}
-
+	
 	/**
 	 * This utility method create a new random color in RGB
 	 * 

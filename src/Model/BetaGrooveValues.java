@@ -59,11 +59,11 @@ public class BetaGrooveValues {
 	 */
 	public static final String[] GROOVE_TIME_VALUES = new String[]{
 		"-Instruments-",
-		"0", "A", "B", "C", "1", "A", "B", "C", 
-		"2", "A", "B", "C", "3", "A", "B", "C", 
-		"4", "A", "B", "C", "5", "A", "B", "C", 
-		"6", "A", "B", "C", "7", "A", "B", "C", 
-		"8", "A", "B", "C", "9", "A", "B", "C"};
+		"#0", "A", "B", "C", "#1", "A", "B", "C", 
+		"#2", "A", "B", "C", "#3", "A", "B", "C", 
+		"#4", "A", "B", "C", "#5", "A", "B", "C", 
+		"#6", "A", "B", "C", "#7", "A", "B", "C", 
+		"#8", "A", "B", "C", "#9", "A", "B", "C"};
 	
 	/* This list rapresent the row of the groovebox, 
 	 * <White>= unactive; 

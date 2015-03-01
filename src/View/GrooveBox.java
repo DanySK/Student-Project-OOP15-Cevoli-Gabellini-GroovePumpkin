@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Color;
-
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.CompoundBorder;
@@ -28,33 +27,15 @@ public class GrooveBox extends JTable {
 	private static final long serialVersionUID = -7907789613027061207L;
 	private GrooveTableModel tableModel;
 
-	private int row = 0;
-	private int col = 0;
-
 	public GrooveBox(final TableModel tm) {
 		super(tm);
 		tableModel = (GrooveTableModel) tm;
-	}
 
-	public int getRow() {
-		return row;
-	}
-
-	public int getColumn() {
-		return col;
-	}
-
-	public void setRow(final int row) {
-		this.row = row;
-	}
-
-	public void setColumn(final int col) {
-		this.col = col;
-	}
-
-	public void initGrooveBox() {
+		//this.setAutoResizeMode(0);
 		this.getColumn(BetaGrooveValues.GROOVE_TIME_VALUES[0]).setMinWidth(120);
 
+		this.setColumnSelectionAllowed(false);
+		
 		// Thank you STACKOVERFLOW <3
 		this.getTableHeader().setReorderingAllowed(false);
 		this.getTableHeader().setResizingAllowed(false);
@@ -66,6 +47,9 @@ public class GrooveBox extends JTable {
 
 		this.setGridColor(PersonalJPanel.GRAY);
 		this.setForeground(Color.RED);
+	}
+
+	public void initGrooveBox() {
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 
@@ -80,49 +64,41 @@ public class GrooveBox extends JTable {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 
-		this.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener() {
-					public void valueChanged(ListSelectionEvent e) {
-						ListSelectionModel sm = (ListSelectionModel) e
-								.getSource();
-
-						if (!sm.isSelectionEmpty()) {
-							GrooveBox.this.setRow(sm.getMinSelectionIndex());
-						}
-					}
-				});
-
+		// Handle the changes of colours in the columns of the GrooveBox
 		this.getColumnModel().getSelectionModel()
 				.addListSelectionListener(new ListSelectionListener() {
+					@Override
 					public void valueChanged(ListSelectionEvent e) {
-						ListSelectionModel sm = (ListSelectionModel) e
-								.getSource();
-
-						if (!sm.isSelectionEmpty()) {
-							GrooveBox.this.setColumn(sm.getMinSelectionIndex());
-						}
-
-						if (GrooveBox.this.getColumn() != 0) {
-							Color c = tableModel.getList()
-									.get(GrooveBox.this.getRow())
-									.getColor(GrooveBox.this.getColumn() - 1);
+						
+						if (this.getColumn() != 0) {
+							
+							Color c = tableModel.getList().get(this.getRow())
+									.getColor(this.getColumn() - 1);
+							
 							if (c.equals(Color.WHITE)) {
-								tableModel.getList()
-										.get(GrooveBox.this.getRow())
-										.setColor(BetaGrooveValues.getRandomColor(),
-												GrooveBox.this.getColumn() - 1);
+								tableModel.getList().get(this.getRow())
+										.setColor(BetaGrooveValues.getRandomColor(), this.getColumn() - 1);
 							} else {
-								tableModel.getList()
-										.get(GrooveBox.this.getRow())
-										.setColor(Color.WHITE,
-												GrooveBox.this.getColumn() - 1);
+								tableModel
+										.getList().get(this.getRow())
+										.setColor(Color.WHITE, this.getColumn() - 1);
 							}
-						}
 
-						GrooveBox.this.tableChanged(new TableModelEvent(
-								tableModel));
+							GrooveBox.this.tableChanged(new TableModelEvent(
+									tableModel));
+						}
 					}
+					
+					private int getRow(){
+						return GrooveBox.this.getSelectedRow()< 0 ? 0 : GrooveBox.this.getSelectedRow();
+					}
+					
+					private int getColumn(){
+						return GrooveBox.this.getSelectedColumn()< 0 ? 0 : GrooveBox.this.getSelectedColumn();
+					}
+					
 				});
 
+		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 }
