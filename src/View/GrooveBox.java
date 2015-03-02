@@ -12,7 +12,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import Model.BetaGrooveValues;
+import Model.GrooveValues;
 import Model.GrooveTableModel;
 
 /**
@@ -32,13 +32,14 @@ public class GrooveBox extends JTable {
 		tableModel = (GrooveTableModel) tm;
 
 		//this.setAutoResizeMode(0);
-		this.getColumn(BetaGrooveValues.GROOVE_TIME_VALUES[0]).setMinWidth(120);
-
+		this.getColumn(GrooveValues.GROOVE_TIME_VALUES[0]).setMinWidth(120);
+		this.setRowHeight(25);
 		this.setColumnSelectionAllowed(false);
 		
 		// Thank you STACKOVERFLOW <3
 		this.getTableHeader().setReorderingAllowed(false);
 		this.getTableHeader().setResizingAllowed(false);
+		
 		this.getTableHeader().setBackground(PersonalJPanel.GRAY);
 		this.getTableHeader().setForeground(Color.WHITE);
 		this.getTableHeader().setBorder(
@@ -60,7 +61,7 @@ public class GrooveBox extends JTable {
 			}
 		};
 
-		for (int i = 1; i < BetaGrooveValues.GROOVE_TIME_VALUES.length; i++) {
+		for (int i = 1; i < GrooveValues.GROOVE_TIME_VALUES.length; i++) {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 
@@ -72,12 +73,12 @@ public class GrooveBox extends JTable {
 						
 						if (this.getColumn() != 0) {
 							
-							Color c = tableModel.getList().get(this.getRow())
+							Color clr = tableModel.getList().get(this.getRow())
 									.getColor(this.getColumn() - 1);
 							
-							if (c.equals(Color.WHITE)) {
+							if (clr.equals(Color.WHITE)) {
 								tableModel.getList().get(this.getRow())
-										.setColor(BetaGrooveValues.getRandomColor(), this.getColumn() - 1);
+										.setColor(GrooveValues.getRandomColor(this.getRow()), this.getColumn() - 1);
 							} else {
 								tableModel
 										.getList().get(this.getRow())

@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import Model.BetaGrooveValues;
+import Model.GrooveValues;
 import Model.GrooveTableModel;
 
 
@@ -30,8 +30,8 @@ public class GroovePanel extends PersonalJPanel {
 			140d, 160d, 180d };
 
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
-	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(BetaGrooveValues.
-			initAListOfValues(new ArrayList<BetaGrooveValues>(50))));
+	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
+			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
 	
 	public GroovePanel() {
 		super(new BorderLayout(5, 5));

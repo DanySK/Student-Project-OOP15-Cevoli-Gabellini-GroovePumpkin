@@ -1,14 +1,9 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
@@ -16,7 +11,6 @@ import javax.swing.JTabbedPane;
  * @author Alessandro
  *
  */
-@SuppressWarnings("unused")
 public class SoundFrame extends JFrame {
 
 	private static final long serialVersionUID = 8764967532381350730L;
@@ -47,6 +41,7 @@ public class SoundFrame extends JFrame {
 		mainPanel.add(tabbedPane, BorderLayout.CENTER);
 
 		this.setContentPane(mainPanel);
+		this.pack();
 		this.setVisible(true);
 	}
 

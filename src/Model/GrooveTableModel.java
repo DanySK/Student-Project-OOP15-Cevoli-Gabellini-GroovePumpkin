@@ -10,8 +10,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import Model.GrooveValues;
-
 /**
  * This class is a specialized Table Model for the groove box
  * 
@@ -24,35 +22,35 @@ public class GrooveTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -8015327194349106508L;
 
-	private List<BetaGrooveValues> grooveValues;
+	private List<GrooveValues> grooveValues;
 	
-	public GrooveTableModel(final List<BetaGrooveValues> list) {
+	public GrooveTableModel(final List<GrooveValues> list) {
 		grooveValues= list;
 	}
 	
 	@Override
 	public int getRowCount() {
 
-		return BetaGrooveValues.Values.values().length;
+		return GrooveValues.DefaultValues.values().length;
 	}
 
 	@Override
 	public int getColumnCount() {
 
-		return BetaGrooveValues.GROOVE_TIME_VALUES.length;
+		return GrooveValues.GROOVE_TIME_VALUES.length;
 	}
 
 	@Override
 	public String getColumnName(int column) {
 
-		return BetaGrooveValues.GROOVE_TIME_VALUES[column];
+		return GrooveValues.GROOVE_TIME_VALUES[column];
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 
 		if (columnIndex == 0) {
-			return BetaGrooveValues.Values.values()[rowIndex].getInstrument();
+			return GrooveValues.DefaultValues.values()[rowIndex].getInstrument();
 		}
 
 		return grooveValues.get(rowIndex).getColor(columnIndex-1);
@@ -82,7 +80,7 @@ public class GrooveTableModel extends AbstractTableModel {
 		}
 	}
 	
-	public List<BetaGrooveValues> getList(){
+	public List<GrooveValues> getList(){
 		return grooveValues;
 	}
 

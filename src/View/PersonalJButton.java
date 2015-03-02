@@ -45,6 +45,9 @@ public class PersonalJButton extends JButton {
 			+ System.getProperty("file.separator") + "loop_GREEN.png");
 	public static final ImageIcon LOOP_OFF_IMG = new ImageIcon("data"
 			+ System.getProperty("file.separator") + "loop_RED.png");
+	public static final ImageIcon SHUFFLE_IMG = new ImageIcon("data"
+			+ System.getProperty("file.separator") + "shuffle.png");
+	
 
 	private String id = new String("");
 
@@ -63,8 +66,7 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * @param text
-	 *            to be applied to setText(text)
+	 * @param text to be shown upon the button
 	 */
 	public PersonalJButton(final String text) {
 		this();
@@ -72,8 +74,7 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * @param img
-	 *            to be applied to the button
+	 * @param img to be applied to the button
 	 */
 	public PersonalJButton(final ImageIcon img) {
 		this();
@@ -81,10 +82,8 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * @param img
-	 *            to be applied to the button
-	 * @param name
-	 *            to be associated to the button
+	 * @param img to be applied to the button
+	 * @param ID to be associated to the button
 	 */
 	public PersonalJButton(final ImageIcon img, final String id) {
 		this(img);
@@ -134,8 +133,7 @@ public class PersonalJButton extends JButton {
 	}
 
 	/**
-	 * @param newID
-	 *            the new ID to be associated with this button
+	 * @param newID the new ID to be associated with this button
 	 */
 	public void setID(final String newID) {
 		this.id = newID;
