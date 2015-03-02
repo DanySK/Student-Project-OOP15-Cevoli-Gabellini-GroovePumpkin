@@ -49,7 +49,7 @@ public class PersonalJButton extends JButton {
 			+ System.getProperty("file.separator") + "shuffle.png");
 	
 
-	private String id = new String("");
+	private String id = "";
 
 	/**
 	 * Basic constructor for the personal JButton

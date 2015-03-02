@@ -49,7 +49,9 @@ public class GrooveBox extends JTable {
 		this.setGridColor(PersonalJPanel.GRAY);
 		this.setForeground(Color.RED);
 	}
-
+	/**
+	 * 
+	 */
 	public void initGrooveBox() {
 
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
@@ -64,29 +66,32 @@ public class GrooveBox extends JTable {
 		for (int i = 1; i < GrooveValues.GROOVE_TIME_VALUES.length; i++) {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
-
+		
+		
 		// Handle the changes of colours in the columns of the GrooveBox
 		this.getColumnModel().getSelectionModel()
 				.addListSelectionListener(new ListSelectionListener() {
 					@Override
 					public void valueChanged(ListSelectionEvent e) {
 						
-						if (this.getColumn() != 0) {
-							
-							Color clr = tableModel.getList().get(this.getRow())
-									.getColor(this.getColumn() - 1);
-							
-							if (clr.equals(Color.WHITE)) {
-								tableModel.getList().get(this.getRow())
-										.setColor(GrooveValues.getRandomColor(this.getRow()), this.getColumn() - 1);
-							} else {
-								tableModel
-										.getList().get(this.getRow())
-										.setColor(Color.WHITE, this.getColumn() - 1);
-							}
+						if(!e.getValueIsAdjusting()){
+							if (this.getColumn() != 0) {
+								
+								Color clr = tableModel.getList().get(this.getRow())
+										.getColor(this.getColumn() - 1);
+								
+								if (clr.equals(Color.WHITE)) {
+									tableModel.getList().get(this.getRow())
+											.setColor(GrooveValues.getRandomColor(this.getRow()), this.getColumn() - 1);
+								} else {
+									tableModel
+											.getList().get(this.getRow())
+											.setColor(Color.WHITE, this.getColumn() - 1);
+								}
 
-							GrooveBox.this.tableChanged(new TableModelEvent(
-									tableModel));
+								GrooveBox.this.tableChanged(new TableModelEvent(
+										tableModel));
+							}
 						}
 					}
 					
@@ -99,7 +104,7 @@ public class GrooveBox extends JTable {
 					}
 					
 				});
-
+		
 		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 }

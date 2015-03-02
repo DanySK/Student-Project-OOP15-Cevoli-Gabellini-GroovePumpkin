@@ -10,7 +10,7 @@ import java.util.List;
  * @author Alessandro
  *
  */
-public class GrooveValues {
+public final class GrooveValues {
 	
 	/**
 	 * This enum rapresent the default values that can be used with the groovebox
@@ -35,7 +35,7 @@ public class GrooveValues {
 		 * @return the main identifier for this object
 		 */
 		public String getInstrument() {
-			return new String(instrument);
+			return instrument;
 		}
 		
 		/**
@@ -43,7 +43,7 @@ public class GrooveValues {
 		 */
 
 		public Integer getID() {
-			return new Integer(id);
+			return id;
 		}
 		
 	}
@@ -71,13 +71,13 @@ public class GrooveValues {
 	 * The position inside the list rapresent the time quantum 
 	 * when the effect have to be played (40 should be approsimatively 5 sec)
 	 */
-	private final List<Color> colors = new ArrayList<Color>(40);
+	private final List<Color> colors = new ArrayList<Color>(GROOVE_TIME_VALUES.length);
 	
 	private String name = "";
 	
 	private GrooveValues() {
 
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < GROOVE_TIME_VALUES.length; i++) {
 			colors.add(Color.WHITE);
 		}
 	}
@@ -102,7 +102,7 @@ public class GrooveValues {
 	 * @return the identifier for this object
 	 */
 	public String getName() {
-		return new String(name);
+		return name;
 	}
 
 	/**
@@ -122,7 +122,6 @@ public class GrooveValues {
 	 * 
 	 * @param name
 	 */
-
 	public void setName(final String name) {
 		this.name = name;
 	}
@@ -139,7 +138,7 @@ public class GrooveValues {
 
 	/**
 	 * This utility method create a new random color in RGB
-	 * 
+	 * @param row the row selected
 	 * @return a new random Color
 	 */
 	public static Color getRandomColor(final int row) {

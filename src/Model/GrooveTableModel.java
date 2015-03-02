@@ -24,8 +24,12 @@ public class GrooveTableModel extends AbstractTableModel {
 
 	private List<GrooveValues> grooveValues;
 	
+	/**
+	 * 
+	 * @param list
+	 */
 	public GrooveTableModel(final List<GrooveValues> list) {
-		grooveValues= list;
+		grooveValues=list;
 	}
 	
 	@Override
@@ -41,13 +45,13 @@ public class GrooveTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public String getColumnName(int column) {
+	public String getColumnName(final int column) {
 
 		return GrooveValues.GROOVE_TIME_VALUES[column];
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
+	public Object getValueAt(final int rowIndex,final int columnIndex) {
 
 		if (columnIndex == 0) {
 			return GrooveValues.DefaultValues.values()[rowIndex].getInstrument();
@@ -57,20 +61,20 @@ public class GrooveTableModel extends AbstractTableModel {
 	}
 	
 	@Override
-	public Class<?> getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(final int columnIndex) {
 		
 		return getValueAt(0, columnIndex).getClass();
 	}
 
 	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
+	public boolean isCellEditable(final int rowIndex,final int columnIndex) {
 
 		return columnIndex == 0 ? false : true;
 
 	}
 
 	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+	public void setValueAt(final Object aValue,final int rowIndex,final int columnIndex) {
 		if (rowIndex != 0) {
 			if (columnIndex == 0) {
 				grooveValues.get(rowIndex).setName((String) aValue);
@@ -80,6 +84,10 @@ public class GrooveTableModel extends AbstractTableModel {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public List<GrooveValues> getList(){
 		return grooveValues;
 	}
