@@ -51,36 +51,24 @@ public class GrooveTableModel extends AbstractTableModel {
 	}
 
 	@Override
-	public Object getValueAt(final int rowIndex,final int columnIndex) {
+	public Object getValueAt(final int rowIndex, final int columnIndex) {
 
 		if (columnIndex == 0) {
 			return GrooveValues.DefaultValues.values()[rowIndex].getInstrument();
+		} else{
+			return grooveValues.get(rowIndex).getColor(columnIndex-1);
 		}
-
-		return grooveValues.get(rowIndex).getColor(columnIndex-1);
-	}
-	
-	@Override
-	public Class<?> getColumnClass(final int columnIndex) {
-		
-		return getValueAt(0, columnIndex).getClass();
 	}
 
 	@Override
-	public boolean isCellEditable(final int rowIndex,final int columnIndex) {
-
-		return columnIndex == 0 ? false : true;
-
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+		return false;
 	}
 
 	@Override
-	public void setValueAt(final Object aValue,final int rowIndex,final int columnIndex) {
-		if (rowIndex != 0) {
-			if (columnIndex == 0) {
-				grooveValues.get(rowIndex).setName((String) aValue);
-			} else {
-				grooveValues.get(rowIndex).setColor((Color) aValue, columnIndex-1);
-			}
+	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
+		if (aValue instanceof Color) {
+			grooveValues.get(rowIndex).setColor((Color) aValue, columnIndex-1);
 		}
 	}
 	

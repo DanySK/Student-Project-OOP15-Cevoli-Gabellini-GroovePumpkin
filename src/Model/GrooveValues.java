@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import View.PersonalJPanel;
+
 /**
  * This class rapresent the basic instruments playable into the groovebox
  * 
@@ -73,9 +75,11 @@ public final class GrooveValues {
 	 */
 	private final List<Color> colors = new ArrayList<Color>(GROOVE_TIME_VALUES.length);
 	
-	private String name = "";
+	private String instr;
 	
-	private GrooveValues() {
+	private GrooveValues(final String instr) {
+		
+		this.instr=instr;
 
 		for (int i = 0; i < GROOVE_TIME_VALUES.length; i++) {
 			colors.add(Color.WHITE);
@@ -102,7 +106,7 @@ public final class GrooveValues {
 	 * @return the identifier for this object
 	 */
 	public String getName() {
-		return name;
+		return instr;
 	}
 
 	/**
@@ -123,27 +127,39 @@ public final class GrooveValues {
 	 * @param name
 	 */
 	public void setName(final String name) {
-		this.name = name;
+		this.instr = name;
 	}
 	
 	public static List<GrooveValues> initAGrooveBoxList(final List<GrooveValues> list){
 		
 		for(int i=0; i<DefaultValues.values().length; i++){
 			
-			list.add(new GrooveValues());
+			list.add(new GrooveValues(DefaultValues.values()[i].getInstrument()));
 		}
 		
 		return list;
 	}
+	
+	/**
+	 * 
+	 * @param list the groovebox where will be added the tone
+	 * @param def the tone to be added
+	 */
+	public static void addAGrooveSoundToTheList(final List<GrooveValues> list, final DefaultValues def){
+		
+		list.add(new GrooveValues(def.instrument));
+		
+	}
 
 	/**
-	 * This utility method create a new random color in RGB
+	 * This utility method create a color based on the given row
 	 * @param row the row selected
 	 * @return a new random Color
 	 */
-	public static Color getRandomColor(final int row) {
+	public static Color getRowColor(final int row) {
 		
-		return row%2==0 ? Color.ORANGE : Color.DARK_GRAY;
+		//return new Color(row*255/DefaultValues.values().length);
+		return row%2==0 ? new Color(255, 85, 0) : PersonalJPanel.GRAY;
 		
 	}
 }
