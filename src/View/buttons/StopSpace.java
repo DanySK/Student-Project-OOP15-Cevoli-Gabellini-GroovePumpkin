@@ -1,4 +1,4 @@
-package View;
+package View.buttons;
 
 public class StopSpace extends PersonalJButton {
 

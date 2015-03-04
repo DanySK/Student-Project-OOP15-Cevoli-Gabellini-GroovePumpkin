@@ -11,6 +11,11 @@ import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import View.buttons.LoopSpace;
+import View.buttons.PersonalJButton;
+import View.buttons.PlaySpace;
+import View.buttons.StopSpace;
+
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
  * and pausing of a choosen song.

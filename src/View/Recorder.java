@@ -3,9 +3,15 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+
+import View.buttons.PersonalJButton;
+import View.buttons.PlaySpace;
+import View.buttons.RecSpace;
+import View.buttons.SaveSpace;
 /**
  * 
  * @author Alessandro

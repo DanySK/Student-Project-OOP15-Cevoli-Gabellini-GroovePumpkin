@@ -14,6 +14,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableModel;
 
 import Model.PlaylistTableModel;
+import View.buttons.PersonalJButton;
 
 /**
  * Personalized Panel for the PlayBackPanel class, 

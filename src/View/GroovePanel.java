@@ -11,6 +11,10 @@ import javax.swing.JScrollPane;
 
 import Model.GrooveValues;
 import Model.GrooveTableModel;
+import View.buttons.LoopSpace;
+import View.buttons.PersonalJButton;
+import View.buttons.PlaySpace;
+import View.buttons.SaveSpace;
 
 
 /**

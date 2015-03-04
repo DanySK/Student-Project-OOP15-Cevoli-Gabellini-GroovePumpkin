@@ -1,4 +1,4 @@
-package View;
+package View.buttons;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
