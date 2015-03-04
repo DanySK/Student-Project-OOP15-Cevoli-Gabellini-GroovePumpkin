@@ -145,6 +145,7 @@ public final class GrooveValues {
 	 * @param list the groovebox where will be added the tone
 	 * @param def the tone to be added
 	 */
+	//Not very useful now, but i'm thinking of making the groovebox expandible
 	public static void addAGrooveSoundToTheList(final List<GrooveValues> list, final DefaultValues def){
 		
 		list.add(new GrooveValues(def.instrument));
@@ -157,7 +158,6 @@ public final class GrooveValues {
 	 * @return a new random Color
 	 */
 	public static Color getRowColor(final int row) {
-		
 		//return new Color(row*255/DefaultValues.values().length);
 		return row%2==0 ? new Color(255, 85, 0) : PersonalJPanel.GRAY;
 		
