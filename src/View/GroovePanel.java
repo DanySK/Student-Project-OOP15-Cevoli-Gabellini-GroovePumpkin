@@ -11,10 +11,7 @@ import javax.swing.JScrollPane;
 
 import Model.GrooveValues;
 import Model.GrooveTableModel;
-import View.buttons.LoopSpace;
-import View.buttons.PersonalJButton;
-import View.buttons.PlaySpace;
-import View.buttons.SaveSpace;
+import View.buttons.ButtonFactory;
 
 
 /**
@@ -65,13 +62,9 @@ public class GroovePanel extends PersonalJPanel {
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-		final PlaySpace play = new PlaySpace(PersonalJButton.PLAY_IMG, true);
-		final LoopSpace loop = new LoopSpace(grooveBox.getGrooveList(), true);
-		final SaveSpace save = new SaveSpace(true);
-		
-		buttonPanel.add(play);
-		buttonPanel.add(loop);
-		buttonPanel.add(save);
+		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
+		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, grooveBox.getGrooveList()));
+		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, null));
 
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 	}

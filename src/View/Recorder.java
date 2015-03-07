@@ -4,14 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
-import View.buttons.PersonalJButton;
-import View.buttons.PlaySpace;
-import View.buttons.RecSpace;
-import View.buttons.SaveSpace;
+import View.buttons.ButtonFactory;
 /**
  * 
  * @author Alessandro
@@ -34,16 +32,16 @@ public class Recorder extends JFrame {
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
-		final PlaySpace rps = new PlaySpace(PersonalJButton.PAUSE_IMG, true);
-		rps.setButtonEnabled(false);
+		final JButton rps = ButtonFactory.createButton(ButtonFactory.PAUSE_BUTTON, true, null);
+		rps.setEnabled(false);
 		
-		mainPanel.add(new RecSpace(rps));
+		mainPanel.add(ButtonFactory.createButton(ButtonFactory.REC_BUTTON, true, rps));
 		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 
 		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
 	
-		southPanel.add(new SaveSpace(true));
+		southPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, null));
 
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);

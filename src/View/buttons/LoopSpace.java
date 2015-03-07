@@ -9,7 +9,7 @@ public class LoopSpace extends PersonalJButton {
 	public static final String OFF= "Off";
 	public static final String ON= "On";
 	
-	public LoopSpace(final List<?> playlist, final boolean showTitle) {
+	protected LoopSpace(final List<?> playlist, final boolean showTitle) {
 		super(PersonalJButton.LOOP_OFF_IMG, OFF);
 		
 		if(showTitle){

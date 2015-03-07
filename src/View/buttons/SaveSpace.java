@@ -13,7 +13,7 @@ public class SaveSpace extends PersonalJButton {
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String LABEL = "Save";
 
-	public SaveSpace(final boolean showLabel) {
+	protected SaveSpace(final boolean showLabel) {
 
 		super(PersonalJButton.SAVE_IMG);
 

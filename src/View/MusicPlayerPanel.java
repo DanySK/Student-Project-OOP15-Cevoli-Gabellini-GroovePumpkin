@@ -6,14 +6,14 @@ import java.io.File;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import View.buttons.LoopSpace;
+import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
-import View.buttons.PlaySpace;
 import View.buttons.StopSpace;
 
 /**
@@ -28,8 +28,7 @@ public class MusicPlayerPanel extends PersonalJPanel {
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
-	private final PlaySpace play = new PlaySpace(PersonalJButton.PLAY_IMG, false);
-	private final StopSpace stop = new StopSpace(play, false);
+	private final JButton play = ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, null);
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
 
 	public MusicPlayerPanel(final List<File> playlist) {
@@ -45,8 +44,8 @@ public class MusicPlayerPanel extends PersonalJPanel {
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		east.add(new LoopSpace(playlist, false));
-		east.add(stop);
+		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, playlist));
+		east.add((StopSpace) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, play));
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(

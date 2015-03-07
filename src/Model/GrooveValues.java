@@ -159,7 +159,7 @@ public final class GrooveValues {
 	 */
 	public static Color getRowColor(final int row) {
 		//return new Color(row*255/DefaultValues.values().length);
-		return row%2==0 ? new Color(255, 85, 0) : PersonalJPanel.GRAY;
+		return row%2==0 ? PersonalJPanel.ORANGE : PersonalJPanel.GRAY;
 		
 	}
 }

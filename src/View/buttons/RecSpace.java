@@ -12,10 +12,13 @@ public class RecSpace extends PersonalJButton {
 	public static final String REC = "Rec";
 	public static final String STOP = "Stop";
 
-	public RecSpace(final PlaySpace rps) {
+	protected RecSpace(final PlaySpace rps, final boolean showTitle) {
 
 		super(PersonalJButton.REC_IMG);
-		this.showTitle(REC);
+		
+		if(showTitle){
+			this.showTitle(REC);
+		}
 
 		this.addActionListener(e -> {
 

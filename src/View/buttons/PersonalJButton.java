@@ -31,6 +31,7 @@ public class PersonalJButton extends JButton {
 	public static final Color GRAY = new Color(50, 50, 50);
 	public static final Color L_GRAY = new Color(180, 180, 180);
 	public static final Color WHITE = new Color(255, 255, 255);
+	public static final Color ORANGE= new Color(255, 127, 0);
 	
 	/**
 	 * Those are all the Icons applicables over the button
@@ -44,7 +45,6 @@ public class PersonalJButton extends JButton {
 			+ System.getProperty("file.separator") + "FW.png");
 	public static final ImageIcon RW_IMG = new ImageIcon("data"
 			+ System.getProperty("file.separator") + "RW.png");
-
 	public static final ImageIcon SAVE_IMG = new ImageIcon("data"
 			+ System.getProperty("file.separator") + "Save.png");
 	public static final ImageIcon REC_IMG = new ImageIcon("data"
@@ -62,14 +62,13 @@ public class PersonalJButton extends JButton {
 	
 
 	private String id = "";
+	private Object controller;
 
 	/**
 	 * Basic constructor for the personal JButton
 	 */
-	public PersonalJButton() {
-
+	protected PersonalJButton() {
 		this.setBorder(getADefaultBorder());
-
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
 	}
@@ -98,19 +97,13 @@ public class PersonalJButton extends JButton {
 		this(img);
 		this.id = id;
 	}
-
-	public static Border getACompoundTitledBorder(final String title) {
-
-		return new CompoundBorder(new TitledBorder(new SoftBevelBorder(
-				SoftBevelBorder.RAISED, L_GRAY, GRAY), title,
-				TitledBorder.ABOVE_TOP, TitledBorder.CENTER), new EmptyBorder(
-				4, 16, 4, 16));
-	}
 	
-	public static Border getADefaultBorder(){
-		return new CompoundBorder(new SoftBevelBorder(
-				SoftBevelBorder.RAISED, L_GRAY, GRAY), new EmptyBorder(6, 16,
-				6, 16));
+	/**
+	 * 
+	 * @return the controller associated with this button
+	 */
+	public Object getController(){
+		return controller;
 	}
 
 	/**
@@ -138,6 +131,14 @@ public class PersonalJButton extends JButton {
 	}
 	
 	/**
+	 * 
+	 * @return the controller associated with this button
+	 */
+	public void setController(final Object controller){
+		this.controller=controller;
+	}
+	
+	/**
 	 * @param newID the new ID to be associated with this button
 	 */
 	public void setID(final String newID) {
@@ -153,4 +154,28 @@ public class PersonalJButton extends JButton {
 
 		this.setBorder(getACompoundTitledBorder(name));
 	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @return a built-in TitledBorder
+	 */
+	public static Border getACompoundTitledBorder(final String title) {
+
+		return new CompoundBorder(new TitledBorder(new SoftBevelBorder(
+				SoftBevelBorder.RAISED, L_GRAY, GRAY), title,
+				TitledBorder.ABOVE_TOP, TitledBorder.CENTER), new EmptyBorder(
+				4, 16, 4, 16));
+	}
+	
+	/**
+	 * 
+	 * @return a built-in CompoundBorder
+	 */
+	public static Border getADefaultBorder(){
+		return new CompoundBorder(new SoftBevelBorder(
+				SoftBevelBorder.RAISED, L_GRAY, GRAY), new EmptyBorder(6, 16,
+				6, 16));
+	}
+	
 }

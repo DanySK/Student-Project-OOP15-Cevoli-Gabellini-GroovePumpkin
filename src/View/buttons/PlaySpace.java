@@ -1,6 +1,7 @@
 package View.buttons;
 
 import javax.swing.ImageIcon;
+
 /**
  * This class extends the abstract composite (Label+Button) space to build a
  * play and pause system for this software
@@ -22,29 +23,31 @@ public class PlaySpace extends PersonalJButton {
 	 * @param buttonEnabled
 	 *            if the button have to be enabled or not
 	 */
-	public PlaySpace(final ImageIcon img, final boolean showTitle) {
+	protected PlaySpace(final ImageIcon img, final boolean showTitle,
+			final Object controller) {
 
 		super(img);
-		
+		super.setController(controller);
+
 		if (img != null && this.getIcon().equals(PersonalJButton.PLAY_IMG)) {
 			this.setID(PLAY);
 		} else {
 			this.setID(PAUSE);
 		}
-		
-		if(showTitle){
+
+		if (showTitle) {
 			this.showTitle(this.getID());
 		}
-		
-		this.addActionListener(e->{
+
+		this.addActionListener(e -> {
 			if (PlaySpace.this.getID().equals(PLAY)) {
 				PlaySpace.this.setID(PAUSE);
 				if (PlaySpace.this.getTitledBorder() != null) {
 					PlaySpace.this.getTitledBorder().setTitle(PAUSE);
 				}
 				PlaySpace.this.setIcon(PersonalJButton.PAUSE_IMG);
-				// start 
-				
+				// start
+
 			} else {
 				PlaySpace.this.setID(PLAY);
 				if (PlaySpace.this.getTitledBorder() != null) {
@@ -52,7 +55,7 @@ public class PlaySpace extends PersonalJButton {
 				}
 				PlaySpace.this.setIcon(PersonalJButton.PLAY_IMG);
 				// pause
-				
+
 			}
 		});
 	}
@@ -63,14 +66,5 @@ public class PlaySpace extends PersonalJButton {
 	 */
 	public boolean isPaused() {
 		return super.getID().equals(PLAY);
-	}
-
-	/**
-	 * Set if the button start enabled or not
-	 * 
-	 * @param buttonEnabled
-	 */
-	public void setButtonEnabled(final boolean buttonEnabled) {
-		this.setEnabled(buttonEnabled);
 	}
 }

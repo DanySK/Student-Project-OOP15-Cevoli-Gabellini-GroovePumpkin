@@ -20,6 +20,7 @@ public class PersonalJPanel extends JPanel {
 	private static final long serialVersionUID = -7098020132793828090L;
 	public static final Color GRAY = new Color(50, 50, 50);
 	public static final Color WHITE = new Color(255, 255, 255);
+	public static final Color ORANGE= new Color(255, 127, 0);
 
 	public PersonalJPanel() {
 		super();
