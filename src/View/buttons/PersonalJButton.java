@@ -18,8 +18,8 @@ import javax.swing.border.TitledBorder;
  * NOTE: 
  * Avrei voluto implementare un pattern creazionale quale Factory o Strategy o Decorator
  * ma a livello di riuso del codice/uso della memoria (decorator) non mi convincevano:
- * l'unico che si presterebbe nel modo migliore sarebbe lo Strategy e che se riesco, reimplementerò 
- * anzichè l'ammucchiata di classi.
+ * l'unico che si presterebbe nel modo migliore sarebbe lo Strategy e che se riesco, reimplementerï¿½ 
+ * anzichï¿½ l'ammucchiata di classi.
  * 
  * @author Alessandro
  *
