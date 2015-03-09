@@ -6,8 +6,9 @@ import Model.PlayerState;
 import View.Updatable;
 
 /**
- * questa interfaccia rappresenta il contrattore del lettore musicale vero e proprio, 
- * cioè quella parte del sistema "Lettore musicale" che si occupa di prendere i brani ed avviarli
+ * 
+ * This interface represents the contract of the music player itself,
+ * that is the part of the "Music Player" that deals with taking songs and start them
  * @author Matteo Gabellini
  *
  */

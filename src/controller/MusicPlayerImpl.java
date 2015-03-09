@@ -15,6 +15,11 @@ import Model.PlayerState;
 import View.MusicPlayerPanel;
 import View.Updatable;
 
+/**
+ * 
+ * @author Matteo Gabellini
+ *
+ */
 public class MusicPlayerImpl implements MusicPlayer {
 	
 	private List<Updatable> view;

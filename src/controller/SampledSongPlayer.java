@@ -12,6 +12,11 @@ import javax.sound.sampled.Mixer;
 
 import Model.PlayerState;
 
+/**
+ * 
+ * @author Matteo Gabellini
+ *
+ */
 public class SampledSongPlayer implements SongPlayer {
 		public static Mixer mixer;
 		private AudioInputStream audioStream;
