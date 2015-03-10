@@ -1,6 +1,6 @@
 package View.buttons;
 
-import java.util.List;
+import controller.MusicPlayer;
 
 public class LoopSpace extends PersonalJButton {
 
@@ -9,7 +9,7 @@ public class LoopSpace extends PersonalJButton {
 	public static final String OFF= "Off";
 	public static final String ON= "On";
 	
-	protected LoopSpace(final List<?> playlist, final boolean showTitle) {
+	protected LoopSpace(final MusicPlayer controller, final boolean showTitle) {
 		super(PersonalJButton.LOOP_OFF_IMG, OFF);
 		
 		if(showTitle){

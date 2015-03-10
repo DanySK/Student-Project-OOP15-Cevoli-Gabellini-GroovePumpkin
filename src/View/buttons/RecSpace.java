@@ -15,7 +15,7 @@ public class RecSpace extends PersonalJButton implements Updatable{
 	public static final String REC = "Rec";
 	public static final String STOP = "Stop";
 
-	protected RecSpace(final PlaySpace rps, final boolean showTitle) {
+	protected RecSpace(final Object rps, final boolean showTitle) {
 
 		super(PersonalJButton.REC_IMG);
 		
@@ -24,22 +24,7 @@ public class RecSpace extends PersonalJButton implements Updatable{
 		}
 
 		this.addActionListener(e -> {
-
-			if (RecSpace.this.getTitledBorder().getTitle().equals(REC)) {
-				RecSpace.this.getTitledBorder().setTitle(STOP);
-				RecSpace.this.setIcon(PersonalJButton.STOP_IMG);
-				rps.setEnabled(true);
-				// start recording the sound
-
-			} else {
-				RecSpace.this.getTitledBorder().setTitle(REC);
-				RecSpace.this.setIcon(PersonalJButton.REC_IMG);
-				rps.getTitledBorder().setTitle("Pause");
-				rps.setIcon(PersonalJButton.PAUSE_IMG);
-				rps.setEnabled(false);
-				// stop recording
-
-			}
+			//Start Recording
 		});
 	}
 
@@ -48,8 +33,15 @@ public class RecSpace extends PersonalJButton implements Updatable{
 	}
 
 	@Override
-	public boolean updateStatus(final PlayerState status) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateStatus(final PlayerState status) {
+		
+		if (RecSpace.this.getTitledBorder().getTitle().equals(REC)) {
+			RecSpace.this.getTitledBorder().setTitle(STOP);
+			RecSpace.this.setIcon(PersonalJButton.STOP_IMG);
+			
+		} else {
+			RecSpace.this.getTitledBorder().setTitle(REC);
+			RecSpace.this.setIcon(PersonalJButton.REC_IMG);
+		}
 	}
 }

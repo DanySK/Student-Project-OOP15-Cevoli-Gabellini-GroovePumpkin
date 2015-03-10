@@ -3,8 +3,12 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
+
+import controller.GrooveBoxController;
+import controller.MusicPlayer;
 
 /**
  * 
@@ -18,7 +22,7 @@ public class SoundFrame extends JFrame {
 	/**
 	 * This method populates the class
 	 */
-	public SoundFrame() {
+	public SoundFrame(final MusicPlayer mp, final GrooveBoxController groove) {
 
 		this.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit()
 				.getScreenSize().width * 10 / 15, Toolkit.getDefaultToolkit()
@@ -33,7 +37,7 @@ public class SoundFrame extends JFrame {
 		this.setTitle("Groove&Pumpkin");
 		this.setLayout(new BorderLayout());
 
-		final SoundTab tabbedPane = new SoundTab(JTabbedPane.TOP);
+		final SoundTab tabbedPane = new SoundTab(JTabbedPane.TOP, mp, groove);
 		final SoundMenu menuBar = new SoundMenu();
 		final PersonalJPanel mainPanel = new PersonalJPanel(new BorderLayout());
 		mainPanel.add(menuBar, BorderLayout.NORTH);

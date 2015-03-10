@@ -1,7 +1,7 @@
 package View.buttons;
 
-import java.util.List;
 import javax.swing.JButton;
+import controller.MusicPlayer;
 
 /**
  * 
@@ -38,13 +38,13 @@ public final class ButtonFactory {
 	public static JButton createButton(final int type, final boolean showTitle,
 			final Object controller) {
 		if (type == PLAY_BUTTON) {
-			return new PlaySpace(PersonalJButton.PLAY_IMG, showTitle, controller);
+			return new PlaySpace((MusicPlayer) controller, PersonalJButton.PLAY_IMG, showTitle);
 		} else if (type == STOP_BUTTON) {
-			return new StopSpace((PlaySpace)controller, showTitle);
+			return new StopSpace((MusicPlayer) controller, showTitle);
 		} else if (type == LOOP_BUTTON) {
-			return new LoopSpace((List<?>)controller, showTitle);
+			return new LoopSpace((MusicPlayer) controller, showTitle);
 		} else if (type == REC_BUTTON) {
-			return new RecSpace((PlaySpace)controller, showTitle);
+			return new RecSpace(controller, showTitle);
 		} else if (type == SAVE_BUTTON) {
 			return new SaveSpace(showTitle);
 		} else if (type == LOAD_BUTTON) {
@@ -52,7 +52,7 @@ public final class ButtonFactory {
 		} else if (type == SHUFFLE_BUTTON) {
 			return null;
 		} else if (type == PAUSE_BUTTON) {
-			return new PlaySpace(PersonalJButton.PAUSE_IMG, showTitle, controller);
+			return new PlaySpace((MusicPlayer) controller, PersonalJButton.PAUSE_IMG, showTitle);
 		} else {
 			return null;
 		}

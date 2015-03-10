@@ -2,6 +2,8 @@ package View.buttons;
 
 import javax.swing.ImageIcon;
 
+
+import controller.MusicPlayer;
 import Model.PlayerState;
 import View.Updatable;
 
@@ -26,8 +28,7 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 	 * @param buttonEnabled
 	 *            if the button have to be enabled or not
 	 */
-	protected PlaySpace(final ImageIcon img, final boolean showTitle,
-			final Object controller) {
+	protected PlaySpace(final MusicPlayer controller, final ImageIcon img, final boolean showTitle) {
 
 		super(img);
 		super.setController(controller);
@@ -43,22 +44,18 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 		}
 
 		this.addActionListener(e -> {
-			if (PlaySpace.this.getID().equals(PLAY)) {
-				PlaySpace.this.setID(PAUSE);
-				if (PlaySpace.this.getTitledBorder() != null) {
-					PlaySpace.this.getTitledBorder().setTitle(PAUSE);
+			if(PlaySpace.this.getID().equals(PLAY)){
+				try{
+					controller.play();
+				} catch(Exception ex){
+					//Open ErrorLoadingPane
 				}
-				PlaySpace.this.setIcon(PersonalJButton.PAUSE_IMG);
-				// start
-
-			} else {
-				PlaySpace.this.setID(PLAY);
-				if (PlaySpace.this.getTitledBorder() != null) {
-					PlaySpace.this.getTitledBorder().setTitle(PLAY);
+			} else{
+				try{
+					controller.play();
+				} catch(Exception ex){
+					
 				}
-				PlaySpace.this.setIcon(PersonalJButton.PLAY_IMG);
-				// pause
-
 			}
 		});
 	}
@@ -72,8 +69,24 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 	}
 
 	@Override
-	public boolean updateStatus(final PlayerState status) {
+	public void updateStatus(final PlayerState status) {
 		
-		return false;
+		if (status.equals(PlayerState.RUNNING)) {
+			this.setID(PLAY);
+			if (this.getTitledBorder() != null) {
+				this.getTitledBorder().setTitle(PAUSE);
+			}
+			this.setIcon(PersonalJButton.PAUSE_IMG);
+			// start
+
+		} else {
+			this.setID(PAUSE);
+			if (this.getTitledBorder() != null) {
+				this.getTitledBorder().setTitle(PLAY);
+			}
+			PlaySpace.this.setIcon(PersonalJButton.PLAY_IMG);
+			// pause
+
+		}
 	}
 }

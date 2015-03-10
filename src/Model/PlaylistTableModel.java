@@ -1,6 +1,6 @@
 package Model;
 
-import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -15,12 +15,12 @@ public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
 	private final String[] names = new String[] { "Song" };
-	private List<File> songs; 
+	private List<URL> songs; 
 	
 	/**
 	 * @param playlist, the playlist to be associated with this table
 	 */
-	public PlaylistTableModel(final List<File> playlist) {
+	public PlaylistTableModel(final List<URL> playlist) {
 		songs= playlist;
 	}
 	
@@ -37,7 +37,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		try {
-			Object obj = ((File)songs.get(rowIndex)).getName();
+			Object obj = ((URL)songs.get(rowIndex)).getFile();
 			return obj;
 		} catch (IndexOutOfBoundsException e) {
 			return null;

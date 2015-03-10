@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import controller.GrooveBoxController;
 import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
@@ -34,12 +35,14 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
 	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
 			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
-	
+	private GrooveBoxController controller;
 	private final List<Updatable> buttons= new ArrayList<>();
 	
-	public GroovePanel() {
+	public GroovePanel(final GrooveBoxController controller) {
 		super(new BorderLayout(5, 5));
-
+		
+		this.controller= controller;
+		
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(GRAY);
 
@@ -84,12 +87,9 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	}
 
 	@Override
-	public boolean updateStatus(final PlayerState status) {
-		
+	public void updateStatus(final PlayerState status) {
 		for(Updatable u : buttons){
-			//if()
+			u.updateStatus(status);
 		}
-		
-		return false;
 	}
 }

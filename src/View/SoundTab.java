@@ -2,12 +2,12 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+
+import controller.GrooveBoxController;
+import controller.MusicPlayer;
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class
  * 
@@ -20,16 +20,14 @@ public class SoundTab extends JTabbedPane {
 	private static final Color GRAY= new Color(50, 50, 50);
 	private static final Color WHITE= new Color(255, 255, 255);
 	
-	private final List<File>  playlist= new ArrayList<>();	
-	
-	public SoundTab(final int posistion) {
+	public SoundTab(final int posistion, final MusicPlayer mp, final GrooveBoxController groove) {
 		
 		super(JTabbedPane.TOP);
 		
 		final PersonalJPanel play= new PersonalJPanel(new BorderLayout());
 		
 		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new PlaylistPanel(playlist), new MusicPlayerPanel(playlist));
+				new PlaylistPanel(mp), new MusicPlayerPanel(mp));
 		splitter.setBackground(WHITE);
 		splitter.setForeground(GRAY);
 		splitter.setContinuousLayout(true);
@@ -37,7 +35,7 @@ public class SoundTab extends JTabbedPane {
 		play.add(splitter);
 		this.add("Play Music", play);
 		
-		final GroovePanel grooveBox= new GroovePanel();
+		final GroovePanel grooveBox= new GroovePanel(groove);
 		this.add("Groove Box", grooveBox);	
 		
 		this.setBackgroundAt(0, WHITE);

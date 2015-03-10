@@ -1,5 +1,6 @@
 package View.buttons;
 
+import controller.MusicPlayer;
 import Model.PlayerState;
 import View.Updatable;
 
@@ -8,7 +9,7 @@ public class StopSpace extends PersonalJButton implements Updatable{
 	private static final long serialVersionUID = -5881639820393820954L;
 	private static final String NAME="Stop";
 	
-	protected StopSpace(final PlaySpace play, final boolean showTitle) {
+	protected StopSpace(final MusicPlayer controller, final boolean showTitle) {
 		
 		super(PersonalJButton.STOP_IMG);
 		
@@ -16,15 +17,22 @@ public class StopSpace extends PersonalJButton implements Updatable{
 			this.showTitle(NAME);
 		}
 		this.addActionListener(e->{
-			if(!play.isPaused()){
-				//Stop the player
+			try{
+				controller.stop();
+			} catch(Exception ex){
+				//Open error pane
 			}
+				
 		});
 	}
 
 	@Override
-	public boolean updateStatus(final PlayerState status) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateStatus(final PlayerState status) {
+		
+		if(status.equals(PlayerState.STOPPED)) {
+			this.setEnabled(false);
+		} else {
+			this.setEnabled(true);
+		}
 	}
 }

@@ -3,7 +3,6 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +12,10 @@ import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import controller.MusicPlayer;
 import Model.PlayerState;
 import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
-
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
  * and pausing of a choosen song.
@@ -33,7 +32,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
 	private final List<Updatable> buttons= new ArrayList<>();
 
-	public MusicPlayerPanel(final List<File> playlist) {
+	public MusicPlayerPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
 
 		this.setBuiltInBorder();
@@ -46,7 +45,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, playlist));
+		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
 		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, null);
 		buttons.add(generic);
 		east.add((Component) generic);
@@ -109,8 +108,10 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 	}
 
 	@Override
-	public boolean updateStatus(PlayerState status) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateStatus(PlayerState status) {
+		for( Updatable u : buttons){
+			u.updateStatus(status);
+		}
+		
 	}
 }

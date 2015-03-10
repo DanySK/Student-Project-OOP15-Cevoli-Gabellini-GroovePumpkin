@@ -3,7 +3,9 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.io.File;
-import java.util.List;
+import java.net.URL;
+import java.util.ArrayList;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -11,12 +13,14 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableModel;
+
+import controller.MusicPlayer;
 import Model.PlaylistTableModel;
 import View.buttons.PersonalJButton;
 
 /**
  * Personalized Panel for the PlayBackPanel class, 
- * this class "haldles" the playlist,
+ * this class "handles" the playlist,
  * adding or removing song from it.
  * 
  * @author Alessandro
@@ -31,7 +35,7 @@ public class PlaylistPanel extends PersonalJPanel{
 	 * migliore interazione con la JTable
 	 */
 
-	private List<File> songs;
+	private MusicPlayer controller;
 
 	/**
 	 * Creation of an anonymous class as a model for the JTable class
@@ -41,13 +45,13 @@ public class PlaylistPanel extends PersonalJPanel{
 
 	private final JTable playlist;
 
-	public PlaylistPanel(final List<File> songs) {
+	public PlaylistPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
 		this.setBuiltInBorder();
 		
-		this.dataModel= new PlaylistTableModel(songs);
+		this.dataModel= new PlaylistTableModel(new ArrayList<URL>());
 		this.playlist= new JTable(dataModel);
-		this.songs= songs;
+		this.controller= controller;
 		
 		final JScrollPane jsp = new JScrollPane();
 		this.populateJSP(jsp);
@@ -106,7 +110,7 @@ public class PlaylistPanel extends PersonalJPanel{
 			int val = chooser.showOpenDialog(PlaylistPanel.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 				final File f = chooser.getSelectedFile();
-				songs.add(f);
+				//controller.
 				System.out.println(f.getName());
 			} else if (val != JFileChooser.CANCEL_OPTION) {
 				JOptionPane.showMessageDialog(PlaylistPanel.this,
@@ -123,7 +127,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		remove.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				songs.remove(playlist.getSelectedRow());
+				//controller.
 				playlist.tableChanged(new TableModelEvent(dataModel));
 			} catch (Exception ex) {
 				// do nothing

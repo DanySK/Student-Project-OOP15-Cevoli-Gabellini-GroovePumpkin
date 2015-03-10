@@ -3,8 +3,6 @@ package Model;
 import java.net.URL;
 import java.util.*;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 /**
  * This Class rappresent an implementation of the MusicPlayerModel interface
  * 
