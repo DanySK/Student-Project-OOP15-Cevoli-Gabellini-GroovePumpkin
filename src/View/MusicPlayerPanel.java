@@ -30,11 +30,12 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
 	private Updatable generic;
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
+	private MusicPlayer controller;
 	private final List<Updatable> buttons= new ArrayList<>();
 
 	public MusicPlayerPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
-
+		this.controller= controller;
 		this.setBuiltInBorder();
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
@@ -46,7 +47,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
 		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
-		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, null);
+		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, controller);
 		buttons.add(generic);
 		east.add((Component) generic);
 		this.add(east, BorderLayout.EAST);
@@ -77,7 +78,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 		});
 
 		northCentral.add(rw);
-		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, null);
+		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, controller);
 		buttons.add(generic);
 		northCentral.add((Component) generic);
 		northCentral.add(fw);

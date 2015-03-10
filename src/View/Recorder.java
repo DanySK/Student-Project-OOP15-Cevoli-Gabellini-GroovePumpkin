@@ -23,7 +23,7 @@ public class Recorder extends JFrame {
 
 	public Recorder(final JMenuBar jbm) {
 		this.setTitle("Audio Recorder");
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 4,
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 5);
 		this.setResizable(false);
 		this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 4,

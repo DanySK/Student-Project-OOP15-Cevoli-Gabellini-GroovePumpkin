@@ -16,6 +16,9 @@ public class StopSpace extends PersonalJButton implements Updatable{
 		if(showTitle){
 			this.showTitle(NAME);
 		}
+		
+		this.setEnabled(false);
+		
 		this.addActionListener(e->{
 			try{
 				controller.stop();
