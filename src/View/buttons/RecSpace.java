@@ -1,12 +1,15 @@
 package View.buttons;
 
+import Model.PlayerState;
+import View.Updatable;
+
 /**
  * 
  * @author Alessandro
  * @param <Recspace>
  *
  */
-public class RecSpace extends PersonalJButton {
+public class RecSpace extends PersonalJButton implements Updatable{
 
 	private static final long serialVersionUID = -2653526539862883988L;
 	public static final String REC = "Rec";
@@ -42,5 +45,11 @@ public class RecSpace extends PersonalJButton {
 
 	public boolean isRecording() {
 		return super.getTitledBorder().getTitle().equals("Stop");
+	}
+
+	@Override
+	public boolean updateStatus(final PlayerState status) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

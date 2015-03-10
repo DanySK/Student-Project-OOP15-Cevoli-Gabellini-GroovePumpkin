@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -12,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableModel;
-
 import Model.PlaylistTableModel;
 import View.buttons.PersonalJButton;
 
@@ -24,7 +22,7 @@ import View.buttons.PersonalJButton;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends PersonalJPanel {
+public class PlaylistPanel extends PersonalJPanel{
 
 	private static final long serialVersionUID = 5045956389400601388L;
 

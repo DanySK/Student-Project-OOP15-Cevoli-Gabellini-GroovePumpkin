@@ -1,6 +1,9 @@
 package View.buttons;
 
-public class StopSpace extends PersonalJButton {
+import Model.PlayerState;
+import View.Updatable;
+
+public class StopSpace extends PersonalJButton implements Updatable{
 
 	private static final long serialVersionUID = -5881639820393820954L;
 	private static final String NAME="Stop";
@@ -17,5 +20,11 @@ public class StopSpace extends PersonalJButton {
 				//Stop the player
 			}
 		});
+	}
+
+	@Override
+	public boolean updateStatus(final PlayerState status) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

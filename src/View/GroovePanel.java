@@ -3,14 +3,17 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import Model.GrooveValues;
 import Model.GrooveTableModel;
+import Model.PlayerState;
 import View.buttons.ButtonFactory;
 
 
@@ -21,7 +24,7 @@ import View.buttons.ButtonFactory;
  *
  */
 
-public class GroovePanel extends PersonalJPanel {
+public class GroovePanel extends PersonalJPanel implements Updatable{
 
 	private static final long serialVersionUID = 1116768170189928089L;
 
@@ -31,6 +34,8 @@ public class GroovePanel extends PersonalJPanel {
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
 	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
 			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
+	
+	private final List<Updatable> buttons= new ArrayList<>();
 	
 	public GroovePanel() {
 		super(new BorderLayout(5, 5));
@@ -61,9 +66,11 @@ public class GroovePanel extends PersonalJPanel {
 
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-
-		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
+		
+		buttons.add((Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
+		buttonPanel.add((JButton) buttons.get(buttons.size()-1));
 		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, grooveBox.getGrooveList()));
+		
 		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, null));
 
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
@@ -74,5 +81,15 @@ public class GroovePanel extends PersonalJPanel {
 	 */
 	public Double getDial() {
 		return (Double) timeDialerOptions.getSelectedItem();
+	}
+
+	@Override
+	public boolean updateStatus(final PlayerState status) {
+		
+		for(Updatable u : buttons){
+			//if()
+		}
+		
+		return false;
 	}
 }

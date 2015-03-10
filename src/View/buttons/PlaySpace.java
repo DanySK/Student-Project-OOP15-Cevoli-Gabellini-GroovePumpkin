@@ -2,6 +2,9 @@ package View.buttons;
 
 import javax.swing.ImageIcon;
 
+import Model.PlayerState;
+import View.Updatable;
+
 /**
  * This class extends the abstract composite (Label+Button) space to build a
  * play and pause system for this software
@@ -9,7 +12,7 @@ import javax.swing.ImageIcon;
  * @author Alessandro
  *
  */
-public class PlaySpace extends PersonalJButton {
+public class PlaySpace extends PersonalJButton implements Updatable{
 
 	private static final long serialVersionUID = -8958765355776362631L;
 
@@ -66,5 +69,11 @@ public class PlaySpace extends PersonalJButton {
 	 */
 	public boolean isPaused() {
 		return super.getID().equals(PLAY);
+	}
+
+	@Override
+	public boolean updateStatus(final PlayerState status) {
+		
+		return false;
 	}
 }

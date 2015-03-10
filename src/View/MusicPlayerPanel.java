@@ -1,20 +1,21 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import Model.PlayerState;
 import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
-import View.buttons.StopSpace;
 
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
@@ -23,13 +24,14 @@ import View.buttons.StopSpace;
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends PersonalJPanel {
+public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
-	private final JButton play = ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, null);
+	private Updatable generic;
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
+	private final List<Updatable> buttons= new ArrayList<>();
 
 	public MusicPlayerPanel(final List<File> playlist) {
 		super(new BorderLayout());
@@ -45,7 +47,9 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
 		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, playlist));
-		east.add((StopSpace) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, play));
+		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, null);
+		buttons.add(generic);
+		east.add((Component) generic);
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
@@ -74,7 +78,9 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		});
 
 		northCentral.add(rw);
-		northCentral.add(play);
+		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, null);
+		buttons.add(generic);
+		northCentral.add((Component) generic);
 		northCentral.add(fw);
 
 		north.add(northCentral, BorderLayout.CENTER);
@@ -100,5 +106,11 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		});
 
 		gainPanel.add(gain, BorderLayout.CENTER);
+	}
+
+	@Override
+	public boolean updateStatus(PlayerState status) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
