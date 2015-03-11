@@ -2,7 +2,7 @@ package View.buttons;
 
 import javax.swing.ImageIcon;
 
-
+import static Model.Utility.*;
 import controller.MusicPlayer;
 import Model.PlayerState;
 import View.Updatable;
@@ -33,18 +33,18 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 		super(img);
 		super.setController(controller);
 
-		if (img != null && this.getIcon().equals(PersonalJButton.PLAY_IMG)) {
+		if (img != null && this.getIcon().equals(PLAY_IMG)) {
 			this.setID(PLAY);
 		} else {
 			this.setID(PAUSE);
 		}
 
 		if (showTitle) {
-			this.showTitle(this.getID());
+			this.setTitle(this.getID());
 		}
 
 		this.addActionListener(e -> {
-			if(PlaySpace.this.getID().equals(PLAY)){
+			if(this.getID().equals(PLAY)){
 				try{
 					controller.play();
 				} catch(Exception ex){
@@ -52,20 +52,12 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 				}
 			} else{
 				try{
-					controller.play();
+					controller.pause();
 				} catch(Exception ex){
 					
 				}
 			}
 		});
-	}
-
-	/**
-	 * 
-	 * @return if the song is paused or is running
-	 */
-	public boolean isPaused() {
-		return super.getID().equals(PLAY);
 	}
 
 	@Override
@@ -76,17 +68,15 @@ public class PlaySpace extends PersonalJButton implements Updatable{
 			if (this.getTitledBorder() != null) {
 				this.getTitledBorder().setTitle(PAUSE);
 			}
-			this.setIcon(PersonalJButton.PAUSE_IMG);
+			this.setIcon(PAUSE_IMG);
 			// start
-
 		} else {
 			this.setID(PAUSE);
 			if (this.getTitledBorder() != null) {
 				this.getTitledBorder().setTitle(PLAY);
 			}
-			PlaySpace.this.setIcon(PersonalJButton.PLAY_IMG);
+			PlaySpace.this.setIcon(PLAY_IMG);
 			// pause
-
 		}
 	}
 }

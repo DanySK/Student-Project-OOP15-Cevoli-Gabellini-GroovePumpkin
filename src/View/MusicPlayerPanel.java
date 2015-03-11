@@ -16,6 +16,7 @@ import controller.MusicPlayer;
 import Model.PlayerState;
 import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
+import static Model.Utility.*;
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
  * and pausing of a choosen song.
@@ -28,15 +29,20 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
-	private Updatable generic;
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
-	private MusicPlayer controller;
-	private final List<Updatable> buttons= new ArrayList<>();
+	private final List<Updatable> observer= new ArrayList<>();
+	
+	private Updatable generic; //that only for support
+	private MusicPlayer controller; //controller attached to this view
 
 	public MusicPlayerPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
+		
 		this.controller= controller;
+		controller.addUpdatableObserver(this);
+		
 		this.setBuiltInBorder();
+		
 		songName.setBackground(WHITE);
 		songName.setForeground(GRAY);
 
@@ -46,10 +52,11 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
 		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, controller);
-		buttons.add(generic);
+		observer.add(generic);
 		east.add((Component) generic);
+		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
+		east.add(ButtonFactory.createButton(ButtonFactory.SHUFFLE_BUTTON, true, controller));
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
@@ -67,19 +74,19 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 		final PersonalJPanel northCentral = new PersonalJPanel(new FlowLayout());
 
-		final PersonalJButton fw = new PersonalJButton(PersonalJButton.FW_IMG);
+		final PersonalJButton fw = new PersonalJButton(FW_IMG);
 		fw.addActionListener(e->{
 			// go to the next song
 		});
 
-		final PersonalJButton rw = new PersonalJButton(PersonalJButton.RW_IMG);
+		final PersonalJButton rw = new PersonalJButton(RW_IMG);
 		rw.addActionListener(e->{
 			// go back to the previous song
 		});
 
 		northCentral.add(rw);
 		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, controller);
-		buttons.add(generic);
+		observer.add(generic);
 		northCentral.add((Component) generic);
 		northCentral.add(fw);
 
@@ -88,8 +95,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 	
 	private void populateGainPanel(PersonalJPanel gainPanel) {
 
-		final CompoundBorder gainLabel = (CompoundBorder) PersonalJButton
-				.getACompoundTitledBorder("Volume: " + gain.getValue());
+		final CompoundBorder gainLabel = (CompoundBorder) getACompoundTitledBorder("Volume: " + gain.getValue());
 
 		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(GRAY);
 		gain.setBorder(gainLabel);
@@ -110,9 +116,8 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 	@Override
 	public void updateStatus(PlayerState status) {
-		for( Updatable u : buttons){
+		for(Updatable u : observer){
 			u.updateStatus(status);
 		}
-		
 	}
 }

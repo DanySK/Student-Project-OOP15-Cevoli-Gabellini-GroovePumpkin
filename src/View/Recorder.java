@@ -3,23 +3,27 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
+import Model.PlayerState;
 import View.buttons.ButtonFactory;
 /**
  * 
  * @author Alessandro
  *
  */
-public class Recorder extends JFrame {
+public class Recorder extends JFrame implements Updatable{
 
 	private static final long serialVersionUID = -4303337519550483522L;
 
 	private final JLabel timerLabel = new JLabel("00:00:00");
+	private final List<Updatable> buttons= new ArrayList<>();
 
 	public Recorder(final JMenuBar jbm) {
 		this.setTitle("Audio Recorder");
@@ -52,5 +56,12 @@ public class Recorder extends JFrame {
 
 	public JLabel getTimerLabel() {
 		return this.timerLabel;
+	}
+
+	@Override
+	public void updateStatus(PlayerState status) {
+		for(Updatable u : buttons){
+			u.updateStatus(status);
+		}
 	}
 }

@@ -2,6 +2,7 @@ package View.buttons;
 
 import Model.PlayerState;
 import View.Updatable;
+import static Model.Utility.*;
 
 /**
  * 
@@ -17,10 +18,10 @@ public class RecSpace extends PersonalJButton implements Updatable{
 
 	protected RecSpace(final Object rps, final boolean showTitle) {
 
-		super(PersonalJButton.REC_IMG);
+		super(REC_IMG);
 		
 		if(showTitle){
-			this.showTitle(REC);
+			this.setTitle(REC);
 		}
 
 		this.addActionListener(e -> {
@@ -37,11 +38,11 @@ public class RecSpace extends PersonalJButton implements Updatable{
 		
 		if (RecSpace.this.getTitledBorder().getTitle().equals(REC)) {
 			RecSpace.this.getTitledBorder().setTitle(STOP);
-			RecSpace.this.setIcon(PersonalJButton.STOP_IMG);
+			RecSpace.this.setIcon(STOP_IMG);
 			
 		} else {
 			RecSpace.this.getTitledBorder().setTitle(REC);
-			RecSpace.this.setIcon(PersonalJButton.REC_IMG);
+			RecSpace.this.setIcon(REC_IMG);
 		}
 	}
 }

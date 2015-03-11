@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Color;
-import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -13,8 +12,11 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
+
 import Model.GrooveValues;
 import Model.GrooveTableModel;
+import Model.PlayerState;
+import static Model.Utility.*;
 
 /**
  * The Class that implements the groovebox
@@ -23,7 +25,7 @@ import Model.GrooveTableModel;
  *
  */
 
-public class GrooveBox extends JTable {
+public class GrooveBox extends JTable implements Updatable{
 
 	private static final long serialVersionUID = -7907789613027061207L;
 	private GrooveTableModel tableModel;
@@ -42,13 +44,13 @@ public class GrooveBox extends JTable {
 		this.getTableHeader().setReorderingAllowed(false);
 		this.getTableHeader().setResizingAllowed(false);
 		
-		this.getTableHeader().setBackground(PersonalJPanel.GRAY);
+		this.getTableHeader().setBackground(GRAY);
 		this.getTableHeader().setForeground(Color.WHITE);
 		this.getTableHeader().setBorder(
 				new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),
 						new EmptyBorder(5, 5, 5, 5)));
 
-		this.setGridColor(PersonalJPanel.GRAY);
+		this.setGridColor(GRAY);
 		this.setForeground(Color.RED);
 		
 		this.initGrooveBox();
@@ -110,8 +112,12 @@ public class GrooveBox extends JTable {
 		
 		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
-	
-	public List<?> getGrooveList(){
-		return this.tableModel.getList();
+
+	@Override
+	public void updateStatus(PlayerState status) {
+		/*if(Status.equals(PlayerStatus.RELOAD){
+		*	this.tableChanged(new TableModelEvent(tableModel));
+		*	}
+		*/		
 	}
 }

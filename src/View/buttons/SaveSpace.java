@@ -3,6 +3,9 @@ package View.buttons;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import controller.GrooveBoxController;
+import static Model.Utility.*;
+
 /**
  * 
  * @author Alessandro
@@ -13,12 +16,12 @@ public class SaveSpace extends PersonalJButton {
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String LABEL = "Save";
 
-	protected SaveSpace(final boolean showLabel) {
+	protected SaveSpace(final GrooveBoxController controller, final boolean showLabel) {
 
-		super(PersonalJButton.SAVE_IMG);
+		super(SAVE_IMG);
 
 		if (showLabel) {
-			super.showTitle(LABEL);
+			super.setTitle(LABEL);
 		}
 
 		this.addActionListener(e -> {
@@ -30,6 +33,7 @@ public class SaveSpace extends PersonalJButton {
 			if (val == JFileChooser.APPROVE_OPTION) {
 
 				// save the file
+				//controller.savePattern();
 
 			} else if (val != JFileChooser.CANCEL_OPTION) {
 				JOptionPane.showMessageDialog(SaveSpace.this,

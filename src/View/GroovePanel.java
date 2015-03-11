@@ -16,7 +16,7 @@ import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
 import View.buttons.ButtonFactory;
-
+import static Model.Utility.*;
 
 /**
  * This class rapresents the GUI space for the groovebox
@@ -36,12 +36,13 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
 			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
 	private GrooveBoxController controller;
-	private final List<Updatable> buttons= new ArrayList<>();
+	private final List<Updatable> observer= new ArrayList<>();
 	
 	public GroovePanel(final GrooveBoxController controller) {
 		super(new BorderLayout(5, 5));
-		
+		observer.add(grooveBox);
 		this.controller= controller;
+		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(GRAY);
@@ -70,12 +71,11 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		buttons.add((Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
-		buttonPanel.add((JButton) buttons.get(buttons.size()-1));
+		observer.add((Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
+		buttonPanel.add((JButton) observer.get(observer.size()-1));
 		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
-		
-		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, null));
-
+		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, controller));
+		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOAD_BUTTON, true, controller));
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 	}
 
@@ -88,8 +88,9 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 
 	@Override
 	public void updateStatus(final PlayerState status) {
-		for(Updatable u : buttons){
-			u.updateStatus(status);
+			
+		for(Updatable u : observer){
+				u.updateStatus(status);
 		}
 	}
 }

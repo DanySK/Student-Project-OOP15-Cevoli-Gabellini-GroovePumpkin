@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import View.PersonalJPanel;
-
 /**
  * This class rapresent the basic instruments playable into the groovebox
  * 
@@ -159,7 +157,7 @@ public final class GrooveValues {
 	 */
 	public static Color getRowColor(final int row) {
 		//return new Color(row*255/DefaultValues.values().length);
-		return row%2==0 ? PersonalJPanel.ORANGE : PersonalJPanel.GRAY;
+		return row%2==0 ? Utility.ORANGE : Utility.GRAY;
 		
 	}
 }

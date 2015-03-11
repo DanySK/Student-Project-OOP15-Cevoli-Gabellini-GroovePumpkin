@@ -1,11 +1,13 @@
 package View;
 
-import java.awt.Color;
 import java.awt.LayoutManager;
+
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+
+import static Model.Utility.*;
 
 /**
  * A Personalized White&DarkGrey JPanel, 
@@ -18,9 +20,6 @@ import javax.swing.border.EtchedBorder;
 public class PersonalJPanel extends JPanel {
 
 	private static final long serialVersionUID = -7098020132793828090L;
-	public static final Color GRAY = new Color(50, 50, 50);
-	public static final Color WHITE = new Color(255, 255, 255);
-	public static final Color ORANGE= new Color(255, 127, 0);
 
 	public PersonalJPanel() {
 		super();

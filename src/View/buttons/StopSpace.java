@@ -3,6 +3,7 @@ package View.buttons;
 import controller.MusicPlayer;
 import Model.PlayerState;
 import View.Updatable;
+import static Model.Utility.*;
 
 public class StopSpace extends PersonalJButton implements Updatable{
 
@@ -11,10 +12,11 @@ public class StopSpace extends PersonalJButton implements Updatable{
 	
 	protected StopSpace(final MusicPlayer controller, final boolean showTitle) {
 		
-		super(PersonalJButton.STOP_IMG);
-		
+		super(STOP_IMG);
+		super.setController(controller);
+
 		if(showTitle){
-			this.showTitle(NAME);
+			this.setTitle(NAME);
 		}
 		
 		this.setEnabled(false);
@@ -25,7 +27,6 @@ public class StopSpace extends PersonalJButton implements Updatable{
 			} catch(Exception ex){
 				//Open error pane
 			}
-				
 		});
 	}
 

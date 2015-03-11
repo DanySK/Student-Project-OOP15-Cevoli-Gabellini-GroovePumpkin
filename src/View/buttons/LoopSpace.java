@@ -1,6 +1,7 @@
 package View.buttons;
 
 import controller.MusicPlayer;
+import static Model.Utility.*;
 
 public class LoopSpace extends PersonalJButton {
 
@@ -10,20 +11,21 @@ public class LoopSpace extends PersonalJButton {
 	public static final String ON= "On";
 	
 	protected LoopSpace(final MusicPlayer controller, final boolean showTitle) {
-		super(PersonalJButton.LOOP_OFF_IMG, OFF);
+		super(LOOP_OFF_IMG);
+		super.setID(OFF);
 		
 		if(showTitle){
-			this.showTitle(NAME);
+			this.setTitle(NAME);
 		}
 		
 		this.addActionListener(e->{
-			if (LoopSpace.this.getID().equals(OFF)) {
-				LoopSpace.this.setID(ON);
-				LoopSpace.this.setIcon(PersonalJButton.LOOP_ON_IMG);
+			if (this.getID().equals(OFF)) {
+				this.setID(ON);
+				this.setIcon(LOOP_ON_IMG);
 				// Loop the groove
 			} else {
-				LoopSpace.this.setID(OFF);
-				LoopSpace.this.setIcon(PersonalJButton.LOOP_OFF_IMG);
+				this.setID(OFF);
+				this.setIcon(LOOP_OFF_IMG);
 				// UnLoop the groove
 			}
 		});
