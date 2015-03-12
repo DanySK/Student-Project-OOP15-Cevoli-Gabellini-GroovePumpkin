@@ -13,6 +13,12 @@ public interface MusicPlayerModel {
 	
 	
 	/**
+	 * This method is a get accessor for the
+	 * @return the current playList index of the current song
+	 */
+	Optional<Integer> getCurrentSongIndex();
+	
+	/**
 	 * this method is a getter for the current song
 	 * @return the current song
 	 */
@@ -20,12 +26,14 @@ public interface MusicPlayerModel {
 	
 	/**
 	 * This method implements the logic for choose the next song from the playlist
+	 * This method don't change the current song for do this use the changeToTheNextSong
 	 * @return the resource locator of the next audiofile
 	 */
 	Optional<URL> getNextSong(); //this can implemented with a iterator logic
 	
 	/**
 	 * This method implements the logic for choose the previous song from the playlist
+	 * This method don't change the current song for do this use the changeToThePreviousSong
 	 * @return the resource locator of the previous audiofile
 	 */
 	Optional<URL> getPreviousSong();

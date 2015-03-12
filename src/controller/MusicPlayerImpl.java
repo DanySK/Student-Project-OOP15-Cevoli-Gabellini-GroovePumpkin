@@ -30,6 +30,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	
 	public  MusicPlayerImpl() {
 		this.model = new MusicPlayerModelImpl();
+		this.soundPlayer = Optional.empty();
 	}
 	
 	
@@ -95,6 +96,11 @@ public class MusicPlayerImpl implements MusicPlayer {
 
 	@Override
 	public void play() {
+		//Controllo se soundPlayer non è stato istanziato
+		if(!soundPlayer.isPresent()){
+			//Se non è stato creato lo creo e gli passo la canzone corrente della play list
+			this.loadSong(this.model.getCurretSong().get());			
+		}
 		soundPlayer.get().play();
 		//Chiedo al lettore lo stato perchè dipende da esso
 		notifyToUpdatable(soundPlayer.get().getState());
@@ -150,6 +156,10 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void removeSong(int index)
 			throws IllegalArgumentException {
+		//Se la canzone che voglio togliere e quella che sto riproducendo blocco la riproduzione
+		if(this.model.getCurrentSongIndex().isPresent() && this.model.getCurrentSongIndex().get() == index){
+			this.soundPlayer.get().stop();
+		}
 		this.model.removeSongFromPlayList(index);		
 	}
 
