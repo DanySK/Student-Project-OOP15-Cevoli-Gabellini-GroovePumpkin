@@ -15,6 +15,6 @@ public class MainController {
 		lettore.addViewListener();
 		*/
 		
-		MusicTester.test(lettore);
+		MusicPlayerTester.test(lettore);
 	}
 }

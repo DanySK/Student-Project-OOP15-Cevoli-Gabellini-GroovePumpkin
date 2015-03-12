@@ -3,7 +3,7 @@ package controller;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MusicTester {
+public class MusicPlayerTester {
 	public static void test(MusicPlayer lettore) {
 		try {
 			lettore.addSong(new URL("file://localhost/Users/matteogabellini/Music/asia.wav"));
