@@ -1,9 +1,8 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
-import java.net.URL;
-import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,10 +39,10 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 	 * Creation of an anonymous class as a model for the JTable class
 	 * 
 	 */
-	private final TableModel dataModel;
-
-	private final JTable playlist;
-
+	private TableModel dataModel;
+	private JTable playlist;
+	private final JScrollPane jsp= new JScrollPane();;
+	
 	public PlaylistPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
 		this.setBuiltInBorder();
@@ -51,13 +50,12 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 		this.controller= mp;
 		this.controller.addUpdatableObserver(this);
 		
-		this.dataModel= new PlaylistTableModel(new ArrayList<URL>());
+		this.dataModel= new PlaylistTableModel(controller.getPlayList());
 		this.playlist= new JTable(dataModel);
 		playlist.setBackground(WHITE);
 		playlist.setForeground(GRAY);
 		playlist.setRowSelectionAllowed(true);
 		
-		final JScrollPane jsp = new JScrollPane();
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(GRAY);
@@ -70,7 +68,8 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 		remove.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				//controller.
+				controller.removeSong(playlist.getSelectedRow());
+				//Devo aggironare io?
 			} catch (Exception ex) {
 				// do nothing
 			}
@@ -81,12 +80,30 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 		this.add(jsp, BorderLayout.CENTER);
 		this.add(buttonRow, BorderLayout.SOUTH);
 	}
-
+	
+	public Component getPlaylistTable(){
+		return this.playlist;
+	}
+	
+	public TableModel getPlaylistModel(){
+		return this.dataModel;
+	}
+	
+	public void setPlaylistTable(final JTable table){
+		this.jsp.remove(playlist);
+		this.playlist= table;
+		this.jsp.add(playlist);
+	}
+	
+	public void setPlaylistModel(final TableModel model){
+		this.dataModel= model;
+		this.setPlaylistTable(new JTable(model));
+	}
 	//Called by the Controller when a song is added or removed from the playlist
 	@Override
 	public void updateStatus(PlayerState status) {
 		//ricrea la nuova tabella
-		//playlist= controller.getPlaylist();
+		((PlaylistTableModel) dataModel).updatePlaylist(this.controller.getPlayList());
 		playlist.tableChanged(new TableModelEvent(dataModel));		
 	}
 }

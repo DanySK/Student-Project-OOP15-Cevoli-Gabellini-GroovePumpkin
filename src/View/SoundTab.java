@@ -1,13 +1,14 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
 
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
+import static Model.Utility.*;
+
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class
  * 
@@ -17,22 +18,14 @@ import controller.MusicPlayer;
 public class SoundTab extends JTabbedPane {
 
 	private static final long serialVersionUID = 5184587254735736323L;
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
+	private GroovePanel groovebox;
+	private PlayerPanel player;
 	
 	public SoundTab(final int posistion, final MusicPlayer mp, final GrooveBoxController groove) {
 		
 		super(JTabbedPane.TOP);
 		
-		final PersonalJPanel play= new PersonalJPanel(new BorderLayout());
-		
-		final JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				new PlaylistPanel(mp), new MusicPlayerPanel(mp));
-		splitter.setBackground(WHITE);
-		splitter.setForeground(GRAY);
-		splitter.setContinuousLayout(true);
-		
-		play.add(splitter);
+		final PlayerPanel play= new PlayerPanel(mp);
 		this.add("Play Music", play);
 		
 		final GroovePanel grooveBox= new GroovePanel(groove);
@@ -42,5 +35,25 @@ public class SoundTab extends JTabbedPane {
 		this.setBackgroundAt(1, WHITE);
 		this.setForegroundAt(0, GRAY);
 		this.setForegroundAt(1, GRAY);
+	}
+	
+	public Component getGroovePanel(){
+		return groovebox;
+	}
+	
+	public Component getPlaylistPanel(){
+		return player;
+	}
+	
+	public void setPlayerPanel(final PlayerPanel player){
+		this.remove(this.player);
+		this.player=player;
+		this.add(this.player, BorderLayout.NORTH);
+	}
+	
+	public void setGroovePanel(final GroovePanel groovebox){
+		this.remove(this.groovebox);
+		this.groovebox=groovebox;
+		this.add(this.groovebox, BorderLayout.NORTH);
 	}
 }

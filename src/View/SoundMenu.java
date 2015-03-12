@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import static Model.Utility.*;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame
@@ -23,15 +26,18 @@ import javax.swing.JMenuItem;
 public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;
-	private static final Color GRAY= new Color(50, 50, 50);
-	private static final Color WHITE= new Color(255, 255, 255);
-	private Recorder rec;
+	private JMenu option;
+	//private Recorder rec;
 	
+	/**
+	 * A Default Sound MenuBar
+	 * 
+	 */
 	public SoundMenu() {
 		
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
-		final JMenu option = new JMenu("Options");
+		option = new JMenu("Options");
 		option.setBackground(WHITE);
 		this.add(option);
 		
@@ -67,11 +73,11 @@ public class SoundMenu extends JMenuBar {
 			}
 		});
 		option.add(exit);
-
+		
+		/*
 		final JMenu view = new JMenu("View");
 		view.setBackground(WHITE);
 		this.add(view);
-
 		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
 		soundRec.setBackground(WHITE);
 		soundRec.setForeground(GRAY);
@@ -91,6 +97,18 @@ public class SoundMenu extends JMenuBar {
 			}
 		});
 		view.add(soundRec);
-
+		*/
+	}
+	
+	/**
+	 * If someone doesn't like the normal implementation of this 
+	 * Menu
+	 */
+	public void resetMenuBar(){
+		this.removeAll();
+	}
+	
+	public Component getOptionMenu(){
+		return this.option;
 	}
 }

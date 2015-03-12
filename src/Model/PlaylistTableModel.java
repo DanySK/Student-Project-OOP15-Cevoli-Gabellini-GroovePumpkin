@@ -15,18 +15,18 @@ public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
 	private final String[] names = new String[] { "Song" };
-	private List<URL> songs; 
+	private List<URL> playlist; 
 	
 	/**
 	 * @param playlist, the playlist to be associated with this table
 	 */
 	public PlaylistTableModel(final List<URL> playlist) {
-		songs= playlist;
+		this.playlist= playlist;
 	}
 	
 	@Override
 	public int getRowCount() {
-		return songs.size();
+		return playlist.size();
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		try {
-			Object obj = ((URL)songs.get(rowIndex)).getFile();
+			Object obj = ((URL)playlist.get(rowIndex)).getFile();
 			return obj;
 		} catch (IndexOutOfBoundsException e) {
 			return null;
@@ -51,7 +51,10 @@ public class PlaylistTableModel extends AbstractTableModel{
 	
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		
 		return super.getColumnClass(columnIndex);
+	}
+	
+	public void updatePlaylist(final List<URL> playlist){
+		this.playlist= playlist;
 	}
 }

@@ -1,10 +1,13 @@
 package View.buttons;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+
+
 
 import controller.MusicPlayer;
 import static Model.Utility.*;
@@ -34,7 +37,11 @@ public class AddSpace extends PersonalJButton {
 			if (val == JFileChooser.APPROVE_OPTION) {
 				final File f = chooser.getSelectedFile();
 				
-				//controller.
+				try {
+					controller.addSong(new URL(f.getAbsolutePath()));
+				} catch (Exception e1) {
+					//Open ErrorDialog
+				}
 				
 				System.out.println(f.getName());
 			} else if (val != JFileChooser.CANCEL_OPTION) {
