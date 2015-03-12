@@ -97,7 +97,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	public void play() {
 		soundPlayer.get().play();
 		//Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(PlayerState.RUNNING);
+		notifyToUpdatable(soundPlayer.get().getState());
 	}
 
 
@@ -114,5 +114,55 @@ public class MusicPlayerImpl implements MusicPlayer {
 		soundPlayer.get().pause();
 		//Chiedo al lettore lo stato perchè dipende da esso
 		notifyToUpdatable(soundPlayer.get().getState());
+	}
+
+
+	@Override
+	public void setLoop(boolean value) {
+		model.setLoopMode(value);		
+	}
+
+
+	@Override
+	public void setShuffleMode(boolean active) {
+		this.model.setShuffleMode(active);		
+	}
+
+
+	@Override
+	public boolean isShuffleModeActive() {
+		return this.model.isShuffleModeActive();
+	}
+
+
+	@Override
+	public boolean isLoopModeActive() {
+		return this.model.isLoopModeActive();
+	}
+
+
+	@Override
+	public void addSong(URL songPath) throws IllegalArgumentException {
+		this.model.addSongToPlayList(songPath);
+	}
+
+
+	@Override
+	public void removeSong(int index)
+			throws IllegalArgumentException {
+		this.model.removeSongFromPlayList(index);		
+	}
+
+
+	@Override
+	public void loadPlayList(List<URL> playList)
+			throws IllegalArgumentException {
+		this.model.loadPlayList(playList);		
+	}
+
+
+	@Override
+	public List<URL> getPlayList() {
+		return this.model.getPlayList();
 	}
 }

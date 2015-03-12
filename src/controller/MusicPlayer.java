@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.util.List;
 
 import Model.PlayerState;
 import View.Updatable;
@@ -12,7 +13,7 @@ import View.Updatable;
  * @author Matteo Gabellini
  *
  */
-public interface MusicPlayer {
+public interface MusicPlayer extends Player{
 	
 	/**
 	 * This method add an Updatable object to the controller datastructure
@@ -49,9 +50,40 @@ public interface MusicPlayer {
 	
 	
 	/**
+	 * This method set the shuffle mode
 	 * 
+	 * @param true if we want to active the shuffle mode or false for deactive if was be already activated
 	 */
-	void play();
-	void stop();
-	void pause();
+	void setShuffleMode(boolean active);
+	
+	boolean isShuffleModeActive();
+	
+	boolean isLoopModeActive();
+	
+	/**
+	 * This method implements the logic for add the URL of a audio file to the playlist
+	 * @param songPath is the resource locator of the sound file
+	 * @throws IllegalArgumentException if parameter is null
+	 */
+	void addSong(URL songPath) throws IllegalArgumentException;
+	
+	/**
+	 * This method implements the logic for remove a song from the playList
+	 * @param index rapprent the position in the playlist
+	 * @throws IllegalArgumentException if parameter is incorrect
+	 */
+	void removeSong(int index) throws IllegalArgumentException;
+	
+	/**
+	 * This method permits to load the playlist specified like parameter
+	 * @param playList to load
+	 * @throws IllegalArgumentException if parameter is null
+	 */
+	void loadPlayList(List<URL> playList) throws  IllegalArgumentException;
+	
+	/**
+	 * This method return the current playlist
+	 * @return a copy of the current playlist
+	 */
+	List<URL> getPlayList();
 }

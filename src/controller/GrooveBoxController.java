@@ -4,7 +4,7 @@ package controller;
  * @author Matteo Gabellini
  *
  */
-public interface GrooveBoxController {
+public interface GrooveBoxController extends Player{
 	void createTrack();
 	
 }
