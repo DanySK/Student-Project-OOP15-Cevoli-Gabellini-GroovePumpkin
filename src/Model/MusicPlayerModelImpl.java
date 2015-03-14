@@ -34,23 +34,12 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	}
 
 	public Optional<Integer> getCurrentSongIndex() {
-		if (this.currentPlaylistIndex.isPresent()) {
-			return Optional.of(this.currentPlaylistIndex.get());
-		} else {
-			return Optional.empty();
-		}
+		return Optional.ofNullable(this.currentPlaylistIndex.get());
 	}
 
 	@Override
 	public Optional<URL> getCurretSong() {
-		// Gabs se qui fai direttamente
-		// return Optional.ofNullable(this.currentSong.get());
-		// non è meglio? Idem Sopra :P
-		if (this.currentSong.isPresent()) {
-			return Optional.of(this.currentSong.get());
-		} else {
-			return Optional.empty();
-		}
+		return Optional.ofNullable(this.currentSong.get());
 	}
 
 	@Override
@@ -69,9 +58,9 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 
 		if (this.shuffleMode) {
 			// call the method that implements the random choice of the song
-			if (this.getCurrentSongIndex().get() == shuffled
-					.get(shuffled.size() - 1)) {
-				// Ovvero la canzone è l'ultima dello Pseudo-Stack, quindi devo
+			if (this.getCurrentSongIndex().get() == shuffled.get(shuffled
+					.size() - 1)) {
+				// Ovvero la canzone ï¿½ l'ultima dello Pseudo-Stack, quindi devo
 				// aggiungerne un'altra
 				return this.shuffle();
 			} else {

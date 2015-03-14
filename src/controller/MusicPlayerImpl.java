@@ -28,7 +28,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	private Optional<SongPlayer> soundPlayer; // this field rappresents the
 												// concrete track player
 
-	// private Optional<SongPlayerMidi> midiSequencer; //this field rappresents
+	private Optional<MidiSongPlayer> midiSequencer; //this field rappresents
 	// the concrete midi sequencer
 
 	public MusicPlayerImpl() {
