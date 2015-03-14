@@ -26,14 +26,14 @@ public interface MusicPlayerModel {
 	
 	/**
 	 * This method implements the logic for choose the next song from the playlist
-	 * This method don't change the current song for do this use the changeToTheNextSong
+	 * This method doesn't change the current song, to do this use changeToTheNextSong()
 	 * @return the resource locator of the next audiofile
 	 */
 	Optional<URL> getNextSong(); //this can implemented with a iterator logic
 	
 	/**
 	 * This method implements the logic for choose the previous song from the playlist
-	 * This method don't change the current song for do this use the changeToThePreviousSong
+	 * This method doesn't change the current song, to do this use changeToThePreviousSong()
 	 * @return the resource locator of the previous audiofile
 	 */
 	Optional<URL> getPreviousSong();

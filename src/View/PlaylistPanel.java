@@ -103,7 +103,9 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 	@Override
 	public void updateStatus(PlayerState status) {
 		//ricrea la nuova tabella
-		((PlaylistTableModel) dataModel).updatePlaylist(this.controller.getPlayList());
-		playlist.tableChanged(new TableModelEvent(dataModel));		
+		if(status==PlayerState.RELOAD){
+			((PlaylistTableModel) dataModel).updatePlaylist(this.controller.getPlayList());
+			playlist.tableChanged(new TableModelEvent(dataModel));	
+		}
 	}
 }
