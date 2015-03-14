@@ -16,13 +16,13 @@ import javax.sound.sampled.Mixer;
  * @author Matteo Gabellini
  *
  */
-public class PlayerConfiguration {
+public class AudioConfiguration {
 	// Mixer is basicly the top level component of Java Sound Api
 	private Mixer mixer;
 	private Optional<Integer> lineIndex; //the index of the selected audio line
 	private Mixer.Info[] AudioPortInfo;
 	
-	public PlayerConfiguration(){
+	public AudioConfiguration(){
 		this.lineIndex = Optional.empty();
 		//At the creation of the object i 
 		this.AudioPortInfo = AudioSystem.getMixerInfo();
