@@ -80,6 +80,13 @@ public class MusicPlayerImpl implements MusicPlayer {
 		}
 	}
 
+	
+	@Override
+	public URL getCurrentSong() {
+		return this.model.getCurretSong().get();
+	}
+	
+	
 	@Override
 	public void loadSong(URL songPath) {
 		final AudioInputStream audioStream;

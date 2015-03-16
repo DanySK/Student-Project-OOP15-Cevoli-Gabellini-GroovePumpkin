@@ -50,6 +50,12 @@ public interface MusicPlayer extends Player{
 	
 	
 	/**
+	 * a getter for the current song
+	 * @return the song that will be played if will be call the method play
+	 */
+	URL getCurrentSong();
+	
+	/**
 	 * This method set the shuffle mode
 	 * 
 	 * @param true if we want to active the shuffle mode or false for deactive if was be already activated
