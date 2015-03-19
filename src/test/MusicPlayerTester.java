@@ -1,7 +1,9 @@
-package controller;
+package test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import controller.MusicPlayer;
 
 public class MusicPlayerTester {
 	public static void test(MusicPlayer lettore) {

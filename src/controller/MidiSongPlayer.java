@@ -19,51 +19,56 @@ public class MidiSongPlayer implements SongPlayer {
 	private MidiChannel channels[];
 	private PlayerState playerState;
 	
-	public MidiSongPlayer(Sequence midiSequence) throws MidiUnavailableException{
-			this.sequencer = MidiSystem.getSequencer();
-			
+	public MidiSongPlayer(final Sequence midiSequence) throws MidiUnavailableException, InvalidMidiDataException{
+			this.sequencer = MidiSystem.getSequencer();		
+			this.sequencer.setSequence(midiSequence);
 	}
 	
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
-
+		this.sequencer.start();
+		this.playerState = PlayerState.RUNNING;
 	}
 
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
-
+		this.sequencer.stop();
+		this.setPosition(0);
+		this.playerState = PlayerState.STOPPED;
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-
+		this.sequencer.stop();
+		this.playerState = PlayerState.PAUSED;
 	}
-
+	
+	@Override
+	public void setPosition(final int time) throws IllegalArgumentException {
+		if(time < 0 || time > this.sequencer.getMicrosecondLength()){
+			throw new IllegalArgumentException();
+		}
+		this.sequencer.setMicrosecondPosition(time);
+	}
+	
 	@Override
 	public double getDuration() {
-		// TODO Auto-generated method stub
-		return 0;
+		return (this.sequencer.getMicrosecondLength() * 1000000);
 	}
 
 	@Override
 	public double getElapsedTime() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sequencer.getMicrosecondPosition();
 	}
 
 	@Override
 	public PlayerState getState() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.playerState;
 	}
 
 	@Override
 	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.sequencer.isRunning();
 	}
 
 }

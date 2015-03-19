@@ -110,14 +110,29 @@ public class SampledSongPlayer implements SongPlayer {
 		}
 
 		@Override
+		public void setPosition(final int time) throws IllegalArgumentException{
+			//Check the parameter
+			if(time < 0 || time > (this.getDuration()*1000000)){
+				throw new IllegalArgumentException();
+			}
+			this.clip.setMicrosecondPosition(time);
+		}
+		
+		@Override
 		public double getDuration() {
-            return clip.getBufferSize() / (clip.getFormat().getFrameSize() * clip.getFormat().getFrameRate());
+            return this.clip.getBufferSize() / (this.clip.getFormat().getFrameSize() * this.clip.getFormat().getFrameRate());
 		}
 
-		@Override
-		public double getElapsedTime() {
-			return clip.getFramePosition() / clip.getFormat().getFrameRate();
-		}
+	@Override
+	public double getElapsedTime() {
+		/*
+		 * The microsecond position measures the time corresponding to the
+		 * number of sample frames rendered from the line since
+		 * it was opened.
+		 */
+		return this.clip.getFramePosition()
+				/ this.clip.getFormat().getFrameRate();
+	}
 
 		@Override
 		public PlayerState getState() {
@@ -134,7 +149,6 @@ public class SampledSongPlayer implements SongPlayer {
 			// Quando l'oggetto viene distrutto mi assicuro di chiudere la clip
 			super.finalize();
 			this.clip.close();
-		}
-		
+		}		
 		
 	}

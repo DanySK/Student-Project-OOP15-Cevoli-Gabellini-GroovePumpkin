@@ -1,5 +1,7 @@
 package controller;
 
+import test.MusicPlayerTester;
+
 /**
  * This is the classes that rappresent the main controller and the start point of the program
  * @author Matteo Gabellini
