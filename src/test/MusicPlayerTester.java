@@ -1,11 +1,15 @@
 package test;
 
+import static org.junit.Assert.*;
+import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import controller.MusicPlayer;
 
 public class MusicPlayerTester {
+	
+	@org.junit.Test
 	public static void test(MusicPlayer lettore) {
 		try {
 			lettore.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
