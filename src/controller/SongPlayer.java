@@ -10,6 +10,10 @@ import Model.PlayerState;
  */
 public interface SongPlayer{
 	void play();
+	
+	/**
+	 * This method stop the reproduction a close the AudioStream
+	 */
 	void stop();	
 	void pause();
 	
@@ -25,4 +29,10 @@ public interface SongPlayer{
 	double getElapsedTime();
 	
 	PlayerState getState();
+	
+	/**
+	 *Return true if the song is playing 
+	 */
+	boolean isActive();
+	
 }

@@ -28,9 +28,8 @@ public class MusicPlayerImpl implements MusicPlayer {
 	private Optional<SongPlayer> soundPlayer; // this field rappresents the
 												// concrete track player
 
-	private Optional<MidiSongPlayer> midiSequencer; //this field rappresents
-	// the concrete midi sequencer
-
+	private Optional<MidiSongPlayer> midiSequencer; //this field rappresents the concrete midi sequencer
+	
 	public MusicPlayerImpl() {
 		this.model = new MusicPlayerModelImpl();
 		this.soundPlayer = Optional.empty();
@@ -47,16 +46,21 @@ public class MusicPlayerImpl implements MusicPlayer {
 		view.add(component);
 	}
 
-	@Override
-	public void notifyToUpdatable(final PlayerState state) {
+	private void notifyToUpdatable(final PlayerState state) {
 		// view.stream().forEach(x -> x.update(state));
 	}
 
 	@Override
 	public void goToNextSong() {
+		//Check if the player is present...
+		if(this.soundPlayer.isPresent()){
+			//if the player is present I stop them...
+			this.soundPlayer.get().stop();			
+		}
+		
 		final Optional<URL> nextSong = this.model.changeToTheNextSong();
-		;
-		if (!(nextSong.isPresent())) {
+		
+		if ((nextSong.isPresent())) {
 			// Se la prossima canzone è presente la carico
 			this.loadSong(nextSong.get());
 		}
@@ -87,18 +91,38 @@ public class MusicPlayerImpl implements MusicPlayer {
 	}
 	
 	
+	
 	@Override
 	public void loadSong(URL songPath) {
 		final AudioInputStream audioStream;
+		final Sequence midiSequence;
+		//Provo a caricare l'url come sequenza midi
 		try {
-			audioStream = AudioSystem.getAudioInputStream(songPath);
-			// if(MIDI)
-			// this.soundPlayer = Optional.of(new MidiSongPlayer());
-			this.soundPlayer = Optional.of(new SampledSongPlayer(audioStream));
-		} catch (UnsupportedAudioFileException uafe) {
-			uafe.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			midiSequence = MidiSystem.getSequence(songPath);
+			try {
+				this.soundPlayer = Optional.of(new MidiSongPlayer(midiSequence));
+			} catch (MidiUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (InvalidMidiDataException e1) {
+			//Nel caso non sia una sequenza midi provo a caricarla come file audio
+			try {		
+				audioStream = AudioSystem.getAudioInputStream(songPath);
+				try {
+					this.soundPlayer = Optional.of(new SampledSongPlayer(audioStream));
+				} catch (LineUnavailableException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (UnsupportedAudioFileException uafe) {
+				uafe.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
@@ -176,5 +200,13 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public List<URL> getPlayList() {
 		return this.model.getPlayList();
+	}
+
+	@Override
+	public double getElapsedTime() {
+		if(this.soundPlayer.get().isActive()){
+			return this.soundPlayer.get().getElapsedTime();
+		}
+		return 0;
 	}
 }

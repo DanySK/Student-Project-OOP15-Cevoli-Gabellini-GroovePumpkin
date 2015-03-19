@@ -1,4 +1,4 @@
-package Model;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,12 +22,18 @@ public class AudioConfiguration {
 	private Optional<Integer> lineIndex; //the index of the selected audio line
 	private Mixer.Info[] AudioPortInfo;
 	
+	
+	public static AudioConfiguration getDefaultConfig(){
+		AudioConfiguration defautConfig = new AudioConfiguration();
+		defautConfig.setAudioPortIndex(0);
+		return defautConfig;
+	}	
+	
 	public AudioConfiguration(){
 		this.lineIndex = Optional.empty();
 		//At the creation of the object i 
 		this.AudioPortInfo = AudioSystem.getMixerInfo();
-	}
-	
+	}	
 	
 	public List<String> getAudioPort(){
 		//Every time that i call this method i refresh the audio port list
@@ -45,4 +51,6 @@ public class AudioConfiguration {
 	public Mixer getConfiguratedMixer(){
 		return this.mixer;
 	}
+	
+	
 }

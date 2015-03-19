@@ -44,12 +44,12 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 
 	@Override
 	public Optional<URL> getNextSong() {
-		// Controllo se è stata selezionata una canzone
-		if (this.currentPlaylistIndex.isPresent()) {
-			// se la canzone corrente non è stata selezionata restituisco un
-			// optional vuoto
+		// Check if was selected a song
+		if (!this.currentPlaylistIndex.isPresent()) {
+			// if the song wasn't selected I return a empty Optional
 			return Optional.empty();
 		}
+		
 		// Controllo se sono all'ultima canzone
 		if (this.playList.size() == this.currentPlaylistIndex.get() + 1) {
 			// In tal caso ritorno un oggetto Optional vuoto

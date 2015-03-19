@@ -20,11 +20,6 @@ public interface MusicPlayer extends Player{
 	 * @param component
 	 */
 	void addUpdatableObserver(final Updatable component);
-
-	/**
-	 * This method notify to all added Updatable object the changed status of the controller
-	 */
-	void notifyToUpdatable(final PlayerState state);
 	
 	/**
 	 * this method load the next song
@@ -54,6 +49,12 @@ public interface MusicPlayer extends Player{
 	 * @return the song that will be played if will be call the method play
 	 */
 	URL getCurrentSong();
+	
+	/**
+	 * a getter for the time past from the begin of the song
+	 * @return the elapsed second
+	 */
+	double getElapsedTime();
 	
 	/**
 	 * This method set the shuffle mode

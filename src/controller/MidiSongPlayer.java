@@ -19,7 +19,7 @@ public class MidiSongPlayer implements SongPlayer {
 	private MidiChannel channels[];
 	private PlayerState playerState;
 	
-	public MidiSongPlayer(/*Qui gli passo la traccia midi*/) throws MidiUnavailableException{
+	public MidiSongPlayer(Sequence midiSequence) throws MidiUnavailableException{
 			this.sequencer = MidiSystem.getSequencer();
 			
 	}
@@ -58,6 +58,12 @@ public class MidiSongPlayer implements SongPlayer {
 	public PlayerState getState() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
