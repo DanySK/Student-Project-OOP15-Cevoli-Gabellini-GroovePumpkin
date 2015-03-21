@@ -3,11 +3,13 @@ package View.buttons;
 import controller.MusicPlayer;
 import static Model.Utility.*;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class ShuffleSpace extends PersonalJButton {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5626643991067522666L;
 	private static final String TITLE= "Shuffle";
 	

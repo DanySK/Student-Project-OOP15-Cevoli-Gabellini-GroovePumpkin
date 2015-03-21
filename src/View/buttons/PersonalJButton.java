@@ -4,8 +4,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
-
-import Model.Utility;
 import static Model.Utility.*;
 
 /**
@@ -32,7 +30,7 @@ public class PersonalJButton extends JButton {
 	 * Basic constructor for the personal JButton
 	 */
 	protected PersonalJButton() {
-		this.setBorder(Utility.getADefaultBorder());
+		this.setBorder(getADefaultBorder());
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
 	}
@@ -93,6 +91,6 @@ public class PersonalJButton extends JButton {
 	 *            to be shown on the TitledBorder
 	 */ 
 	public void setTitle(final String title) {
-		this.setBorder(Utility.getACompoundTitledBorder(title));
+		this.setBorder(getACompoundTitledBorder(title));
 	}
 }

@@ -1,15 +1,18 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class TimeCounter extends Thread {
 	private volatile boolean stop;
 	private int sec;
-	private JLabel timeLabel;
+	private final JLabel timeLabel;
 
 	public TimeCounter(final JLabel timeLabel) {
 		this.timeLabel= timeLabel;

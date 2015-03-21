@@ -8,11 +8,13 @@ import javax.swing.JOptionPane;
 import controller.GrooveBoxController;
 import static Model.Utility.*;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class LoadSpace extends PersonalJButton {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3196123775349555103L;
 	private static final String TITLE = "Load";
 

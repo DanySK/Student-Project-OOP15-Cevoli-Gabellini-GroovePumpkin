@@ -5,6 +5,11 @@ import Model.PlayerState;
 import View.Updatable;
 import static Model.Utility.*;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class StopSpace extends PersonalJButton implements Updatable{
 
 	private static final long serialVersionUID = -5881639820393820954L;

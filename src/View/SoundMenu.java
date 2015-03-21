@@ -102,12 +102,16 @@ public class SoundMenu extends JMenuBar {
 	
 	/**
 	 * If someone doesn't like the normal implementation of this 
-	 * Menu
+	 * JMenu
 	 */
 	public void resetMenuBar(){
 		this.removeAll();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Component getOptionMenu(){
 		return this.option;
 	}

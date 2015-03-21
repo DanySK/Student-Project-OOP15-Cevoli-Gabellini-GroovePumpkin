@@ -30,6 +30,10 @@ public class GrooveBox extends JTable implements Updatable{
 	private static final long serialVersionUID = -7907789613027061207L;
 	private GrooveTableModel tableModel;
 
+	/**
+	 * 
+	 * @param tm
+	 */
 	public GrooveBox(final TableModel tm) {
 		super(tm);
 		tableModel = (GrooveTableModel) tm;

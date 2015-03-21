@@ -3,6 +3,11 @@ package View.buttons;
 import controller.MusicPlayer;
 import static Model.Utility.*;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class LoopSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -7087889831741979163L;

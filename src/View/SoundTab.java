@@ -34,20 +34,35 @@ public class SoundTab extends JTabbedPane {
 		this.setForegroundAt(1, GRAY);
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public GroovePanel getGroovePanel(){
 		return groovebox;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public PlayerPanel getPlaylistPanel(){
 		return player;
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 */
 	public void setPlayerPanel(final PlayerPanel player){
 		this.remove(this.player);
 		this.player=player;
 		this.add(this.player, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * 
+	 * @param groovebox
+	 */
 	public void setGroovePanel(final GroovePanel groovebox){
 		this.remove(this.groovebox);
 		this.groovebox=groovebox;

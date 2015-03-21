@@ -12,6 +12,11 @@ import javax.swing.filechooser.FileFilter;
 import controller.MusicPlayer;
 import static Model.Utility.*;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class AddSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -7690938463308760102L;

@@ -15,11 +15,13 @@ import controller.GrooveBoxController;
 import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
-import View.buttons.ButtonFactory;
+import static View.buttons.ButtonFactory.*;
 import static Model.Utility.*;
 
 /**
  * This class rapresents the GUI space for the groovebox
+ * Is divided into a controls panel (where are placed various buttons)
+ * and a personalized JTable that rapresent the GrooveBox
  * 
  * @author Alessandro
  *
@@ -38,6 +40,10 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	private GrooveBoxController controller;
 	private final List<Updatable> observer= new ArrayList<>();
 	
+	/**
+	 * 
+	 * @param controller
+	 */
 	public GroovePanel(final GrooveBoxController controller) {
 		super(new BorderLayout(5, 5));
 		observer.add(grooveBox);
@@ -71,11 +77,11 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		observer.add((Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, true, null));
+		observer.add((Updatable) createButton(PLAY_BUTTON, true, null));
 		buttonPanel.add((JButton) observer.get(observer.size()-1));
-		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
-		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.SAVE_BUTTON, true, controller));
-		buttonPanel.add(ButtonFactory.createButton(ButtonFactory.LOAD_BUTTON, true, controller));
+		buttonPanel.add(createButton(LOOP_BUTTON, true, controller));
+		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));
+		buttonPanel.add(createButton(LOAD_BUTTON, true, controller));
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 	}
 
@@ -85,7 +91,15 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	public Double getDial() {
 		return (Double) timeDialerOptions.getSelectedItem();
 	}
-
+	
+	/**
+	 * 
+	 * @return the groove associated to this object
+	 */
+	public GrooveBox getGrooveBox(){
+		return this.grooveBox;
+	}
+	
 	@Override
 	public void updateStatus(final PlayerState status) {
 			

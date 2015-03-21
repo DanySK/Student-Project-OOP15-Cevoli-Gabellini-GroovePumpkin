@@ -20,14 +20,24 @@ import static Model.Utility.*;
 public class PersonalJPanel extends JPanel {
 
 	private static final long serialVersionUID = -7098020132793828090L;
-
+	
+	/**
+	 * A basic constructor for a White&Gray panel
+	 * 
+	 */
 	public PersonalJPanel() {
 		super();
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
 		
 	}
-
+	
+	/**
+	 * A basic constructor for a White&Gray panel
+	 * with the given layout
+	 * 
+	 * @param layout
+	 */
 	public PersonalJPanel(final LayoutManager layout) {
 		this();
 		this.setLayout(layout);
@@ -38,6 +48,7 @@ public class PersonalJPanel extends JPanel {
 	 * (CompoundBorder decorated with ad EtchedBorder)
 	 */
 	public void setBuiltInBorder(){
-		this.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EmptyBorder(3, 3, 3, 3)));
+		this.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), 
+				new EmptyBorder(3, 3, 3, 3)));
 	}
 }

@@ -5,18 +5,17 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
-
 import controller.MusicPlayer;
 import controller.TimeCounter;
 import Model.PlayerState;
-import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
+import static Model.PlayerState.*;
+import static View.buttons.ButtonFactory.*;
 import static Model.Utility.*;
 
 /**
@@ -37,7 +36,13 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 	private Updatable generic; // that only for support
 	private MusicPlayer controller; // controller attached to this view
 	private final TimeCounter timer= new TimeCounter(songTime);
-
+	
+	/**
+	 * Default build for this object, creates a raedy to use
+	 * Music Player Panel with the given controller 
+	 * 
+	 * @param controller
+	 */
 	public MusicPlayerPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
 
@@ -55,14 +60,11 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		generic = (Updatable) ButtonFactory.createButton(
-				ButtonFactory.STOP_BUTTON, true, controller);
+		generic = (Updatable) createButton(STOP_BUTTON, true, controller);
 		observer.add(generic);
 		east.add((Component) generic);
-		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true,
-				controller));
-		east.add(ButtonFactory.createButton(ButtonFactory.SHUFFLE_BUTTON, true,
-				controller));
+		east.add(createButton(LOOP_BUTTON, true, controller));
+		east.add(createButton(SHUFFLE_BUTTON, true,	controller));
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
@@ -93,8 +95,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		});
 
 		controls.add(rw);
-		generic = (Updatable) ButtonFactory.createButton(
-				ButtonFactory.PLAY_BUTTON, false, controller);
+		generic = (Updatable) createButton(PLAY_BUTTON, false, controller);
 		observer.add(generic);
 		controls.add((Component) generic);
 		controls.add(fw);
@@ -124,10 +125,19 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		gainPanel.add(gain, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * 
+	 * @return the controler attached to this object
+	 */
 	public MusicPlayer getController(){
 		return this.controller;
 	}
 	
+	/**
+	 * Attach a new controller to this object
+	 * 
+	 * @param mp
+	 */
 	public void setController(final MusicPlayer mp){
 		this.controller= mp;
 		controller.addUpdatableObserver(this);
@@ -135,29 +145,30 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 
 	@Override
 	public void updateStatus(PlayerState status) {
-
+		
+		//Notify all the observers
 		for (Updatable u : observer) {
 			u.updateStatus(status);
 		}
-
-		// Aggiorna il titolo della canzone e
-		if (status.equals(PlayerState.RUNNING)
-				|| status.equals(PlayerState.SONGCHANGED)) {
+		
+		//self update
+		if (status.equals(RUNNING)
+				|| status.equals(SONGCHANGED)) {
 			//change the name of the songs to the new one
 			this.songName.setText(controller.getCurrentSong().getFile());
-			if(status.equals(PlayerState.SONGCHANGED)){
+			if(status.equals(SONGCHANGED)){
 				//stop the time counting when the song is changed
 				this.timer.stopAndReset();
 			}
 			//start a new counting
 			this.timer.run();
-		} else if (status.equals(PlayerState.STOPPED)
-				|| status.equals(PlayerState.RELOAD)) {
+		} else if (status.equals(STOPPED)
+				|| status.equals(RELOAD)) {
 			//stop the time counting
 			this.timer.stopAndReset();
 			//set the no-song string
 			this.songName.setText("Any song is playing");
-		} else if(status.equals(PlayerState.PAUSED)){
+		} else if(status.equals(PAUSED)){
 			//pause the counting
 			timer.pause();
 		}

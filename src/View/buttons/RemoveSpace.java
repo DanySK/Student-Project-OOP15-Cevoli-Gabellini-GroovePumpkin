@@ -5,6 +5,11 @@ import java.util.Optional;
 import javax.swing.JTable;
 import controller.MusicPlayer;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class RemoveSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -768335930316060117L;

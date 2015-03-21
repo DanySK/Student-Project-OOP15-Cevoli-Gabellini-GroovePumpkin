@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -21,8 +20,14 @@ public class SoundFrame extends JFrame {
 	private static final long serialVersionUID = 8764967532381350730L;
 	private SoundTab tabbedPane;
 	private SoundMenu menuBar;
+	
 	/**
-	 * This method populates the class
+	 * Default constructor for the frame
+	 * -Centered,
+	 * -Autoresize,
+	 * -BorderLayout
+	 * -Close on exit
+	 * 
 	 */
 	public SoundFrame(final MusicPlayer mp, final GrooveBoxController groove) {
 
@@ -50,20 +55,38 @@ public class SoundFrame extends JFrame {
 		this.pack();
 	}
 	
-	public Component getMenu(){
+	/**
+	 * 
+	 * @return The menu attached to this frame
+	 */
+	public SoundMenu getMenu(){
 		return this.menuBar;
 	}
 	
-	public Component getSoundTab(){
+	/**
+	 * 
+	 * @return The TabbedPane attached to this frame
+	 */
+	public SoundTab getSoundTab(){
 		return this.tabbedPane;
 	}
 	
+	/**
+	 * Set a new Menu for this frame
+	 * 
+	 * @param menu
+	 */
 	public void setMenuBar(final SoundMenu menu){
 		this.getContentPane().remove(menuBar);
 		this.menuBar=menu;
 		this.getContentPane().add(menuBar, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * Set a new Tabbed Pane for this frame
+	 * 
+	 * @param tab
+	 */
 	public void setSoundTab(final SoundTab tab){
 		this.getContentPane().remove(tabbedPane);
 		this.tabbedPane=tab;

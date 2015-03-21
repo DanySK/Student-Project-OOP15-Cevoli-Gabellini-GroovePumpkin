@@ -7,7 +7,6 @@ import static Model.Utility.*;
 /**
  * 
  * @author Alessandro
- * @param <Recspace>
  *
  */
 public class RecSpace extends PersonalJButton implements Updatable{
