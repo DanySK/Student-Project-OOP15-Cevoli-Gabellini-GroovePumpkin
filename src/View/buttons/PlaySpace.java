@@ -1,10 +1,13 @@
 package View.buttons;
 
+import java.util.Optional;
+
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
 
 import static Model.Utility.*;
 import controller.MusicPlayer;
+import controller.Player;
 import Model.PlayerState;
 import View.Updatable;
 
@@ -20,8 +23,7 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 	private static final long serialVersionUID = -8958765355776362631L;
 	public static final String PLAY = "Play";
 	public static final String PAUSE = "Pause";
-	
-	private JTable playlist;
+	private Optional<JTable> playlist= Optional.empty();
 
 	/**
 	 * 
@@ -30,29 +32,22 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 	 * @param buttonEnabled
 	 *            if the button have to be enabled or not
 	 */
-	protected PlaySpace(final MusicPlayer controller, final ImageIcon img,
+	protected PlaySpace(final Player controller, final ImageIcon img,
 			final boolean showTitle) {
 
 		super(img);
 		super.setController(controller);
-
-		if (img != null && this.getIcon().equals(PLAY_IMG)) {
-			this.setID(PLAY);
-		} else {
-			this.setID(PAUSE);
-		}
-
+		
 		if (showTitle) {
 			this.setTitle(PLAY);
 		}
 
 		this.addActionListener(e -> {
-			if (this.getID().equals(PLAY)) {
+			if (this.getIcon().equals(PLAY_IMG)) {
 				try {
-					
-					if(playlist!=null){
-						controller.goToSong(playlist.getSelectedRow() < 0 ? 0
-								: playlist.getSelectedRow());
+					if(playlist.get()!=null){
+						((MusicPlayer) controller).goToSong(playlist.get().getSelectedRow() < 0 ? 0
+								: playlist.get().getSelectedRow());
 					}
 					
 					controller.play();
@@ -73,28 +68,28 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 	public void updateStatus(final PlayerState status) {
 
 		if (status.equals(PlayerState.RUNNING)) {
-			this.setID(PLAY);
+			this.setIcon(PAUSE_IMG);
 			if (this.getTitledBorder() != null) {
 				this.getTitledBorder().setTitle(PAUSE);
 			}
-			this.setIcon(PAUSE_IMG);
 			// start
 		} else {
-			this.setID(PAUSE);
+			this.setIcon(PLAY_IMG);
 			if (this.getTitledBorder() != null) {
 				this.getTitledBorder().setTitle(PLAY);
 			}
-			PlaySpace.this.setIcon(PLAY_IMG);
 			// pause
 		}
 	}
 	
 	/**
-	 * The Playlist to be Attached to this button to make it fully working
+	 * The Playlist to be attached to this button to make it fully working
 	 * 
 	 * @param playlist
 	 */
 	public void attachPlaylist(final JTable playlist) {
-		this.playlist = playlist;
+		if(this.getController() instanceof MusicPlayer){
+			this.playlist = Optional.ofNullable(playlist);
+		}
 	}
 }

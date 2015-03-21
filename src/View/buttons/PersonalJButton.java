@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import Model.Utility;
 import static Model.Utility.*;
 
 /**
@@ -25,14 +26,13 @@ public class PersonalJButton extends JButton {
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	
-	private String id = "";
 	private Object controller;
 
 	/**
 	 * Basic constructor for the personal JButton
 	 */
 	protected PersonalJButton() {
-		this.setBorder(getADefaultBorder());
+		this.setBorder(Utility.getADefaultBorder());
 		this.setBackground(WHITE);
 		this.setForeground(GRAY);
 	}
@@ -61,13 +61,6 @@ public class PersonalJButton extends JButton {
 	public Object getController(){
 		return controller;
 	}
-
-	/**
-	 * @return the id of this button
-	 */
-	public String getID() {
-		return id;
-	}
 	
 	/**
 	 * I needed his method for changing the name of the titled border gotten
@@ -95,18 +88,11 @@ public class PersonalJButton extends JButton {
 	}
 	
 	/**
-	 * @param newID the new ID to be associated with this button
-	 */
-	public void setID(final String newID) {
-		this.id = newID;
-	}
-	
-	/**
 	 * 
 	 * @param name
 	 *            to be shown on the TitledBorder
 	 */ 
 	public void setTitle(final String title) {
-		this.setBorder(getACompoundTitledBorder(title));
+		this.setBorder(Utility.getACompoundTitledBorder(title));
 	}
 }

@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 
 import javax.swing.JScrollPane;
@@ -12,9 +11,9 @@ import javax.swing.table.TableModel;
 import controller.MusicPlayer;
 import Model.PlayerState;
 import Model.PlaylistTableModel;
-import View.buttons.ButtonFactory;
-import View.buttons.PersonalJButton;
+import View.buttons.RemoveSpace;
 import static Model.Utility.*;
+import static View.buttons.ButtonFactory.*;
 
 /**
  * Personalized Panel for the PlayBackPanel class, 
@@ -61,32 +60,26 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 		jsp.setForeground(GRAY);
 
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
-		buttonRow.add(ButtonFactory.createButton(ButtonFactory.ADD_BUTTON, true, mp));
+		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 		
-		final PersonalJButton remove= new PersonalJButton(REMOVE_IMG);
-		remove.setTitle("Remove");
-		remove.addActionListener(e->{
-			// rimuovi una canzone
-			try {
-				controller.removeSong(playlist.getSelectedRow());
-				//Devo aggironare io?
-			} catch (Exception ex) {
-				// do nothing
-			}
-		});
-		
+		final RemoveSpace remove= (RemoveSpace) createButton(REMOVE_BUTTON, true, controller);
+		remove.attachPlaylist(playlist);
 		buttonRow.add(remove);
 
 		this.add(jsp, BorderLayout.CENTER);
 		this.add(buttonRow, BorderLayout.SOUTH);
 	}
 	
-	public Component getPlaylistTable(){
+	public JTable getPlaylistTable(){
 		return this.playlist;
 	}
 	
 	public TableModel getPlaylistModel(){
 		return this.dataModel;
+	}
+	
+	public MusicPlayer getController(){
+		return this.controller;
 	}
 	
 	public void setPlaylistTable(final JTable table){
@@ -99,6 +92,12 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable{
 		this.dataModel= model;
 		this.setPlaylistTable(new JTable(model));
 	}
+	
+	public void setController(final MusicPlayer mp){
+		this.controller= mp;
+		this.controller.addUpdatableObserver(this);
+	}
+	
 	//Called by the Controller when a song is added or removed from the playlist
 	@Override
 	public void updateStatus(PlayerState status) {

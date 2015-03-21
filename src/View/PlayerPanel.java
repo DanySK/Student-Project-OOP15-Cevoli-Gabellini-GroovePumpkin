@@ -1,12 +1,8 @@
 package View;
 
 import static Model.Utility.*;
-
 import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.JSplitPane;
-
 import controller.MusicPlayer;
 
 public class PlayerPanel extends PersonalJPanel {
@@ -30,11 +26,11 @@ public class PlayerPanel extends PersonalJPanel {
 		this.add(splitter);
 	}
 
-	public Component getPlaylistPanel() {
+	public PlaylistPanel getPlaylistPanel() {
 		return list;
 	}
 
-	public Component getMusicPlayerPanel() {
+	public MusicPlayerPanel getMusicPlayerPanel() {
 		return player;
 	}
 
@@ -43,6 +39,7 @@ public class PlayerPanel extends PersonalJPanel {
 		this.player=player;
 		this.splitter=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				list, player);
+		this.add(splitter);
 	}
 
 	public void setPlaylistPanel(final PlaylistPanel list) {
@@ -50,5 +47,6 @@ public class PlayerPanel extends PersonalJPanel {
 		this.list=list;
 		this.splitter=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				list, player);
+		this.add(splitter);
 	}
 }

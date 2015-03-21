@@ -1,10 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.JTabbedPane;
-
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
 import static Model.Utility.*;
@@ -37,11 +34,11 @@ public class SoundTab extends JTabbedPane {
 		this.setForegroundAt(1, GRAY);
 	}
 	
-	public Component getGroovePanel(){
+	public GroovePanel getGroovePanel(){
 		return groovebox;
 	}
 	
-	public Component getPlaylistPanel(){
+	public PlayerPanel getPlaylistPanel(){
 		return player;
 	}
 	

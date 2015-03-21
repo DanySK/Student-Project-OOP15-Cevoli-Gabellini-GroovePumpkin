@@ -22,6 +22,7 @@ public final class Utility {
 	public static final Color L_GRAY = new Color(180, 180, 180);
 	public static final Color WHITE = new Color(255, 255, 255);
 	public static final Color ORANGE= new Color(255, 127, 0);
+	public static final Color DARK_GREEN= new Color(0, 130, 50);
 	
 	/**
 	 * Those are all the Icons applicables over the button

@@ -60,7 +60,7 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 			// call the method that implements the random choice of the song
 			if (this.getCurrentSongIndex().get() == shuffled.get(shuffled
 					.size() - 1)) {
-				// Ovvero la canzone ï¿½ l'ultima dello Pseudo-Stack, quindi devo
+				// Ovvero la canzone é l'ultima dello Pseudo-Stack, quindi devo
 				// aggiungerne un'altra
 				return this.shuffle();
 			} else {

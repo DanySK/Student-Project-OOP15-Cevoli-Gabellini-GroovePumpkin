@@ -115,9 +115,8 @@ public class GrooveBox extends JTable implements Updatable{
 
 	@Override
 	public void updateStatus(PlayerState status) {
-		/*if(Status.equals(PlayerStatus.RELOAD){
-		*	this.tableChanged(new TableModelEvent(tableModel));
-		*	}
-		*/		
+		if(status.equals(PlayerState.RELOAD)){
+			this.tableChanged(new TableModelEvent(tableModel));
+		}
 	}
 }

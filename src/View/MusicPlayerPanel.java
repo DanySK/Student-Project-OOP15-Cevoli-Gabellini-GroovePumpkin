@@ -13,10 +13,12 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
 import controller.MusicPlayer;
+import controller.TimeCounter;
 import Model.PlayerState;
 import View.buttons.ButtonFactory;
 import View.buttons.PersonalJButton;
 import static Model.Utility.*;
+
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
  * and pausing of a choosen song.
@@ -24,27 +26,28 @@ import static Model.Utility.*;
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
+public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
+	private final JLabel songTime= new JLabel("00:00:00");
 	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
-	private final List<Updatable> observer= new ArrayList<>();
-	
-	private Updatable generic; //that only for support
-	private MusicPlayer controller; //controller attached to this view
+	private final List<Updatable> observer = new ArrayList<>(); //list of observer attached to eventually update
+	private Updatable generic; // that only for support
+	private MusicPlayer controller; // controller attached to this view
+	private final TimeCounter timer= new TimeCounter(songTime);
 
 	public MusicPlayerPanel(final MusicPlayer controller) {
 		super(new BorderLayout());
-		
-		this.controller= controller;
+
+		this.controller = controller;
 		controller.addUpdatableObserver(this);
-		
+
 		this.setBuiltInBorder();
-		
+
 		songName.setBackground(WHITE);
-		songName.setForeground(GRAY);
+		songName.setForeground(DARK_GREEN);
 
 		final PersonalJPanel north = new PersonalJPanel(new BorderLayout());
 		populateNorthPanel(north);
@@ -52,11 +55,14 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.STOP_BUTTON, true, controller);
+		generic = (Updatable) ButtonFactory.createButton(
+				ButtonFactory.STOP_BUTTON, true, controller);
 		observer.add(generic);
 		east.add((Component) generic);
-		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true, controller));
-		east.add(ButtonFactory.createButton(ButtonFactory.SHUFFLE_BUTTON, true, controller));
+		east.add(ButtonFactory.createButton(ButtonFactory.LOOP_BUTTON, true,
+				controller));
+		east.add(ButtonFactory.createButton(ButtonFactory.SHUFFLE_BUTTON, true,
+				controller));
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
@@ -69,33 +75,37 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 
 		final PersonalJPanel northLabel = new PersonalJPanel(new FlowLayout());
 		northLabel.add(songName);
-
+		northLabel.add(songTime);
 		north.add(northLabel, BorderLayout.NORTH);
 
-		final PersonalJPanel northCentral = new PersonalJPanel(new FlowLayout());
+		final PersonalJPanel controls = new PersonalJPanel(new FlowLayout());
 
 		final PersonalJButton fw = new PersonalJButton(FW_IMG);
-		fw.addActionListener(e->{
+		fw.addActionListener(e -> {
 			// go to the next song
+			controller.goToNextSong();
 		});
 
 		final PersonalJButton rw = new PersonalJButton(RW_IMG);
-		rw.addActionListener(e->{
+		rw.addActionListener(e -> {
 			// go back to the previous song
+			controller.goToPreviousSong();
 		});
 
-		northCentral.add(rw);
-		generic= (Updatable) ButtonFactory.createButton(ButtonFactory.PLAY_BUTTON, false, controller);
+		controls.add(rw);
+		generic = (Updatable) ButtonFactory.createButton(
+				ButtonFactory.PLAY_BUTTON, false, controller);
 		observer.add(generic);
-		northCentral.add((Component) generic);
-		northCentral.add(fw);
+		controls.add((Component) generic);
+		controls.add(fw);
 
-		north.add(northCentral, BorderLayout.CENTER);
+		north.add(controls, BorderLayout.CENTER);
 	}
-	
+
 	private void populateGainPanel(PersonalJPanel gainPanel) {
 
-		final CompoundBorder gainLabel = (CompoundBorder) getACompoundTitledBorder("Volume: " + gain.getValue());
+		final CompoundBorder gainLabel = (CompoundBorder) getACompoundTitledBorder("Volume: "
+				+ gain.getValue());
 
 		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(GRAY);
 		gain.setBorder(gainLabel);
@@ -103,21 +113,53 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable{
 		gain.setForeground(GRAY);
 		gain.setEnabled(true);
 
-		gain.addChangeListener(e->{
+		gain.addChangeListener(e -> {
 			// Change the Volume of the song
-			((TitledBorder) gainLabel.getOutsideBorder())
-					.setTitle("Volume: " + gain.getValue());
+			((TitledBorder) gainLabel.getOutsideBorder()).setTitle("Volume: "
+					+ gain.getValue());
 
 			gain.repaint();
 		});
 
 		gainPanel.add(gain, BorderLayout.CENTER);
 	}
+	
+	public MusicPlayer getController(){
+		return this.controller;
+	}
+	
+	public void setController(final MusicPlayer mp){
+		this.controller= mp;
+		controller.addUpdatableObserver(this);
+	}
 
 	@Override
 	public void updateStatus(PlayerState status) {
-		for(Updatable u : observer){
+
+		for (Updatable u : observer) {
 			u.updateStatus(status);
+		}
+
+		// Aggiorna il titolo della canzone e
+		if (status.equals(PlayerState.RUNNING)
+				|| status.equals(PlayerState.SONGCHANGED)) {
+			//change the name of the songs to the new one
+			this.songName.setText(controller.getCurrentSong().getFile());
+			if(status.equals(PlayerState.SONGCHANGED)){
+				//stop the time counting when the song is changed
+				this.timer.stopAndReset();
+			}
+			//start a new counting
+			this.timer.run();
+		} else if (status.equals(PlayerState.STOPPED)
+				|| status.equals(PlayerState.RELOAD)) {
+			//stop the time counting
+			this.timer.stopAndReset();
+			//set the no-song string
+			this.songName.setText("Any song is playing");
+		} else if(status.equals(PlayerState.PAUSED)){
+			//pause the counting
+			timer.pause();
 		}
 	}
 }

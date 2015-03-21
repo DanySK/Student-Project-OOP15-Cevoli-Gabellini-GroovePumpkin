@@ -4,6 +4,7 @@ import javax.swing.JButton;
 
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
+import controller.Player;
 import static Model.Utility.*;
 
 /**
@@ -22,6 +23,7 @@ public final class ButtonFactory {
 	public static final int SHUFFLE_BUTTON = 6;
 	public static final int PAUSE_BUTTON = 7;
 	public static final int ADD_BUTTON = 8;
+	public static final int REMOVE_BUTTON= 9;
 
 	private ButtonFactory() {
 	}
@@ -54,9 +56,9 @@ public final class ButtonFactory {
 	public static JButton createButton(final int type, final boolean showTitle,
 			final Object controller) {
 		if (type == PLAY_BUTTON) {
-			return new PlaySpace((MusicPlayer) controller, PLAY_IMG, showTitle);
+			return new PlaySpace((Player) controller, PLAY_IMG, showTitle);
 		} else if (type == STOP_BUTTON) {
-			return new StopSpace((MusicPlayer) controller, showTitle);
+			return new StopSpace((Player) controller, showTitle);
 		} else if (type == LOOP_BUTTON) {
 			return new LoopSpace((MusicPlayer) controller, showTitle);
 		} else if (type == REC_BUTTON) {
@@ -68,9 +70,11 @@ public final class ButtonFactory {
 		} else if (type == SHUFFLE_BUTTON) {
 			return new ShuffleSpace((MusicPlayer) controller, showTitle);
 		} else if (type == PAUSE_BUTTON) {
-			return new PlaySpace((MusicPlayer) controller, PAUSE_IMG, showTitle);
+			return new PlaySpace((Player) controller, PAUSE_IMG, showTitle);
 		} else if (type == ADD_BUTTON) {
 			return new AddSpace((MusicPlayer) controller, showTitle);
+		} else if (type == REMOVE_BUTTON) {
+			return new RemoveSpace((MusicPlayer) controller, showTitle);
 		} else {
 			return null;
 		}
