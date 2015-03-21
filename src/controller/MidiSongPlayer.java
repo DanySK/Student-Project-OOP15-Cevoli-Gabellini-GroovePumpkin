@@ -2,7 +2,7 @@ package controller;
 
 import javax.sound.midi.*;
 
-import Model.PlayerState;
+import Model.SingleSongPlayeState;
 
 /**
  * A midi song player take a midi track and play them
@@ -17,30 +17,54 @@ public class MidiSongPlayer implements SongPlayer {
 	private Sequencer sequencer;
 	private Synthesizer synthesizer;
 	private MidiChannel channels[];
-	private PlayerState playerState;
+	private SingleSongPlayeState SingleSongPlayeState;
+	private boolean pause;
+	
+	/* Questa variabile contiene un oggeto di una classe anonima che implementa
+	 * il comportamento per controllare quando la canzone termina perchè è stata riprodotta tutta*/
+	private Thread threadSongWatcher = new Thread() {
+		
+		@Override
+		public void run() {
+			while(MidiSongPlayer.this.isActive() || MidiSongPlayer.this.pause){
+				//Finche la traccia è attiva stoppo momentaneamente il thread
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			//una volta che la traccia è terminata 
+			MidiSongPlayer.this.stop();
+			sequencer.close();
+		}
+	};
 	
 	public MidiSongPlayer(final Sequence midiSequence) throws MidiUnavailableException, InvalidMidiDataException{
-			this.sequencer = MidiSystem.getSequencer();		
+			this.sequencer = MidiSystem.getSequencer();	
+			this.sequencer.open();
 			this.sequencer.setSequence(midiSequence);
 	}
 	
 	@Override
 	public void play() {
+		this.pause = false;
 		this.sequencer.start();
-		this.playerState = PlayerState.RUNNING;
+		this.SingleSongPlayeState = SingleSongPlayeState.RUNNING;
 	}
 
 	@Override
 	public void stop() {
 		this.sequencer.stop();
-		this.setPosition(0);
-		this.playerState = PlayerState.STOPPED;
+		this.sequencer.close();
+		this.SingleSongPlayeState = SingleSongPlayeState.STOPPED;
 	}
 
 	@Override
 	public void pause() {
+		this.pause = true;
 		this.sequencer.stop();
-		this.playerState = PlayerState.PAUSED;
+		this.SingleSongPlayeState = SingleSongPlayeState.PAUSED;
 	}
 	
 	@Override
@@ -62,13 +86,16 @@ public class MidiSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public PlayerState getState() {
-		return this.playerState;
+	public SingleSongPlayeState getState() {
+		return this.SingleSongPlayeState;
 	}
 
 	@Override
 	public boolean isActive() {
 		return this.sequencer.isRunning();
 	}
-
+	
+	public void setBPM(int bpm){
+		this.sequencer.setTempoInBPM(bpm);
+	}
 }

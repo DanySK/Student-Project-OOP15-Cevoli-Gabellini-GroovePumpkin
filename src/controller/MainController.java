@@ -16,7 +16,5 @@ public class MainController {
 		SoundFrame sf = new SoundFrame(lettore, );
 		lettore.addViewListener();
 		*/
-		
-		MusicPlayerTester.test(lettore);
 	}
 }

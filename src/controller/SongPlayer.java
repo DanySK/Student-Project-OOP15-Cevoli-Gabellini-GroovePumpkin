@@ -1,6 +1,6 @@
 package controller;
 
-import Model.PlayerState;
+import Model.SingleSongPlayeState;
 
 /**
  * A interface that rapprent a SingleSongPlayer
@@ -36,7 +36,7 @@ public interface SongPlayer{
 	 */
 	double getElapsedTime();
 	
-	PlayerState getState();
+	SingleSongPlayeState getState();
 	
 	/**
 	 *Return true if the song is playing 

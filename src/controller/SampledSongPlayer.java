@@ -10,11 +10,12 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
+import javax.sound.sampled.SourceDataLine;
 
-import Model.PlayerState;
+import Model.SingleSongPlayeState;
 
 /**
- * 
+ * A Player of sampled song (wav song)
  * @author Matteo Gabellini
  *
  */
@@ -30,11 +31,11 @@ public class SampledSongPlayer implements SongPlayer {
 		 * time.
 		 */
 		private  Clip clip;
-		private  PlayerState statoLettore;
+		private  SingleSongPlayeState statoLettore;
 		private boolean pause;
 		
 		/* Questa variabile contiene un oggeto di una classe anonima che implementa
-		 * il comportamento */
+		 * il comportamento per controllare quando la canzone termina perchè è stata riprodotta tutta*/
 		private Thread threadSongWatcher = new Thread() {
 			
 			@Override
@@ -67,7 +68,7 @@ public class SampledSongPlayer implements SongPlayer {
 			
 			this.clip.open(song);
 			
-			this.statoLettore = PlayerState.STOPPED;
+			this.statoLettore = SingleSongPlayeState.STOPPED;
 		}
 		
 		public Clip getClip(URL songURL){
@@ -78,7 +79,7 @@ public class SampledSongPlayer implements SongPlayer {
 		public void play() {
 			this.pause = false;
 			//Avvia la riproduzione su un altro thread
-			this.statoLettore = PlayerState.RUNNING;
+			this.statoLettore = SingleSongPlayeState.RUNNING;
 			this.clip.start();			
 			try {
 				//Fermo un attimo il thread in modo che 
@@ -98,7 +99,7 @@ public class SampledSongPlayer implements SongPlayer {
 		public void stop() {
 			this.clip.stop();
 			this.clip.close();
-			this.statoLettore = PlayerState.STOPPED;			
+			this.statoLettore = SingleSongPlayeState.STOPPED;			
 		}
 
 		@Override
@@ -106,7 +107,7 @@ public class SampledSongPlayer implements SongPlayer {
 			//Il metodo stop ferma la riproduzione senza riportare la traccia all'inizio
 			this.pause = true;
 			this.clip.stop();
-			this.statoLettore = PlayerState.PAUSED;
+			this.statoLettore = SingleSongPlayeState.PAUSED;
 		}
 
 		@Override
@@ -135,7 +136,7 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 		@Override
-		public PlayerState getState() {
+		public SingleSongPlayeState getState() {
 			return this.statoLettore;
 		}
 		

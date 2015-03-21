@@ -12,6 +12,7 @@ import javax.sound.midi.*;
 import Model.MusicPlayerModel;
 import Model.MusicPlayerModelImpl;
 import Model.PlayerState;
+import Model.SingleSongPlayeState;
 import View.MusicPlayerPanel;
 import View.Updatable;
 
@@ -42,7 +43,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 		if (view == null) {
 			view = new ArrayList<>();
 		}
-
 		view.add(component);
 	}
 
@@ -61,8 +61,15 @@ public class MusicPlayerImpl implements MusicPlayer {
 		final Optional<URL> nextSong = this.model.changeToTheNextSong();
 		
 		if ((nextSong.isPresent())) {
-			// Se la prossima canzone è presente la carico
+			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
+			// Se la canzone successiva è presente la carico
 			this.loadSong(nextSong.get());
+			
+			//If before the song changing the song player was running...
+			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
+				//Start the reproduction of the new song
+				this.play();
+			}
 		}
 	}
 
@@ -70,8 +77,15 @@ public class MusicPlayerImpl implements MusicPlayer {
 	public void goToPreviousSong() {
 		final Optional<URL> previousSong = this.model.changeToThePreviousSong();
 		if (!(previousSong.isPresent())) {
-			// Se la prossima canzone è presente la carico
+			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
+			// Se la canzone precedente è presente la carico
 			this.loadSong(previousSong.get());
+			
+			//If before the song changing the song player was running...
+			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
+				//Start the reproduction of the new song
+				this.play();
+			}
 		}
 	}
 
@@ -79,8 +93,16 @@ public class MusicPlayerImpl implements MusicPlayer {
 	public void goToSong(int index) {
 		final Optional<URL> song = this.model.changeSong(index);
 		if (!(song.isPresent())) {
+			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
 			// Se la canzone indicata dall'indice è presente la carico
 			this.loadSong(song.get());
+			
+			//If before the song changing the song player was running...
+			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
+				//Start the reproduction of the new song
+				this.play();
+			}
+			
 		}
 	}
 
@@ -94,7 +116,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	
 	@Override
 	public void loadSong(URL songPath) {
-		final AudioInputStream audioStream;
+		AudioInputStream audioStream;
 		final Sequence midiSequence;
 		//Provo a caricare l'url come sequenza midi
 		try {
@@ -109,6 +131,21 @@ public class MusicPlayerImpl implements MusicPlayer {
 			//Nel caso non sia una sequenza midi provo a caricarla come file audio
 			try {		
 				audioStream = AudioSystem.getAudioInputStream(songPath);
+				
+				//System.out.println("Before converting " + audioStream.getFormat());
+				
+				//Controllo se il file che ho caricato è in codifica PCM floating point
+				if(audioStream.getFormat().getEncoding() == AudioFormat.Encoding.PCM_FLOAT){
+					//Convert in the correct audio format
+					audioStream = AudioSystem.getAudioInputStream(new AudioFormat(
+							AudioFormat.Encoding.PCM_SIGNED,
+							audioStream.getFormat().getSampleRate(),
+							24,
+							audioStream.getFormat().getChannels(),
+							6,
+							audioStream.getFormat().getFrameRate(),false), audioStream);
+				}
+				
 				try {
 					this.soundPlayer = Optional.of(new SampledSongPlayer(audioStream));
 				} catch (LineUnavailableException e) {
@@ -136,21 +173,22 @@ public class MusicPlayerImpl implements MusicPlayer {
 		}
 		soundPlayer.get().play();
 		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState());
+		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.RUNNING ? PlayerState.RUNNING : PlayerState.ERROR);
 	}
 
 	@Override
 	public void stop() {
 		soundPlayer.get().stop();
 		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState());
+		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.STOPPED ? PlayerState.STOPPED : PlayerState.ERROR);
+		this.soundPlayer = Optional.empty();
 	}
 
 	@Override
 	public void pause() {
 		soundPlayer.get().pause();
 		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState());
+		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.PAUSED ? PlayerState.PAUSED : PlayerState.ERROR);
 	}
 
 	@Override
