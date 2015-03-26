@@ -1,21 +1,26 @@
 package controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
+
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 /**
+ * A simple Counter class modified to count the time of the played object
  * 
  * @author Alessandro
  *
  */
-public class TimeCounter extends Thread {
+public final class TimeCounter extends Thread {
+	
+	private static final TimeCounter TIMERCOUNTER= new TimeCounter();
+	
 	private volatile boolean stop;
 	private int sec;
-	private final JLabel timeLabel;
-
-	public TimeCounter(final JLabel timeLabel) {
-		this.timeLabel= timeLabel;
+	private Optional<JLabel> timeLabel= Optional.empty();
+	
+	private TimeCounter(){
 	}
 	
 	private String digitalize(){
@@ -43,6 +48,14 @@ public class TimeCounter extends Thread {
 		return s;
 		
 	}
+	
+	public static TimeCounter getSingleton(){
+		return TimeCounter.TIMERCOUNTER;
+	}
+	
+	public void attachTimeLabel(final JLabel label){
+		this.timeLabel= Optional.ofNullable(label);
+	}
 
 	public void stopAndReset() {
 		pause();
@@ -50,7 +63,7 @@ public class TimeCounter extends Thread {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				TimeCounter.this.timeLabel.setText("00:00:00");
+				TimeCounter.this.timeLabel.get().setText("00:00:00");
 			}
 		});
 	}
@@ -61,13 +74,14 @@ public class TimeCounter extends Thread {
 
 	@Override
 	public void run() {
+		stop=false;
 		while (!this.stop) {
 
 			try {
 				SwingUtilities.invokeAndWait(new Runnable() {
 					@Override
 					public void run() {
-						TimeCounter.this.timeLabel.setText(TimeCounter.this.digitalize());
+						TimeCounter.this.timeLabel.get().setText(TimeCounter.this.digitalize());
 					}
 				});
 			} catch (InvocationTargetException | InterruptedException e) {

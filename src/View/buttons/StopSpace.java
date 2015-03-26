@@ -27,11 +27,7 @@ public class StopSpace extends PersonalJButton implements Updatable{
 		this.setEnabled(false);
 		
 		this.addActionListener(e->{
-			try{
-				controller.stop();
-			} catch(Exception ex){
-				//Open error pane
-			}
+			controller.stop();
 		});
 	}
 

@@ -1,12 +1,7 @@
 package View.buttons;
 
-import java.util.Optional;
-
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
-
 import static Model.Utility.*;
-import controller.MusicPlayer;
 import controller.Player;
 import Model.PlayerState;
 import View.Updatable;
@@ -23,7 +18,6 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 	private static final long serialVersionUID = -8958765355776362631L;
 	public static final String PLAY = "Play";
 	public static final String PAUSE = "Pause";
-	private Optional<JTable> playlist= Optional.empty();
 
 	/**
 	 * 
@@ -41,25 +35,12 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 		if (showTitle) {
 			this.setTitle(PLAY);
 		}
-
+		
 		this.addActionListener(e -> {
 			if (this.getIcon().equals(PLAY_IMG)) {
-				try {
-					if(playlist.get()!=null){
-						((MusicPlayer) controller).goToSong(playlist.get().getSelectedRow() < 0 ? 0
-								: playlist.get().getSelectedRow());
-					}
-					
-					controller.play();
-				} catch (Exception ex_1) {
-					// Open ErrorLoadingPane
-				}
+				controller.play();
 			} else {
-				try {
-					controller.pause();
-				} catch (Exception ex_2) {
-					// OpenErrorPane
-				}
+				controller.pause();
 			}
 		});
 	}
@@ -79,17 +60,6 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 				this.getTitledBorder().setTitle(PLAY);
 			}
 			// pause
-		}
-	}
-	
-	/**
-	 * The Playlist to be attached to this button to make it fully working
-	 * 
-	 * @param playlist
-	 */
-	public void attachPlaylist(final JTable playlist) {
-		if(this.getController() instanceof MusicPlayer){
-			this.playlist = Optional.ofNullable(playlist);
 		}
 	}
 }

@@ -1,8 +1,6 @@
 package View.buttons;
 
 import static Model.Utility.*;
-import java.util.Optional;
-import javax.swing.JTable;
 import controller.MusicPlayer;
 
 /**
@@ -14,7 +12,8 @@ public class RemoveSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -768335930316060117L;
 	private static final String TITLE= "Remove";
-	private Optional<JTable> playlist= Optional.empty();
+	private int selectedIndex=-1;
+	
 	
 	protected RemoveSpace(final MusicPlayer controller, final boolean showTitle) {
 		super(REMOVE_IMG);
@@ -27,23 +26,18 @@ public class RemoveSpace extends PersonalJButton {
 		this.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				controller.removeSong(playlist.get().getSelectedRow());
-				//Devo aggironare io?
+				controller.removeSong(selectedIndex+1);
 			} catch (Exception ex) {
-				// do nothing
+				showErrorDialog(RemoveSpace.this, "Invalid object selected: " + selectedIndex);
 			}
 		});
 	}
 	
 	/**
-	 * The Playlist to be attached to this button to make it fully working
 	 * 
-	 * @param playlist
+	 * @param idx selected from the PlaylistTable
 	 */
-	public void attachPlaylist(final JTable playlist) {
-		if(this.getController() instanceof MusicPlayer){
-			this.playlist = Optional.ofNullable(playlist);
-		}
+	public void setSelectedIndex(final int idx){
+		this.selectedIndex=idx;
 	}
-	
 }

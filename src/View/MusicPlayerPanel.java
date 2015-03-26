@@ -5,11 +5,13 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
+
 import controller.MusicPlayer;
 import controller.TimeCounter;
 import Model.PlayerState;
@@ -35,7 +37,6 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 	private final List<Updatable> observer = new ArrayList<>(); //list of observer attached to eventually update
 	private Updatable generic; // that only for support
 	private MusicPlayer controller; // controller attached to this view
-	private final TimeCounter timer= new TimeCounter(songTime);
 	
 	/**
 	 * Default build for this object, creates a raedy to use
@@ -50,10 +51,11 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		controller.addUpdatableObserver(this);
 
 		this.setBuiltInBorder();
-
 		songName.setBackground(WHITE);
 		songName.setForeground(DARK_GREEN);
-
+		
+		TimeCounter.getSingleton().attachTimeLabel(songTime);
+		
 		final PersonalJPanel north = new PersonalJPanel(new BorderLayout());
 		populateNorthPanel(north);
 		this.add(north, BorderLayout.NORTH);
@@ -147,30 +149,22 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 	public void updateStatus(PlayerState status) {
 		
 		//Notify all the observers
-		for (Updatable u : observer) {
-			u.updateStatus(status);
-		}
+		observer.stream().forEach(u->u.updateStatus(status));
 		
 		//self update
 		if (status.equals(RUNNING)
 				|| status.equals(SONGCHANGED)) {
 			//change the name of the songs to the new one
-			this.songName.setText(controller.getCurrentSong().getFile());
-			if(status.equals(SONGCHANGED)){
-				//stop the time counting when the song is changed
-				this.timer.stopAndReset();
-			}
-			//start a new counting
-			this.timer.run();
+			this.songName.setText("<" + controller.getCurrentSong().getFile() + ">");
+			//TimeCounter.getSingleton().stopAndReset();
+			//TimeCounter.getSingleton().run();
 		} else if (status.equals(STOPPED)
 				|| status.equals(RELOAD)) {
-			//stop the time counting
-			this.timer.stopAndReset();
+			//TimeCounter.getSingleton().stopAndReset();
 			//set the no-song string
-			this.songName.setText("Any song is playing");
+			this.songName.setText(" < Any song is playing > ");
 		} else if(status.equals(PAUSED)){
-			//pause the counting
-			timer.pause();
+			//TimeCounter.getSingleton().pause();
 		}
 	}
 }

@@ -37,8 +37,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		try {
-			Object obj = ((URL)playlist.get(rowIndex)).getFile();
-			return obj;
+			return ((URL)playlist.get(rowIndex)).getPath();
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}

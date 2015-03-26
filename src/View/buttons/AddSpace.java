@@ -2,13 +2,8 @@ package View.buttons;
 
 import java.io.File;
 import java.net.URL;
-
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
-
-
-
 import controller.MusicPlayer;
 import static Model.Utility.*;
 
@@ -43,16 +38,14 @@ public class AddSpace extends PersonalJButton {
 				final File f = chooser.getSelectedFile();
 				
 				try {
-					controller.addSong(new URL(f.getAbsolutePath()));
+					controller.addSong(new URL(anURLPathBuilder(f.getAbsolutePath())));
 				} catch (Exception e1) {
-					//Open ErrorDialog
+					showErrorDialog(AddSpace.this, "Invalid song format ");
 				}
 				
 				System.out.println(f.getName());
 			} else if (val != JFileChooser.CANCEL_OPTION) {
-				JOptionPane.showMessageDialog(AddSpace.this,
-						"An Error has occurred", "Error Message",
-						JOptionPane.ERROR_MESSAGE);
+				showErrorDialog(AddSpace.this, "An Error has occurred");
 			}
 		});
 	}

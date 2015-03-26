@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
+import javax.swing.JComponent;
 
 import Model.MusicPlayerModel;
 import Model.MusicPlayerModelImpl;
@@ -47,7 +48,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	}
 
 	private void notifyToUpdatable(final PlayerState state) {
-		// view.stream().forEach(x -> x.update(state));
+		view.stream().forEach(x -> x.updateStatus(state));
 	}
 
 	@Override

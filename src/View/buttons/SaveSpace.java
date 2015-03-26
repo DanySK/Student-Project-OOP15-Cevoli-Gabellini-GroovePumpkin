@@ -1,8 +1,6 @@
 package View.buttons;
 
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
 import controller.GrooveBoxController;
 import static Model.Utility.*;
 
@@ -36,9 +34,7 @@ public class SaveSpace extends PersonalJButton {
 				//controller.savePattern();
 
 			} else if (val != JFileChooser.CANCEL_OPTION) {
-				JOptionPane.showMessageDialog(SaveSpace.this,
-						"An Error has occurred", "Error Message",
-						JOptionPane.ERROR_MESSAGE);
+				showErrorDialog(SaveSpace.this, "An Error has occurred");
 			}
 		});
 	}

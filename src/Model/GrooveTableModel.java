@@ -35,7 +35,7 @@ public class GrooveTableModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 
-		return GrooveValues.DefaultValues.values().length;
+		return DefaultValues.values().length;
 	}
 
 	@Override
@@ -54,9 +54,9 @@ public class GrooveTableModel extends AbstractTableModel {
 	public Object getValueAt(final int rowIndex, final int columnIndex) {
 
 		if (columnIndex == 0) {
-			return GrooveValues.DefaultValues.values()[rowIndex].getInstrument();
+			return DefaultValues.values()[rowIndex].getInstrument();
 		} else{
-			return grooveValues.get(rowIndex).getColor(columnIndex-1);
+			return grooveValues.get(rowIndex).getColorAtIndex(columnIndex-1);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class GrooveTableModel extends AbstractTableModel {
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
 		if (aValue instanceof Color) {
-			grooveValues.get(rowIndex).setColor((Color) aValue, columnIndex-1);
+			grooveValues.get(rowIndex).setColorAtIndex((Color) aValue, columnIndex-1);
 		}
 	}
 	

@@ -1,8 +1,10 @@
 package Model;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -19,10 +21,12 @@ import javax.swing.border.TitledBorder;
 public final class Utility {
 
 	public static final Color GRAY = new Color(50, 50, 50);
+	public static final Color DARK_GRAY = new Color(50, 50, 50);
 	public static final Color L_GRAY = new Color(180, 180, 180);
 	public static final Color WHITE = new Color(255, 255, 255);
 	public static final Color ORANGE= new Color(255, 127, 0);
 	public static final Color DARK_GREEN= new Color(0, 130, 50);
+	public static final Color RED = new Color(235, 0, 0);
 	
 	/**
 	 * Those are all the Icons applicables over the button
@@ -79,5 +83,20 @@ public final class Utility {
 		return new CompoundBorder(new SoftBevelBorder(
 				SoftBevelBorder.RAISED, L_GRAY, GRAY), new EmptyBorder(6, 16,
 				6, 16));
+	}
+	
+	/**
+	 * A static method that show a popup error dialog
+	 * 
+	 * @param p
+	 * @param text
+	 */
+	public static void showErrorDialog(final Component p, final String text){
+		JOptionPane.showMessageDialog(p, text, "Error Message",	JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public static String anURLPathBuilder(final String filePath){
+		System.out.println(filePath);
+		return String.join("", "file:/", filePath);
 	}
 }

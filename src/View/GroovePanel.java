@@ -37,7 +37,10 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
 	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
 			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
+	
+	@SuppressWarnings("unused")
 	private GrooveBoxController controller;
+	
 	private final List<Updatable> observer= new ArrayList<>();
 	
 	/**
@@ -56,13 +59,6 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
 				5));
 		westPanel.setBuiltInBorder();
-
-		populateWestPanel(westPanel);
-		this.add(westPanel, BorderLayout.WEST);
-		this.add(new JScrollPane(grooveBox), BorderLayout.CENTER);
-	}
-
-	private void populateWestPanel(final PersonalJPanel westPanel) {
 
 		final JLabel timeDialerLabel = new JLabel("Time Dial: ");
 		timeDialerLabel.setBackground(WHITE);
@@ -83,8 +79,11 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));
 		buttonPanel.add(createButton(LOAD_BUTTON, true, controller));
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
+		
+		this.add(westPanel, BorderLayout.WEST);
+		this.add(new JScrollPane(grooveBox), BorderLayout.CENTER);
 	}
-
+	
 	/**
 	 * @return The time dial in beat for minute
 	 */

@@ -6,8 +6,6 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.junit.Assert;
-
 import controller.MusicPlayer;
 import controller.MusicPlayerImpl;
 
