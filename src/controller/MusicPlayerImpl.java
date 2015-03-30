@@ -1,9 +1,12 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.sound.sampled.*;
@@ -13,12 +16,13 @@ import javax.swing.JComponent;
 import Model.MusicPlayerModel;
 import Model.MusicPlayerModelImpl;
 import Model.PlayerState;
-import Model.SingleSongPlayeState;
+import Model.SingleSongPlayerState;
+import Model.Utility;
 import View.MusicPlayerPanel;
 import View.Updatable;
 
 /**
- * 
+ * A music player is something that take different format song and reproduce them
  * @author Matteo Gabellini
  *
  */
@@ -29,8 +33,14 @@ public class MusicPlayerImpl implements MusicPlayer {
 	private final MusicPlayerModel model;
 	private Optional<SongPlayer> soundPlayer; // this field rappresents the
 												// concrete track player
-
-	private Optional<MidiSongPlayer> midiSequencer; //this field rappresents the concrete midi sequencer
+	/*
+	 * Questa variabile contiene un oggeto di una classe anonima che implementa
+	 * il comportamento per controllare quando la canzone termina perchè è stata
+	 * riprodotta tutta
+	 */
+	private Thread threadSongWatcher;
+	private volatile boolean endOfSong;
+	
 	
 	public MusicPlayerImpl() {
 		this.model = new MusicPlayerModelImpl();
@@ -40,7 +50,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void addUpdatableObserver(final Updatable component) {
 		// CODICE DA RISISTEMARE
-
 		if (view == null) {
 			view = new ArrayList<>();
 		}
@@ -48,75 +57,80 @@ public class MusicPlayerImpl implements MusicPlayer {
 	}
 
 	private void notifyToUpdatable(final PlayerState state) {
-		view.stream().forEach(x -> x.updateStatus(state));
+		if(view != null){
+			view.stream().forEach(x -> x.updateStatus(state));
+		}
 	}
 
-	@Override
-	public void goToNextSong() {
-		//Check if the player is present...
-		if(this.soundPlayer.isPresent()){
-			//if the player is present I stop them...
-			this.soundPlayer.get().stop();			
-		}
-		
-		final Optional<URL> nextSong = this.model.changeToTheNextSong();
-		
-		if ((nextSong.isPresent())) {
-			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
-			// Se la canzone successiva è presente la carico
-			this.loadSong(nextSong.get());
-			
-			//If before the song changing the song player was running...
-			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
-				//Start the reproduction of the new song
+	private void changeSong(Optional<URL> song){
+		if (song.isPresent()) {
+			// Se la canzone indicata dall'indice è presente la carico
+
+			SingleSongPlayerState preChangePlayerState = (this.soundPlayer
+					.isPresent() ? this.soundPlayer.get().getState()
+					: SingleSongPlayerState.STOPPED);
+
+			this.loadSong(song.get());
+			notifyToUpdatable(PlayerState.SONGCHANGED);
+			// If before the song changing the song player was running...
+			if (preChangePlayerState == SingleSongPlayerState.RUNNING) {
+				// Start the reproduction of the new song
 				this.play();
 			}
+
+		}
+	}
+	
+	@Override
+	public void goToNextSong() {		
+		final Optional<URL> nextSong = this.model.changeToTheNextSong();
+		if (nextSong.isPresent()) {
+			this.changeSong(nextSong);
 		}
 	}
 
 	@Override
 	public void goToPreviousSong() {
 		final Optional<URL> previousSong = this.model.changeToThePreviousSong();
-		if (!(previousSong.isPresent())) {
-			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
-			// Se la canzone precedente è presente la carico
-			this.loadSong(previousSong.get());
-			
-			//If before the song changing the song player was running...
-			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
-				//Start the reproduction of the new song
-				this.play();
-			}
+		if (previousSong.isPresent()) {
+			this.changeSong(previousSong);
 		}
 	}
 
 	@Override
 	public void goToSong(int index) {
 		final Optional<URL> song = this.model.changeSong(index);
-		if (!(song.isPresent())) {
-			SingleSongPlayeState preChangePlayerState = this.soundPlayer.get().getState();
-			// Se la canzone indicata dall'indice è presente la carico
-			this.loadSong(song.get());
-			
-			//If before the song changing the song player was running...
-			if(preChangePlayerState == SingleSongPlayeState.RUNNING){
-				//Start the reproduction of the new song
-				this.play();
-			}
-			
+		if (song.isPresent()) {
+			this.changeSong(song);
 		}
-	}
-
+	}	
 	
 	@Override
-	public URL getCurrentSong() {
-		return this.model.getCurretSong().get();
+	public Optional<URL> getCurrentSong() {
+		return this.model.getCurretSong();
 	}
 	
+	/*
+	 * ***********************************************
+	public void loadSong(File song){
+		try {
+			this.loadSong(new URL(Utility.anURLPathBuilder(song.getAbsolutePath())));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	******************************************/
 	
 	
 	@Override
 	public void loadSong(URL songPath) {
+		// Check if the player is present and if is active
+		if (this.soundPlayer.isPresent() && this.soundPlayer.get().isActive()) {
+			// if the player is active I stop them...
+			this.soundPlayer.get().stop();
+		}		
+		
 		AudioInputStream audioStream;
 		final Sequence midiSequence;
 		//Provo a caricare l'url come sequenza midi
@@ -167,29 +181,96 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void play() {
 		// Controllo se soundPlayer non è stato istanziato
-		if (!soundPlayer.isPresent()) {
+		if (!this.soundPlayer.isPresent()) {
 			// Se non è stato creato lo creo e gli passo la canzone corrente
 			// della play list
 			this.loadSong(this.model.getCurretSong().get());
 		}
-		soundPlayer.get().play();
-		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.RUNNING ? PlayerState.RUNNING : PlayerState.ERROR);
+		
+		try {
+			//Provo ad avviare il lettore nel caso non fosse stato creato catturo con il catch l'eccezione
+			this.soundPlayer.get().play();
+			this.endOfSong = false;
+			// Chiedo al lettore lo stato perchè dipende da esso
+			notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayerState.RUNNING ? PlayerState.RUNNING
+					: PlayerState.ERROR);
+
+			if (this.soundPlayer.get().isActive()) {
+				// Avvio un thread che controlla quando la canzone termina se
+				// non è
+				// già
+				// attivo
+				if (threadSongWatcher == null || !threadSongWatcher.isAlive()) {
+					threadSongWatcher = new Thread() {
+						@Override
+						public void run() {
+							System.out
+									.println("Sono il song watcher e sono partito");
+
+							while (soundPlayer.get().isActive()
+									|| soundPlayer.get().getState() == SingleSongPlayerState.PAUSED) {
+								// Finche la traccia è attiva stoppo
+								// momentaneamente il
+								// thread
+								try {
+									Thread.sleep(500);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
+							}
+							
+							MusicPlayerImpl.this.endOfSong = true;
+							//Controllo che non sia stato invocato lo stop dall'utente
+							if(soundPlayer.get().getState() != SingleSongPlayerState.STOPPED){
+								MusicPlayerImpl.this.stop();
+							}						
+							
+							System.out
+									.println("Sono il song watcher e termino");
+						}
+					};
+					threadSongWatcher.start();
+				}
+			}
+		} catch (NoSuchElementException e) {
+			notifyToUpdatable(PlayerState.ERROR);
+		}
 	}
 
 	@Override
 	public void stop() {
-		soundPlayer.get().stop();
-		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.STOPPED ? PlayerState.STOPPED : PlayerState.ERROR);
+		if(this.soundPlayer.isPresent()){
+			this.soundPlayer.get().stop();
+			
+			// Se la variabile endOfSong è false significa che lo stop è
+			// stato invocato dall'utente
+			if (!this.endOfSong) {
+				// Attendo che termini il thread del song watcher
+				try {
+					this.threadSongWatcher.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			// Chiedo al lettore lo stato perchè dipende da esso
+			notifyToUpdatable(this.soundPlayer.get().getState() == SingleSongPlayerState.STOPPED ? PlayerState.STOPPED
+					: PlayerState.ERROR);
+		} else {
+			notifyToUpdatable(PlayerState.ERROR);
+		}
 		this.soundPlayer = Optional.empty();
 	}
 
 	@Override
 	public void pause() {
-		soundPlayer.get().pause();
-		// Chiedo al lettore lo stato perchè dipende da esso
-		notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayeState.PAUSED ? PlayerState.PAUSED : PlayerState.ERROR);
+		if (this.soundPlayer.isPresent()) {
+			this.soundPlayer.get().pause();
+			// Chiedo al lettore lo stato perchè dipende da esso
+			notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayerState.PAUSED ? PlayerState.PAUSED
+					: PlayerState.ERROR);
+		}
 	}
 
 	@Override
@@ -218,6 +299,17 @@ public class MusicPlayerImpl implements MusicPlayer {
 		notifyToUpdatable(PlayerState.RELOAD);
 	}
 
+	
+	@Override
+	public int addSongs(String directoryPath) {
+		// TODO Auto-generated method stub
+		
+		
+		
+		/////DA IMPLEMENTARE LO FACCIO APPENA LE RESTANTI FUNZIONI VANNO
+		return 0;
+	}
+	
 	@Override
 	public void removeSong(int index) throws IllegalArgumentException {
 		// Se la canzone che voglio togliere e quella che sto riproducendo
@@ -225,6 +317,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 		if (this.model.getCurrentSongIndex().isPresent()
 				&& this.model.getCurrentSongIndex().get() == index) {
 			this.soundPlayer.get().stop();
+			this.soundPlayer = Optional.empty();
 		}
 		this.model.removeSongFromPlayList(index);
 		notifyToUpdatable(PlayerState.RELOAD);

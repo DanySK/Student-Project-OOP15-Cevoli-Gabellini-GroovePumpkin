@@ -31,7 +31,7 @@ public final class GrooveValues {
 		"#8", "A", "B", "C", "#9", "A", "B", "C"};
 	
 	/* This list rapresent the row of the groovebox, 
-	 * <White>= unactive; 
+	 * <White>= inactive; 
 	 * <Colored>= active;
 	 * 
 	 * The position inside the list rapresent the time quantum 

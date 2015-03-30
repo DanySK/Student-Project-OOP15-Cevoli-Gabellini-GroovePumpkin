@@ -60,7 +60,7 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 			// call the method that implements the random choice of the song
 			if (this.getCurrentSongIndex().get() == shuffled.get(shuffled
 					.size() - 1)) {
-				// Ovvero la canzone é l'ultima dello Pseudo-Stack, quindi devo
+				// Ovvero la canzone ï¿½ l'ultima dello Pseudo-Stack, quindi devo
 				// aggiungerne un'altra
 				return this.shuffle();
 			} else {
@@ -90,7 +90,7 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 		}
 
 		// Controllo se sono alla prima canzone
-		if (this.currentPlaylistIndex.get() - 1 == 0) {
+		if (this.currentPlaylistIndex.get() - 1 == -1) {
 			// In tal caso ritorno un oggetto Optional vuoto
 			return Optional.empty();
 		}
@@ -106,27 +106,36 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 
 	@Override
 	public Optional<URL> changeToTheNextSong() {
-		this.currentSong = this.getNextSong();
-
-		if (this.shuffleMode) {
-			// ???
-		} else {
-			this.currentPlaylistIndex = Optional.of(this.currentPlaylistIndex
-					.get() + 1);
+		Optional<URL> nextSong = this.getNextSong();	
+		//If the previous song there isn't I don't change the current song
+		if (nextSong.isPresent()) {
+			this.currentSong = nextSong;	
+			if (this.shuffleMode) {
+				// ???
+			} else {
+				this.currentPlaylistIndex = Optional
+						.of(this.currentPlaylistIndex.get() + 1);
+			}
+			return this.currentSong;
 		}
-		return this.currentSong;
+		return Optional.empty();
 	}
 
 	@Override
 	public Optional<URL> changeToThePreviousSong() {
-		this.currentSong = this.getPreviousSong();
-		if (this.shuffleMode) {
-			// ???
-		} else {
-			this.currentPlaylistIndex = Optional.of(this.currentPlaylistIndex
-					.get() - 1);
+		Optional<URL> previousSong = this.getPreviousSong();
+		//If the previous song there isn't I don't change the current song
+		if (previousSong.isPresent()) {
+			this.currentSong = previousSong;
+			if (this.shuffleMode) {
+				// ???
+			} else {
+				this.currentPlaylistIndex = Optional
+						.of(this.currentPlaylistIndex.get() - 1);
+			}
+			return this.currentSong;
 		}
-		return this.currentSong;
+		return Optional.empty();
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 import Model.PlayerState;
 import View.Updatable;
@@ -14,12 +15,6 @@ import View.Updatable;
  *
  */
 public interface MusicPlayer extends Player{
-	
-	/**
-	 * This method add an Updatable object to the controller datastructure
-	 * @param component
-	 */
-	void addUpdatableObserver(final Updatable component);
 	
 	/**
 	 * this method load the next song
@@ -46,9 +41,9 @@ public interface MusicPlayer extends Player{
 	
 	/**
 	 * a getter for the current song
-	 * @return the song that will be played if will be call the method play
+	 * @return An optional that contains the song that will be played if will be call the method play
 	 */
-	URL getCurrentSong();
+	Optional<URL> getCurrentSong();
 	
 	/**
 	 * a getter for the time past from the begin of the song
@@ -65,7 +60,7 @@ public interface MusicPlayer extends Player{
 	
 	boolean isShuffleModeActive();
 	
-	boolean isLoopModeActive();
+	boolean isLoopModeActive();	
 	
 	/**
 	 * This method implements the logic for add the URL of a audio file to the playlist
@@ -73,6 +68,13 @@ public interface MusicPlayer extends Player{
 	 * @throws IllegalArgumentException if parameter is null
 	 */
 	void addSong(URL songPath) throws IllegalArgumentException;
+	
+	/**
+	 * A scanner for a directory hierarchy, scan the directory, subdirectory and add all the Midi e Wav song found
+	 * @param directoryPath is the path of the directory where start the search of the song
+	 * @return number of song found
+	 */
+	int addSongs(String directoryPath);
 	
 	/**
 	 * This method implements the logic for remove a song from the playList

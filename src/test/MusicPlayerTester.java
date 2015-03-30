@@ -17,7 +17,7 @@ import controller.MusicPlayerImpl;
 public class MusicPlayerTester {
 	
 	@org.junit.Test
-	public void testSampledMusicPlayer() {
+	public void testAddAndRemoveSong(){
 		final MusicPlayer lettore = new MusicPlayerImpl();		
 		final List<URL> checkList = new ArrayList<>();
 		
@@ -33,13 +33,12 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
-		//Controllo che l'inserimento nella playList sia avvenuto
+
+		// Controllo che l'inserimento nella playList sia avvenuto
 		assertTrue(checkList.equals(lettore.getPlayList()));
-		//Controllo che la traccia corrente sia corretta
-		assertEquals(lettore.getCurrentSong(), checkList.get(0));
+		// Controllo che la traccia corrente sia corretta
+		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
 		
-		this.testReproduction(lettore,2000);
-				
 		try {
 			checkList.add(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
 			lettore.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
@@ -53,14 +52,69 @@ public class MusicPlayerTester {
 		//Controllo che l'inserimento nella playList sia avvenuto
 	    assertTrue(checkList.equals(lettore.getPlayList()));
 		lettore.goToNextSong();
-		assertEquals(lettore.getCurrentSong(), checkList.get(1));
+		assertEquals(lettore.getCurrentSong().get(), checkList.get(1));
 		
-		this.testReproduction(lettore, 2000);
+		lettore.goToPreviousSong();
+		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
+		
+		// Test rimozione
+		lettore.removeSong(1);
+		checkList.remove(1);
+		assertTrue(checkList.equals(lettore.getPlayList()));
+
+		//Provo a mandare avanti il lettore oltre al limite
+		lettore.goToNextSong();
+		//Controllo che rimanga come current song la traccia precedente
+		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
+	}
+	
+	
+	@org.junit.Test
+	public void testSampledMusicPlayer() {
+		final MusicPlayer lettorSample = new MusicPlayerImpl();	
+		
+		//Prima parte testa la lettura delle canzoni sampled
+		try {
+			//Aggiungo una canzone alla checkList e alla playList del lettore
+			lettorSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+		
+		
+		this.testReproduction(lettorSample,2000);
+				
+		try {
+			lettorSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			fail(e1.getMessage());
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			fail(e1.getMessage());
+		}
+		
+		lettorSample.goToNextSong();
+		
+		this.testReproduction(lettorSample, 2000);
+		
+		lettorSample.stop();
+		
+	}
+	
+	
+	@org.junit.Test
+	public void testMidiMusicPlayer(){
+		final MusicPlayer lettoreMidi = new MusicPlayerImpl();		
 		
 		//Ora proviamo a caricare anche dei midi
 		try {
-			checkList.add(new URL("file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/chango.mid"));
-			lettore.addSong(new URL("file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/chango.mid"));
+			lettoreMidi.addSong(new URL(
+					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/chango.mid"));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());
@@ -68,34 +122,12 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
-		//Controllo che l'inserimento nella playList sia avvenuto
-	    assertTrue(checkList.equals(lettore.getPlayList()));
-		lettore.goToNextSong();
-		assertEquals(lettore.getCurrentSong(), checkList.get(2));		
 		
-		this.testReproduction(lettore,5000);
-		
-		try {
-			checkList.add(new URL("file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/jashisth.mid"));
-			lettore.addSong(new URL("file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/jashisth.mid"));
-		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
-			fail(e1.getMessage());
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			fail(e1.getMessage());
-		}
-		//Controllo che l'inserimento nella playList sia avvenuto
-	    assertTrue(checkList.equals(lettore.getPlayList()));
-		lettore.goToNextSong();
-		assertEquals(lettore.getCurrentSong(), checkList.get(3));		
-		
-		this.testReproduction(lettore,5000);
-		
+		this.testReproduction(lettoreMidi, 5000);
 
 		try {
-			checkList.add(new URL("file:/Users/matteogabellini/Music/airo.wav"));
-			lettore.addSong(new URL("file:/Users/matteogabellini/Music/airo.wav"));
+			lettoreMidi.addSong(new URL(
+					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/jashisth.mid"));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());
@@ -103,13 +135,13 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
-		//Controllo che l'inserimento nella playList sia avvenuto
-	    assertTrue(checkList.equals(lettore.getPlayList()));
-		lettore.goToNextSong();
-		assertEquals(lettore.getCurrentSong(), checkList.get(4));
 		
-		this.testReproduction(lettore, 5000);			
+		lettoreMidi.goToNextSong();
+		this.testReproduction(lettoreMidi, 5000);
+		
+		lettoreMidi.stop();
 	}
+	
 	
 	private void testReproduction(MusicPlayer lettore, int pauseTime){
 		System.out.println("Start Reproduction!!!!");
@@ -168,14 +200,5 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	/*
-	@org.junit.Test
-	public void testExeption(){
-		final MusicPlayer lettore = new MusicPlayerImpl();		
-		final List<URL> checkList = new ArrayList<>();
-		
-	}*/
-	
+	}	
 }

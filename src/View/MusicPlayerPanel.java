@@ -155,7 +155,7 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		if (status.equals(RUNNING)
 				|| status.equals(SONGCHANGED)) {
 			//change the name of the songs to the new one
-			this.songName.setText("<" + controller.getCurrentSong().getFile() + ">");
+			this.songName.setText("<" + controller.getCurrentSong().get().getFile() + ">");
 			//TimeCounter.getSingleton().stopAndReset();
 			//TimeCounter.getSingleton().run();
 		} else if (status.equals(STOPPED)

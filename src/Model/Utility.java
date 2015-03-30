@@ -15,6 +15,7 @@ import javax.swing.border.TitledBorder;
  * An Utility class
  * 
  * @author Alessandro
+ * @author Matteo Gabellini
  *
  */
 
@@ -96,7 +97,10 @@ public final class Utility {
 	}
 	
 	public static String anURLPathBuilder(final String filePath){
-		System.out.println(filePath);
-		return String.join("", "file:/", filePath);
+		//System.out.println(filePath);
+		//Prendo il separatore di sistema
+		String separator = System.getProperty("file.separator");
+		return (separator.equals("/") ? String.join("", "file://localhost",
+				filePath) : String.join("", "file://localhost", filePath));
 	}
 }
