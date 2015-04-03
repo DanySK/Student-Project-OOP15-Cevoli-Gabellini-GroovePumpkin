@@ -35,8 +35,7 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 			140d, 160d, 180d };
 
 	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
-	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.
-			initAGrooveBoxList(new ArrayList<GrooveValues>(50))));
+	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.initAGrooveBoxList()));
 	
 	@SuppressWarnings("unused")
 	private GrooveBoxController controller;

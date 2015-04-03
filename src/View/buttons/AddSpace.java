@@ -21,9 +21,7 @@ public class AddSpace extends PersonalJButton {
 		super(ADD_IMG);
 		super.setController(controller);
 		
-		if(showTitle){
-			this.setTitle(TITLE);
-		}
+		doShow(showTitle, TITLE);
 		
 		this.addActionListener(e->{
 			// aggiungi una canzone

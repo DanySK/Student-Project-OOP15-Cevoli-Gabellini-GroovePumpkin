@@ -12,15 +12,12 @@ import static Model.Utility.*;
 public class SaveSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = 2740908838399780756L;
-	private static final String LABEL = "Save";
+	private static final String TITLE = "Save";
 
-	protected SaveSpace(final GrooveBoxController controller, final boolean showLabel) {
-
+	protected SaveSpace(final GrooveBoxController controller, final boolean showTitle) {
 		super(SAVE_IMG);
 
-		if (showLabel) {
-			super.setTitle(LABEL);
-		}
+		doShow(showTitle, TITLE);
 
 		this.addActionListener(e -> {
 			JFileChooser chooser = new JFileChooser(System

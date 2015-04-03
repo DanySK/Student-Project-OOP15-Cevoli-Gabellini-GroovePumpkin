@@ -43,7 +43,7 @@ public class SoundFrame extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Groove&Pumpkins");
 		this.setLayout(new BorderLayout());
-		
+
 		final PersonalJPanel mainPanel = new PersonalJPanel(new BorderLayout());
 		tabbedPane = new SoundTab(JTabbedPane.TOP, mp, groove);
 		menuBar = new SoundMenu();

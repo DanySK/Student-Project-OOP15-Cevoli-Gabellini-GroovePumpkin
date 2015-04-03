@@ -21,6 +21,7 @@ public class SoundTab extends JTabbedPane {
 	public SoundTab(final int posistion, final MusicPlayer mp, final GrooveBoxController groove) {
 		
 		super(JTabbedPane.TOP);
+		this.setDoubleBuffered(true);
 		
 		final PlayerPanel play= new PlayerPanel(mp);
 		this.add("Play Music", play);

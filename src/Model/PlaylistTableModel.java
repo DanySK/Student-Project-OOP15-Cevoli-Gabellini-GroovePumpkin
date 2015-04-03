@@ -14,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
 public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
-	private final String[] names = new String[] { "Song" };
+	private final String[] names = new String[] { "#", "Song" };
 	private List<URL> playlist; 
 	
 	/**
@@ -22,6 +22,11 @@ public class PlaylistTableModel extends AbstractTableModel{
 	 */
 	public PlaylistTableModel(final List<URL> playlist) {
 		this.playlist= playlist;
+	}
+	
+	@Override
+	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+		return false;
 	}
 	
 	@Override
@@ -36,16 +41,16 @@ public class PlaylistTableModel extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		try {
-			return ((URL)playlist.get(rowIndex)).getPath();
-		} catch (IndexOutOfBoundsException e) {
-			return null;
+		if(columnIndex==1){
+			return Utility.convertURLPath(playlist.get(rowIndex).getPath());
+		} else{
+			return String.join("", names[0], String.valueOf(rowIndex+1));
 		}
 	}
 
 	@Override
 	public String getColumnName(int column) {
-		return names[0];
+		return names[column];
 	}
 	
 	@Override
@@ -53,6 +58,17 @@ public class PlaylistTableModel extends AbstractTableModel{
 		return super.getColumnClass(columnIndex);
 	}
 	
+	/**
+	 * Attach a new playlist to this model
+	 * 
+	 * Ex: 
+	 * useful if the playlist previously given is 
+	 * a copy and if modified, you have to attach again
+	 * the playlist to this model so you can properly 
+	 * refresh the groovebox
+	 * 
+	 * @param playlist
+	 */
 	public void updatePlaylist(final List<URL> playlist){
 		this.playlist= playlist;
 	}

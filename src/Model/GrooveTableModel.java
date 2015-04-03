@@ -1,14 +1,9 @@
 package Model;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
 
 /**
  * This class is a specialized Table Model for the groove box
@@ -17,12 +12,24 @@ import javax.swing.table.TableModel;
  *
  * @param <X>
  */
-@SuppressWarnings("unused")
 public class GrooveTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -8015327194349106508L;
+	
+	/**
+	 * 
+	 * The names of all the columns, i've used a static array instead of an
+	 * ArrayList because i was already sure it won't have changed
+	 * 
+	 * @GrooveTimeValues
+	 */
+	public static final String[] GROOVE_TIME_VALUES = new String[] {
+			"-Instruments-", "#0", "A", "B", "C", "#1", "A", "B", "C", "#2",
+			"A", "B", "C", "#3", "A", "B", "C", "#4", "A", "B", "C", "#5", "A",
+			"B", "C", "#6", "A", "B", "C", "#7", "A", "B", "C", "#8", "A", "B",
+			"C", "#9", "A", "B", "C" };
 
-	private List<GrooveValues> grooveValues;
+	private final List<GrooveValues> grooveValues;
 	
 	/**
 	 * 
@@ -41,13 +48,13 @@ public class GrooveTableModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 
-		return GrooveValues.GROOVE_TIME_VALUES.length;
+		return GROOVE_TIME_VALUES.length;
 	}
 
 	@Override
 	public String getColumnName(final int column) {
 
-		return GrooveValues.GROOVE_TIME_VALUES[column];
+		return GROOVE_TIME_VALUES[column];
 	}
 
 	@Override
@@ -74,10 +81,9 @@ public class GrooveTableModel extends AbstractTableModel {
 	
 	/**
 	 * 
-	 * @return
+	 * @return the groovebox associated to this table model
 	 */
 	public List<GrooveValues> getList(){
 		return grooveValues;
 	}
-
 }

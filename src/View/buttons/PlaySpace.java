@@ -7,8 +7,8 @@ import Model.PlayerState;
 import View.Updatable;
 
 /**
- * This class extends the abstract composite (Label+Button) space to build a
- * play and pause system for this software
+ * This class extends the PersonalJButton to build a
+ * play and pause manager of the controller
  * 
  * @author Alessandro
  *
@@ -32,9 +32,7 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 		super(img);
 		super.setController(controller);
 		
-		if (showTitle) {
-			this.setTitle(PLAY);
-		}
+		doShow(showTitle, PLAY);
 		
 		this.addActionListener(e -> {
 			if (this.getIcon().equals(PLAY_IMG)) {
@@ -50,15 +48,11 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 
 		if (status.equals(PlayerState.RUNNING)) {
 			this.setIcon(PAUSE_IMG);
-			if (this.getTitledBorder() != null) {
-				this.getTitledBorder().setTitle(PAUSE);
-			}
+			changeTitle(PAUSE);
 			// start
 		} else {
 			this.setIcon(PLAY_IMG);
-			if (this.getTitledBorder() != null) {
-				this.getTitledBorder().setTitle(PLAY);
-			}
+			changeTitle(PLAY);
 			// pause
 		}
 	}

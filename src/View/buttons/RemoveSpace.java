@@ -19,15 +19,13 @@ public class RemoveSpace extends PersonalJButton {
 		super(REMOVE_IMG);
 		super.setController(controller);
 		
-		if(showTitle){
-			this.setTitle(TITLE);
-		}
+		doShow(showTitle, TITLE);
 		
 		this.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				controller.removeSong(selectedIndex+1);
-			} catch (Exception ex) {
+				controller.removeSong(selectedIndex);
+			} catch (IllegalArgumentException ex) {
 				showErrorDialog(RemoveSpace.this, "Invalid object selected: " + selectedIndex);
 			}
 		});

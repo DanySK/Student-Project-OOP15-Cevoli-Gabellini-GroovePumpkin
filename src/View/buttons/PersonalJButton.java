@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
+
 import static Model.Utility.*;
 
 /**
@@ -49,15 +50,7 @@ public class PersonalJButton extends JButton {
 	 */
 	public PersonalJButton(final ImageIcon img, final String title) {
 		this(img);
-		this.setTitle(title);
-	}
-	
-	/**
-	 * 
-	 * @return the controller associated with this button
-	 */
-	public Object getController(){
-		return controller;
+		this.setTitledBorder(title);
 	}
 	
 	/**
@@ -65,7 +58,7 @@ public class PersonalJButton extends JButton {
 	 * 
 	 * @return the TitledBorder if it exists, otherways null
 	 */
-	public TitledBorder getTitledBorder() {
+	private TitledBorder getTitledBorder() {
 
 		if (this.getBorder() instanceof CompoundBorder
 				&& ((CompoundBorder) this.getBorder())
@@ -75,6 +68,33 @@ public class PersonalJButton extends JButton {
 		}
 		
 		return null;
+	}
+	
+	protected void doShow(final boolean b, final String t){
+		if(b){
+			this.setTitledBorder(t);
+		}
+	}
+	
+	/**
+	 * This method change the previous title show by the 
+	 * titledborder (if exist), otherways it do nothing
+	 * 
+	 * @param newTitle
+	 */
+	public void changeTitle(final String newTitle){
+		TitledBorder tb= this.getTitledBorder();
+		if (tb != null) {
+			tb.setTitle(newTitle);
+		}
+	}
+	
+	/**
+	 * 
+	 * @return the controller associated with this button
+	 */
+	public Object getController(){
+		return controller;
 	}
 	
 	/**
@@ -90,7 +110,7 @@ public class PersonalJButton extends JButton {
 	 * @param name
 	 *            to be shown on the TitledBorder
 	 */ 
-	public void setTitle(final String title) {
+	public void setTitledBorder(final String title) {
 		this.setBorder(getACompoundTitledBorder(title));
 	}
 }

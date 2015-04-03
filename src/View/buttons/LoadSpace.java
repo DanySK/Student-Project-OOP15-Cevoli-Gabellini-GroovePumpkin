@@ -22,9 +22,7 @@ public class LoadSpace extends PersonalJButton {
 			final boolean showTitle) {
 		super(LOAD_IMG);
 		super.setController(controller);
-		if (showTitle) {
-			this.setTitle(TITLE);
-		}
+		doShow(showTitle, TITLE);
 
 		this.addActionListener(e -> {
 			// carica un pattern per la groovebox

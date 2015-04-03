@@ -2,7 +2,6 @@ package Model;
 
 import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -96,11 +95,37 @@ public final class Utility {
 		JOptionPane.showMessageDialog(p, text, "Error Message",	JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**
+	 * 
+	 * @param filePath
+	 * @return The URL built from the given path
+	 */
 	public static String anURLPathBuilder(final String filePath){
 		//System.out.println(filePath);
 		//Prendo il separatore di sistema
-		String separator = System.getProperty("file.separator");
-		return (separator.equals("/") ? String.join("", "file://localhost",
-				filePath) : String.join("", "file://localhost", filePath));
+		final String separator = System.getProperty("file.separator");
+		return separator.equals("/") ? String.join("", "file://localhost",
+				filePath) : String.join("", "file:/", filePath);
+	}
+	
+	/**
+	 * Thank you 
+	 * @link{http://stackoverflow.com/questions/4050087/how-to-obtain-the-last-path-segment-of-an-uri}
+	 * for the first replacement and 
+	 * @link{http://stackoverflow.com/questions/3674930/java-regex-meta-character-and-ordinary-dot}
+	 * for '.' removeal
+	 * 
+	 * @param URLPath
+	 */
+	public static String convertURLPath(final String URLPath){
+		
+		//.- -> replace all the '-'
+		//.*\\d -> remove all the digits and the previous characters
+		//([^/]+) -> keep all the characters until the first '/' occurrence
+		final String s= URLPath.replaceFirst(".*\\/([^/]+).*", "$1")
+				.replaceFirst(".-([^/]+)", "$1")
+				.replaceFirst(".*\\d([^/]+)", "$1")
+				.trim();
+		return s.substring(0, s.lastIndexOf("."));
 	}
 }

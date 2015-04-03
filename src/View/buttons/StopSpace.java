@@ -13,16 +13,13 @@ import static Model.Utility.*;
 public class StopSpace extends PersonalJButton implements Updatable{
 
 	private static final long serialVersionUID = -5881639820393820954L;
-	private static final String NAME="Stop";
+	private static final String TITLE="Stop";
 	
 	protected StopSpace(final Player controller, final boolean showTitle) {
-		
 		super(STOP_IMG);
 		super.setController(controller);
 
-		if(showTitle){
-			this.setTitle(NAME);
-		}
+		doShow(showTitle, TITLE);
 		
 		this.setEnabled(false);
 		

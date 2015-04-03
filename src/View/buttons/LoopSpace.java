@@ -11,14 +11,12 @@ import static Model.Utility.*;
 public class LoopSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -7087889831741979163L;
-	private static final String NAME= "Loop";
+	private static final String TITLE= "Loop";
 	
 	protected LoopSpace(final MusicPlayer controller, final boolean showTitle) {
 		super(LOOP_OFF_IMG);
 		
-		if(showTitle){
-			this.setTitle(NAME);
-		}
+		doShow(showTitle, TITLE);
 		
 		this.addActionListener(e->{
 			if (controller.isLoopModeActive()) {

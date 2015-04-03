@@ -2,10 +2,15 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+//import javax.swing.ListSelectionModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
+
 import controller.MusicPlayer;
 import Model.PlayerState;
 import Model.PlaylistTableModel;
@@ -24,8 +29,8 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 
 	private static final long serialVersionUID = 5045956389400601388L;
 	private MusicPlayer controller;
-	private TableModel dataModel;
-	private JTable playlist;
+	private TableModel tableModel;
+	private PersonalJTable playlist;
 	private final JScrollPane jsp = new JScrollPane();
 
 	/**
@@ -41,11 +46,9 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		this.controller = mp;
 		this.controller.addUpdatableObserver(this);
 
-		this.dataModel = new PlaylistTableModel(controller.getPlayList());
-		this.playlist = new JTable(dataModel);
-		this.playlist.setBackground(WHITE);
-		this.playlist.setForeground(GRAY);
-		this.playlist.setRowSelectionAllowed(true);
+		this.tableModel = new PlaylistTableModel(controller.getPlayList());
+		this.playlist = new PersonalJTable(tableModel);
+		this.playlist.setColumnHeaderBounds(0, 25, 25);
 
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
@@ -61,13 +64,36 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								final int row= this.playlist.getSelectedRow();
-								controller.goToSong(row < 0 ? 0	: row);
-								//System.out.println(row);
-								remove.setSelectedIndex(row);
+								remove.setSelectedIndex(this.playlist.getSelectedRow());
 							}
 						});
-
+		
+		this.playlist.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(final MouseEvent e) {}
+			
+			@Override
+			public void mousePressed(final MouseEvent e) {
+				remove.setSelectedIndex(((JTable)e.getSource()).getSelectedRow());
+			}
+			
+			@Override
+			public void mouseExited(final MouseEvent e) {}
+			
+			@Override
+			public void mouseEntered(final MouseEvent e) {}
+			
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if(e.getClickCount()==2){
+					controller.stop();
+					controller.goToSong(((JTable)e.getSource()).getSelectedRow());
+					controller.play();
+				}
+			}
+		});
+		
 		this.add(jsp, BorderLayout.CENTER);
 		this.add(buttonRow, BorderLayout.SOUTH);
 	}
@@ -85,7 +111,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 * @return the model attached to the JTable
 	 */
 	public TableModel getPlaylistModel() {
-		return this.dataModel;
+		return this.tableModel;
 	}
 
 	/**
@@ -101,7 +127,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 * 
 	 * @param table
 	 */
-	public void setPlaylistTable(final JTable table) {
+	public void setPlaylistTable(final PersonalJTable table) {
 		this.jsp.remove(playlist);
 		this.playlist = table;
 		this.jsp.add(playlist);
@@ -113,8 +139,8 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 * @param model
 	 */
 	public void setPlaylistModel(final TableModel model) {
-		this.dataModel = model;
-		this.setPlaylistTable(new JTable(model));
+		this.tableModel = model;
+		this.setPlaylistTable(new PersonalJTable(model));
 	}
 
 	/**
@@ -133,9 +159,9 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	public void updateStatus(final PlayerState status) {
 		// ricrea la nuova tabella
 		if (status == PlayerState.RELOAD) {
-			((PlaylistTableModel) dataModel).updatePlaylist(this.controller
+			((PlaylistTableModel) tableModel).updatePlaylist(this.controller
 					.getPlayList());
-			playlist.tableChanged(new TableModelEvent(dataModel));
+			playlist.tableChanged(new TableModelEvent(tableModel));
 		}
 	}
 }
