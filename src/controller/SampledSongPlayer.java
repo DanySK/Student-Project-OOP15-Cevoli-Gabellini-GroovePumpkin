@@ -59,7 +59,7 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public void play() {
+	public synchronized void play() {
 		// Avvia la riproduzione su un altro thread
 		this.statoLettore = SingleSongPlayerState.RUNNING;
 		this.clip.start();
@@ -73,14 +73,14 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public void stop() {
+	public synchronized void stop() {
 		this.clip.stop();
 		this.clip.close();
 		this.statoLettore = SingleSongPlayerState.STOPPED;
 	}
 
 	@Override
-	public void pause() {
+	public synchronized void pause() {
 		// Il metodo stop ferma la riproduzione senza riportare la traccia
 		// all'inizio
 		this.clip.stop();
@@ -88,7 +88,7 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public void setPosition(final int time) throws IllegalArgumentException {
+	public  void setPosition(final int time) throws IllegalArgumentException {
 		// Check the parameter
 		if (time < 0 || time > (this.getDuration() * 1000000)) {
 			throw new IllegalArgumentException();
@@ -97,14 +97,14 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public double getDuration() {
+	public  double getDuration() {
 		return this.clip.getBufferSize()
 				/ (this.clip.getFormat().getFrameSize() * this.clip.getFormat()
 						.getFrameRate());
 	}
 
 	@Override
-	public double getElapsedTime() {
+	public  double getElapsedTime() {
 		/*
 		 * The microsecond position measures the time corresponding to the
 		 * number of sample frames rendered from the line since it was opened.

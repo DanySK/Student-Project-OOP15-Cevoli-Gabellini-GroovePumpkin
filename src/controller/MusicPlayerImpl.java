@@ -317,7 +317,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 		if (this.soundPlayer.isPresent()
 				&& this.model.getCurrentSongIndex().get() == index) {
 			this.soundPlayer.get().stop();
-			this.soundPlayer = Optional.empty();
 		}
 		this.model.removeSongFromPlayList(index);
 		notifyToUpdatable(PlayerState.RELOAD);

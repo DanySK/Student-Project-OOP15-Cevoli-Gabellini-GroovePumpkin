@@ -29,20 +29,20 @@ public class MidiSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public void play() {
+	public synchronized void play() {
 		this.sequencer.start();
 		this.singleSongPlayerState = SingleSongPlayerState.RUNNING;
 	}
 
 	@Override
-	public void stop() {
+	public synchronized void stop() {
 		this.sequencer.stop();
 		this.singleSongPlayerState = SingleSongPlayerState.STOPPED;
 		this.sequencer.close();		
 	}
 
 	@Override
-	public void pause() {
+	public synchronized void pause() {
 		this.sequencer.stop();
 		this.singleSongPlayerState = SingleSongPlayerState.PAUSED;
 	}
