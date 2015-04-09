@@ -21,7 +21,6 @@ public class MusicPlayerTester {
 		final MusicPlayer lettore = new MusicPlayerImpl();		
 		final List<URL> checkList = new ArrayList<>();
 		
-		//Prima parte testa la lettura delle canzoni sampled
 		try {
 			//Aggiungo una canzone alla checkList e alla playList del lettore
 			checkList.add(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
@@ -39,6 +38,26 @@ public class MusicPlayerTester {
 		// Controllo che la traccia corrente sia corretta
 		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
 		
+		// Test rimozione
+		lettore.removeSong(0);
+		checkList.remove(0);
+		assertTrue(checkList.equals(lettore.getPlayList()));
+
+		try {
+			// Aggiungo una canzone alla checkList e alla playList del lettore
+			checkList
+					.add(new URL(
+							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+			lettore.addSong(new URL(
+					"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+		} catch (IllegalArgumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
 		try {
 			checkList.add(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
 			lettore.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
@@ -49,6 +68,7 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
+		
 		//Controllo che l'inserimento nella playList sia avvenuto
 	    assertTrue(checkList.equals(lettore.getPlayList()));
 		lettore.goToNextSong();
@@ -67,7 +87,6 @@ public class MusicPlayerTester {
 		//Controllo che rimanga come current song la traccia precedente
 		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
 	}
-	
 	
 	@org.junit.Test
 	public void testSampledMusicPlayer() {

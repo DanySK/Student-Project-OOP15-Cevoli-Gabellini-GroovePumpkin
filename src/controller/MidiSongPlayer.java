@@ -25,15 +25,6 @@ public class MidiSongPlayer implements SongPlayer {
 			throws MidiUnavailableException, InvalidMidiDataException {
 		this.sequencer = MidiSystem.getSequencer();
 		this.sequencer.open();
-		if (!this.sequencer.isOpen()) {
-			// Attendo in modo da essere sicuro che il sequencer si apra
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		this.sequencer.setSequence(midiSequence);
 	}
 
@@ -46,8 +37,8 @@ public class MidiSongPlayer implements SongPlayer {
 	@Override
 	public void stop() {
 		this.sequencer.stop();
-		this.sequencer.close();
 		this.singleSongPlayerState = SingleSongPlayerState.STOPPED;
+		this.sequencer.close();		
 	}
 
 	@Override

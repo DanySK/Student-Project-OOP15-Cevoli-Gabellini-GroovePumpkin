@@ -25,6 +25,12 @@ public interface MusicPlayerModel {
 	Optional<URL> getCurretSong();
 	
 	/**
+	 * A getter for the title of the current song
+	 * @return a string that rappresent the title of the curent song
+	 */
+	String getCurrentTitle();
+	
+	/**
 	 * This method implements the logic for choose the next song from the playlist
 	 * This method doesn't change the current song, to do this use changeToTheNextSong()
 	 * @return the resource locator of the next audiofile

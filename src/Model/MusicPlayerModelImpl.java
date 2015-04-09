@@ -43,6 +43,15 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	}
 
 	@Override
+	public String getCurrentTitle(){
+		if(this.currentSong.isPresent()){
+			String[] urlSplitted = this.currentSong.get().toString().split("/");
+			return urlSplitted[urlSplitted.length - 1];			
+		}
+		return "";
+	}
+	
+	@Override
 	public Optional<URL> getNextSong() {
 		// Check if was selected a song
 		if (!this.currentPlaylistIndex.isPresent()) {

@@ -314,7 +314,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	public void removeSong(int index) throws IllegalArgumentException {
 		// Se la canzone che voglio togliere e quella che sto riproducendo
 		// blocco la riproduzione
-		if (this.model.getCurrentSongIndex().isPresent()
+		if (this.soundPlayer.isPresent()
 				&& this.model.getCurrentSongIndex().get() == index) {
 			this.soundPlayer.get().stop();
 			this.soundPlayer = Optional.empty();
