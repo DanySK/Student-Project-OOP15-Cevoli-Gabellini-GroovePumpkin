@@ -284,6 +284,12 @@ public class MusicPlayerImpl implements MusicPlayer {
 	}
 
 	@Override
+	public void setVolume(double gainValue) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public boolean isShuffleModeActive() {
 		return this.model.isShuffleModeActive();
 	}

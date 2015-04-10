@@ -14,7 +14,8 @@ import View.Updatable;
  * @author Matteo Gabellini
  *
  */
-public interface MusicPlayer extends Player{
+public interface MusicPlayer extends Player, Observable{
+	
 	
 	/**
 	 * this method load the next song
