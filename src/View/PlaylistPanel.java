@@ -87,9 +87,19 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
 				if(e.getClickCount()==2){
-					controller.stop();
-					controller.goToSong(((JTable)e.getSource()).getSelectedRow());
-					controller.play();
+					//if(controller.getCurrentSong().get()
+					//		.getFile().equals(controller.getPlayList()
+					//				.get(playlist.getSelectedRow()).getFile())){
+					//	if(controller.){ //servirebbe un metodo isPaused()
+					//		controller.pause();
+					//	} else{
+					//		controller.play();
+					//	}
+					//} else{
+						controller.stop();
+						controller.goToSong(((JTable)e.getSource()).getSelectedRow());
+						controller.play();
+					//}
 				}
 			}
 		});

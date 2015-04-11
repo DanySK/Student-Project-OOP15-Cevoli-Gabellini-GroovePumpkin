@@ -35,7 +35,10 @@ public class AddSpace extends PersonalJButton {
 			JFileChooser chooser = new JFileChooser(System
 					.getProperty("user.home"));
 			final MyFileFilter filter = new MyFileFilter();
-			chooser.addChoosableFileFilter(filter);
+			//This way only supported files will be showed
+			chooser.removeChoosableFileFilter(chooser.getFileFilter());
+			chooser.setFileFilter(filter);
+			
 			chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 			chooser.setMultiSelectionEnabled(true);
 			chooser.setVisible(true);
