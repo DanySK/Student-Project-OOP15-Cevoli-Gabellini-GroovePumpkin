@@ -4,6 +4,11 @@ import java.io.File;
 
 import View.Updatable;
 
+/**
+ * The implementation of GrooveBoxController
+ * @author Matteo Gabellini
+ *
+ */
 public class GrooveBoxControllerImpl implements GrooveBoxController {
 	private MidiSongPlayer sequencer;
 	
@@ -26,13 +31,13 @@ public class GrooveBoxControllerImpl implements GrooveBoxController {
 	}
 
 	@Override
-	public void setLoop(boolean value) {
+	public void setLoop(final boolean value) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void addUpdatableObserver(Updatable component) {
+	public void addUpdatableObserver(final Updatable component) {
 		// TODO Auto-generated method stub
 
 	}
@@ -56,9 +61,8 @@ public class GrooveBoxControllerImpl implements GrooveBoxController {
 	}
 
 	@Override
-	public void setTempoInBPM(int BPM) {
-		// TODO Auto-generated method stub
-
+	public void setTempoInBPM(final int BPM) {
+		this.sequencer.setBPM(BPM);
 	}
 
 	@Override

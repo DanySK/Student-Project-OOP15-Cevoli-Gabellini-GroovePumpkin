@@ -191,15 +191,13 @@ public class MusicPlayerImpl implements MusicPlayer {
 			//Provo ad avviare il lettore nel caso non fosse stato creato catturo con il catch l'eccezione
 			this.soundPlayer.get().play();
 			this.endOfSong = false;
-			// Chiedo al lettore lo stato perchè dipende da esso
+			// Chiedo al lettore lo stato perchè dipende da esso e lo notifico e lo notifico
 			notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayerState.RUNNING ? PlayerState.RUNNING
 					: PlayerState.ERROR);
 
 			if (this.soundPlayer.get().isActive()) {
 				// Avvio un thread che controlla quando la canzone termina se
-				// non è
-				// già
-				// attivo
+				// non è già attivo
 				if (threadSongWatcher == null || !threadSongWatcher.isAlive()) {
 					threadSongWatcher = new Thread() {
 						@Override
@@ -219,9 +217,9 @@ public class MusicPlayerImpl implements MusicPlayer {
 								}
 							}
 							
-							MusicPlayerImpl.this.endOfSong = true;
 							//Controllo che non sia stato invocato lo stop dall'utente
 							if(soundPlayer.get().getState() != SingleSongPlayerState.STOPPED){
+								MusicPlayerImpl.this.endOfSong = true;
 								MusicPlayerImpl.this.stop();
 							}						
 							
@@ -251,12 +249,21 @@ public class MusicPlayerImpl implements MusicPlayer {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				
+				// Chiedo al lettore lo stato perchè dipende da esso e lo notifico
+				notifyToUpdatable(this.soundPlayer.get().getState() == SingleSongPlayerState.STOPPED ? PlayerState.STOPPED
+						: PlayerState.ERROR);
+				this.soundPlayer = Optional.empty();
+			} else {
+				//Altrimenti se lo stop è stato invocato dal song watcher
+				//Controllo se il loop è disattivato
+				if(!this.model.isLoopModeActive()){
+					//in tal caso passo alla canzone successiva
+					this.goToNextSong();
+				}
+				//...e faccio partire la riproduzione
+				this.play();				
 			}
-			
-			// Chiedo al lettore lo stato perchè dipende da esso
-			notifyToUpdatable(this.soundPlayer.get().getState() == SingleSongPlayerState.STOPPED ? PlayerState.STOPPED
-					: PlayerState.ERROR);
-			this.soundPlayer = Optional.empty();
 		} else {
 			notifyToUpdatable(PlayerState.ERROR);
 		}
@@ -266,7 +273,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	public void pause() {
 		if (this.soundPlayer.isPresent()) {
 			this.soundPlayer.get().pause();
-			// Chiedo al lettore lo stato perchè dipende da esso
+			// Chiedo al lettore lo stato perchè dipende da esso e lo notifico
 			notifyToUpdatable(soundPlayer.get().getState() == SingleSongPlayerState.PAUSED ? PlayerState.PAUSED
 					: PlayerState.ERROR);
 		}
