@@ -8,14 +8,7 @@ import Model.SingleSongPlayerState;
  * @author Matteo Gabellini
  *
  */
-public interface SongPlayer{
-	void play();
-	
-	/**
-	 * This method stop the reproduction a close the AudioStream
-	 */
-	void stop();	
-	void pause();
+public interface SongPlayer extends Player{
 	
 	/**
 	 * This method is used for set the position in the song open in the clip

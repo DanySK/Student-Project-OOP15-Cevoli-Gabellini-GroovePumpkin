@@ -8,6 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
@@ -29,8 +30,6 @@ public class SampledSongPlayer implements SongPlayer {
 	 */
 	private Clip clip;
 	private SingleSongPlayerState statoLettore;
-
-	
 
 	/**
 	 * This constructor create a new instance of a songPlayer
@@ -88,7 +87,7 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public  void setPosition(final int time) throws IllegalArgumentException {
+	public void setPosition(final int time) throws IllegalArgumentException {
 		// Check the parameter
 		if (time < 0 || time > (this.getDuration() * 1000000)) {
 			throw new IllegalArgumentException();
@@ -97,14 +96,14 @@ public class SampledSongPlayer implements SongPlayer {
 	}
 
 	@Override
-	public  double getDuration() {
+	public double getDuration() {
 		return this.clip.getBufferSize()
 				/ (this.clip.getFormat().getFrameSize() * this.clip.getFormat()
 						.getFrameRate());
 	}
 
 	@Override
-	public  double getElapsedTime() {
+	public double getElapsedTime() {
 		/*
 		 * The microsecond position measures the time corresponding to the
 		 * number of sample frames rendered from the line since it was opened.
@@ -122,5 +121,34 @@ public class SampledSongPlayer implements SongPlayer {
 	public boolean isActive() {
 		return this.clip.isActive();
 	}
+	
+	
+	/*
+	@Override
+	public void setGain(final double gainValue)
+			throws IllegalArgumentException {
+		if (gainValue < 0 || gainValue > 100) {
+			throw new IllegalArgumentException(
+					"The argument value is not between 0 and 100");
+		}
+		
+		System.out.println("Max Value" + ((FloatControl) this.clip.getControl(FloatControl.Type.MASTER_GAIN)).getMaximum());
+		System.out.println("Min Value" + ((FloatControl) this.clip.getControl(FloatControl.Type.MASTER_GAIN)).getMinimum());
+		
+		// Take the clip main gain control and set value
+		//((FloatControl) this.clip.getControl(FloatControl.Type.MASTER_GAIN)).setValue((float) gainValue);
+	
+		
+		// Transform the gainValue that is linearScalar value in to a value that
+		// rappresent decibels
+		// linearScalar = pow(10.0, gainDB/20.0) <-- from the java documentation
+		// of FloatControl.Type MASTER_GAIN
+		System.out.println("Gain value insert " + (gainValue==0?0.0001:(Math.log10(gainValue)*20.0)));
+		
+		//double gainDB =  gainValue==0?0.0001:(Math.log10(gainValue)*20.0);
+		
+		// Take the clip main gain control and set value
+		//((FloatControl) this.clip.getControl(FloatControl.Type.MASTER_GAIN)).setValue((float) gainDB);
+	}*/
 
 }

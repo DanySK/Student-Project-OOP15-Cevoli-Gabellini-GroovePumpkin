@@ -90,38 +90,32 @@ public class MusicPlayerTester {
 	
 	@org.junit.Test
 	public void testSampledMusicPlayer() {
-		final MusicPlayer lettorSample = new MusicPlayerImpl();	
+		final MusicPlayer lettoreSample = new MusicPlayerImpl();	
 		
-		//Prima parte testa la lettura delle canzoni sampled
 		try {
-			//Aggiungo una canzone alla checkList e alla playList del lettore
-			lettorSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+			lettoreSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
 		
 		
-		this.testReproduction(lettorSample,2000);
+		this.testReproduction(lettoreSample,2000);
 				
 		try {
-			lettorSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
+			lettoreSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
 		
-		lettorSample.goToNextSong();
+		lettoreSample.goToNextSong();
 		
-		this.testReproduction(lettorSample, 2000);
+		this.testReproduction(lettoreSample, 2000);
 		
-		lettorSample.stop();
+		lettoreSample.stop();
 		
 	}
 	
@@ -130,15 +124,13 @@ public class MusicPlayerTester {
 	public void testMidiMusicPlayer(){
 		final MusicPlayer lettoreMidi = new MusicPlayerImpl();		
 		
-		//Ora proviamo a caricare anche dei midi
+		
 		try {
 			lettoreMidi.addSong(new URL(
 					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/chango.mid"));
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
 		
@@ -148,10 +140,8 @@ public class MusicPlayerTester {
 			lettoreMidi.addSong(new URL(
 					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/jashisth.mid"));
 		} catch (IllegalArgumentException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
 			fail(e1.getMessage());
 		}
 		
@@ -160,6 +150,7 @@ public class MusicPlayerTester {
 		
 		lettoreMidi.stop();
 	}
+	
 	
 	
 	private void testReproduction(MusicPlayer lettore, int pauseTime){

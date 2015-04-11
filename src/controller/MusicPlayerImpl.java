@@ -128,7 +128,8 @@ public class MusicPlayerImpl implements MusicPlayer {
 		// Check if the player is present and if is active
 		if (this.soundPlayer.isPresent() && this.soundPlayer.get().isActive()) {
 			// if the player is active I stop them...
-			this.soundPlayer.get().stop();
+			//For the correct synchronization of threads i call the stop method of this class
+			this.stop();
 		}		
 		
 		AudioInputStream audioStream;
@@ -139,7 +140,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 			try {
 				this.soundPlayer = Optional.of(new MidiSongPlayer(midiSequence));
 			} catch (MidiUnavailableException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (InvalidMidiDataException e1) {
@@ -249,7 +249,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 				try {
 					this.threadSongWatcher.join();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -257,10 +256,10 @@ public class MusicPlayerImpl implements MusicPlayer {
 			// Chiedo al lettore lo stato perchè dipende da esso
 			notifyToUpdatable(this.soundPlayer.get().getState() == SingleSongPlayerState.STOPPED ? PlayerState.STOPPED
 					: PlayerState.ERROR);
+			this.soundPlayer = Optional.empty();
 		} else {
 			notifyToUpdatable(PlayerState.ERROR);
 		}
-		this.soundPlayer = Optional.empty();
 	}
 
 	@Override
@@ -281,12 +280,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void setShuffleMode(boolean active) {
 		this.model.setShuffleMode(active);
-	}
-
-	@Override
-	public void setVolume(double gainValue) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override

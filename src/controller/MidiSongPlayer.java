@@ -78,4 +78,12 @@ public class MidiSongPlayer implements SongPlayer {
 	public void setBPM(int bpm) {
 		this.sequencer.setTempoInBPM(bpm);
 	}
+	
+	/*
+	@Override
+	public void setGain(final double gainValue) throws IllegalArgumentException{
+		if(gainValue < 0 || gainValue > 100){
+			throw new IllegalArgumentException("The argument value is not between 0 and 100");
+		}
+	}*/
 }

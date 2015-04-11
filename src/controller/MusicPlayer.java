@@ -53,6 +53,12 @@ public interface MusicPlayer extends Player, Observable{
 	double getElapsedTime();
 	
 	/**
+	 * Is a setter for the loop mode
+	 * @param true if the loop mode must be activeted or false if must be deactiveted
+	 */
+	void setLoop(final boolean value);
+	
+	/**
 	 * This method set the shuffle mode
 	 * 
 	 * @param true if we want to active the shuffle mode or false for deactive if was be already activated
