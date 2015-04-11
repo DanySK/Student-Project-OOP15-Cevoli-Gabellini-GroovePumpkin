@@ -7,7 +7,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-//import javax.swing.ListSelectionModel;
+import static javax.swing.ListSelectionModel.*;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
@@ -47,9 +48,8 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		this.controller.addUpdatableObserver(this);
 
 		this.tableModel = new PlaylistTableModel(controller.getPlayList());
-		this.playlist = new PersonalJTable(tableModel);
+		this.playlist = new PersonalJTable(tableModel, SINGLE_SELECTION);
 		this.playlist.setColumnHeaderBounds(0, 25, 25);
-
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(GRAY);
@@ -64,7 +64,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								remove.setSelectedIndex(this.playlist.getSelectedRow());
+								remove.setSelectedIndex(this.playlist.getSelectedRows());
 							}
 						});
 		
@@ -86,7 +86,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 			
 			@Override
 			public void mouseClicked(final MouseEvent e) {
-				if(e.getClickCount()==2){
+				if(e.getClickCount()==DOUBLE_CLICK){
 					//if(controller.getCurrentSong().get()
 					//		.getFile().equals(controller.getPlayList()
 					//				.get(playlist.getSelectedRow()).getFile())){
@@ -150,7 +150,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 */
 	public void setPlaylistModel(final TableModel model) {
 		this.tableModel = model;
-		this.setPlaylistTable(new PersonalJTable(model));
+		this.setPlaylistTable(new PersonalJTable(model, MULTIPLE_INTERVAL_SELECTION));
 	}
 
 	/**

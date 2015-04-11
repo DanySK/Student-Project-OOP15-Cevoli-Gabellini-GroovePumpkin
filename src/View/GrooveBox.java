@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static javax.swing.ListSelectionModel.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -33,7 +35,7 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 	 * @param tm
 	 */
 	public GrooveBox(final TableModel tm) {
-		super(tm);
+		super(tm, SINGLE_SELECTION);
 		tableModel = tm;
 		super.setColumnHeaderBounds(0, 120, 120);
 		for(int i=1; i< GrooveTableModel.GROOVE_TIME_VALUES.length; i++){
@@ -93,7 +95,7 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 	}
 
 	@Override
-	public void updateStatus(PlayerState status) {
+	public void updateStatus(final PlayerState status) {
 		if(status.equals(PlayerState.RELOAD)){
 			this.tableChanged(new TableModelEvent(tableModel));
 		}

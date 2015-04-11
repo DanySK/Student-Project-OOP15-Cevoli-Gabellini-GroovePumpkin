@@ -19,6 +19,8 @@ import javax.swing.border.TitledBorder;
  */
 
 public final class Utility {
+	
+	public static final int DOUBLE_CLICK= 2;
 
 	public static final Color GRAY = new Color(50, 50, 50);
 	public static final Color DARK_GRAY = new Color(50, 50, 50);
@@ -111,9 +113,7 @@ public final class Utility {
 	/**
 	 * Thank you 
 	 * @link{http://stackoverflow.com/questions/4050087/how-to-obtain-the-last-path-segment-of-an-uri}
-	 * for the first replacement and 
-	 * @link{http://stackoverflow.com/questions/3674930/java-regex-meta-character-and-ordinary-dot}
-	 * for '.' removeal
+	 * for the first replacement
 	 * 
 	 * @param URLPath
 	 */
@@ -124,7 +124,7 @@ public final class Utility {
 		//([^/]+) -> keep all the characters until the first '/' occurrence
 		final String s= URLPath.replaceFirst(".*\\/([^/\\?]+).*", "$1")
 				.replaceFirst(".*-([^/\\?]+)", "$1")
-				.replaceFirst(".*\\d([^/\\?]+)", "$1")
+				//.replaceFirst(".*\\d([^/\\?]+)", "$1")
 				.trim();
 		return s.substring(0, s.lastIndexOf("."));
 	}

@@ -3,7 +3,6 @@ package View;
 import static Model.Utility.*;
 
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
@@ -20,7 +19,7 @@ public class PersonalJTable extends JTable implements Updatable {
 
 	private static final long serialVersionUID = -2646448367133853783L;
 
-	public PersonalJTable(final TableModel model) {
+	public PersonalJTable(final TableModel model, final int selectionMode) {
 		super(model);
 		this.setBackground(WHITE);
 		this.setForeground(RED);
@@ -35,7 +34,7 @@ public class PersonalJTable extends JTable implements Updatable {
 		this.getTableHeader().setBorder(
 				new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),
 						new EmptyBorder(5, 5, 5, 5)));
-		this.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.getSelectionModel().setSelectionMode(selectionMode);
 	}
 	
 	public void setColumnHeaderBounds(final int identifier, final int minSize, final int maxSize){

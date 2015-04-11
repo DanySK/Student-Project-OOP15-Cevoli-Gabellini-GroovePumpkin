@@ -12,7 +12,7 @@ public class RemoveSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = -768335930316060117L;
 	private static final String TITLE= "Remove";
-	private int selectedIndex=-1;
+	private int selectedIndexes[]={-1};
 	
 	
 	protected RemoveSpace(final MusicPlayer controller, final boolean showTitle) {
@@ -24,9 +24,12 @@ public class RemoveSpace extends PersonalJButton {
 		this.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				controller.removeSong(selectedIndex);
+				for(int i : selectedIndexes){
+					controller.removeSong(i);
+				}
+				selectedIndexes= new int[]{-1};
 			} catch (IllegalArgumentException ex) {
-				showErrorDialog(RemoveSpace.this, "Invalid object selected: " + selectedIndex);
+				showErrorDialog(RemoveSpace.this, "Invalid object selected: " + selectedIndexes);
 			}
 		});
 	}
@@ -35,7 +38,7 @@ public class RemoveSpace extends PersonalJButton {
 	 * 
 	 * @param idx selected from the PlaylistTable
 	 */
-	public void setSelectedIndex(final int idx){
-		this.selectedIndex=idx;
+	public void setSelectedIndex(final int ...idx){
+		this.selectedIndexes=idx;
 	}
 }
