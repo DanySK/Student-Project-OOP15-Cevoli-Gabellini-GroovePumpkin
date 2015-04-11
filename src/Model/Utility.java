@@ -122,9 +122,9 @@ public final class Utility {
 		//.- -> replace all the '-'
 		//.*\\d -> remove all the digits and the previous characters
 		//([^/]+) -> keep all the characters until the first '/' occurrence
-		final String s= URLPath.replaceFirst(".*\\/([^/]+).*", "$1")
-				.replaceFirst(".-([^/]+)", "$1")
-				.replaceFirst(".*\\d([^/]+)", "$1")
+		final String s= URLPath.replaceFirst(".*\\/([^/\\?]+).*", "$1")
+				.replaceFirst(".*-([^/\\?]+)", "$1")
+				.replaceFirst(".*\\d([^/\\?]+)", "$1")
 				.trim();
 		return s.substring(0, s.lastIndexOf("."));
 	}
