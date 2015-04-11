@@ -60,9 +60,7 @@ public class AddSpace extends PersonalJButton {
 							f.add(file);
 						}
 					} else {
-						for (File file : chooser.getSelectedFiles()) {
-							f.add(file);
-						}
+						f.add(i);
 					}
 				}
 
