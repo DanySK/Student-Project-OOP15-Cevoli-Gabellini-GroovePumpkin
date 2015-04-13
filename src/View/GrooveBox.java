@@ -1,10 +1,6 @@
 package View;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static javax.swing.ListSelectionModel.*;
 import javax.swing.event.ListSelectionEvent;
@@ -12,12 +8,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-
-import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
-import Model.lesson.Pair;
-import static Model.Utility.*;
 
 /**
  * The Class that implements the groovebox
@@ -68,15 +60,15 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 						
 						if(!e.getValueIsAdjusting() && getColumn() != 0){
 								
-								final Color clr = ((GrooveTableModel) tableModel).getList()
-										.get(getRow()).getColorAtIndex(getColumn() - 1);
+								final Boolean b = ((GrooveTableModel) tableModel).getList()
+										.get(getRow()).getValueAtIndex(getColumn() - 1);
 								
-								if (clr.equals(WHITE)) {
+								if (!b) {
 									((GrooveTableModel) tableModel).getList().get(getRow())
-											.setColorAtIndex(GrooveValues.getRowColor(getRow()), getColumn() - 1);
+											.setActiveAtIndex(getColumn() - 1);
 								} else {
 									((GrooveTableModel) tableModel).getList().get(getRow())
-											.setColorAtIndex(WHITE, getColumn() - 1);
+											.setActiveAtIndex(getColumn() - 1);
 								}
 
 								GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
@@ -99,29 +91,5 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 		if(status.equals(PlayerState.RELOAD)){
 			this.tableChanged(new TableModelEvent(tableModel));
 		}
-	}
-	
-	/**
-	 * Keys-> A Pair<String, Integer>,
-	 * 		the String value is the name of the tone;
-	 *		the Integer value is the ID associated to the Tone;
-	 * 
-	 * Values-> A List<Integer>, rapresenting the indexes (or time's quantum) 
-	 *  	where the specified tone is active
-	 * 
-	 * @return A Map that will rapresents the groovebox's pattern
-	 */
-	public Map<Pair<String, Integer> ,List<Integer>> getIndexesTab(final List<GrooveValues> grooveBox){
-		//This Method should be moved into the controller/model @Alessandro
-		
-		final Map<Pair<String, Integer>, List<Integer>> idx= new HashMap<>();
-		
-		grooveBox.stream().forEach(gVal-> idx.put(new Pair<>(gVal.getName(), gVal.getID()), 
-						gVal.getColorsList().stream()
-							.filter(pair-> !pair.getFirst().equals(WHITE))
-							.mapToInt(pair->pair.getSecond())
-							.mapToObj(i -> Integer.valueOf(i))
-							.collect(Collectors.toList())));
-		return idx;
 	}
 }

@@ -20,11 +20,11 @@ public class SaveSpace extends PersonalJButton {
 		doShow(showTitle, TITLE);
 
 		this.addActionListener(e -> {
-			JFileChooser chooser = new JFileChooser(System
+			final JFileChooser chooser = new JFileChooser(System
 					.getProperty("user.home"));
 
 			chooser.setVisible(true);
-			int val = chooser.showSaveDialog(SaveSpace.this);
+			final int val = chooser.showSaveDialog(SaveSpace.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 
 				// save the file

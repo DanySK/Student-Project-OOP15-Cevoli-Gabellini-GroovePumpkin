@@ -26,13 +26,13 @@ public class LoadSpace extends PersonalJButton {
 
 		this.addActionListener(e -> {
 			// carica un pattern per la groovebox
-			JFileChooser chooser = new JFileChooser(System
+			final JFileChooser chooser = new JFileChooser(System
 					.getProperty("user.home"));
 
 			// chooser.addChoosableFileFilter(new MyFileFilter());
 			chooser.setVisible(true);
 
-			int val = chooser.showOpenDialog(LoadSpace.this);
+			final int val = chooser.showOpenDialog(LoadSpace.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 				final File f = chooser.getSelectedFile();
 

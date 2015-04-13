@@ -24,7 +24,7 @@ public class RemoveSpace extends PersonalJButton {
 		this.addActionListener(e->{
 			// rimuovi una canzone
 			try {
-				for(int i : selectedIndexes){
+				for(final int i : selectedIndexes){
 					controller.removeSong(i);
 				}
 				selectedIndexes= new int[]{-1};

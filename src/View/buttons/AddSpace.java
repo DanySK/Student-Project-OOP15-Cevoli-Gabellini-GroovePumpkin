@@ -32,7 +32,7 @@ public class AddSpace extends PersonalJButton {
 
 		this.addActionListener(e -> {
 			// aggiungi una canzone
-			JFileChooser chooser = new JFileChooser(System
+			final JFileChooser chooser = new JFileChooser(System
 					.getProperty("user.home"));
 			final MyFileFilter filter = new MyFileFilter();
 			//This way only supported files will be showed
@@ -43,7 +43,7 @@ public class AddSpace extends PersonalJButton {
 			chooser.setMultiSelectionEnabled(true);
 			chooser.setVisible(true);
 
-			int val = chooser.showOpenDialog(AddSpace.this);
+			final int val = chooser.showOpenDialog(AddSpace.this);
 			final List<File> f = new ArrayList<>();
 
 			if (val == JFileChooser.APPROVE_OPTION) {
@@ -54,9 +54,9 @@ public class AddSpace extends PersonalJButton {
 				 * if a users choose the rootfolderthat would become a problem
 				 * :D
 				 */
-				for (File i : chooser.getSelectedFiles()) {
+				for (final File i : chooser.getSelectedFiles()) {
 					if (i.isDirectory()) {
-						for (File file : i.listFiles(filter)) {
+						for (final File file : i.listFiles(filter)) {
 							f.add(file);
 						}
 					} else {
@@ -65,7 +65,7 @@ public class AddSpace extends PersonalJButton {
 				}
 
 				try {
-					for (File i : f) {
+					for (final File i : f) {
 						controller.addSong(new URL(anURLPathBuilder(i
 								.getAbsolutePath())));
 					}

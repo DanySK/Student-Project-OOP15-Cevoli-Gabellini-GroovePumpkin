@@ -1,8 +1,10 @@
 package Model;
 
-import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import Model.lesson.Pair;
 import static Model.Utility.*;
 
@@ -32,17 +34,18 @@ public final class GrooveValues {
 	public static final List<GrooveValues> GROOVEBOX = new ArrayList<>();
 
 	/*
-	 * This list rapresent the row of the groovebox, <White>= inactive;
-	 * <Colored>= active;
+	 * This list rapresent the row of the groovebox, 
+	 * <False>= inactive;
+	 * <True>= active;
 	 * 
 	 * The Integer field is the position inside the list
 	 * 
 	 * The position inside the list rapresent the time quantum when the effect
 	 * have to be played (40 should be approsimatively 5 sec)
 	 */
-	private final List<Pair<Color, Integer>> colors = new ArrayList<>(TIME_QUANTI);
+	private final List<Pair<Boolean, Integer>> row = new ArrayList<>(TIME_QUANTI);
 
-	private DefaultValues value;
+	private final DefaultValues value;
 
 	// I've made the constructor final, if you want to build a new GrooveBox
 	// tone use the static method
@@ -50,12 +53,12 @@ public final class GrooveValues {
 
 		this.value = value;
 		for (int i = 0; i < TIME_QUANTI; i++) {
-			colors.add(new Pair<>(Color.WHITE, i));
+			row.add(new Pair<>(false, i));
 		}
 	}
 
 	private void checkBounds(final int index) {
-		if (index >= colors.size()) {
+		if (index >= row.size()) {
 			throw new IndexOutOfBoundsException();
 		}
 	}
@@ -64,17 +67,17 @@ public final class GrooveValues {
 	 * @param index
 	 * @return return the color found at the given index
 	 */
-	public Color getColorAtIndex(final int index) {
+	public Boolean getValueAtIndex(final int index) {
 		checkBounds(index);
-		return colors.get(index).getFirst();
+		return row.get(index).getFirst();
 	}
 
 	/**
 	 * @return the color's row associated to this object
 	 */
-	public List<Pair<Color, Integer>> getColorsList() {
+	public List<Pair<Boolean, Integer>> getRow() {
 
-		return this.colors;
+		return this.row;
 	}
 
 	/**
@@ -101,9 +104,9 @@ public final class GrooveValues {
 	 * @param index
 	 *            of the color
 	 */
-	public void setColorAtIndex(final Color c, final int index) {
+	public void setActiveAtIndex(final int index) {
 		checkBounds(index);
-		colors.set(index, new Pair<>(c, index));
+		row.set(index, new Pair<>(!row.get(index).getFirst(), index));
 	}
 
 	/**
@@ -135,16 +138,27 @@ public final class GrooveValues {
 
 		list.add(new GrooveValues(def));
 	}
-
+	
 	/**
-	 * This utility method create a color based on the given row
+	 * Keys-> A Pair<String, Integer>,
+	 * 		the String value is the name of the tone;
+	 *		the Integer value is the ID associated to the Tone;
 	 * 
-	 * @param row
-	 *            the row selected
-	 * @return a new random Color
+	 * Values-> A List<Integer>, rapresenting the indexes (or time's quantum) 
+	 *  	where the specified tone is active
+	 * 
+	 * @return A Map that will rapresents the groovebox's pattern
 	 */
-	public static Color getRowColor(final int row) {
-
-		return row % 2 == 0 ? ORANGE : DARK_GRAY;
+	public Map<Pair<String, Integer> ,List<Integer>> getIndexedTab(final List<GrooveValues> grooveBox){
+		
+		final Map<Pair<String, Integer>, List<Integer>> idx= new HashMap<>();
+		
+		grooveBox.stream().forEach(gVal-> idx.put(new Pair<>(gVal.getName(), gVal.getID()), 
+						gVal.getRow().stream()
+							.filter(pair-> !pair.getFirst().equals(WHITE))
+							.mapToInt(pair->pair.getSecond())
+							.mapToObj(i -> Integer.valueOf(i))
+							.collect(Collectors.toList())));
+		return idx;
 	}
 }

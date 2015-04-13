@@ -83,7 +83,7 @@ public class PersonalJButton extends JButton {
 	 * @param newTitle
 	 */
 	public void changeTitle(final String newTitle){
-		TitledBorder tb= this.getTitledBorder();
+		final TitledBorder tb= this.getTitledBorder();
 		if (tb != null) {
 			tb.setTitle(newTitle);
 		}

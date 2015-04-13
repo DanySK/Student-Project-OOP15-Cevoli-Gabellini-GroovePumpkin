@@ -23,7 +23,7 @@ public final class ButtonFactory {
 	public static final int SHUFFLE_BUTTON = 6;
 	public static final int PAUSE_BUTTON = 7;
 	public static final int ADD_BUTTON = 8;
-	public static final int REMOVE_BUTTON= 9;
+	public static final int REMOVE_BUTTON = 9;
 
 	private ButtonFactory() {
 	}
@@ -55,28 +55,31 @@ public final class ButtonFactory {
 
 	public static JButton createButton(final int type, final boolean showTitle,
 			final Object controller) {
-		if (type == PLAY_BUTTON) {
-			return new PlaySpace((Player) controller, PLAY_IMG, showTitle);
-		} else if (type == STOP_BUTTON) {
-			return new StopSpace((Player) controller, showTitle);
-		} else if (type == LOOP_BUTTON) {
-			return new LoopSpace((MusicPlayer) controller, showTitle);
-		} else if (type == REC_BUTTON) {
-			return new RecSpace(controller, showTitle);
-		} else if (type == SAVE_BUTTON) {
-			return new SaveSpace((GrooveBoxController) controller, showTitle);
-		} else if (type == LOAD_BUTTON) {
-			return new LoadSpace((GrooveBoxController) controller, showTitle);
-		} else if (type == SHUFFLE_BUTTON) {
-			return new ShuffleSpace((MusicPlayer) controller, showTitle);
-		} else if (type == PAUSE_BUTTON) {
-			return new PlaySpace((Player) controller, PAUSE_IMG, showTitle);
-		} else if (type == ADD_BUTTON) {
-			return new AddSpace((MusicPlayer) controller, showTitle);
-		} else if (type == REMOVE_BUTTON) {
-			return new RemoveSpace((MusicPlayer) controller, showTitle);
-		} else {
-			return null;
+		
+		switch(type){
+			case 0: 
+				return new PlaySpace((Player) controller, PLAY_IMG, showTitle);
+		case 1:
+				return new StopSpace((Player) controller, showTitle);
+		case 2: 
+				return new LoopSpace((MusicPlayer) controller, showTitle);
+		case 3:
+				return new RecSpace(controller, showTitle);
+		case 4:
+				return new SaveSpace((GrooveBoxController) controller, showTitle);
+		case 5: 
+				return new LoadSpace((GrooveBoxController) controller, showTitle);
+		case 6: 
+				return new ShuffleSpace((MusicPlayer) controller, showTitle);
+		case 7:
+				return new PlaySpace((Player) controller, PAUSE_IMG, showTitle);
+		case 8:
+				return new AddSpace((MusicPlayer) controller, showTitle);
+		case 9:
+				return new RemoveSpace((MusicPlayer) controller, showTitle);
+		default:
+				return new JButton("Hai sbagliato type, pirla.");
+		
 		}
 	}
 }

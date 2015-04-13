@@ -1,5 +1,6 @@
 package Model;
 
+import static Model.Utility.*;
 import java.awt.Color;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class GrooveTableModel extends AbstractTableModel {
 		if (columnIndex == 0) {
 			return DefaultValues.values()[rowIndex].getInstrument();
 		} else{
-			return grooveValues.get(rowIndex).getColorAtIndex(columnIndex-1);
+			return getRowColor(rowIndex, grooveValues.get(rowIndex).getValueAtIndex(columnIndex-1));
 		}
 	}
 
@@ -75,7 +76,7 @@ public class GrooveTableModel extends AbstractTableModel {
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
 		if (aValue instanceof Color) {
-			grooveValues.get(rowIndex).setColorAtIndex((Color) aValue, columnIndex-1);
+			grooveValues.get(rowIndex).setActiveAtIndex(columnIndex-1);
 		}
 	}
 	
@@ -85,5 +86,17 @@ public class GrooveTableModel extends AbstractTableModel {
 	 */
 	public List<GrooveValues> getList(){
 		return grooveValues;
+	}
+	
+	/**
+	 * This utility method create a color based on the given row
+	 * 
+	 * @param row
+	 *            the row selected
+	 * @return a new random Color
+	 */
+	private static Color getRowColor(final int row, final Boolean b) {
+
+		return b ? row % 2 == 0 ? ORANGE : DARK_GRAY : WHITE ;
 	}
 }
