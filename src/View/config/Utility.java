@@ -1,4 +1,4 @@
-package Model;
+package View.config;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -22,11 +22,13 @@ public final class Utility {
 	
 	public static final int DOUBLE_CLICK= 2;
 
-	public static final Color GRAY = new Color(50, 50, 50);
 	public static final Color DARK_GRAY = new Color(50, 50, 50);
-	public static final Color L_GRAY = new Color(180, 180, 180);
+	public static final Color GRAY = new Color(180, 180, 180);
+	public static final Color LIGHT_GRAY = new Color(235, 235, 235);
 	public static final Color WHITE = new Color(255, 255, 255);
+	public static final Color DARK_ORANGE= new Color(255, 94, 0);
 	public static final Color ORANGE= new Color(255, 127, 0);
+	public static final Color LIGHT_ORANGE= new Color(255, 200, 112);
 	public static final Color DARK_GREEN= new Color(0, 130, 50);
 	public static final Color RED = new Color(235, 0, 0);
 	
@@ -34,32 +36,35 @@ public final class Utility {
 	 * Those are all the Icons applicables over the button
 	 * 
 	 */
-	public static final ImageIcon PAUSE_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Pause.png");
-	public static final ImageIcon PLAY_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Play.png");
-	public static final ImageIcon FW_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "FW.png");
-	public static final ImageIcon RW_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "RW.png");
-	public static final ImageIcon SAVE_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Save.png");
-	public static final ImageIcon REC_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Rec.png");
-	public static final ImageIcon STOP_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "Stop.png");
-	public static final ImageIcon LOOP_ON_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "loop_GREEN.png");
-	public static final ImageIcon LOOP_OFF_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "loop_RED.png");
-	public static final ImageIcon SHUFFLE_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "shuffle.png");
-	public static final ImageIcon LOAD_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "load.png");
-	public static final ImageIcon ADD_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "add.png");
-	public static final ImageIcon REMOVE_IMG = new ImageIcon("data"
-			+ System.getProperty("file.separator") + "remove.png");
+	public static final String DATA= "data";
+	public static final String SEPARATOR=  System.getProperty("file.separator");
+	
+	public static final ImageIcon PAUSE_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR , "Pause.png"));
+	public static final ImageIcon PLAY_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "Play.png"));
+	public static final ImageIcon FW_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "FW.png"));
+	public static final ImageIcon RW_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "RW.png"));
+	public static final ImageIcon SAVE_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "Save.png"));
+	public static final ImageIcon REC_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "Rec.png"));
+	public static final ImageIcon STOP_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "Stop.png"));
+	public static final ImageIcon LOOP_ON_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "loop_GREEN.png"));
+	public static final ImageIcon LOOP_OFF_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "loop_RED.png"));
+	public static final ImageIcon SHUFFLE_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "shuffle.png"));
+	public static final ImageIcon LOAD_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "load.png"));
+	public static final ImageIcon ADD_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "add.png"));
+	public static final ImageIcon REMOVE_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "remove.png"));
 	
 	private Utility() {
 	}
@@ -72,9 +77,9 @@ public final class Utility {
 	public static Border getACompoundTitledBorder(final String title) {
 
 		return new CompoundBorder(new TitledBorder(new SoftBevelBorder(
-				SoftBevelBorder.RAISED, L_GRAY, GRAY), title,
-				TitledBorder.ABOVE_TOP, TitledBorder.CENTER), new EmptyBorder(
-				4, 16, 4, 16));
+				SoftBevelBorder.RAISED, WHITE, WHITE), title,
+				TitledBorder.ABOVE_TOP, TitledBorder.CENTER), 
+				new EmptyBorder(4, 16, 4, 16));
 	}
 	
 	/**
@@ -83,8 +88,8 @@ public final class Utility {
 	 */
 	public static Border getADefaultBorder(){
 		return new CompoundBorder(new SoftBevelBorder(
-				SoftBevelBorder.RAISED, L_GRAY, GRAY), new EmptyBorder(6, 16,
-				6, 16));
+				SoftBevelBorder.RAISED, WHITE, WHITE), 
+				new EmptyBorder(4, 16, 4, 16));
 	}
 	
 	/**
@@ -103,10 +108,8 @@ public final class Utility {
 	 * @return The URL built from the given path
 	 */
 	public static String anURLPathBuilder(final String filePath){
-		//System.out.println(filePath);
 		//Prendo il separatore di sistema
-		final String separator = System.getProperty("file.separator");
-		return separator.equals("/") ? String.join("", "file://localhost",
+		return SEPARATOR.equals("/") ? String.join("", "file://localhost",
 				filePath) : String.join("", "file:/", filePath);
 	}
 	
@@ -126,6 +129,6 @@ public final class Utility {
 				.replaceFirst(".*-([^/\\?]+)", "$1")
 				//.replaceFirst(".*\\d([^/\\?]+)", "$1")
 				.trim();
-		return s.substring(0, s.lastIndexOf("."));
+		return s.substring(0, s.lastIndexOf('.'));
 	}
 }

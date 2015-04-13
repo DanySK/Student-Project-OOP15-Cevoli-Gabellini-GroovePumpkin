@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import Model.lesson.Pair;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * This class rapresents the basic instruments playable by the groovebox

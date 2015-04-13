@@ -3,7 +3,7 @@ package View.buttons;
 import controller.Player;
 import Model.PlayerState;
 import View.Updatable;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 

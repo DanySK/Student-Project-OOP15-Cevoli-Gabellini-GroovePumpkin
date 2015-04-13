@@ -1,11 +1,13 @@
 package View.buttons;
 
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * A personal JButton class that stores all the imagines for the oject of this
@@ -25,15 +27,26 @@ public class PersonalJButton extends JButton {
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	
+	//private final static int DEF_WIDTH=70;
+	//private final static int DEF_HEIGHT= 60;
+	
 	private Object controller;
+	private boolean hasIcon;
 
 	/**
 	 * Basic constructor for the personal JButton
 	 */
 	protected PersonalJButton() {
 		this.setBorder(getADefaultBorder());
+		
 		this.setBackground(WHITE);
-		this.setForeground(GRAY);
+		this.setForeground(DARK_GRAY);
+		this.setFocusPainted(false);
+		
+		if(this.hasIcon){
+			this.setSize(new Dimension(this.getIcon().getIconWidth(), 
+					this.getIcon().getIconHeight()));
+		} 
 	}
 
 	/**
@@ -42,6 +55,7 @@ public class PersonalJButton extends JButton {
 	public PersonalJButton(final ImageIcon img) {
 		this();
 		this.setIcon(img);
+		this.hasIcon=true;
 	}
 
 	/**

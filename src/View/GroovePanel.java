@@ -16,7 +16,7 @@ import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
 import static View.buttons.ButtonFactory.*;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * This class rapresents the GUI space for the groovebox
@@ -53,7 +53,8 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
-		timeDialerOptions.setForeground(GRAY);
+		timeDialerOptions.setForeground(DARK_GRAY);
+		timeDialerOptions.setFocusable(false);
 
 		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
 				5));
@@ -61,7 +62,7 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 
 		final JLabel timeDialerLabel = new JLabel("Time Dial: ");
 		timeDialerLabel.setBackground(WHITE);
-		timeDialerLabel.setForeground(GRAY);
+		timeDialerLabel.setForeground(DARK_GRAY);
 
 		final PersonalJPanel timePanel = new PersonalJPanel(new FlowLayout(
 				FlowLayout.CENTER, 5, 10));

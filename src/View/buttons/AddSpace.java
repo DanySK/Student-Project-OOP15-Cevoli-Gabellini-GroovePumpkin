@@ -10,7 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import controller.MusicPlayer;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * This class implements the action for adding a Single song, Multiple songs or

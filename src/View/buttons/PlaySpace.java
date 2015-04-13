@@ -1,7 +1,8 @@
 package View.buttons;
 
 import javax.swing.ImageIcon;
-import static Model.Utility.*;
+
+import static View.config.Utility.*;
 import controller.Player;
 import Model.PlayerState;
 import View.Updatable;
@@ -35,11 +36,20 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 		doShow(showTitle, PLAY);
 		
 		this.addActionListener(e -> {
-			if (this.getIcon().equals(PLAY_IMG)) {
-				controller.play();
-			} else {
-				controller.pause();
-			}
+				if (this.getIcon().equals(PLAY_IMG)) {
+					try{
+						controller.play();
+					} catch(final Exception err_play){
+						showErrorDialog(this, "No playable items found");
+					}
+					
+				} else {
+					try{
+						controller.pause();
+					} catch(final Exception err_pause){
+						showErrorDialog(this, "No pausable items found");
+					}
+				}
 		});
 	}
 

@@ -2,7 +2,7 @@ package View.buttons;
 
 import Model.PlayerState;
 import View.Updatable;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 

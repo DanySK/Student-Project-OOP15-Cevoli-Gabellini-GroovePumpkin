@@ -6,7 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import controller.GrooveBoxController;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 

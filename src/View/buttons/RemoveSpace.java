@@ -1,6 +1,6 @@
 package View.buttons;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
 import controller.MusicPlayer;
 
 /**
@@ -29,7 +29,7 @@ public class RemoveSpace extends PersonalJButton {
 				}
 				selectedIndexes= new int[]{-1};
 			} catch (IllegalArgumentException ex) {
-				showErrorDialog(RemoveSpace.this, "Invalid object selected: " + selectedIndexes);
+				showErrorDialog(RemoveSpace.this, "Invalid object selected!");
 			}
 		});
 	}

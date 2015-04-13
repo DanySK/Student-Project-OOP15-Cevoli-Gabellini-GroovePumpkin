@@ -29,6 +29,7 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 	public GrooveBox(final TableModel tm) {
 		super(tm, SINGLE_SELECTION);
 		tableModel = tm;
+		
 		super.setColumnHeaderBounds(0, 120, 120);
 		for(int i=1; i< GrooveTableModel.GROOVE_TIME_VALUES.length; i++){
 			super.setColumnHeaderBounds(i, 40, 40);

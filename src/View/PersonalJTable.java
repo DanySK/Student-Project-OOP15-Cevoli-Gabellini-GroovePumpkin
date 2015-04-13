@@ -1,12 +1,13 @@
 package View;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.TableModel;
+
 import Model.PlayerState;
 
 /**
@@ -29,8 +30,10 @@ public class PersonalJTable extends JTable implements Updatable {
 		// Thank you STACKOVERFLOW <3
 		this.getTableHeader().setReorderingAllowed(false);
 		this.getTableHeader().setResizingAllowed(false);
+		this.getTableHeader().setFocusable(false);
 		this.getTableHeader().setBackground(DARK_GRAY);
 		this.getTableHeader().setForeground(WHITE);
+		
 		this.getTableHeader().setBorder(
 				new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),
 						new EmptyBorder(5, 5, 5, 5)));

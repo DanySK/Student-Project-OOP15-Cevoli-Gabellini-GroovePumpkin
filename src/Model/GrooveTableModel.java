@@ -1,6 +1,7 @@
 package Model;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
+
 import java.awt.Color;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package View.buttons;
 
 import controller.MusicPlayer;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 
@@ -20,10 +20,10 @@ public class LoopSpace extends PersonalJButton {
 		
 		this.addActionListener(e->{
 			if (controller.isLoopModeActive()) {
-				this.setIcon(LOOP_ON_IMG);
+				this.setIcon(LOOP_OFF_IMG);
 				controller.setLoop(false);
 			} else {
-				this.setIcon(LOOP_OFF_IMG);
+				this.setIcon(LOOP_ON_IMG);
 				controller.setLoop(true);
 			}
 		});

@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
 import controller.Player;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 

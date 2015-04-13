@@ -1,10 +1,12 @@
 package View;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JTabbedPane;
+
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class
@@ -18,10 +20,12 @@ public class SoundTab extends JTabbedPane {
 	private GroovePanel groovebox;
 	private PlayerPanel player;
 	
-	public SoundTab(final int posistion, final MusicPlayer mp, final GrooveBoxController groove) {
+	public SoundTab(final MusicPlayer mp, final GrooveBoxController groove) {
 		
 		super(JTabbedPane.TOP);
 		this.setDoubleBuffered(true);
+		this.setFocusable(false);
+		this.setForeground(DARK_GRAY);
 		
 		final PlayerPanel play= new PlayerPanel(mp);
 		this.add("Play Music", play);
@@ -31,8 +35,8 @@ public class SoundTab extends JTabbedPane {
 		
 		this.setBackgroundAt(0, WHITE);
 		this.setBackgroundAt(1, WHITE);
-		this.setForegroundAt(0, GRAY);
-		this.setForegroundAt(1, GRAY);
+		this.setForegroundAt(0, DARK_GRAY);
+		this.setForegroundAt(1, DARK_GRAY);
 	}
 	
 	/**

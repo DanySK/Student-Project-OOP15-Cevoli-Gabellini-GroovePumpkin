@@ -7,7 +7,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * A Personalized White&DarkGrey JPanel, 
@@ -28,8 +28,7 @@ public class PersonalJPanel extends JPanel {
 	public PersonalJPanel() {
 		super();
 		this.setBackground(WHITE);
-		this.setForeground(GRAY);
-		
+		this.setForeground(DARK_GRAY);
 	}
 	
 	/**

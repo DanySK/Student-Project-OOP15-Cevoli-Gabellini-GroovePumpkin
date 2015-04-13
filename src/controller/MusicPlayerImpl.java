@@ -17,9 +17,9 @@ import Model.MusicPlayerModel;
 import Model.MusicPlayerModelImpl;
 import Model.PlayerState;
 import Model.SingleSongPlayerState;
-import Model.Utility;
 import View.MusicPlayerPanel;
 import View.Updatable;
+import View.config.Utility;
 
 /**
  * A music player is something that take different format song and reproduce them

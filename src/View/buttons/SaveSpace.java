@@ -1,8 +1,9 @@
 package View.buttons;
 
 import javax.swing.JFileChooser;
+
 import controller.GrooveBoxController;
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * 

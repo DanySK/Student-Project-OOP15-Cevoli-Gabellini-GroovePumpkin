@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import static javax.swing.ListSelectionModel.*;
 
 import javax.swing.event.TableModelEvent;
@@ -16,8 +17,8 @@ import controller.MusicPlayer;
 import Model.PlayerState;
 import Model.PlaylistTableModel;
 import View.buttons.RemoveSpace;
-import static Model.Utility.*;
 import static View.buttons.ButtonFactory.*;
+import static View.config.Utility.*;
 
 /**
  * Personalized Panel for the PlayBackPanel class, this class manages the
@@ -52,7 +53,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		this.playlist.setColumnHeaderBounds(0, 25, 25);
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
-		jsp.setForeground(GRAY);
+		jsp.setForeground(DARK_GRAY);
 
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));

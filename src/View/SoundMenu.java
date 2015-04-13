@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import static Model.Utility.*;
+import static View.config.Utility.*;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame
@@ -36,7 +36,7 @@ public class SoundMenu extends JMenuBar {
 	public SoundMenu() {
 		
 		this.setBackground(WHITE);
-		this.setForeground(GRAY);
+		this.setForeground(DARK_GRAY);
 		option = new JMenu("Options");
 		option.setBackground(WHITE);
 		this.add(option);
@@ -52,7 +52,7 @@ public class SoundMenu extends JMenuBar {
 
 		final JMenuItem about = new JMenuItem("About");
 		about.setBackground(WHITE);
-		about.setForeground(GRAY);
+		about.setForeground(DARK_GRAY);
 		about.addActionListener(new ActionListener() {
 
 			@Override
@@ -64,7 +64,7 @@ public class SoundMenu extends JMenuBar {
 
 		final JMenuItem exit = new JMenuItem("Exit");
 		exit.setBackground(WHITE);
-		exit.setForeground(GRAY);
+		exit.setForeground(DARK_GRAY);
 		exit.addActionListener(new ActionListener() {
 
 			@Override

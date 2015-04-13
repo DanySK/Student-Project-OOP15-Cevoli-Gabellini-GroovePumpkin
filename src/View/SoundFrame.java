@@ -3,12 +3,10 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-
 import controller.GrooveBoxController;
 import controller.MusicPlayer;
+
 
 /**
  * 
@@ -39,13 +37,12 @@ public class SoundFrame extends JFrame {
 
 		this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width / 6,
 				Toolkit.getDefaultToolkit().getScreenSize().height / 6);
-
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("Groove&Pumpkins");
 		this.setLayout(new BorderLayout());
 
 		final PersonalJPanel mainPanel = new PersonalJPanel(new BorderLayout());
-		tabbedPane = new SoundTab(JTabbedPane.TOP, mp, groove);
+		tabbedPane = new SoundTab(mp, groove);
 		menuBar = new SoundMenu();
 		mainPanel.add(menuBar, BorderLayout.NORTH);
 		mainPanel.add(tabbedPane, BorderLayout.CENTER);
