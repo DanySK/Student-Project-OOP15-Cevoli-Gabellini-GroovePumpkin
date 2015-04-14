@@ -9,7 +9,6 @@ public class Configuration {
 	public Configuration() {
 		
 		UIManager.put("Button.select", LIGHT_GRAY);
-		
 		UIManager.put("TabbedPane.selected", WHITE);
 		UIManager.put("TabbedPane.highlight", WHITE);
 		UIManager.put("TabbedPane.focus", WHITE);

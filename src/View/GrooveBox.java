@@ -61,16 +61,7 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 						
 						if(!e.getValueIsAdjusting() && getColumn() != 0){
 								
-								final Boolean b = ((GrooveTableModel) tableModel).getList()
-										.get(getRow()).getValueAtIndex(getColumn() - 1);
-								
-								if (!b) {
-									((GrooveTableModel) tableModel).getList().get(getRow())
-											.setActiveAtIndex(getColumn() - 1);
-								} else {
-									((GrooveTableModel) tableModel).getList().get(getRow())
-											.setActiveAtIndex(getColumn() - 1);
-								}
+								((GrooveTableModel) tableModel).setValueAt(null, getRow(), getColumn());
 
 								GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
 							}

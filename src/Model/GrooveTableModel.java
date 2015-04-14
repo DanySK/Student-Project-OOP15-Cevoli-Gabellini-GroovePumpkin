@@ -58,7 +58,7 @@ public class GrooveTableModel extends AbstractTableModel {
 
 		return GROOVE_TIME_VALUES[column];
 	}
-
+	
 	@Override
 	public Object getValueAt(final int rowIndex, final int columnIndex) {
 
@@ -68,17 +68,15 @@ public class GrooveTableModel extends AbstractTableModel {
 			return getRowColor(rowIndex, grooveValues.get(rowIndex).getValueAtIndex(columnIndex-1));
 		}
 	}
-
+	
 	@Override
 	public boolean isCellEditable(final int rowIndex, final int columnIndex) {
 		return false;
 	}
-
+	
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
-		if (aValue instanceof Color) {
-			grooveValues.get(rowIndex).setActiveAtIndex(columnIndex-1);
-		}
+		grooveValues.get(rowIndex).setActiveAtIndex(columnIndex-1);
 	}
 	
 	/**

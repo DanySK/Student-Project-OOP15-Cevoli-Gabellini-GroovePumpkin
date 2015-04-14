@@ -24,7 +24,7 @@ public final class Utility {
 
 	public static final Color DARK_GRAY = new Color(50, 50, 50);
 	public static final Color GRAY = new Color(180, 180, 180);
-	public static final Color LIGHT_GRAY = new Color(235, 235, 235);
+	public static final Color LIGHT_GRAY = new Color(240, 240, 240);
 	public static final Color WHITE = new Color(255, 255, 255);
 	public static final Color DARK_ORANGE= new Color(255, 94, 0);
 	public static final Color ORANGE= new Color(255, 127, 0);
