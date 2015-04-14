@@ -58,11 +58,11 @@ public class PlaySpace extends PersonalJButton implements Updatable {
 
 		if (status.equals(PlayerState.RUNNING)) {
 			this.setIcon(PAUSE_IMG);
-			changeTitle(PAUSE);
+			this.changeTitle(PAUSE);
 			// start
-		} else {
+		} else if(status.equals(PlayerState.PAUSED)){
 			this.setIcon(PLAY_IMG);
-			changeTitle(PLAY);
+			this.changeTitle(PLAY);
 			// pause
 		}
 	}

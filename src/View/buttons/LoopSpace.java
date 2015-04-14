@@ -20,11 +20,11 @@ public class LoopSpace extends PersonalJButton {
 		
 		this.addActionListener(e->{
 			if (controller.isLoopModeActive()) {
-				this.setIcon(LOOP_OFF_IMG);
 				controller.setLoop(false);
+				this.setIcon(LOOP_OFF_IMG);
 			} else {
-				this.setIcon(LOOP_ON_IMG);
 				controller.setLoop(true);
+				this.setIcon(LOOP_ON_IMG);
 			}
 		});
 	}

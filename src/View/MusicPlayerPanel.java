@@ -61,8 +61,8 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 
 		final PersonalJPanel east = new PersonalJPanel();
 		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		east.add(createButton(LOOP_BUTTON, true, controller));
-		east.add(createButton(SHUFFLE_BUTTON, true,	controller));
+		east.add(createButton(LOOP_BUTTON, false, controller));
+		east.add(createButton(SHUFFLE_BUTTON, false, controller));
 		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
@@ -157,7 +157,6 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 			this.songName.setText("< " + convertURLPath(controller.getCurrentSong().get().getPath()) + " >");
 			
 		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
-			
 			//set the no-song string
 			this.songName.setText("< Any song is playing >");
 		}

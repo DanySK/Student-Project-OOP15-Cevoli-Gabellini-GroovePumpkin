@@ -13,11 +13,11 @@ import static View.config.Utility.*;
 public class ShuffleSpace extends PersonalJButton {
 
 	private static final long serialVersionUID = 5626643991067522666L;
-	private static final String TITLE_1= "Shuffle";
-	private static final String TITLE_2= "Unshuffle";
+	private static final String TITLE_1= "ON";
+	private static final String TITLE_2= "OFF";
 	
 	protected ShuffleSpace(final MusicPlayer controller, final boolean showTitle) {
-		super(SHUFFLE_IMG);
+		super(UNSHUFFLED_IMG);
 		super.setController(controller);
 		
 		doShow(showTitle, TITLE_1);
@@ -25,10 +25,12 @@ public class ShuffleSpace extends PersonalJButton {
 		this.addActionListener(e->{
 			if(controller.isShuffleModeActive()){
 				controller.setShuffleMode(false);
-				changeTitle(TITLE_1);
+				this.changeTitle(TITLE_1);
+				this.setIcon(UNSHUFFLED_IMG);
 			} else{	
 				controller.setShuffleMode(true);
-				changeTitle(TITLE_2);
+				this.changeTitle(TITLE_2);
+				this.setIcon(SHUFFLED_IMG);
 			}
 			
 		});
