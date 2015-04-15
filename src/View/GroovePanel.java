@@ -81,7 +81,8 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 		
 		this.add(westPanel, BorderLayout.WEST);
-		this.add(new JScrollPane(grooveBox), BorderLayout.CENTER);
+		final JScrollPane jsp= new JScrollPane(grooveBox);
+		this.add(jsp, BorderLayout.CENTER);
 	}
 	
 	/**

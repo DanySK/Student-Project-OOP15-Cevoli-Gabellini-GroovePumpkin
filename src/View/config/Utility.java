@@ -58,9 +58,9 @@ public final class Utility {
 	public static final ImageIcon LOOP_OFF_IMG = new ImageIcon(
 			String.join("", DATA, SEPARATOR, "Loop_OFF.png"));
 	public static final ImageIcon SHUFFLED_IMG = new ImageIcon(
-			String.join("", DATA, SEPARATOR, "Shuffle_ON_new.png"));
+			String.join("", DATA, SEPARATOR, "Shuffle_ON.png"));
 	public static final ImageIcon UNSHUFFLED_IMG = new ImageIcon(
-			String.join("", DATA, SEPARATOR, "Shuffle_OFF_new.png"));
+			String.join("", DATA, SEPARATOR, "Shuffle_OFF.png"));
 	public static final ImageIcon LOAD_IMG = new ImageIcon(
 			String.join("", DATA, SEPARATOR, "load.png"));
 	public static final ImageIcon ADD_IMG = new ImageIcon(

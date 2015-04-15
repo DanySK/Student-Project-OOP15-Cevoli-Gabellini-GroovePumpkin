@@ -1,8 +1,8 @@
 package View;
 
 import java.awt.Color;
-
-import static javax.swing.ListSelectionModel.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 import Model.GrooveTableModel;
 import Model.PlayerState;
+import static javax.swing.ListSelectionModel.*;
 
 /**
  * The Class that implements the groovebox
@@ -21,6 +22,10 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 
 	private static final long serialVersionUID = -7907789613027061207L;
 	private final TableModel tableModel;
+	
+	private boolean locked;
+	private int r;
+	private int c;
 
 	/**
 	 * 
@@ -53,28 +58,68 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 		
+
+		this.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				locked=false;
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				locked=false;
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				locked=false;
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+		});
+
 		// Handle the changes of colours in the columns of the GrooveBox
 		this.getColumnModel().getSelectionModel()
 				.addListSelectionListener(new ListSelectionListener() {
+					
 					@Override
 					public void valueChanged(final ListSelectionEvent e) {
 						
-						if(!e.getValueIsAdjusting() && getColumn() != 0){
-								
-								((GrooveTableModel) tableModel).setValueAt(null, getRow(), getColumn());
+						/*
+						if(c!= getColumn() || r!=getRow()){
+							locked=false;
+						}
+						*/
+						if (!e.getValueIsAdjusting() && getColumn() != 0 && !locked) {
+							
+							locked=true;
+							r=getRow();
+							c=getColumn();
+							
+							tableModel.setValueAt(null, r, c);
+							GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
+						}
+					}
 
-								GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
-							}
+					private int getRow() {
+
+						return GrooveBox.this.getMousePosition() == null ? 0
+								: GrooveBox.this.rowAtPoint(GrooveBox.this
+										.getMousePosition());
 					}
-					
-					private int getRow(){
-						return GrooveBox.this.getSelectedRow()< 0 ? 0 : GrooveBox.this.getSelectedRow();
+
+					private int getColumn() {
+						
+						return GrooveBox.this.getMousePosition() == null ? 0
+								: GrooveBox.this.columnAtPoint(GrooveBox.this
+										.getMousePosition());
 					}
-					
-					private int getColumn(){
-						return GrooveBox.this.getSelectedColumn()< 0 ? 0 : GrooveBox.this.getSelectedColumn();
-					}
-					
+
 				});
 	}
 
