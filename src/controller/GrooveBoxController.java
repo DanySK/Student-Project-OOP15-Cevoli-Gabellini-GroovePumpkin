@@ -8,7 +8,6 @@ import java.io.File;
  *
  */
 public interface GrooveBoxController extends Player{
-	void createTrack();
 	void saveTrack(final String path);
 	void loadTrack(final File file);	
 	void setTempoInBPM(final int BPM);

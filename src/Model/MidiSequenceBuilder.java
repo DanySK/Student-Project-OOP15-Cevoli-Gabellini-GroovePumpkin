@@ -10,7 +10,7 @@ import javax.sound.midi.*;
  * @author Matteo Gabellini
  *
  */
-public class MidiTrackBuilder {
+public class MidiSequenceBuilder {
 	
 	private static final int VELOCITY = 100; // la velocità di tocco può essere da 0 a 127 
 	private static final int SELECTED_CHANNEL = 1; //Canale midi da 0 a 15
@@ -20,30 +20,35 @@ public class MidiTrackBuilder {
 	 * @param partitura
 	 * @return An optional that contains the midi track, if during the creation there is some problem the return value is Optional.empty
 	 */
-	public Optional<Track> createMidiTrack(List<GrooveValues> partitura){
-		Track midiTrack = null; 
+	public Optional<Sequence> createMidiSequence(List<GrooveValues> partitura){
+		Sequence midiSequence = null;
 		
 		try {
-			midiTrack = (new Sequence(Sequence.PPQ, 4)).createTrack();
-			midiTrack.add(createEvent(0, ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, 1, VELOCITY).get());
+			midiSequence = new Sequence(Sequence.PPQ, 4);
+			
+			final Track midiTrack = midiSequence.createTrack();
+			midiTrack.add(createEvent(0, ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, 1, VELOCITY));
+			// Qui non ho usato il metodo flat map perchè perderei la
+			// possibilità di accedere a getID quando creo l'evento
 			partitura.stream().forEach(
 					X -> {
-						X.getColorsList().stream().forEach(
+						X.getRow().stream().forEach(
 								Y -> {
-									createEvent(Y.getSecond(),
+									midiTrack.add(createEvent(Y.getSecond(),
 											ShortMessage.NOTE_ON,
-											SELECTED_CHANNEL, X.getID(), VELOCITY);
-									createEvent(Y.getSecond(),
+											SELECTED_CHANNEL, X.getID(), VELOCITY));
+									midiTrack.add(createEvent(Y.getSecond(),
 											ShortMessage.NOTE_OFF,
-											SELECTED_CHANNEL, X.getID(), VELOCITY);
+											SELECTED_CHANNEL, X.getID(), VELOCITY));
 								});
 					});
+			
 		} catch (InvalidMidiDataException e) { 
 			e.printStackTrace();
 		}
 		
 		
-		return Optional.ofNullable(midiTrack);
+		return Optional.ofNullable(midiSequence);
 	}
 	
 	/*
@@ -56,18 +61,18 @@ public class MidiTrackBuilder {
 	 * midiCommand -  the MIDI command represented by this message
 	 * channel - the channel associated with the message
 	 * fData - the first data byte
-     * sData- the second data byte
+     * velocity - the force with the note is played(from 0 to 127)
 	 */ 
-	private Optional<MidiEvent> createEvent(final long tick, final int midiCommand, final int channel, final int fData , final int velocity){
-		Optional<MidiEvent> event = Optional.empty();
-		ShortMessage message = new ShortMessage();
+	private MidiEvent createEvent(final long tick, final int midiCommand, final int channel, final int fData , final int velocity){
+		MidiEvent event;
+		final ShortMessage message = new ShortMessage();
 		try {
 			message.setMessage(midiCommand, channel, fData, velocity);
-			event = Optional.of(new MidiEvent(message, tick));
 		} catch (InvalidMidiDataException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		event = new MidiEvent(message, tick);
 		return event;
 	}
 }

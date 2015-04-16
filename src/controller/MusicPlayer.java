@@ -33,12 +33,6 @@ public interface MusicPlayer extends Player, Observable{
 	 */
 	void goToSong(int index);
 	
-	/**
-	 * This method take the URL of the song and try to load the track
-	 * @param songPath
-	 */
-	void loadSong(URL songPath);
-	
 	
 	/**
 	 * a getter for the current song

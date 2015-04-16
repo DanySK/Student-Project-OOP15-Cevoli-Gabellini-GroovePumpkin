@@ -123,8 +123,8 @@ public class MusicPlayerImpl implements MusicPlayer {
 	******************************************/
 	
 	
-	@Override
-	public void loadSong(URL songPath) {
+	/*This method take the URL of the song and try to load the track*/
+	private void loadSong(URL songPath) {
 		// Check if the player is present and if is active
 		if (this.soundPlayer.isPresent() && this.soundPlayer.get().isActive()) {
 			// if the player is active I stop them...
