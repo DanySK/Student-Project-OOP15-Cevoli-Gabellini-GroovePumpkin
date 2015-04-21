@@ -1,15 +1,17 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 
 import Model.GrooveBoxModel;
-import Model.TableValueManager;
 import View.Updatable;
 
 /**
@@ -17,7 +19,7 @@ import View.Updatable;
  * @author Matteo Gabellini
  *
  */
-public class GrooveBoxControllerImpl implements GrooveBoxController{
+public class GrooveBoxControllerImpl implements GrooveBoxController,Observable{
 	private Optional<MidiSongPlayer> sequencer;
 	private GrooveBoxModel model;
 	private List<Updatable> component;
@@ -53,27 +55,36 @@ public class GrooveBoxControllerImpl implements GrooveBoxController{
 	}
 
 	@Override
-	public void setLoop(final boolean value) {
-		this.model.setLoop(value);
+	public void setLoop(final boolean loopActive) {
+		this.model.setLoop(loopActive);
 	}
 
 	@Override
 	public void addUpdatableObserver(final Updatable component) {
-		// TODO Auto-generated method stub
+		if (this.component == null) {
+			this.component = new ArrayList<>();
+		}
+		this.component.add(component);
 	}
-
+	
 	@Override
-	public void saveTrack(String path) {
-		// TODO Auto-generated method stub
-
+	public boolean saveTrack(final String pathName) throws IOException {
+		final File outPutFile = new File(pathName);
+		final Optional<Sequence> createdSequence = this.model.getSequence();
+		if(createdSequence.isPresent()){
+			int[] fileTypes = MidiSystem.getMidiFileTypes(createdSequence.get());
+			//I check how many midi file type my system are able to write
+			if(fileTypes.length != 0){
+				//I try to write the file and check how may bytes were written
+				if(MidiSystem.write(createdSequence.get(), fileTypes[0], outPutFile) != -1){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
-
-	@Override
-	public void loadTrack(File file) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
+	
 	@Override
 	public void setTempoInBPM(final int BPM) {
 		if(this.sequencer.isPresent()){
@@ -85,15 +96,11 @@ public class GrooveBoxControllerImpl implements GrooveBoxController{
 	public void setInstrument() {
 		// TODO Auto-generated method stub
 	}
+	
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		return this.model.getValueAt(rowIndex, columnIndex);
-	}
-
-	@Override
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		this.model.setValueAt(aValue, rowIndex, columnIndex);
+	public void changeCellState(final int rowIndex, final int columnIndex) {
+				
 	}
 
 }

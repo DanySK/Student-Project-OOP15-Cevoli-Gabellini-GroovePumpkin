@@ -41,7 +41,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 	private Thread threadSongWatcher;
 	private volatile boolean endOfSong;
 	
-	
 	public MusicPlayerImpl() {
 		this.model = new MusicPlayerModelImpl();
 		this.soundPlayer = Optional.empty();
@@ -346,5 +345,13 @@ public class MusicPlayerImpl implements MusicPlayer {
 			return this.soundPlayer.get().getElapsedTime();
 		}
 		return 0;
+	}
+
+	@Override
+	public PlayerState getState() {
+		return (!this.soundPlayer.isPresent() && this.soundPlayer.get()
+				.getState() == SingleSongPlayerState.STOPPED) ? PlayerState.STOPPED
+				: (this.soundPlayer.get().getState() == SingleSongPlayerState.RUNNING ? PlayerState.RUNNING
+						: PlayerState.PAUSED);
 	}
 }

@@ -8,7 +8,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 /**
- * 
+ * A model for the Groove Box
  * @author Matteo Gabellini
  *
  */
@@ -41,6 +41,12 @@ public class GrooveBoxModel extends GrooveTableModel implements GrooveBoxManager
 	public Optional<Sequence> getSequence() {
 		this.createSequence();
 		return grooveSequence;
+	}
+
+	@Override
+	public void changeCellState(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -92,6 +92,12 @@ public interface MusicPlayer extends Player, Observable{
 	void loadPlayList(List<URL> playList) throws  IllegalArgumentException;
 	
 	/**
+	 * Getter for the current state of the Player
+	 * @return current player state
+	 */
+	PlayerState getState();
+	
+	/**
 	 * This method return the current playlist
 	 * @return a copy of the current playlist
 	 */
