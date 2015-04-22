@@ -2,7 +2,7 @@ package View.buttons;
 
 import javax.swing.JButton;
 
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 import controller.Player;
 import static View.config.Utility.*;
@@ -66,9 +66,9 @@ public final class ButtonFactory {
 		case 3:
 				return new RecSpace(controller, showTitle);
 		case 4:
-				return new SaveSpace((GrooveBoxController) controller, showTitle);
+				return new SaveSpace((GrooveBoxPlayer) controller, showTitle);
 		case 5: 
-				return new LoadSpace((GrooveBoxController) controller, showTitle);
+				return new LoadSpace((GrooveBoxPlayer) controller, showTitle);
 		case 6: 
 				return new ShuffleSpace((MusicPlayer) controller, showTitle);
 		case 7:

@@ -8,24 +8,19 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 /**
- * A model for the Groove Box
+ * This class rappresent the logic for manage the data of a groove box. 
+ * see: {@link #GrooveValues}
  * @author Matteo Gabellini
  *
  */
 
-public class GrooveBoxModel extends GrooveTableModel implements GrooveBoxManager {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class GrooveBoxModel implements GrooveBoxContentManager {
 	
 	private boolean loop;
 	private Optional<Sequence> grooveSequence;
 	
-	public GrooveBoxModel(List<GrooveValues> list) {
-		super(list);
-		// TODO Auto-generated constructor stub
+	public GrooveBoxModel() {
+		GrooveValues.initAGrooveBoxList();
 	}
 	
 	@Override
@@ -34,7 +29,7 @@ public class GrooveBoxModel extends GrooveTableModel implements GrooveBoxManager
 	}
 
 	private void createSequence() {
-		grooveSequence = new MidiSequenceBuilder().createMidiSequence(this.getList());
+		grooveSequence = new MidiSequenceBuilder().createMidiSequence(GrooveValues.GROOVEBOX);
 	}
 
 	@Override
@@ -45,8 +40,7 @@ public class GrooveBoxModel extends GrooveTableModel implements GrooveBoxManager
 
 	@Override
 	public void changeCellState(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		
+		GrooveValues.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
 	}
 
 }

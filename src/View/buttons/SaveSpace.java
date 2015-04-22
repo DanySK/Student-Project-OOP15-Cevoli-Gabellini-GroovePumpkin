@@ -2,7 +2,7 @@ package View.buttons;
 
 import javax.swing.JFileChooser;
 
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import static View.config.Utility.*;
 
 /**
@@ -15,7 +15,7 @@ public class SaveSpace extends PersonalJButton {
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String TITLE = "Save";
 
-	protected SaveSpace(final GrooveBoxController controller, final boolean showTitle) {
+	protected SaveSpace(final GrooveBoxPlayer controller, final boolean showTitle) {
 		super(SAVE_IMG);
 
 		doShow(showTitle, TITLE);

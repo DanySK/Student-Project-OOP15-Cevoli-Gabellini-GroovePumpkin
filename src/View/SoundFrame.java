@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 
 
@@ -27,7 +27,7 @@ public class SoundFrame extends JFrame {
 	 * -Close on exit
 	 * 
 	 */
-	public SoundFrame(final MusicPlayer mp, final GrooveBoxController groove) {
+	public SoundFrame(final MusicPlayer mp, final GrooveBoxPlayer groove) {
 
 		this.setMinimumSize(new Dimension(Toolkit.getDefaultToolkit()
 				.getScreenSize().width * 10 / 15, Toolkit.getDefaultToolkit()

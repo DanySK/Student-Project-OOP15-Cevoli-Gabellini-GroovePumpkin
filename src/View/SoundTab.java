@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JTabbedPane;
 
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 import static View.config.Utility.*;
 
@@ -20,7 +20,7 @@ public class SoundTab extends JTabbedPane {
 	private GroovePanel groovebox;
 	private PlayerPanel player;
 	
-	public SoundTab(final MusicPlayer mp, final GrooveBoxController groove) {
+	public SoundTab(final MusicPlayer mp, final GrooveBoxPlayer groove) {
 		
 		super(JTabbedPane.TOP);
 		this.setDoubleBuffered(true);

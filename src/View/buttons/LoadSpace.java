@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import static View.config.Utility.*;
 
 /**
@@ -18,7 +18,7 @@ public class LoadSpace extends PersonalJButton {
 	private static final long serialVersionUID = 3196123775349555103L;
 	private static final String TITLE = "Load";
 
-	protected LoadSpace(final GrooveBoxController controller,
+	protected LoadSpace(final GrooveBoxPlayer controller,
 			final boolean showTitle) {
 		super(LOAD_IMG);
 		super.setController(controller);

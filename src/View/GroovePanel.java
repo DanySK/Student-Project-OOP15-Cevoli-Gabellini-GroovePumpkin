@@ -11,7 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
@@ -38,7 +38,7 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.initAGrooveBoxList()));
 	
 	@SuppressWarnings("unused")
-	private GrooveBoxController controller;
+	private GrooveBoxPlayer controller;
 	
 	private final List<Updatable> observer= new ArrayList<>();
 	
@@ -46,7 +46,7 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	 * 
 	 * @param controller
 	 */
-	public GroovePanel(final GrooveBoxController controller) {
+	public GroovePanel(final GrooveBoxPlayer controller) {
 		super(new BorderLayout(5, 5));
 		observer.add(grooveBox);
 		this.controller= controller;
