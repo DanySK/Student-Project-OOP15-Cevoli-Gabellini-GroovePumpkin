@@ -1,4 +1,4 @@
-package view;
+package view.tables;
 
 import static view.config.Utility.*;
 
@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.TableModel;
 
+import view.interfaces.Updatable;
 import model.PlayerState;
 
 /**

@@ -2,7 +2,7 @@ package view.buttons;
 
 import javax.swing.ImageIcon;
 
-import view.Updatable;
+import view.interfaces.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
 import controller.Player;

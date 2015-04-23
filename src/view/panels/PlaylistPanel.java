@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,6 +16,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 import view.buttons.RemoveSpace;
+import view.interfaces.Updatable;
+import view.tables.PersonalJTable;
 import model.PlayerState;
 import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;

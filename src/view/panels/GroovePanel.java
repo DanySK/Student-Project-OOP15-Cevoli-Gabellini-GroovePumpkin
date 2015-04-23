@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -13,6 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import view.interfaces.Updatable;
+import view.tables.GrooveBox;
 import model.PlayerState;
 import model.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;

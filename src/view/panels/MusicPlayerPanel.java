@@ -1,4 +1,4 @@
-package view;
+package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,6 +12,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
 import view.buttons.PersonalJButton;
+import view.interfaces.Updatable;
 import model.PlayerState;
 import controller.MusicPlayer;
 import static model.PlayerState.*;

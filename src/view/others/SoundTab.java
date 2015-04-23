@@ -1,9 +1,11 @@
-package view;
+package view.others;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JTabbedPane;
 
+import view.panels.GroovePanel;
+import view.panels.PlayerPanel;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 import static view.config.Utility.*;

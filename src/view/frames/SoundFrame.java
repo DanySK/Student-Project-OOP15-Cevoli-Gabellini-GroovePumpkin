@@ -1,9 +1,14 @@
-package view;
+package view.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import javax.swing.JFrame;
+
+import view.others.SoundMenu;
+import view.others.SoundTab;
+import view.panels.PersonalJPanel;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 

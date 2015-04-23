@@ -1,4 +1,4 @@
-package view;
+package view.tables;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -10,6 +10,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
+import view.interfaces.Updatable;
 import model.PlayerState;
 import model.viewModel.GrooveTableModel;
 import static javax.swing.ListSelectionModel.*;
