@@ -1,8 +1,6 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +9,11 @@ import java.util.Optional;
 
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
-import javax.swing.JComponent;
-
 import Model.MusicPlayerModel;
 import Model.MusicPlayerModelImpl;
 import Model.PlayerState;
 import Model.SingleSongPlayerState;
-import View.MusicPlayerPanel;
 import View.Updatable;
-import View.config.Utility;
 
 /**
  * A music player is something that take different format song and reproduce them

@@ -1,7 +1,5 @@
 package controller;
 
-import View.Updatable;
-
 /**
  * This interface rappresent a common player
  * @author Matteo Gabellini

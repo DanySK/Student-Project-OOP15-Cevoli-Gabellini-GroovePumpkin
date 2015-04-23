@@ -1,6 +1,7 @@
 package main;
 
-//import controller.GrooveBoxController;
+import controller.GrooveBoxController;
+import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 import controller.MusicPlayerImpl;
 import View.SoundFrame;
@@ -15,14 +16,18 @@ import View.config.Configuration;
  * @author Alessandro
  *
  */
-public class Main {
+public final class Main {
 	private static final MusicPlayer MP = new MusicPlayerImpl();
+	private static final GrooveBoxPlayer GBC= new GrooveBoxController();
 
-	// private static final GrooveBoxController groove;
-
+	private Main() {
+		
+	}
+	
+	
 	public static void main(final String... args) {
 		new Configuration();
-		new SoundFrame(MP, null);
+		new SoundFrame(MP, GBC);
 		// try {
 		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		// } catch (final Exception e) {

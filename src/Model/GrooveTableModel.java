@@ -1,11 +1,9 @@
 package Model;
 
 import static View.config.Utility.*;
-
 import java.awt.Color;
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
+import controller.GrooveBoxPlayer;
 
 /**
  * This class is a specialized Table Model for the groove box
@@ -31,14 +29,14 @@ public class GrooveTableModel extends AbstractTableModel {
 			"B", "C", "#6", "A", "B", "C", "#7", "A", "B", "C", "#8", "A", "B",
 			"C", "#9", "A", "B", "C" };
 
-	private final List<GrooveValues> grooveValues;
+	private final GrooveBoxPlayer controller;
 	
 	/**
 	 * 
 	 * @param list
 	 */
-	public GrooveTableModel(final List<GrooveValues> list) {
-		grooveValues=list;
+	public GrooveTableModel(final GrooveBoxPlayer controller) {
+		this.controller= controller;
 	}
 	
 	@Override
@@ -65,7 +63,7 @@ public class GrooveTableModel extends AbstractTableModel {
 		if (columnIndex == 0) {
 			return DefaultValues.values()[rowIndex].getInstrument();
 		} else{
-			return getRowColor(rowIndex, grooveValues.get(rowIndex).getValueAtIndex(columnIndex-1));
+			return getRowColor(rowIndex, controller.getCellState(rowIndex, columnIndex-1));
 		}
 	}
 	
@@ -76,15 +74,7 @@ public class GrooveTableModel extends AbstractTableModel {
 	
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
-		grooveValues.get(rowIndex).setActiveAtIndex(columnIndex-1);
-	}
-	
-	/**
-	 * 
-	 * @return the groovebox associated to this table model
-	 */
-	public List<GrooveValues> getList(){
-		return grooveValues;
+		controller.changeCellState(rowIndex, columnIndex-1);
 	}
 	
 	/**

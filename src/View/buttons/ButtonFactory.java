@@ -3,6 +3,7 @@ package View.buttons;
 import javax.swing.JButton;
 
 import controller.GrooveBoxPlayer;
+import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
 import static View.config.Utility.*;
@@ -55,31 +56,31 @@ public final class ButtonFactory {
 
 	public static JButton createButton(final int type, final boolean showTitle,
 			final Object controller) {
-		
-		switch(type){
-			case 0: 
-				return new PlaySpace((Player) controller, PLAY_IMG, showTitle);
+
+		switch (type) {
+		case 0:
+			return new PlayPauseSpace((Player) controller, PLAY_IMG, showTitle);
 		case 1:
-				return new StopSpace((Player) controller, showTitle);
-		case 2: 
-				return new LoopSpace((MusicPlayer) controller, showTitle);
+			return new StopSpace((Player) controller, showTitle);
+		case 2:
+			return new LoopSpace((LoopablePlayer) controller, showTitle);
 		case 3:
-				return new RecSpace(controller, showTitle);
+			return new RecSpace(controller, showTitle);
 		case 4:
-				return new SaveSpace((GrooveBoxPlayer) controller, showTitle);
-		case 5: 
-				return new LoadSpace((GrooveBoxPlayer) controller, showTitle);
-		case 6: 
-				return new ShuffleSpace((MusicPlayer) controller, showTitle);
+			return new SaveSpace((GrooveBoxPlayer) controller, showTitle);
+		case 5:
+			return new LoadSpace((GrooveBoxPlayer) controller, showTitle);
+		case 6:
+			return new ShuffleSpace((MusicPlayer) controller, showTitle);
 		case 7:
-				return new PlaySpace((Player) controller, PAUSE_IMG, showTitle);
+			return new PlayPauseSpace((Player) controller, PAUSE_IMG, showTitle);
 		case 8:
-				return new AddSpace((MusicPlayer) controller, showTitle);
+			return new AddSpace((MusicPlayer) controller, showTitle);
 		case 9:
-				return new RemoveSpace((MusicPlayer) controller, showTitle);
+			return new RemoveSpace((MusicPlayer) controller, showTitle);
 		default:
-				return new JButton("Hai sbagliato type, pirla.");
-		
+			return new JButton("Hai sbagliato type, pirla.");
+
 		}
 	}
 }

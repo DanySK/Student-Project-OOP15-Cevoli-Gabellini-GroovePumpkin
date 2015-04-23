@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
@@ -53,17 +51,9 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		songName.setBackground(WHITE);
 		songName.setForeground(DARK_GREEN);
 		
-		//TimeCounter.getSingleton().attachTimeLabel(songTime);
-		
 		final PersonalJPanel north = new PersonalJPanel(new BorderLayout());
 		populateNorthPanel(north);
 		this.add(north, BorderLayout.NORTH);
-
-		final PersonalJPanel east = new PersonalJPanel();
-		east.setLayout(new BoxLayout(east, BoxLayout.Y_AXIS));
-		east.add(createButton(LOOP_BUTTON, false, controller));
-		east.add(createButton(SHUFFLE_BUTTON, false, controller));
-		this.add(east, BorderLayout.EAST);
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
 				10, 5));
@@ -71,14 +61,14 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		this.add(gainPanel, BorderLayout.SOUTH);
 	}
 
-	private void populateNorthPanel(final PersonalJPanel north) {
+	private void populateNorthPanel(final PersonalJPanel panel) {
 
-		final PersonalJPanel northLabel = new PersonalJPanel(new FlowLayout(1, 20, 10));
-		northLabel.add(songName);
-		northLabel.add(songTime);
-		north.add(northLabel, BorderLayout.NORTH);
+		final PersonalJPanel north = new PersonalJPanel(new FlowLayout(1, 20, 10));
+		north.add(songName);
+		north.add(songTime);
+		panel.add(north, BorderLayout.NORTH);
 
-		final PersonalJPanel controls = new PersonalJPanel(new FlowLayout(1, 10, 10));
+		final PersonalJPanel center = new PersonalJPanel(new FlowLayout(1, 10, 10));
 
 		final PersonalJButton fw = new PersonalJButton(FW_IMG);
 		fw.addActionListener(e -> {
@@ -92,16 +82,21 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 			controller.goToPreviousSong();
 		});
 
-		controls.add(rw);
+		center.add(rw);
 		generic = (Updatable) createButton(PLAY_BUTTON, false, controller);
 		observer.add(generic);
-		controls.add((Component) generic);
+		center.add((Component) generic);
 		generic = (Updatable) createButton(STOP_BUTTON, false, controller);
 		observer.add(generic);
-		controls.add((Component) generic);
-		controls.add(fw);
+		center.add((Component) generic);
+		center.add(fw);
 
-		north.add(controls, BorderLayout.CENTER);
+		panel.add(center, BorderLayout.CENTER);
+		
+		final PersonalJPanel south = new PersonalJPanel(new FlowLayout(1, -5, 0));
+		south.add(createButton(LOOP_BUTTON, false, controller));
+		south.add(createButton(SHUFFLE_BUTTON, false, controller));
+		panel.add(south, BorderLayout.SOUTH);
 	}
 
 	private void populateGainPanel(PersonalJPanel gainPanel) {

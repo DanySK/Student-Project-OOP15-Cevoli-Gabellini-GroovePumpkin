@@ -17,7 +17,7 @@ public class SaveSpace extends PersonalJButton {
 
 	protected SaveSpace(final GrooveBoxPlayer controller, final boolean showTitle) {
 		super(SAVE_IMG);
-
+		super.setController(controller);
 		doShow(showTitle, TITLE);
 
 		this.addActionListener(e -> {

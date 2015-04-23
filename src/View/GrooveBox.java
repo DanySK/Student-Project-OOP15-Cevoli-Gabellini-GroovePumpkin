@@ -24,8 +24,8 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 	private final TableModel tableModel;
 	
 	private boolean locked;
-	private int r;
-	private int c;
+	private int row;
+	private int col;
 
 	/**
 	 * 
@@ -98,10 +98,9 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 						if (!e.getValueIsAdjusting() && getColumn() != 0 && !locked) {
 							
 							locked=true;
-							r=getRow();
-							c=getColumn();
-							
-							tableModel.setValueAt(null, r, c);
+							row=getRow();
+							col=getColumn();
+							tableModel.setValueAt(null, row, col);
 							GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
 						}
 					}

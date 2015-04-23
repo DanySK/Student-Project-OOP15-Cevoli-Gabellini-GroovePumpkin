@@ -18,9 +18,7 @@ public class StopSpace extends PersonalJButton implements Updatable{
 	protected StopSpace(final Player controller, final boolean showTitle) {
 		super(STOP_IMG);
 		super.setController(controller);
-
 		doShow(showTitle, TITLE);
-		
 		this.setEnabled(false);
 		
 		this.addActionListener(e->{

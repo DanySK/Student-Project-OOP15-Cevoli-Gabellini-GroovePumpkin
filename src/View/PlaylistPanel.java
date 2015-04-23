@@ -54,13 +54,16 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
-
+		
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 
 		final RemoveSpace remove = (RemoveSpace) createButton(REMOVE_BUTTON,
-				true, controller);
+				true, mp);
 		buttonRow.add(remove);
+		
+		this.add(buttonRow, BorderLayout.SOUTH);
+		this.add(jsp, BorderLayout.CENTER);
 
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
@@ -104,9 +107,6 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 				}
 			}
 		});
-		
-		this.add(jsp, BorderLayout.CENTER);
-		this.add(buttonRow, BorderLayout.SOUTH);
 	}
 
 	/**

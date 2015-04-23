@@ -1,6 +1,7 @@
 package View.buttons;
 
-import controller.MusicPlayer;
+import controller.LoopablePlayer;
+//import controller.Player;
 import static View.config.Utility.*;
 
 /**
@@ -13,9 +14,9 @@ public class LoopSpace extends PersonalJButton {
 	private static final long serialVersionUID = -7087889831741979163L;
 	private static final String TITLE= "Loop";
 	
-	protected LoopSpace(final MusicPlayer controller, final boolean showTitle) {
+	protected LoopSpace(final LoopablePlayer controller, final boolean showTitle) {
 		super(LOOP_OFF_IMG);
-		
+		this.setController(controller);
 		doShow(showTitle, TITLE);
 		
 		this.addActionListener(e->{

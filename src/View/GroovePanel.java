@@ -2,17 +2,16 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-
 import controller.GrooveBoxPlayer;
-import Model.GrooveValues;
 import Model.GrooveTableModel;
 import Model.PlayerState;
 import static View.buttons.ButtonFactory.*;
@@ -31,11 +30,11 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 
 	private static final long serialVersionUID = 1116768170189928089L;
 
-	private final Double[] items = new Double[] { 40d, 60d, 80d, 100d, 120d,
-			140d, 160d, 180d };
+	private final Integer[] items = new Integer[] { 40, 60, 80, 100, 120,
+			140, 160, 180 };
 
-	private final JComboBox<Double> timeDialerOptions = new JComboBox<>(items);
-	private final GrooveBox grooveBox = new GrooveBox(new GrooveTableModel(GrooveValues.initAGrooveBoxList()));
+	private final JComboBox<Integer> timeDialerOptions = new JComboBox<>(items);
+	private final GrooveBox grooveBox;
 	
 	@SuppressWarnings("unused")
 	private GrooveBoxPlayer controller;
@@ -48,13 +47,23 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	 */
 	public GroovePanel(final GrooveBoxPlayer controller) {
 		super(new BorderLayout(5, 5));
+		grooveBox= new GrooveBox(new GrooveTableModel(controller));
 		observer.add(grooveBox);
 		this.controller= controller;
 		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(DARK_GRAY);
-		timeDialerOptions.setFocusable(false);
+		timeDialerOptions.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(final ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED){
+					//System.out.println(((Integer)e.getItem()).intValue());
+					controller.setTempoInBPM(((Integer)e.getItem()).intValue());
+				}
+			}
+		});
 
 		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
 				5));

@@ -27,12 +27,10 @@ public class PersonalJButton extends JButton {
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	
-	//private final static int DEF_WIDTH=70;
-	//private final static int DEF_HEIGHT= 60;
-	
 	private Object controller;
 	private boolean hasIcon;
-
+	private boolean hasTitle;
+	
 	/**
 	 * Basic constructor for the personal JButton
 	 */
@@ -43,10 +41,7 @@ public class PersonalJButton extends JButton {
 		this.setForeground(DARK_GRAY);
 		this.setFocusPainted(false);
 		
-		if(this.hasIcon){
-			this.setSize(new Dimension(this.getIcon().getIconWidth(), 
-					this.getIcon().getIconHeight()));
-		} 
+		this.setSize();
 	}
 
 	/**
@@ -67,11 +62,14 @@ public class PersonalJButton extends JButton {
 		this.setTitledBorder(title);
 	}
 	
-	/**
-	 * I needed his method for changing the name of the titled border gotten
-	 * 
-	 * @return the TitledBorder if it exists, otherways null
-	 */
+	private void setSize() {
+		
+		if(this.hasIcon && !this.hasTitle){
+			this.setPreferredSize(new Dimension(this.getIcon().getIconWidth(), 
+					this.getIcon().getIconHeight()));
+		} 
+	}
+	
 	private TitledBorder getTitledBorder() {
 
 		if (this.getBorder() instanceof CompoundBorder
@@ -126,5 +124,14 @@ public class PersonalJButton extends JButton {
 	 */ 
 	public void setTitledBorder(final String title) {
 		this.setBorder(getACompoundTitledBorder(title));
+		this.repaint();
+		this.hasTitle=true;
+	}
+	
+	public void removeTitledBorder(){
+		this.setBorder(getADefaultBorder());
+		this.setSize();
+		this.repaint();
+		this.hasTitle=false;
 	}
 }
