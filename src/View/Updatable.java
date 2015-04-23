@@ -1,6 +1,6 @@
 package View;
 
-import Model.PlayerState;
+import bbb.PlayerState;
 /**
  * This interface create an observer for a controller that need to update himself
  * 

@@ -11,8 +11,8 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 
-import Model.GrooveBoxContentManager;
-import Model.GrooveBoxModel;
+import bbb.GrooveBoxContentManager;
+import bbb.GrooveBoxModel;
 import View.Updatable;
 
 /**

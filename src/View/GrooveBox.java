@@ -3,13 +3,15 @@ package View;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-import Model.GrooveTableModel;
-import Model.PlayerState;
+
+import bbb.GrooveTableModel;
+import bbb.PlayerState;
 import static javax.swing.ListSelectionModel.*;
 
 /**

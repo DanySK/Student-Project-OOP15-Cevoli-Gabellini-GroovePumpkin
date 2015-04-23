@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.table.TableModel;
 
-import Model.PlayerState;
+import bbb.PlayerState;
 
 /**
  * 

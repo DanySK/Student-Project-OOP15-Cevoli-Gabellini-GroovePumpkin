@@ -1,4 +1,4 @@
-package Model.lesson;
+package bbb;
 
 /**
  * @author Danilo Pianini

@@ -13,9 +13,9 @@ import static javax.swing.ListSelectionModel.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
+import bbb.PlayerState;
+import bbb.PlaylistTableModel;
 import controller.MusicPlayer;
-import Model.PlayerState;
-import Model.PlaylistTableModel;
 import View.buttons.RemoveSpace;
 import static View.buttons.ButtonFactory.*;
 import static View.config.Utility.*;

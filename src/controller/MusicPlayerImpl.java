@@ -9,10 +9,11 @@ import java.util.Optional;
 
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
-import Model.MusicPlayerModel;
-import Model.MusicPlayerModelImpl;
-import Model.PlayerState;
-import Model.SingleSongPlayerState;
+
+import bbb.MusicPlayerModel;
+import bbb.MusicPlayerModelImpl;
+import bbb.PlayerState;
+import bbb.SingleSongPlayerState;
 import View.Updatable;
 
 /**

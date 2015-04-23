@@ -6,14 +6,16 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+
+import bbb.GrooveTableModel;
+import bbb.PlayerState;
 import controller.GrooveBoxPlayer;
-import Model.GrooveTableModel;
-import Model.PlayerState;
 import static View.buttons.ButtonFactory.*;
 import static View.config.Utility.*;
 

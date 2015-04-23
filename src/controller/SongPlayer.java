@@ -1,6 +1,6 @@
 package controller;
 
-import Model.SingleSongPlayerState;
+import bbb.SingleSongPlayerState;
 
 /**
  * A interface that rapprent a SingleSongPlayer

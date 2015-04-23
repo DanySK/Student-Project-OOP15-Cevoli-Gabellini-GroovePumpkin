@@ -5,17 +5,18 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import bbb.PlayerState;
 import controller.MusicPlayer;
-import Model.PlayerState;
 import View.buttons.PersonalJButton;
-import static Model.PlayerState.*;
 import static View.buttons.ButtonFactory.*;
 import static View.config.Utility.*;
+import static bbb.PlayerState.*;
 
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing

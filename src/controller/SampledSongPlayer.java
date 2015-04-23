@@ -13,7 +13,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 
-import Model.SingleSongPlayerState;
+import bbb.SingleSongPlayerState;
 
 /**
  * A Player of sampled song (wav song)
