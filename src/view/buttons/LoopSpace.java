@@ -1,8 +1,8 @@
-package bbb;
+package view.buttons;
 
 import controller.LoopablePlayer;
 //import controller.Player;
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 /**
  * 

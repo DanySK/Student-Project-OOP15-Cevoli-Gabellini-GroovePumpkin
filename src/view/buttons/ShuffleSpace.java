@@ -1,7 +1,7 @@
-package bbb;
+package view.buttons;
 
 import controller.MusicPlayer;
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 /**
  * This button manages the shuffling of the playlist

@@ -1,4 +1,4 @@
-package bbb;
+package view.buttons;
 
 import java.awt.Dimension;
 
@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 /**
  * A personal JButton class that stores all the imagines for the oject of this

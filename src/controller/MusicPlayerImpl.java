@@ -10,7 +10,7 @@ import java.util.Optional;
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
 
-import bbb.Updatable;
+import view.Updatable;
 import model.MusicPlayerModel;
 import model.MusicPlayerModelImpl;
 import model.PlayerState;

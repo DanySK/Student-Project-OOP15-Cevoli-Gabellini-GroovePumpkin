@@ -1,4 +1,4 @@
-package bbb;
+package view;
 
 import java.awt.LayoutManager;
 
@@ -7,7 +7,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 /**
  * A Personalized White&DarkGrey JPanel, 

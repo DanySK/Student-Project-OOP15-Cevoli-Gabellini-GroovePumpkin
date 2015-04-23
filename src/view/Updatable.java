@@ -1,4 +1,4 @@
-package bbb;
+package view;
 
 import model.PlayerState;
 /**

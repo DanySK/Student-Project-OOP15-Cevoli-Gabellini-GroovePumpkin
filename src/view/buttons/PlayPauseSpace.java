@@ -1,9 +1,10 @@
-package bbb;
+package view.buttons;
 
 import javax.swing.ImageIcon;
 
+import view.Updatable;
 import model.PlayerState;
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 import controller.Player;
 
 /**

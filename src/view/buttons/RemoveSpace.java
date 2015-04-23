@@ -1,6 +1,6 @@
-package bbb;
+package view.buttons;
 
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 import controller.MusicPlayer;
 
 /**

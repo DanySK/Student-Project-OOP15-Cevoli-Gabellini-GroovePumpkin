@@ -1,11 +1,11 @@
-package bbb;
+package view;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JSplitPane;
 
-import static bbb.Utility.*;
 import static javax.swing.JSplitPane.*;
+import static view.config.Utility.*;
 import controller.MusicPlayer;
 
 /**

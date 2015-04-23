@@ -1,7 +1,7 @@
 package main;
 
-import bbb.Configuration;
-import bbb.SoundFrame;
+import view.SoundFrame;
+import view.config.Configuration;
 import controller.GrooveBoxController;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;

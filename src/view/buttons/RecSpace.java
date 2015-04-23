@@ -1,7 +1,8 @@
-package bbb;
+package view.buttons;
 
+import view.Updatable;
 import model.PlayerState;
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 /**
  * 

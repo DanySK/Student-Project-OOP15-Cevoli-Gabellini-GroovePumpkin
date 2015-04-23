@@ -1,6 +1,6 @@
 package model.viewModel;
 
-import static bbb.Utility.*;
+import static view.config.Utility.*;
 
 import java.awt.Color;
 

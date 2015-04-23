@@ -1,4 +1,4 @@
-package bbb;
+package view.config;
 
 import java.awt.Color;
 import java.awt.Component;

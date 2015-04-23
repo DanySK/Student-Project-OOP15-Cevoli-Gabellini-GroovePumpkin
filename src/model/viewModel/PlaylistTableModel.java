@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import bbb.Utility;
+import view.config.Utility;
 
 /**
  * This class is a personalized Table Model for a playlist

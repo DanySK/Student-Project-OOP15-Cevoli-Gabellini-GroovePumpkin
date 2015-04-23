@@ -1,4 +1,4 @@
-package bbb;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -8,13 +8,14 @@ import java.awt.event.MouseListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import static bbb.ButtonFactory.*;
-import static bbb.Utility.*;
 import static javax.swing.ListSelectionModel.*;
+import static view.buttons.ButtonFactory.*;
+import static view.config.Utility.*;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
+import view.buttons.RemoveSpace;
 import model.PlayerState;
 import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;

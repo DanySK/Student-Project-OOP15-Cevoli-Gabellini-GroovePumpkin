@@ -1,4 +1,4 @@
-package bbb;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -11,11 +11,12 @@ import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import view.buttons.PersonalJButton;
 import model.PlayerState;
 import controller.MusicPlayer;
-import static bbb.ButtonFactory.*;
-import static bbb.Utility.*;
 import static model.PlayerState.*;
+import static view.buttons.ButtonFactory.*;
+import static view.config.Utility.*;
 
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
