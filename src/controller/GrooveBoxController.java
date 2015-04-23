@@ -108,4 +108,14 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 		this.model.changeCellState(rowIndex, columnIndex);
 	}
 
+	@Override
+	public boolean getCellState(int rowIndex, int columnIndex) {
+		return this.model.getCellState(rowIndex, columnIndex);
+	}
+
+	@Override
+	public boolean isLoopModeActive() {
+		return this.model.isLoopActive();
+	}
+
 }

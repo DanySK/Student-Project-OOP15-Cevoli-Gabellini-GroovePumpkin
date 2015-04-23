@@ -14,7 +14,7 @@ import View.Updatable;
  * @author Matteo Gabellini
  *
  */
-public interface MusicPlayer extends Player, Observable{
+public interface MusicPlayer extends LoopablePlayer, Observable{
 	
 	
 	/**
@@ -46,11 +46,6 @@ public interface MusicPlayer extends Player, Observable{
 	 */
 	double getElapsedTime();
 	
-	/**
-	 * Is a setter for the loop mode
-	 * @param true if the loop mode must be activeted or false if must be deactiveted
-	 */
-	void setLoop(final boolean value);
 	
 	/**
 	 * This method set the shuffle mode
@@ -60,8 +55,6 @@ public interface MusicPlayer extends Player, Observable{
 	void setShuffleMode(boolean active);
 	
 	boolean isShuffleModeActive();
-	
-	boolean isLoopModeActive();	
 	
 	/**
 	 * This method implements the logic for add the URL of a audio file to the playlist

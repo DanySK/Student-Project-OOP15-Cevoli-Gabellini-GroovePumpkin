@@ -20,6 +20,12 @@ public interface GrooveBoxContentManager{
 	void setLoop(final boolean value);
 	
 	/**
+	 * Take the state of the loop mode
+	 * @return true if loop mode is active otherwise false
+	 */
+	boolean isLoopActive();	
+	
+	/**
 	 * Take the midi sequence that corresponding to the groove box table
 	 * @return an Optional that may contains the groove sequence
 	 */
@@ -33,4 +39,14 @@ public interface GrooveBoxContentManager{
 	 * 			the index of the Groove table column  
 	 */
 	void changeCellState(final int rowIndex, final int columnIndex); 
+	
+	/**
+	 * Take the state of a cell
+	 * @param rowIndex 
+	 * 			the index of the Groove table row
+	 * @param columnIndex
+	 * 			the index of the Groove table column  
+	 * @return true if the cell is active or false
+	 */
+	boolean getCellState(final int rowIndex, final int columnIndex);
 }

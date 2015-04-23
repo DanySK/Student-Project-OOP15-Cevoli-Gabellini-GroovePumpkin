@@ -7,7 +7,7 @@ import java.io.IOException;
  * @author Matteo Gabellini
  *
  */
-public interface GrooveBoxPlayer extends Player{
+public interface GrooveBoxPlayer extends LoopablePlayer{
 	/**
 	 * Save the midi file of the created Groove
 	 * @param path 
@@ -34,12 +34,16 @@ public interface GrooveBoxPlayer extends Player{
 	void changeCellState(final int rowIndex, final int columnIndex);
 	
 	/**
-	 * Set the function of loop
-	 * @param loopActive
-	 * 			true - if the loop must be activeted
-	 * 			false - if the loop must be deactiveted
+	 * Take the state of a cell
+	 * @param rowIndex 
+	 * 			the index of the Groove table row
+	 * @param columnIndex
+	 * 			the index of the Groove table column  
+	 * @return true if the cell is active or false
 	 */
-	void setLoop(final boolean loopActive);
+	boolean getCellState(final int rowIndex, final int columnIndex);
+	
+	
 	
 	
 	void setInstrument();

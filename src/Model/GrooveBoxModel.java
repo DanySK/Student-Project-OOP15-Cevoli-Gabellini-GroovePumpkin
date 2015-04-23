@@ -27,7 +27,12 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	public void setLoop(boolean value) {
 		this.loop = value;
 	}
-
+	
+	@Override
+	public boolean isLoopActive() {
+		return this.loop;
+	}
+	
 	private void createSequence() {
 		grooveSequence = new MidiSequenceBuilder().createMidiSequence(GrooveValues.GROOVEBOX);
 	}
@@ -41,6 +46,11 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	@Override
 	public void changeCellState(int rowIndex, int columnIndex) {
 		GrooveValues.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
+	}
+
+	@Override
+	public boolean getCellState(int rowIndex, int columnIndex) {
+		return GrooveValues.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
 	}
 
 }
