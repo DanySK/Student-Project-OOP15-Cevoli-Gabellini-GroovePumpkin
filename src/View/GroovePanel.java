@@ -13,8 +13,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import model.GrooveTableModel;
 import model.PlayerState;
+import model.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;
 import static View.buttons.ButtonFactory.*;
 import static View.config.Utility.*;

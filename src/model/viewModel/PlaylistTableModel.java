@@ -1,4 +1,4 @@
-package model;
+package model.viewModel;
 
 import java.net.URL;
 import java.util.List;

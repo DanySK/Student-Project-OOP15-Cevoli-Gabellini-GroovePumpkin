@@ -14,7 +14,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 import model.PlayerState;
-import model.PlaylistTableModel;
+import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;
 import View.buttons.RemoveSpace;
 import static View.buttons.ButtonFactory.*;
