@@ -1,6 +1,6 @@
 package controller;
 
-import View.Updatable;
+import bbb.Updatable;
 
 /**
  * This interface rappresent an object that can be observed by a an object that

@@ -1,4 +1,4 @@
-package View.buttons;
+package bbb;
 
 import javax.swing.JButton;
 
@@ -6,7 +6,7 @@ import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 /**
  * 

@@ -1,11 +1,10 @@
-package View.buttons;
+package bbb;
 
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 import controller.Player;
-import View.Updatable;
 
 /**
  * This class extends the PersonalJButton to build a play and pause manager of

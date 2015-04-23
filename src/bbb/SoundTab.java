@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.BorderLayout;
 
@@ -6,7 +6,7 @@ import javax.swing.JTabbedPane;
 
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class

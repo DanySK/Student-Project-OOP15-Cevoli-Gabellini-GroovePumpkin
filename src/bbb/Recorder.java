@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
 import model.PlayerState;
-import View.buttons.ButtonFactory;
 
 /**
  * 

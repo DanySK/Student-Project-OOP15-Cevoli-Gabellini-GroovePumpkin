@@ -1,6 +1,6 @@
-package View.config;
+package bbb;
 
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 import javax.swing.UIManager;
 

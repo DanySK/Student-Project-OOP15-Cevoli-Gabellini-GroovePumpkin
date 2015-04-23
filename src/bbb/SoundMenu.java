@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -11,7 +11,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame

@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -13,9 +13,8 @@ import javax.swing.border.TitledBorder;
 
 import model.PlayerState;
 import controller.MusicPlayer;
-import View.buttons.PersonalJButton;
-import static View.buttons.ButtonFactory.*;
-import static View.config.Utility.*;
+import static bbb.ButtonFactory.*;
+import static bbb.Utility.*;
 import static model.PlayerState.*;
 
 /**

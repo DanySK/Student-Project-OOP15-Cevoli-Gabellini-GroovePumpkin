@@ -10,11 +10,11 @@ import java.util.Optional;
 import javax.sound.sampled.*;
 import javax.sound.midi.*;
 
+import bbb.Updatable;
 import model.MusicPlayerModel;
 import model.MusicPlayerModelImpl;
 import model.PlayerState;
 import model.SingleSongPlayerState;
-import View.Updatable;
 
 /**
  * A music player is something that take different format song and reproduce them

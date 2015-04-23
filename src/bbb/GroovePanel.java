@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -16,8 +16,8 @@ import javax.swing.JScrollPane;
 import model.PlayerState;
 import model.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;
-import static View.buttons.ButtonFactory.*;
-import static View.config.Utility.*;
+import static bbb.ButtonFactory.*;
+import static bbb.Utility.*;
 
 /**
  * This class rapresents the GUI space for the groovebox

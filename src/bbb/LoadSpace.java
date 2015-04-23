@@ -1,4 +1,4 @@
-package View.buttons;
+package bbb;
 
 import java.io.File;
 
@@ -6,7 +6,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import controller.GrooveBoxPlayer;
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 /**
  * 

@@ -1,6 +1,6 @@
-package View;
+package bbb;
 
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;

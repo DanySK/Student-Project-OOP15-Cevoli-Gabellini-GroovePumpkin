@@ -1,11 +1,11 @@
 package main;
 
+import bbb.Configuration;
+import bbb.SoundFrame;
 import controller.GrooveBoxController;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
 import controller.MusicPlayerImpl;
-import View.SoundFrame;
-import View.config.Configuration;
 
 /**
  * From this site you can convert .mp3/.aac/.m4a into .wav/.midi

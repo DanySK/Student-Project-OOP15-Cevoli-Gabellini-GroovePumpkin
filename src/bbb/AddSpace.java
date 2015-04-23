@@ -1,4 +1,4 @@
-package View.buttons;
+package bbb;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -10,7 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 import controller.MusicPlayer;
-import static View.config.Utility.*;
+import static bbb.Utility.*;
 
 /**
  * This class implements the action for adding a Single song, Multiple songs or

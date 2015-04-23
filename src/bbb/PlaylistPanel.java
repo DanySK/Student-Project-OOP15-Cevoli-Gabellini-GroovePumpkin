@@ -1,4 +1,4 @@
-package View;
+package bbb;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import static bbb.ButtonFactory.*;
+import static bbb.Utility.*;
 import static javax.swing.ListSelectionModel.*;
 
 import javax.swing.event.TableModelEvent;
@@ -16,9 +18,6 @@ import javax.swing.table.TableModel;
 import model.PlayerState;
 import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;
-import View.buttons.RemoveSpace;
-import static View.buttons.ButtonFactory.*;
-import static View.config.Utility.*;
 
 /**
  * Personalized Panel for the PlayBackPanel class, this class manages the
