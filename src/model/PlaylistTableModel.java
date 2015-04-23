@@ -1,4 +1,4 @@
-package bbb;
+package model;
 
 import java.net.URL;
 import java.util.List;

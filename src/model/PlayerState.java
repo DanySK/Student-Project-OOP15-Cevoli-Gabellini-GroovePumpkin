@@ -1,4 +1,4 @@
-package bbb;
+package model;
 /**
  * This enum rappresent all possible state that a player can assume
  * @author Matteo Gabellini

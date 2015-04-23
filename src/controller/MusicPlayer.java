@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import bbb.PlayerState;
+import model.PlayerState;
 
 /**
  * 

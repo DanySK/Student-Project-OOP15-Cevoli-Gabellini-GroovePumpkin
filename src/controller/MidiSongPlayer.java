@@ -2,7 +2,7 @@ package controller;
 
 import javax.sound.midi.*;
 
-import bbb.SingleSongPlayerState;
+import model.SingleSongPlayerState;
 
 /**
  * A midi song player take a midi track and play them

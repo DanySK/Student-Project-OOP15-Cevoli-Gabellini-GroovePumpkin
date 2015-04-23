@@ -11,12 +11,12 @@ import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import bbb.PlayerState;
+import model.PlayerState;
 import controller.MusicPlayer;
 import View.buttons.PersonalJButton;
 import static View.buttons.ButtonFactory.*;
 import static View.config.Utility.*;
-import static bbb.PlayerState.*;
+import static model.PlayerState.*;
 
 /**
  * Personalized JPanel for the PlayBackPanel, this class "handles" the playing

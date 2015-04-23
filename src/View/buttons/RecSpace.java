@@ -1,6 +1,6 @@
 package View.buttons;
 
-import bbb.PlayerState;
+import model.PlayerState;
 import View.Updatable;
 import static View.config.Utility.*;
 

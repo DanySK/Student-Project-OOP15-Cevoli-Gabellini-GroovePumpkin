@@ -1,4 +1,4 @@
-package bbb;
+package model;
 
 import static View.config.Utility.*;
 import java.awt.Color;

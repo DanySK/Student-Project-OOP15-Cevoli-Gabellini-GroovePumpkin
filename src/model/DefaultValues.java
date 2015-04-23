@@ -1,4 +1,4 @@
-package bbb;
+package model;
 
 /**
  * This enum rapresent the default values that can be used with the groovebox

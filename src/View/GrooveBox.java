@@ -10,8 +10,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import bbb.GrooveTableModel;
-import bbb.PlayerState;
+import model.GrooveTableModel;
+import model.PlayerState;
 import static javax.swing.ListSelectionModel.*;
 
 /**

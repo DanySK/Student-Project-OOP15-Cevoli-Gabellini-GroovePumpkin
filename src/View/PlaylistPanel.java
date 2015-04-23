@@ -13,8 +13,8 @@ import static javax.swing.ListSelectionModel.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
-import bbb.PlayerState;
-import bbb.PlaylistTableModel;
+import model.PlayerState;
+import model.PlaylistTableModel;
 import controller.MusicPlayer;
 import View.buttons.RemoveSpace;
 import static View.buttons.ButtonFactory.*;
