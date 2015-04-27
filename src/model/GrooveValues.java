@@ -162,4 +162,12 @@ public final class GrooveValues {
 							.collect(Collectors.toList())));
 		return idx;
 	}
+	
+	/**
+	 * Reset the data in the groove
+	 */
+	public static void resetGrooveBox(){
+		GROOVEBOX.clear();
+		GrooveValues.initAGrooveBoxList();
+	}
 }

@@ -47,4 +47,9 @@ public interface GrooveBoxContentManager{
 	 * @return true if the cell is active or false
 	 */
 	boolean getCellState(final int rowIndex, final int columnIndex);
+	
+	/**
+	 * Reset the content of the groove box
+	 */
+	void resetContent();
 }

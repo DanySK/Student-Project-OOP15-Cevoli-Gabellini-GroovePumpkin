@@ -53,4 +53,9 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 		return GrooveValues.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
 	}
 
+	@Override
+	public void resetContent() {
+		GrooveValues.resetGrooveBox();		
+	}
+
 }

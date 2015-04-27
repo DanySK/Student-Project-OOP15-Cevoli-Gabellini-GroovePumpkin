@@ -43,8 +43,10 @@ public interface GrooveBoxPlayer extends LoopablePlayer{
 	 */
 	boolean getCellState(final int rowIndex, final int columnIndex);
 	
-	
-	
+	/**
+	 * Reset the groove box
+	 */
+	void reset();
 	
 	void setInstrument();
 }

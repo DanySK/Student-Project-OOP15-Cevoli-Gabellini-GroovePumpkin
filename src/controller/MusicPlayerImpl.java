@@ -205,7 +205,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 								// momentaneamente il
 								// thread
 								try {
-									Thread.sleep(500);
+									Thread.sleep(300);
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}
@@ -249,6 +249,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 						: PlayerState.ERROR);
 				this.soundPlayer = Optional.empty();
 			} else {
+				this.soundPlayer = Optional.empty();
 				//Altrimenti se lo stop è stato invocato dal song watcher
 				//Controllo se il loop è disattivato
 				if(!this.model.isLoopModeActive()){

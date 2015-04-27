@@ -80,11 +80,6 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 
 		}
 
-		if (this.loopMode) {
-			return Optional.ofNullable(this.playList.get((this
-					.getCurrentSongIndex().get() + 1) % this.playList.size()));
-		}
-
 		return Optional
 				.of(this.playList.get(this.currentPlaylistIndex.get() + 1));
 	}

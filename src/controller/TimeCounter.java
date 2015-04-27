@@ -14,15 +14,13 @@ import javax.swing.SwingUtilities;
  */
 public final class TimeCounter extends Thread {
 
-	private static final TimeCounter TIMERCOUNTER = new TimeCounter();
-
-	private volatile boolean stop;
+	private boolean stop;
 	private int sec;
 	private Optional<JLabel> timeLabel = Optional.empty();
 
 	private boolean pause=false;
 
-	private TimeCounter() {
+	public TimeCounter() {
 	}
 
 	private String digitalize() {
@@ -51,10 +49,6 @@ public final class TimeCounter extends Thread {
 
 	}
 
-	public static TimeCounter getSingleton() {
-		return TimeCounter.TIMERCOUNTER;
-	}
-
 	public void attachTimeLabel(final JLabel label) {
 		this.timeLabel = Optional.ofNullable(label);
 	}
@@ -62,7 +56,6 @@ public final class TimeCounter extends Thread {
 	public void stopAndReset() {
 		pause();
 		stop=true;
-		sec = 0;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -77,7 +70,6 @@ public final class TimeCounter extends Thread {
 
 	@Override
 	public void run() {
-		stop = false;
 		while (!this.stop) {
 			while (!this.pause) {
 

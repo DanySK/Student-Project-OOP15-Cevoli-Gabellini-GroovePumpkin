@@ -14,6 +14,7 @@ import javax.sound.midi.Sequence;
 import view.interfaces.Updatable;
 import model.GrooveBoxContentManager;
 import model.GrooveBoxModel;
+import model.PlayerState;
 
 /**
  * The implementation of GrooveBoxController
@@ -37,6 +38,9 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 			try {
 				sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
 				sequencer.get().play();
+				if(this.sequencer.get().isActive()){
+					notifyToUpdatable(PlayerState.RUNNING);
+				}
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 			} catch (InvalidMidiDataException e) {
@@ -49,6 +53,7 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	public void pause() {
 		if (sequencer.isPresent()) {
 			sequencer.get().pause();
+			notifyToUpdatable(PlayerState.PAUSED);
 		}
 	}
 
@@ -56,6 +61,7 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	public void stop() {
 		if (sequencer.isPresent()) {
 			sequencer.get().stop();
+			notifyToUpdatable(PlayerState.STOPPED);
 		}
 	}
 
@@ -70,6 +76,12 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 			this.component = new ArrayList<>();
 		}
 		this.component.add(component);
+	}
+	
+	private void notifyToUpdatable(final PlayerState state) {
+		if(this.component != null){
+			this.component.stream().forEach(x -> x.updateStatus(state));
+		}
 	}
 	
 	@Override
@@ -116,6 +128,12 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	@Override
 	public boolean isLoopModeActive() {
 		return this.model.isLoopActive();
+	}
+
+	@Override
+	public void reset() {
+		this.model.resetContent();
+		notifyToUpdatable(PlayerState.RELOAD);
 	}
 
 }
