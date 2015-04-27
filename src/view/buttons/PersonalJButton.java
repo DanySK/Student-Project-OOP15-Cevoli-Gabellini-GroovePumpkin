@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import model.PlayerState;
+import view.interfaces.Updatable;
 import static view.config.Utility.*;
 
 /**
@@ -23,7 +25,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class PersonalJButton extends JButton {
+public class PersonalJButton extends JButton implements Updatable{
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	
@@ -133,5 +135,13 @@ public class PersonalJButton extends JButton {
 		this.setSize();
 		this.repaint();
 		this.hasTitle=false;
+	}
+	/**
+	 * Override this method
+	 * 
+	 */
+	@Override
+	public void updateStatus(PlayerState status) {
+		//Override this method
 	}
 }

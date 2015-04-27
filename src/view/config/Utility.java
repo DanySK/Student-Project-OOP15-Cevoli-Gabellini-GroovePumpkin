@@ -2,6 +2,7 @@ package view.config;
 
 import java.awt.Color;
 import java.awt.Component;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -67,6 +68,8 @@ public final class Utility {
 			String.join("", DATA, SEPARATOR, "add.png"));
 	public static final ImageIcon REMOVE_IMG = new ImageIcon(
 			String.join("", DATA, SEPARATOR, "remove.png"));
+	public static final ImageIcon RESET_IMG = new ImageIcon(
+			String.join("", DATA, SEPARATOR, "Reset.png"));
 	
 	private Utility() {
 	}

@@ -9,6 +9,17 @@ import controller.Player;
 import static view.config.Utility.*;
 
 /**
+ * A simple factory class to simply creates functional Button
+ * 
+ * NOTE:
+ * 
+ * StopSpace, AddSpace, RemoveSpace and ShuffleSpace require a controller that
+ * implements the MusicPlayer Interface!
+ * 
+ * LoopSpace and PlaySpace/PauseSpace wants a generic PlayController interface
+ * implementation
+ * 
+ * LoadSpace want a GrooveBoxController interface implementation
  * 
  * @author Alessandro
  *
@@ -30,18 +41,7 @@ public final class ButtonFactory {
 	}
 
 	/**
-	 * A simple factory class to simply creates functional Button
-	 * 
-	 * NOTE:
-	 * 
-	 * StopSpace, AddSpace, RemoveSpace and ShuffleSpace require a controller
-	 * that implements the MusicPlayer Interface!
-	 * 
-	 * LoopSpace and PlaySpace/PauseSpace wants a generic PlayController
-	 * interface implementation
-	 * 
-	 * LoadSpace want a GrooveBoxController interface implementation
-	 * 
+	 * This method creates the chosen type of button
 	 * 
 	 * @param type
 	 *            the type of button to create -> choose between the given
@@ -51,9 +51,8 @@ public final class ButtonFactory {
 	 *            border
 	 * @param controller
 	 *            to communicate with
-	 * @return the chosen type of button or null if a wrong value is chosen
+	 * @return the chosen type of button or a normal button if a wrong value is chosen
 	 */
-
 	public static JButton createButton(final int type, final boolean showTitle,
 			final Object controller) {
 
@@ -80,7 +79,6 @@ public final class ButtonFactory {
 			return new RemoveSpace((MusicPlayer) controller, showTitle);
 		default:
 			return new JButton("Hai sbagliato type, pirla.");
-
 		}
 	}
 }

@@ -1,9 +1,7 @@
 package view.panels;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JSplitPane;
-
 import static javax.swing.JSplitPane.*;
 import static view.config.Utility.*;
 import controller.MusicPlayer;
@@ -35,7 +33,6 @@ public class PlayerPanel extends PersonalJPanel {
 		list = new PlaylistPanel(mp);
 		player = new MusicPlayerPanel(mp);
 		splitter = new JSplitPane(HORIZONTAL_SPLIT, list, player);
-		
 		splitter.setBackground(WHITE);
 		splitter.setForeground(DARK_GRAY);
 		splitter.setContinuousLayout(true);

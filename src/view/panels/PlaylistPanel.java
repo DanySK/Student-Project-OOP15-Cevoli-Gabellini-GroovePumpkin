@@ -2,25 +2,20 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
 import static javax.swing.ListSelectionModel.*;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
-
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
-
 import view.buttons.RemoveSpace;
-import view.interfaces.Updatable;
+import view.others.PLML;
 import view.tables.PersonalJTable;
 import model.PlayerState;
 import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;
+import controller.Observable;
 
 /**
  * Personalized Panel for the PlayBackPanel class, this class manages the
@@ -29,10 +24,9 @@ import controller.MusicPlayer;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends PersonalJPanel implements Updatable {
+public class PlaylistPanel extends PersonalJPanel{
 
 	private static final long serialVersionUID = 5045956389400601388L;
-	private MusicPlayer controller;
 	private TableModel tableModel;
 	private PersonalJTable playlist;
 	private final JScrollPane jsp = new JScrollPane();
@@ -47,68 +41,36 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 		super(new BorderLayout());
 		this.setBuiltInBorder();
 
-		this.controller = mp;
-		this.controller.addUpdatableObserver(this);
+		this.setController(mp);
+		((Observable) this.getController()).addUpdatableObserver(this);
 
-		this.tableModel = new PlaylistTableModel(controller.getPlayList());
+		this.tableModel = new PlaylistTableModel(((MusicPlayer) getController()).getPlayList());
 		this.playlist = new PersonalJTable(tableModel, SINGLE_SELECTION);
 		this.playlist.setColumnHeaderBounds(0, 25, 25);
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
-		
+
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 
 		final RemoveSpace remove = (RemoveSpace) createButton(REMOVE_BUTTON,
 				true, mp);
 		buttonRow.add(remove);
-		
+
 		this.add(buttonRow, BorderLayout.SOUTH);
 		this.add(jsp, BorderLayout.CENTER);
 
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								remove.setSelectedIndex(this.playlist.getSelectedRows());
+								remove.setSelectedIndex(this.playlist
+										.getSelectedRows());
 							}
 						});
+		//this.addKeyListener(this.getPlayAdapter());
 		
-		this.playlist.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(final MouseEvent e) {}
-			
-			@Override
-			public void mousePressed(final MouseEvent e) {
-				remove.setSelectedIndex(((JTable)e.getSource()).getSelectedRow());
-			}
-			
-			@Override
-			public void mouseExited(final MouseEvent e) {}
-			
-			@Override
-			public void mouseEntered(final MouseEvent e) {}
-			
-			@Override
-			public void mouseClicked(final MouseEvent e) {
-				if(e.getClickCount()==DOUBLE_CLICK){
-					//if(controller.getCurrentSong().get()
-					//		.getFile().equals(controller.getPlayList()
-					//				.get(playlist.getSelectedRow()).getFile())){
-					//	if(controller.){ //servirebbe un metodo isPaused()
-					//		controller.pause();
-					//	} else{
-					//		controller.play();
-					//	}
-					//} else{
-						controller.stop();
-						controller.goToSong(((JTable)e.getSource()).getSelectedRow());
-						controller.play();
-					//}
-				}
-			}
-		});
+		this.playlist.addMouseListener(new PLML(remove, (MusicPlayer) getController()));
 	}
 
 	/**
@@ -125,14 +87,6 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 */
 	public TableModel getPlaylistModel() {
 		return this.tableModel;
-	}
-
-	/**
-	 * 
-	 * @return the controller attached top this object
-	 */
-	public MusicPlayer getController() {
-		return this.controller;
 	}
 
 	/**
@@ -153,17 +107,8 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	 */
 	public void setPlaylistModel(final TableModel model) {
 		this.tableModel = model;
-		this.setPlaylistTable(new PersonalJTable(model, MULTIPLE_INTERVAL_SELECTION));
-	}
-
-	/**
-	 * Attach a new controller to this object
-	 * 
-	 * @param mp
-	 */
-	public void setController(final MusicPlayer mp) {
-		this.controller = mp;
-		this.controller.addUpdatableObserver(this);
+		this.setPlaylistTable(new PersonalJTable(model,
+				MULTIPLE_INTERVAL_SELECTION));
 	}
 
 	// Called by the Controller when a song is added or removed from the
@@ -172,7 +117,7 @@ public class PlaylistPanel extends PersonalJPanel implements Updatable {
 	public void updateStatus(final PlayerState status) {
 		// ricrea la nuova tabella
 		if (status == PlayerState.RELOAD) {
-			((PlaylistTableModel) tableModel).updatePlaylist(this.controller
+			((PlaylistTableModel) tableModel).updatePlaylist(((MusicPlayer) getController())
 					.getPlayList());
 			playlist.tableChanged(new TableModelEvent(tableModel));
 		}

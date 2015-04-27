@@ -1,8 +1,6 @@
 package view.buttons;
 
 import javax.swing.ImageIcon;
-
-import view.interfaces.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
 import controller.Player;
@@ -14,7 +12,7 @@ import controller.Player;
  * @author Alessandro
  *
  */
-public class PlayPauseSpace extends PersonalJButton implements Updatable {
+public class PlayPauseSpace extends PersonalJButton{
 
 	private static final long serialVersionUID = -8958765355776362631L;
 	public static final String PLAY = "Play";

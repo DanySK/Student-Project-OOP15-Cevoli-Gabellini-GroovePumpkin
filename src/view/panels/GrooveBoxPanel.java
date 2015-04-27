@@ -2,10 +2,10 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,9 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import view.buttons.PersonalJButton;
 import view.interfaces.Updatable;
 import view.tables.GrooveBox;
-import model.PlayerState;
 import model.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;
 import static view.buttons.ButtonFactory.*;
@@ -30,41 +30,33 @@ import static view.config.Utility.*;
  *
  */
 
-public class GroovePanel extends PersonalJPanel implements Updatable{
+public class GrooveBoxPanel extends PersonalJPanel{
 
 	private static final long serialVersionUID = 1116768170189928089L;
-
 	private final Integer[] items = new Integer[] { 40, 60, 80, 100, 120,
 			140, 160, 180 };
-
 	private final JComboBox<Integer> timeDialerOptions = new JComboBox<>(items);
 	private final GrooveBox grooveBox;
-	
-	@SuppressWarnings("unused")
-	private GrooveBoxPlayer controller;
-	
-	private final List<Updatable> observer= new ArrayList<>();
 	
 	/**
 	 * 
 	 * @param controller
 	 */
-	public GroovePanel(final GrooveBoxPlayer controller) {
+	public GrooveBoxPanel(final GrooveBoxPlayer controller) {
 		super(new BorderLayout(5, 5));
+		this.setController(controller);
 		grooveBox= new GrooveBox(new GrooveTableModel(controller));
-		observer.add(grooveBox);
-		this.controller= controller;
+		this.addObserver(grooveBox);
 		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(DARK_GRAY);
 		timeDialerOptions.addItemListener(new ItemListener() {
-			
 			@Override
 			public void itemStateChanged(final ItemEvent e) {
 				if(e.getStateChange()==ItemEvent.SELECTED){
-					//System.out.println(((Integer)e.getItem()).intValue());
-					controller.setTempoInBPM(((Integer)e.getItem()).intValue());
+					((GrooveBoxPlayer) getController())
+						.setTempoInBPM(((Integer)e.getItem()).intValue());
 				}
 			}
 		});
@@ -86,11 +78,19 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		observer.add((Updatable) createButton(PLAY_BUTTON, true, controller));
-		buttonPanel.add((JButton) observer.get(observer.size()-1));
+		addObserver((Updatable) createButton(PLAY_BUTTON, true, getController()));
+		buttonPanel.add((JButton) getObservers().get(getObservers().size()-1));
 		buttonPanel.add(createButton(LOOP_BUTTON, true, controller));
 		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));
 		buttonPanel.add(createButton(LOAD_BUTTON, true, controller));
+		final PersonalJButton reset= new PersonalJButton(RESET_IMG, "Reset");
+		reset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//controller.reset();
+			}
+		});
+		buttonPanel.add(reset);
 		westPanel.add(buttonPanel, BorderLayout.CENTER);
 		
 		this.add(westPanel, BorderLayout.WEST);
@@ -111,13 +111,5 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 	 */
 	public GrooveBox getGrooveBox(){
 		return this.grooveBox;
-	}
-	
-	@Override
-	public void updateStatus(final PlayerState status) {
-			
-		for(Updatable u : observer){
-				u.updateStatus(status);
-		}
 	}
 }

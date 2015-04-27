@@ -1,6 +1,5 @@
 package view.buttons;
 
-import view.interfaces.Updatable;
 import model.PlayerState;
 import controller.Player;
 import static view.config.Utility.*;
@@ -10,7 +9,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class StopSpace extends PersonalJButton implements Updatable{
+public class StopSpace extends PersonalJButton{
 
 	private static final long serialVersionUID = -5881639820393820954L;
 	private static final String TITLE="Stop";

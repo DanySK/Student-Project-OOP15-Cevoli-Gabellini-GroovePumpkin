@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JTabbedPane;
 
-import view.panels.GroovePanel;
+import view.panels.GrooveBoxPanel;
 import view.panels.PlayerPanel;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
@@ -19,7 +19,7 @@ import static view.config.Utility.*;
 public class SoundTab extends JTabbedPane {
 
 	private static final long serialVersionUID = 5184587254735736323L;
-	private GroovePanel groovebox;
+	private GrooveBoxPanel groovebox;
 	private PlayerPanel player;
 	
 	public SoundTab(final MusicPlayer mp, final GrooveBoxPlayer groove) {
@@ -32,7 +32,7 @@ public class SoundTab extends JTabbedPane {
 		final PlayerPanel play= new PlayerPanel(mp);
 		this.add("Play Music", play);
 		
-		final GroovePanel grooveBox= new GroovePanel(groove);
+		final GrooveBoxPanel grooveBox= new GrooveBoxPanel(groove);
 		this.add("Groove Box", grooveBox);	
 		
 		this.setBackgroundAt(0, WHITE);
@@ -45,7 +45,7 @@ public class SoundTab extends JTabbedPane {
 	 * 
 	 * @return
 	 */
-	public GroovePanel getGroovePanel(){
+	public GrooveBoxPanel getGroovePanel(){
 		return groovebox;
 	}
 	/**
@@ -70,7 +70,7 @@ public class SoundTab extends JTabbedPane {
 	 * 
 	 * @param groovebox
 	 */
-	public void setGroovePanel(final GroovePanel groovebox){
+	public void setGroovePanel(final GrooveBoxPanel groovebox){
 		this.remove(this.groovebox);
 		this.groovebox=groovebox;
 		this.add(this.groovebox, BorderLayout.NORTH);

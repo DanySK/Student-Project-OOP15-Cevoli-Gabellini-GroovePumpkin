@@ -28,7 +28,7 @@ public class SaveSpace extends PersonalJButton {
 			final int val = chooser.showSaveDialog(SaveSpace.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 
-				// save the file
+				//save the file
 				//controller.savePattern();
 
 			} else if (val != JFileChooser.CANCEL_OPTION) {

@@ -3,14 +3,10 @@ package view.panels;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.TitledBorder;
-
+//import javax.swing.JSlider;
+//import javax.swing.border.CompoundBorder;
+//import javax.swing.border.TitledBorder;
 import view.buttons.PersonalJButton;
 import view.interfaces.Updatable;
 import model.PlayerState;
@@ -26,28 +22,25 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
+public class MusicPlayerPanel extends PersonalJPanel{
 
 	private static final long serialVersionUID = 4164776505153007930L;
 
 	private final JLabel songName = new JLabel("< Nothing Else Matters >");
 	private final JLabel songTime= new JLabel("00:00:00");
-	private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
-	private final List<Updatable> observer = new ArrayList<>(); //list of observer attached to eventually update
-	private Updatable generic; // that only for support
-	private MusicPlayer controller; // controller attached to this view
+	//private final JSlider gain = new JSlider(JSlider.HORIZONTAL, 0, 100, 35);
 	
 	/**
 	 * Default build for this object, creates a raedy to use
 	 * Music Player Panel with the given controller 
 	 * 
-	 * @param controller
+	 * @param mp
 	 */
-	public MusicPlayerPanel(final MusicPlayer controller) {
+	public MusicPlayerPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
 
-		this.controller = controller;
-		controller.addUpdatableObserver(this);
+		this.setController(mp);
+		mp.addUpdatableObserver(this);
 		
 		this.setBuiltInBorder();
 		songName.setBackground(WHITE);
@@ -59,8 +52,10 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 
 		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
 				10, 5));
-		this.populateGainPanel(gainPanel);
+		//this.populateGainPanel(gainPanel);
 		this.add(gainPanel, BorderLayout.SOUTH);
+		
+		//this.addKeyListener(super.getPlayAdapter());
 	}
 
 	private void populateNorthPanel(final PersonalJPanel panel) {
@@ -75,83 +70,62 @@ public class MusicPlayerPanel extends PersonalJPanel implements Updatable {
 		final PersonalJButton fw = new PersonalJButton(FW_IMG);
 		fw.addActionListener(e -> {
 			// go to the next song
-			controller.goToNextSong();
+			((MusicPlayer) getController()).goToNextSong();
 		});
 
 		final PersonalJButton rw = new PersonalJButton(RW_IMG);
 		rw.addActionListener(e -> {
 			// go back to the previous song
-			controller.goToPreviousSong();
+			((MusicPlayer) getController()).goToPreviousSong();
 		});
 
 		center.add(rw);
-		generic = (Updatable) createButton(PLAY_BUTTON, false, controller);
-		observer.add(generic);
-		center.add((Component) generic);
-		generic = (Updatable) createButton(STOP_BUTTON, false, controller);
-		observer.add(generic);
-		center.add((Component) generic);
+		addObserver((Updatable) createButton(PLAY_BUTTON, false, getController()));
+		center.add((Component) getObservers().get(getObservers().size()-1)); 
+		addObserver((Updatable) createButton(STOP_BUTTON, false, getController()));
+		center.add((Component) getObservers().get(getObservers().size()-1));
 		center.add(fw);
 
 		panel.add(center, BorderLayout.CENTER);
 		
 		final PersonalJPanel south = new PersonalJPanel(new FlowLayout(1, -5, 0));
-		south.add(createButton(LOOP_BUTTON, false, controller));
-		south.add(createButton(SHUFFLE_BUTTON, false, controller));
+		south.add(createButton(LOOP_BUTTON, false, getController()));
+		south.add(createButton(SHUFFLE_BUTTON, false, getController()));
 		panel.add(south, BorderLayout.SOUTH);
 	}
 
-	private void populateGainPanel(PersonalJPanel gainPanel) {
-
-		final CompoundBorder gainLabel = (CompoundBorder) getACompoundTitledBorder("Volume: "
-				+ gain.getValue());
-
-		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(DARK_GRAY);
-		gain.setBorder(gainLabel);
-		gain.setBackground(WHITE);
-		gain.setForeground(DARK_GRAY);
-		gain.setEnabled(true);
-
-		gain.addChangeListener(e -> {
-			// Change the Volume of the song
-			((TitledBorder) gainLabel.getOutsideBorder()).setTitle("Volume: "
-					+ gain.getValue());
-
-			gain.repaint();
-		});
-
-		gainPanel.add(gain, BorderLayout.CENTER);
-	}
-	
-	/**
-	 * 
-	 * @return the controler attached to this object
-	 */
-	public MusicPlayer getController(){
-		return this.controller;
-	}
-	
-	/**
-	 * Attach a new controller to this object
-	 * 
-	 * @param mp
-	 */
-	public void setController(final MusicPlayer mp){
-		this.controller= mp;
-		controller.addUpdatableObserver(this);
-	}
+//	private void populateGainPanel(PersonalJPanel gainPanel) {
+//
+//		final CompoundBorder gainLabel = (CompoundBorder) getACompoundTitledBorder("Volume: "
+//				+ gain.getValue());
+//
+//		((TitledBorder) gainLabel.getOutsideBorder()).setTitleColor(DARK_GRAY);
+//		gain.setBorder(gainLabel);
+//		gain.setBackground(WHITE);
+//		gain.setForeground(DARK_GRAY);
+//		gain.setEnabled(true);
+//
+//		gain.addChangeListener(e -> {
+//			// Change the Volume of the song
+//			((TitledBorder) gainLabel.getOutsideBorder())
+//					.setTitle("Volume: "+ gain.getValue());
+//
+//			gain.repaint();
+//		});
+//
+//		gainPanel.add(gain, BorderLayout.CENTER);
+//	}
 
 	@Override
-	public void updateStatus(PlayerState status) {
-		
+	public void updateStatus(final PlayerState status) {
 		//Notify all the observers
-		observer.stream().forEach(u->u.updateStatus(status));
-		
+		super.updateStatus(status);
 		//self update
 		if (status.equals(RUNNING)
 				|| status.equals(SONGCHANGED)) {
 			//change the name of the songs to the new one
-			this.songName.setText("< " + convertURLPath(controller.getCurrentSong().get().getPath()) + " >");
+			this.songName.setText("< " + convertURLPath(((MusicPlayer) getController())
+					.getCurrentSong().get().getPath()) + " >");
 			
 		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
 			//set the no-song string
