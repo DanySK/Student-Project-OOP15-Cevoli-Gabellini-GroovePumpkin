@@ -86,7 +86,7 @@ public class GroovePanel extends PersonalJPanel implements Updatable{
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		observer.add((Updatable) createButton(PLAY_BUTTON, true, null));
+		observer.add((Updatable) createButton(PLAY_BUTTON, true, controller));
 		buttonPanel.add((JButton) observer.get(observer.size()-1));
 		buttonPanel.add(createButton(LOOP_BUTTON, true, controller));
 		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));

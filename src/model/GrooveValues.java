@@ -150,11 +150,11 @@ public final class GrooveValues {
 	 * 
 	 * @return A Map that will rapresents the groovebox's pattern
 	 */
-	public static Map<Pair<String, Integer> ,List<Integer>> getIndexedTab(final List<GrooveValues> grooveBox){
+	public static Map<Integer,List<Integer>> getIndexedTab(final List<GrooveValues> grooveBox){
 		
-		final Map<Pair<String, Integer>, List<Integer>> idx= new HashMap<>();
+		final Map<Integer, List<Integer>> idx= new HashMap<>();
 		
-		grooveBox.stream().forEach(gVal-> idx.put(new Pair<>(gVal.getName(), gVal.getID()), 
+		grooveBox.stream().forEach(gVal-> idx.put(gVal.getID(), 
 						gVal.getRow().stream()
 							.filter(pair-> pair.getFirst().equals(true))
 							.mapToInt(pair->pair.getSecond())

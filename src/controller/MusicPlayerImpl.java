@@ -256,8 +256,10 @@ public class MusicPlayerImpl implements MusicPlayer {
 					//in tal caso passo alla canzone successiva
 					this.goToNextSong();
 				}
+				
+				this.threadSongWatcher = null;
 				//...e faccio partire la riproduzione
-				this.play();				
+				this.play();	
 			}
 		} else {
 			notifyToUpdatable(PlayerState.ERROR);
