@@ -193,6 +193,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 				// Avvio un thread che controlla quando la canzone termina se
 				// non è già attivo
 				if (threadSongWatcher == null || !threadSongWatcher.isAlive()) {
+					//VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER CONTROLLARE LA FINE DEL MIDI
 					threadSongWatcher = new Thread() {
 						@Override
 						public void run() {
