@@ -2,18 +2,22 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import static javax.swing.ListSelectionModel.*;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
-import view.buttons.RemoveSpace;
+
+import view.buttons.RemoveButton;
 import view.others.PLML;
 import view.tables.PersonalJTable;
+import view.viewModel.PlaylistTableModel;
 import model.PlayerState;
-import model.viewModel.PlaylistTableModel;
 import controller.MusicPlayer;
 import controller.Observable;
 
@@ -39,7 +43,7 @@ public class PlaylistPanel extends PersonalJPanel{
 	 */
 	public PlaylistPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
-		this.setBuiltInBorder();
+		this.setBorder(getADefaultPanelBorder());
 
 		this.setController(mp);
 		((Observable) this.getController()).addUpdatableObserver(this);
@@ -54,7 +58,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 
-		final RemoveSpace remove = (RemoveSpace) createButton(REMOVE_BUTTON,
+		final RemoveButton remove = (RemoveButton) createButton(REMOVE_BUTTON,
 				true, mp);
 		buttonRow.add(remove);
 
@@ -115,6 +119,7 @@ public class PlaylistPanel extends PersonalJPanel{
 	// playlist
 	@Override
 	public void updateStatus(final PlayerState status) {
+		//super.updateStatus(status);
 		// ricrea la nuova tabella
 		if (status == PlayerState.RELOAD) {
 			((PlaylistTableModel) tableModel).updatePlaylist(((MusicPlayer) getController())

@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
 import view.interfaces.Updatable;
+import view.viewModel.GrooveTableModel;
 import model.PlayerState;
-import model.viewModel.GrooveTableModel;
 import static javax.swing.ListSelectionModel.*;
 
 /**

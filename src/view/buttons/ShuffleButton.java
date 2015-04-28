@@ -10,13 +10,13 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class ShuffleSpace extends PersonalJButton {
+public class ShuffleButton extends PersonalJButton {
 
 	private static final long serialVersionUID = 5626643991067522666L;
 	private static final String TITLE_1= "ON";
 	private static final String TITLE_2= "OFF";
 	
-	protected ShuffleSpace(final MusicPlayer controller, final boolean showTitle) {
+	protected ShuffleButton(final MusicPlayer controller, final boolean showTitle) {
 		super(UNSHUFFLED_IMG);
 		super.setController(controller);
 		

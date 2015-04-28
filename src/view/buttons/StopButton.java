@@ -1,6 +1,7 @@
 package view.buttons;
 
 import model.PlayerState;
+import static model.PlayerState.*;
 import controller.Player;
 import static view.config.Utility.*;
 
@@ -9,12 +10,12 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class StopSpace extends PersonalJButton{
+public class StopButton extends TJB{
 
 	private static final long serialVersionUID = -5881639820393820954L;
 	private static final String TITLE="Stop";
 	
-	protected StopSpace(final Player controller, final boolean showTitle) {
+	protected StopButton(final Player controller, final boolean showTitle) {
 		super(STOP_IMG);
 		super.setController(controller);
 		doShow(showTitle, TITLE);
@@ -28,9 +29,9 @@ public class StopSpace extends PersonalJButton{
 	@Override
 	public void updateStatus(final PlayerState status) {
 		
-		if(status.equals(PlayerState.STOPPED)) {
+		if(status.equals(STOPPED)) {
 			this.setEnabled(false);
-		} else {
+		} else if(status.equals(RUNNING) && !this.isEnabled()) {
 			this.setEnabled(true);
 		}
 	}

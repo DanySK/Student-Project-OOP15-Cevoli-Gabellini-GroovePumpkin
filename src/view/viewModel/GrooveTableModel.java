@@ -1,4 +1,4 @@
-package model.viewModel;
+package view.viewModel;
 
 import static view.config.Utility.*;
 

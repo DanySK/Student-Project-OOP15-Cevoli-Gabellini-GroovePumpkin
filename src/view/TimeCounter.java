@@ -1,8 +1,6 @@
-package controller;
+package view;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
-
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
@@ -14,13 +12,16 @@ import javax.swing.SwingUtilities;
  */
 public final class TimeCounter extends Thread {
 
+	private static TimeCounter SINGLETON= new TimeCounter();
+	
 	private boolean stop;
+	private boolean pause;
 	private int sec;
-	private Optional<JLabel> timeLabel = Optional.empty();
+	private JLabel timeLabel;
 
-	private boolean pause=false;
+	private boolean init;
 
-	public TimeCounter() {
+	private TimeCounter() {
 	}
 
 	private String digitalize() {
@@ -48,41 +49,65 @@ public final class TimeCounter extends Thread {
 		return s;
 
 	}
-
-	public void attachTimeLabel(final JLabel label) {
-		this.timeLabel = Optional.ofNullable(label);
+	
+	public static TimeCounter getSINGLETON(){
+		return SINGLETON;
 	}
-
-	public void stopAndReset() {
-		pause();
+	
+	public static void resetSINGLETON(){
+		SINGLETON= new TimeCounter();
+	}
+	
+	public void attachLabel(final JLabel label){
+		this.timeLabel = label;
+		this.init=true;
+	}
+	
+	public boolean isInit(){
+		return this.init;
+	}
+	
+	public boolean isPaused(){
+		return pause;
+	}
+	
+	public void pause(final boolean b) {
+		pause = b;
+		if(pause){
+			try {
+				this.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			this.notify();
+		}
+	}
+	
+	public void stopTime() {
 		stop=true;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				TimeCounter.this.timeLabel.get().setText("00:00:00");
+				TimeCounter.this.timeLabel.setText("00:00:00");
 			}
 		});
-	}
-
-	public void pause() {
-		pause = true;
+		this.interrupt();
 	}
 
 	@Override
 	public void run() {
 		while (!this.stop) {
-			while (!this.pause) {
-
 				try {
 					SwingUtilities.invokeAndWait(new Runnable() {
 						@Override
 						public void run() {
-							TimeCounter.this.timeLabel.get().setText(
-									TimeCounter.this.digitalize());
+							timeLabel.setText(digitalize());
 						}
 					});
 				} catch (InvocationTargetException | InterruptedException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 
 				this.sec++;
@@ -92,7 +117,6 @@ public final class TimeCounter extends Thread {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
 		}
 	}
 }

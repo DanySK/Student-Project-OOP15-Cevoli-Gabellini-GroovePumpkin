@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
-
 import model.PlayerState;
 import view.interfaces.Updatable;
 import static view.config.Utility.*;
@@ -19,8 +18,8 @@ import static view.config.Utility.*;
  * NOTE: 
  * Avrei voluto implementare un pattern creazionale quale Factory o Strategy o Decorator
  * ma a livello di riuso del codice/uso della memoria (decorator) non mi convincevano:
- * l'unico che si presterebbe nel modo migliore sarebbe lo Strategy e che se riesco, reimplementerï¿½ 
- * anzichï¿½ l'ammucchiata di classi.
+ * l'unico che si presterebbe nel modo migliore sarebbe lo Strategy che se riesco implementerò 
+ * anzichè l'ammucchiata di classi.
  * 
  * @author Alessandro
  *
@@ -28,7 +27,6 @@ import static view.config.Utility.*;
 public class PersonalJButton extends JButton implements Updatable{
 
 	private static final long serialVersionUID = -7937866815197131576L;
-	
 	private Object controller;
 	private boolean hasIcon;
 	private boolean hasTitle;
@@ -37,7 +35,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * Basic constructor for the personal JButton
 	 */
 	protected PersonalJButton() {
-		this.setBorder(getADefaultBorder());
+		this.setBorder(getADefaultButtonBorder());
 		
 		this.setBackground(WHITE);
 		this.setForeground(DARK_GRAY);
@@ -131,7 +129,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	}
 	
 	public void removeTitledBorder(){
-		this.setBorder(getADefaultBorder());
+		this.setBorder(getADefaultButtonBorder());
 		this.setSize();
 		this.repaint();
 		this.hasTitle=false;

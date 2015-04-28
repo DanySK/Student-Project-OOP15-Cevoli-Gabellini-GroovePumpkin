@@ -2,11 +2,12 @@ package view.buttons;
 
 import javax.swing.JButton;
 
+import view.buttons.FwRwButton.FRStrategy;
 import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
-import static view.config.Utility.*;
+import view.buttons.PlayPauseButton.PPStrategy;
 
 /**
  * A simple factory class to simply creates functional Button
@@ -27,15 +28,16 @@ import static view.config.Utility.*;
 public final class ButtonFactory {
 
 	public static final int PLAY_BUTTON = 0;
-	public static final int STOP_BUTTON = 1;
-	public static final int LOOP_BUTTON = 2;
-	public static final int REC_BUTTON = 3;
-	public static final int SAVE_BUTTON = 4;
-	public static final int LOAD_BUTTON = 5;
-	public static final int SHUFFLE_BUTTON = 6;
-	public static final int PAUSE_BUTTON = 7;
-	public static final int ADD_BUTTON = 8;
-	public static final int REMOVE_BUTTON = 9;
+	public static final int PAUSE_BUTTON = 1;
+	public static final int STOP_BUTTON = 2;
+	public static final int LOOP_BUTTON = 3;
+	public static final int SHUFFLE_BUTTON = 4;
+	public static final int SAVE_BUTTON = 5;
+	public static final int LOAD_BUTTON = 6;
+	public static final int FW_BUTTON= 7;
+	public static final int RW_BUTTON= 8;
+	public static final int ADD_BUTTON = 9;
+	public static final int REMOVE_BUTTON = 10;
 
 	private ButtonFactory() {
 	}
@@ -58,25 +60,27 @@ public final class ButtonFactory {
 
 		switch (type) {
 		case 0:
-			return new PlayPauseSpace((Player) controller, PLAY_IMG, showTitle);
+			return new PlayPauseButton((Player) controller, PPStrategy.PLAY, showTitle);
 		case 1:
-			return new StopSpace((Player) controller, showTitle);
+			return new PlayPauseButton((Player) controller, PPStrategy.PAUSE, showTitle);
 		case 2:
-			return new LoopSpace((LoopablePlayer) controller, showTitle);
+			return new StopButton((Player) controller, showTitle);
 		case 3:
-			return new RecSpace(controller, showTitle);
+			return new LoopButton((LoopablePlayer) controller, showTitle);
 		case 4:
-			return new SaveSpace((GrooveBoxPlayer) controller, showTitle);
+			return new ShuffleButton((MusicPlayer) controller, showTitle);
 		case 5:
-			return new LoadSpace((GrooveBoxPlayer) controller, showTitle);
+			return new SaveButton((GrooveBoxPlayer) controller, showTitle);
 		case 6:
-			return new ShuffleSpace((MusicPlayer) controller, showTitle);
+			return new LoadButton((GrooveBoxPlayer) controller, showTitle);
 		case 7:
-			return new PlayPauseSpace((Player) controller, PAUSE_IMG, showTitle);
+			return new FwRwButton((MusicPlayer) controller, showTitle, FRStrategy.FORWARD);
 		case 8:
-			return new AddSpace((MusicPlayer) controller, showTitle);
+			return new FwRwButton((MusicPlayer) controller, showTitle, FRStrategy.REWIND);
 		case 9:
-			return new RemoveSpace((MusicPlayer) controller, showTitle);
+			return new AddButton((MusicPlayer) controller, showTitle);
+		case 10:
+			return new RemoveButton((MusicPlayer) controller, showTitle);
 		default:
 			return new JButton("Hai sbagliato type, pirla.");
 		}

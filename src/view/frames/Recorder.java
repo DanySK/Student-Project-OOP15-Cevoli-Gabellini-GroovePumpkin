@@ -42,7 +42,7 @@ public class Recorder extends JFrame implements Updatable{
 		final JButton rps = ButtonFactory.createButton(ButtonFactory.PAUSE_BUTTON, true, null);
 		rps.setEnabled(false);
 		
-		mainPanel.add(ButtonFactory.createButton(ButtonFactory.REC_BUTTON, true, rps));
+		//mainPanel.add(ButtonFactory.createButton(ButtonFactory.REC_BUTTON, true, rps));
 		mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 

@@ -10,12 +10,12 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class SaveSpace extends PersonalJButton {
+public class SaveButton extends PersonalJButton {
 
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String TITLE = "Save";
 
-	protected SaveSpace(final GrooveBoxPlayer controller, final boolean showTitle) {
+	protected SaveButton(final GrooveBoxPlayer controller, final boolean showTitle) {
 		super(SAVE_IMG);
 		super.setController(controller);
 		doShow(showTitle, TITLE);
@@ -25,14 +25,14 @@ public class SaveSpace extends PersonalJButton {
 					.getProperty("user.home"));
 
 			chooser.setVisible(true);
-			final int val = chooser.showSaveDialog(SaveSpace.this);
+			final int val = chooser.showSaveDialog(SaveButton.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 
 				//save the file
 				//controller.savePattern();
 
 			} else if (val != JFileChooser.CANCEL_OPTION) {
-				showErrorDialog(SaveSpace.this, "An Error has occurred");
+				showErrorDialog(SaveButton.this, "An Error has occurred");
 			}
 		});
 	}

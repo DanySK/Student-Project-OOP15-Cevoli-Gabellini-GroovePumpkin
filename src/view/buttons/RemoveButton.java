@@ -1,6 +1,8 @@
 package view.buttons;
 
 import static view.config.Utility.*;
+import static model.PlayerState.*;
+import model.PlayerState;
 import controller.MusicPlayer;
 
 /**
@@ -8,14 +10,14 @@ import controller.MusicPlayer;
  * @author Alessandro
  *
  */
-public class RemoveSpace extends PersonalJButton {
+public class RemoveButton extends TJB {
 
 	private static final long serialVersionUID = -768335930316060117L;
 	private static final String TITLE= "Remove";
 	private int selectedIndexes[]={-1};
 	
 	
-	protected RemoveSpace(final MusicPlayer controller, final boolean showTitle) {
+	protected RemoveButton(final MusicPlayer controller, final boolean showTitle) {
 		super(REMOVE_IMG);
 		super.setController(controller);
 		
@@ -29,7 +31,7 @@ public class RemoveSpace extends PersonalJButton {
 				}
 				selectedIndexes= new int[]{-1};
 			} catch (IllegalArgumentException ex) {
-				showErrorDialog(RemoveSpace.this, "Invalid object selected!");
+				showErrorDialog(RemoveButton.this, "Invalid object selected!");
 			}
 		});
 	}
@@ -40,5 +42,13 @@ public class RemoveSpace extends PersonalJButton {
 	 */
 	public void setSelectedIndex(final int ...idx){
 		this.selectedIndexes=idx;
+	}
+	
+	@Override
+	public void updateStatus(final PlayerState status) {
+		if(status.equals(REMOVED))
+		if(this.isTimerPresent()){
+			this.stopTimer();
+		}
 	}
 }

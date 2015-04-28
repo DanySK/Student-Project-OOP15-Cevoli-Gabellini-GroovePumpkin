@@ -1,15 +1,22 @@
 package view.config;
 
+import static model.PlayerState.*;
+
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+
+import controller.MusicPlayer;
 
 /**
  * An Utility class
@@ -88,10 +95,21 @@ public final class Utility {
 	}
 	
 	/**
+	 * This method set up an already chosen border 
+	 * (CompoundBorder decorated with ad EtchedBorder)
+	 * 
+	 * @return a built-in Border
+	 */
+	public static Border getADefaultPanelBorder(){
+		return new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), 
+				new EmptyBorder(3, 3, 3, 3));
+	}
+	
+	/**
 	 * 
 	 * @return a built-in CompoundBorder
 	 */
-	public static Border getADefaultBorder(){
+	public static Border getADefaultButtonBorder(){
 		return new CompoundBorder(new SoftBevelBorder(
 				SoftBevelBorder.RAISED, WHITE, WHITE), 
 				new EmptyBorder(4, 16, 4, 16));
@@ -135,5 +153,32 @@ public final class Utility {
 				//.replaceFirst(".*\\d([^/\\?]+)", "$1")
 				.trim();
 		return s.substring(0, s.lastIndexOf('.'));
+	}
+	
+	/**
+	 * Return a play adapter for this class.
+	 * Bind the SPACE bar so that it will play/pause
+	 * the running song
+	 * 
+	 * @return keyAdp if controller is not null, otherwise null
+	 */
+	public KeyAdapter getPlayAdapter(final MusicPlayer controller){
+		 
+		if(controller!= null){
+			final KeyAdapter keyAdp=new KeyAdapter() {
+				@Override
+				public void keyPressed(final KeyEvent e) {
+					if(e.getKeyCode()== KeyEvent.VK_SPACE){
+						if(controller.getState().equals(RUNNING)){
+							controller.pause();
+						} else if(controller.getState().equals(PAUSED)){
+							controller.play();
+						}
+					}
+				}
+			};
+			return keyAdp;
+		}
+		return null;
 	}
 }

@@ -9,12 +9,12 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class LoopSpace extends PersonalJButton {
+public class LoopButton extends PersonalJButton {
 
 	private static final long serialVersionUID = -7087889831741979163L;
 	private static final String TITLE= "Loop";
 	
-	protected LoopSpace(final LoopablePlayer controller, final boolean showTitle) {
+	protected LoopButton(final LoopablePlayer controller, final boolean showTitle) {
 		super(LOOP_OFF_IMG);
 		this.setController(controller);
 		doShow(showTitle, TITLE);

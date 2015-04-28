@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import view.buttons.PersonalJButton;
 import view.interfaces.Updatable;
 import view.tables.GrooveBox;
-import model.viewModel.GrooveTableModel;
+import view.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
@@ -46,7 +46,7 @@ public class GrooveBoxPanel extends PersonalJPanel{
 		super(new BorderLayout(5, 5));
 		this.setController(controller);
 		grooveBox= new GrooveBox(new GrooveTableModel(controller));
-		this.addObserver(grooveBox);
+		this.addObservers(grooveBox);
 		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
@@ -63,7 +63,7 @@ public class GrooveBoxPanel extends PersonalJPanel{
 
 		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
 				5));
-		westPanel.setBuiltInBorder();
+		westPanel.setBorder(getADefaultPanelBorder());
 
 		final JLabel timeDialerLabel = new JLabel("Time Dial: ");
 		timeDialerLabel.setBackground(WHITE);
@@ -78,7 +78,7 @@ public class GrooveBoxPanel extends PersonalJPanel{
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		addObserver((Updatable) createButton(PLAY_BUTTON, true, getController()));
+		addObservers((Updatable) createButton(PLAY_BUTTON, true, getController()));
 		buttonPanel.add((JButton) getObservers().get(getObservers().size()-1));
 		buttonPanel.add(createButton(LOOP_BUTTON, true, controller));
 		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));
@@ -87,7 +87,7 @@ public class GrooveBoxPanel extends PersonalJPanel{
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//controller.reset();
+				controller.reset();
 			}
 		});
 		buttonPanel.add(reset);

@@ -13,12 +13,12 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class LoadSpace extends PersonalJButton {
+public class LoadButton extends PersonalJButton {
 
 	private static final long serialVersionUID = 3196123775349555103L;
 	private static final String TITLE = "Load";
 
-	protected LoadSpace(final GrooveBoxPlayer controller,
+	protected LoadButton(final GrooveBoxPlayer controller,
 			final boolean showTitle) {
 		super(LOAD_IMG);
 		super.setController(controller);
@@ -32,7 +32,7 @@ public class LoadSpace extends PersonalJButton {
 			// chooser.addChoosableFileFilter(new MyFileFilter());
 			chooser.setVisible(true);
 
-			final int val = chooser.showOpenDialog(LoadSpace.this);
+			final int val = chooser.showOpenDialog(LoadButton.this);
 			if (val == JFileChooser.APPROVE_OPTION) {
 				final File f = chooser.getSelectedFile();
 
@@ -40,7 +40,7 @@ public class LoadSpace extends PersonalJButton {
 
 				System.out.println(f.getName());
 			} else if (val != JFileChooser.CANCEL_OPTION) {
-				JOptionPane.showMessageDialog(LoadSpace.this,
+				JOptionPane.showMessageDialog(LoadButton.this,
 						"An Error has occurred", "Error Message",
 						JOptionPane.ERROR_MESSAGE);
 			}

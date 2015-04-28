@@ -19,12 +19,12 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class AddSpace extends PersonalJButton {
+public class AddButton extends PersonalJButton {
 
 	private static final long serialVersionUID = -7690938463308760102L;
 	private static final String TITLE = "Add";
 
-	protected AddSpace(final MusicPlayer controller, final boolean showTitle) {
+	protected AddButton(final MusicPlayer controller, final boolean showTitle) {
 		super(ADD_IMG);
 		super.setController(controller);
 
@@ -43,7 +43,7 @@ public class AddSpace extends PersonalJButton {
 			chooser.setMultiSelectionEnabled(true);
 			chooser.setVisible(true);
 
-			final int val = chooser.showOpenDialog(AddSpace.this);
+			final int val = chooser.showOpenDialog(AddButton.this);
 			final List<File> f = new ArrayList<>();
 
 			if (val == JFileChooser.APPROVE_OPTION) {
@@ -70,11 +70,11 @@ public class AddSpace extends PersonalJButton {
 								.getAbsolutePath())));
 					}
 				} catch (Exception e1) {
-					showErrorDialog(AddSpace.this, "Invalid song format ");
+					showErrorDialog(AddButton.this, "Invalid song format ");
 				}
 
 			} else if (val != JFileChooser.CANCEL_OPTION) {
-				showErrorDialog(AddSpace.this, "An Error has occurred");
+				showErrorDialog(AddButton.this, "An Error has occurred");
 			}
 		});
 	}
