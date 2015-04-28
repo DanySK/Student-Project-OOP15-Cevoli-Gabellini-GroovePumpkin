@@ -17,6 +17,7 @@ import model.viewModel.GrooveTableModel;
  * How I've managed this class should be similar to a SINGLETON pattern
  * 
  * @author Alessandro
+ * @author Matteo Gabellini
  *
  */
 public final class GrooveValues {
@@ -150,7 +151,7 @@ public final class GrooveValues {
 	 * 
 	 * @return A Map that will rapresents the groovebox's pattern
 	 */
-	public static Map<Integer,List<Integer>> getIndexedTab(final List<GrooveValues> grooveBox){
+	public static Map<Integer,List<Integer>> getIndexedTab(final List<? extends GrooveValues> grooveBox){
 		
 		final Map<Integer, List<Integer>> idx= new HashMap<>();
 		
@@ -169,5 +170,12 @@ public final class GrooveValues {
 	public static void resetGrooveBox(){
 		GROOVEBOX.clear();
 		GrooveValues.initAGrooveBoxList();
+	}
+	
+	/**
+	 * Getter for the dimension in Time Quanti of the GrooveBox
+	 */
+	public static int getTimeQuanti(){
+		return GrooveValues.TIME_QUANTI;
 	}
 }
