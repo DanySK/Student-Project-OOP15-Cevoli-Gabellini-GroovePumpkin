@@ -1,10 +1,7 @@
 package view.viewModel;
 
-import java.net.URL;
-import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
-
+import controller.MusicPlayer;
 import view.config.Utility;
 
 /**
@@ -18,13 +15,13 @@ public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
 	private final String[] names = new String[] { "#", "Song" };
-	private List<URL> playlist; 
+	private MusicPlayer controller;
 	
 	/**
 	 * @param playlist, the playlist to be associated with this table
 	 */
-	public PlaylistTableModel(final List<URL> playlist) {
-		this.playlist= playlist;
+	public PlaylistTableModel(final MusicPlayer controller) {
+		this.controller= controller;
 	}
 	
 	@Override
@@ -34,7 +31,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 	
 	@Override
 	public int getRowCount() {
-		return playlist.size();
+		return controller.getPlayList().size();
 	}
 
 	@Override
@@ -45,7 +42,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if(columnIndex==1){
-			return Utility.convertURLPath(playlist.get(rowIndex).getPath());
+			return Utility.convertURLPath(controller.getPlayList().get(rowIndex).getPath());
 		} else{
 			return String.join("", names[0], String.valueOf(rowIndex+1));
 		}
@@ -59,20 +56,5 @@ public class PlaylistTableModel extends AbstractTableModel{
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		return super.getColumnClass(columnIndex);
-	}
-	
-	/**
-	 * Attach a new playlist to this model
-	 * 
-	 * Ex: 
-	 * useful if the playlist previously given is 
-	 * a copy and if modified, you have to attach again
-	 * the playlist to this model so you can properly 
-	 * refresh the groovebox
-	 * 
-	 * @param playlist
-	 */
-	public void updatePlaylist(final List<URL> playlist){
-		this.playlist= playlist;
 	}
 }

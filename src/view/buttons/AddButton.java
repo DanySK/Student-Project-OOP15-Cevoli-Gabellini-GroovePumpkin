@@ -87,7 +87,7 @@ public class AddButton extends PersonalJButton {
 		}
 
 		@Override
-		public boolean accept(File f) {
+		public boolean accept(final File f) {
 
 			if (f.isDirectory() || f.getName().endsWith(".midi")
 					|| f.getName().endsWith(".wav")) {

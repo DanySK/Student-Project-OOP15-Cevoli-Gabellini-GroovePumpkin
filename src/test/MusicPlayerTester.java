@@ -127,7 +127,7 @@ public class MusicPlayerTester {
 		
 		try {
 			lettoreMidi.addSong(new URL(
-					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/chango.mid"));
+					"file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid"));
 		} catch (IllegalArgumentException e1) {
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {
@@ -138,7 +138,7 @@ public class MusicPlayerTester {
 
 		try {
 			lettoreMidi.addSong(new URL(
-					"file:/Users/matteogabellini/Documents/Materiale Università/Object Oriented Programming/Progetto/jashisth.mid"));
+					"file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/jashisth.mid"));
 		} catch (IllegalArgumentException e1) {
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {

@@ -33,11 +33,10 @@ public class MusicPlayerPanel extends PersonalJPanel {
 	 */
 	public MusicPlayerPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
-
+		this.setBorder(getADefaultPanelBorder());
 		this.setController(mp);
 		mp.addUpdatableObserver(this);
-
-		this.setBorder(getADefaultPanelBorder());
+		
 		songName.setBackground(WHITE);
 		songName.setForeground(DARK_GREEN);
 

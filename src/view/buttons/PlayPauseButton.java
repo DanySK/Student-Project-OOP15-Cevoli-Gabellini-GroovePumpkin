@@ -32,6 +32,7 @@ public class PlayPauseButton extends TJB {
 		super(strategy.getImage());
 		super.setController(controller);
 		this.strategy = strategy;
+		this.strategy.attachController(controller);
 		doShow(showTitle, strategy.getTitle());
 
 		this.addActionListener(e -> {
@@ -85,6 +86,7 @@ public class PlayPauseButton extends TJB {
 					controller.pause();
 				}
 			} catch (final Exception e) {
+				e.printStackTrace();
 				showErrorDialog(null, "No item found");
 			}
 

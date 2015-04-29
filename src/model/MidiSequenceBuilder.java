@@ -27,7 +27,7 @@ public class MidiSequenceBuilder {
 	 * @param partitura
 	 * @return An optional that contains the midi track, if during the creation there is some problem the return value is Optional.empty
 	 */
-	public Optional<Sequence> createMidiSequence(List<? extends GrooveValues> partitura){
+	public Optional<Sequence> createMidiSequence(List<? extends GrooveValues2> partitura){
 		Sequence midiSequence = null;
 		try {
 			midiSequence = new Sequence(Sequence.PPQ, 4);
@@ -55,7 +55,7 @@ public class MidiSequenceBuilder {
 								});
 					});
 
-			midiTrack.add(createEvent(GrooveValues.getTimeQuanti(), ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, INSTRUMENT_INDEX, VELOCITY));
+			midiTrack.add(createEvent(GrooveValues2.getTimeQuanti(), ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, INSTRUMENT_INDEX, VELOCITY));
 		} catch (InvalidMidiDataException e) { 
 			e.printStackTrace();
 		}
