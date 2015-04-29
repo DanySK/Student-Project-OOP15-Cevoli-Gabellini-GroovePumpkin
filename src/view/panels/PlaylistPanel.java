@@ -64,14 +64,18 @@ public class PlaylistPanel extends PersonalJPanel{
 
 		this.add(buttonRow, BorderLayout.SOUTH);
 		this.add(jsp, BorderLayout.CENTER);
-
+		
+		/*
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								remove.setSelectedIndex(this.playlist
-										.getSelectedRows());
+								final int r= playlist.getSelectedRow();
+								remove.setSelectedIndex(r);
+								System.out.println(r);
 							}
 						});
+		*/
+		
 		//this.addKeyListener(this.getPlayAdapter());
 		
 		this.playlist.addMouseListener(new PLML(remove, (MusicPlayer) getController()));

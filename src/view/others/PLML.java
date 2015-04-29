@@ -26,10 +26,8 @@ public class PLML implements MouseListener {
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		if(e.isConsumed()){
 			remove.setSelectedIndex(((JTable) e.getSource())
-					.rowAtPoint(e.getPoint()));
-		}
+					.getSelectedRow());
 	}
 
 	@Override
@@ -42,10 +40,10 @@ public class PLML implements MouseListener {
 
 	@Override
 	public void mouseClicked(final MouseEvent e) {
-		if (e.getClickCount() == DOUBLE_CLICK) {
+		if (e.getClickCount() == DOUBLE_CLICK ) {
 				controller.stop();
 				controller.goToSong(((JTable) e.getSource())
-						.rowAtPoint(e.getPoint()));
+						.getSelectedRow());
 				controller.play();
 		}
 	}

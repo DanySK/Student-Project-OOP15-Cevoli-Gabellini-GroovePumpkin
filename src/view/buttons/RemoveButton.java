@@ -12,7 +12,7 @@ public class RemoveButton extends TJB {
 
 	private static final long serialVersionUID = -768335930316060117L;
 	private static final String TITLE= "Remove";
-	private int selectedIndexes[];
+	private int selectedIndexes[]={-1};
 	
 	
 	protected RemoveButton(final MusicPlayer controller, final boolean showTitle) {
@@ -27,7 +27,7 @@ public class RemoveButton extends TJB {
 				for(final int i : selectedIndexes){
 					controller.removeSong(i);
 				}
-				selectedIndexes= null;
+				selectedIndexes= new int[]{-1};
 			} catch (IllegalArgumentException ex) {
 				showErrorDialog(RemoveButton.this, "Invalid object selected!");
 			}
