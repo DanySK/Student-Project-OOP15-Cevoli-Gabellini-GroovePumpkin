@@ -20,7 +20,7 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	private Optional<Sequence> grooveSequence;
 	
 	public GrooveBoxModel() {
-		GrooveValues2.initAGrooveBoxList();
+		GrooveValues.initAGrooveBoxList();
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	}
 	
 	private void createSequence() {
-		grooveSequence = new MidiSequenceBuilder().createMidiSequence(GrooveValues2.GROOVEBOX);
+		grooveSequence = new MidiSequenceBuilder().createMidiSequence(GrooveValues.GROOVEBOX);
 	}
 
 	@Override
@@ -45,17 +45,17 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 
 	@Override
 	public void changeCellState(int rowIndex, int columnIndex) {
-		GrooveValues2.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
+		GrooveValues.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
 	}
 
 	@Override
 	public boolean getCellState(int rowIndex, int columnIndex) {
-		return GrooveValues2.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
+		return GrooveValues.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
 	}
 
 	@Override
 	public void resetContent() {
-		GrooveValues2.resetGrooveBox();		
+		GrooveValues.resetGrooveBox();		
 	}
 
 }

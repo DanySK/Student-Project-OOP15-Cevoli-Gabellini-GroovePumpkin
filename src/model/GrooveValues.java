@@ -20,7 +20,7 @@ import model.lessons.Pair;
  * @author Matteo Gabellini
  *
  */
-public final class GrooveValues2 {
+public final class GrooveValues {
 	
 	/*
 	 * At least 5s of raw reproduction
@@ -33,7 +33,7 @@ public final class GrooveValues2 {
 	 * sound and a list of colors
 	 * 
 	 */
-	public static final List<GrooveValues2> GROOVEBOX = new ArrayList<>();
+	public static final List<GrooveValues> GROOVEBOX = new ArrayList<>();
 
 	/*
 	 * This list rapresent the row of the groovebox, 
@@ -51,7 +51,7 @@ public final class GrooveValues2 {
 
 	// I've made the constructor final, if you want to build a new GrooveBox
 	// tone use the static method
-	private GrooveValues2(final DefaultValues value) {
+	private GrooveValues(final DefaultValues value) {
 
 		this.value = value;
 		for (int i = 0; i < TIME_QUANTI; i++) {
@@ -117,11 +117,11 @@ public final class GrooveValues2 {
 	 * @param list
 	 * @return an initialized list
 	 */
-	public static List<GrooveValues2> initAGrooveBoxList() {
+	public static List<GrooveValues> initAGrooveBoxList() {
 
 		if (GROOVEBOX.isEmpty()) {
 			for (int i = 0; i < DefaultValues.values().length; i++) {
-				GROOVEBOX.add(new GrooveValues2(DefaultValues.values()[i]));
+				GROOVEBOX.add(new GrooveValues(DefaultValues.values()[i]));
 			}
 		}
 
@@ -135,10 +135,10 @@ public final class GrooveValues2 {
 	 *            the tone to be added
 	 */
 	// Not very useful now, but i'm thinking of making the groovebox expandibles
-	public static void addAToneToTheList(final List<GrooveValues2> list,
+	public static void addAToneToTheList(final List<GrooveValues> list,
 			final DefaultValues def) {
 
-		list.add(new GrooveValues2(def));
+		list.add(new GrooveValues(def));
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public final class GrooveValues2 {
 	 * 
 	 * @return A Map that will rapresents the groovebox's pattern
 	 */
-	public static Map<Integer,List<Integer>> getIndexedTab(final List<? extends GrooveValues2> grooveBox){
+	public static Map<Integer,List<Integer>> getIndexedTab(final List<? extends GrooveValues> grooveBox){
 		
 		final Map<Integer, List<Integer>> idx= new HashMap<>();
 		
@@ -170,13 +170,13 @@ public final class GrooveValues2 {
 	 */
 	public static void resetGrooveBox(){
 		GROOVEBOX.clear();
-		GrooveValues2.initAGrooveBoxList();
+		GrooveValues.initAGrooveBoxList();
 	}
 	
 	/**
 	 * Getter for the dimension in Time Quanti of the GrooveBox
 	 */
 	public static int getTimeQuanti(){
-		return GrooveValues2.TIME_QUANTI;
+		return GrooveValues.TIME_QUANTI;
 	}
 }
