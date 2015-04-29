@@ -17,8 +17,8 @@ import controller.MusicPlayerImpl;
  *
  */
 public final class Main {
-	private static final MusicPlayer MP = new MusicPlayerImpl();
-	private static final GrooveBoxPlayer GBC= new GrooveBoxController();
+	private static final MusicPlayer MP = MusicPlayerImpl.getInstance();
+	private static final GrooveBoxPlayer GBC= GrooveBoxController.getInstance();
 
 	private Main() {
 		

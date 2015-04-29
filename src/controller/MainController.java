@@ -8,8 +8,8 @@ import test.MusicPlayerTester;
  *
  */
 public class MainController {
-	private static final MusicPlayerImpl lettore = new MusicPlayerImpl();
-	//private static final GrooveBoxIml
+	private static final MusicPlayer lettore = MusicPlayerImpl.getInstance();
+	private static final GrooveBoxPlayer grooveBox = GrooveBoxController.getInstance();
 	
 	public static void main(String... args){
 		/*

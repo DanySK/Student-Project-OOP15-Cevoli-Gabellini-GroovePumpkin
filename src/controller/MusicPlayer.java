@@ -62,12 +62,6 @@ public interface MusicPlayer extends LoopablePlayer, Observable{
 	 */
 	void addSong(URL songPath) throws IllegalArgumentException;
 	
-	/**
-	 * A scanner for a directory hierarchy, scan the directory, subdirectory and add all the Midi e Wav song found
-	 * @param directoryPath is the path of the directory where start the search of the song
-	 * @return number of song found
-	 */
-	int addSongs(String directoryPath);
 	
 	/**
 	 * This method implements the logic for remove a song from the playList

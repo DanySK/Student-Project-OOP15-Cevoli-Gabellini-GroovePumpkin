@@ -17,12 +17,16 @@ import model.SingleSongPlayerState;
 
 /**
  * A music player is something that take different format song and reproduce
- * them
+ * them 
+ * 
+ * This class implements the pattern singleton, so for taking the instance of
+ * this class use the method getInstance
  * 
  * @author Matteo Gabellini
  *
  */
 public class MusicPlayerImpl implements MusicPlayer {
+	private static final MusicPlayerImpl MUSIC_PLAYER = new MusicPlayerImpl();
 
 	private List<Updatable> view;
 
@@ -31,15 +35,19 @@ public class MusicPlayerImpl implements MusicPlayer {
 												// concrete track player
 	/*
 	 * Questa variabile contiene un oggeto di una classe anonima che implementa
-	 * il comportamento per controllare quando la canzone termina perchè è
-	 * stata riprodotta tutta
+	 * il comportamento per controllare quando la canzone termina perchè è stata
+	 * riprodotta tutta
 	 */
 	private Thread threadSongWatcher;
 	private volatile boolean endOfSong;
 
-	public MusicPlayerImpl() {
+	private MusicPlayerImpl() {
 		this.model = new MusicPlayerModelImpl();
 		this.soundPlayer = Optional.empty();
+	}
+
+	public static MusicPlayerImpl getInstance() {
+		return MusicPlayerImpl.MUSIC_PLAYER;
 	}
 
 	@Override
@@ -310,14 +318,6 @@ public class MusicPlayerImpl implements MusicPlayer {
 	}
 
 	@Override
-	public int addSongs(String directoryPath) {
-		// TODO Auto-generated method stub
-
-		// ///DA IMPLEMENTARE LO FACCIO APPENA LE RESTANTI FUNZIONI VANNO
-		return 0;
-	}
-
-	@Override
 	public void removeSong(int index) throws IllegalArgumentException {
 		// Se la canzone che voglio togliere e quella che sto riproducendo
 		// blocco la riproduzione
@@ -356,4 +356,5 @@ public class MusicPlayerImpl implements MusicPlayer {
 				: (this.soundPlayer.get().getState() == SingleSongPlayerState.RUNNING ? PlayerState.RUNNING
 						: PlayerState.PAUSED);
 	}
+
 }

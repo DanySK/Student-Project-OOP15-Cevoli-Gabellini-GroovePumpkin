@@ -18,7 +18,7 @@ public class MusicPlayerTester {
 	
 	@org.junit.Test
 	public void testAddAndRemoveSong(){
-		final MusicPlayer lettore = new MusicPlayerImpl();		
+		final MusicPlayer lettore = MusicPlayerImpl.getInstance();		
 		final List<URL> checkList = new ArrayList<>();
 		
 		try {
@@ -90,7 +90,7 @@ public class MusicPlayerTester {
 	
 	@org.junit.Test
 	public void testSampledMusicPlayer() {
-		final MusicPlayer lettoreSample = new MusicPlayerImpl();	
+		final MusicPlayer lettoreSample = MusicPlayerImpl.getInstance();	
 		
 		try {
 			lettoreSample.addSong(new URL("file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
@@ -122,7 +122,7 @@ public class MusicPlayerTester {
 	
 	@org.junit.Test
 	public void testMidiMusicPlayer(){
-		final MusicPlayer lettoreMidi = new MusicPlayerImpl();		
+		final MusicPlayer lettoreMidi = MusicPlayerImpl.getInstance();		
 		
 		
 		try {
@@ -154,6 +154,8 @@ public class MusicPlayerTester {
 	
 	
 	private void testReproduction(MusicPlayer lettore, int pauseTime){
+		double elapsedTime;
+		
 		System.out.println("Start Reproduction!!!!");
 		lettore.play();
 		
@@ -168,7 +170,8 @@ public class MusicPlayerTester {
 		assertTrue(lettore.getElapsedTime() > 0);
 		System.out.println("Pause!!!!");
 		lettore.pause();
-				
+		elapsedTime = lettore.getElapsedTime();
+		
 		// Attendo il tempo deciso dal parametro pauseTime millisecondi
 		try {
 			Thread.sleep(pauseTime);

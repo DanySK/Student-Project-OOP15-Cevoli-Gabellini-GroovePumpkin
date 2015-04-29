@@ -17,16 +17,28 @@ import model.PlayerState;
 
 /**
  * The implementation of GrooveBoxController
+ * 
+ *   
+ * This class implements the pattern singleton, so for taking the instance of
+ * this class use the method getInstance
+ * 
  * @author Matteo Gabellini
  *
  */
 public class GrooveBoxController implements GrooveBoxPlayer,Observable{
+	private static final GrooveBoxController GROOVE_BOX = new GrooveBoxController();
+	
+	
 	private Optional<MidiSongPlayer> sequencer;
 	private GrooveBoxContentManager model;
 	private List<Updatable> component;
 	
-	public GrooveBoxController(){
+	private GrooveBoxController(){
 		this.model = new GrooveBoxModel();
+	}
+	
+	public static GrooveBoxController getInstance(){
+		return GrooveBoxController.GROOVE_BOX;
 	}
 	
 	@Override
