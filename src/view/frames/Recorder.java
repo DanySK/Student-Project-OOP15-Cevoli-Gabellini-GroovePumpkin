@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
+import controller.Updatable;
 import view.buttons.ButtonFactory;
-import view.interfaces.Updatable;
 import view.panels.PersonalJPanel;
 import model.PlayerState;
 

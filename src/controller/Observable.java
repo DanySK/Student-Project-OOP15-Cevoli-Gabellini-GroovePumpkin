@@ -1,6 +1,5 @@
 package controller;
 
-import view.interfaces.Updatable;
 
 /**
  * This interface rappresent an object that can be observed by a an object that

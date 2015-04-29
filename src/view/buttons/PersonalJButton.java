@@ -6,8 +6,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
+
+import controller.Updatable;
 import model.PlayerState;
-import view.interfaces.Updatable;
 import static view.config.Utility.*;
 
 /**

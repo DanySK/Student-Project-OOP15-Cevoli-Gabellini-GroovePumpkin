@@ -1,4 +1,4 @@
-package view.interfaces;
+package controller;
 
 import model.PlayerState;
 /**

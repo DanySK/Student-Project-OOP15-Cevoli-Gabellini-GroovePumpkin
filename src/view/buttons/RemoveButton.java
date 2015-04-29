@@ -28,7 +28,7 @@ public class RemoveButton extends TJB {
 					controller.removeSong(i);
 				}
 				selectedIndexes= new int[]{-1};
-			} catch (IllegalArgumentException ex) {
+			} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
 				showErrorDialog(RemoveButton.this, "Invalid object selected!");
 			}
 		});

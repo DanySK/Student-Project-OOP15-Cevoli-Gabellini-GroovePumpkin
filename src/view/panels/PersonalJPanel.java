@@ -9,8 +9,8 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.PlayerState;
-import view.interfaces.Updatable;
 import controller.Player;
+import controller.Updatable;
 import static view.config.Utility.*;
 
 /**

@@ -14,10 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import view.buttons.PersonalJButton;
-import view.interfaces.Updatable;
 import view.tables.GrooveBox;
 import view.viewModel.GrooveTableModel;
 import controller.GrooveBoxPlayer;
+import controller.Updatable;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
 

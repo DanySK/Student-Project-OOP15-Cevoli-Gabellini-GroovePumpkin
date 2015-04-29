@@ -2,11 +2,13 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import view.interfaces.Updatable;
+
 import model.PlayerState;
 import controller.MusicPlayer;
+import controller.Updatable;
 import static model.PlayerState.*;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;

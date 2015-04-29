@@ -10,7 +10,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import view.interfaces.Updatable;
+import controller.Updatable;
 import view.viewModel.GrooveTableModel;
 import model.PlayerState;
 import static javax.swing.ListSelectionModel.*;
