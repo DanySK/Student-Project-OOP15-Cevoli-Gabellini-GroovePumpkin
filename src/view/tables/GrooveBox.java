@@ -83,7 +83,9 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 			}
 			
 			@Override
-			public void mouseClicked(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				
+			}
 		});
 
 		// Handle the changes of colours in the columns of the GrooveBox

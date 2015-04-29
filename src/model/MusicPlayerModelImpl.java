@@ -18,7 +18,7 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 
 	// rappresent the current index of the song in the playlist
 	private Optional<Integer> currentPlaylistIndex;
-
+	private int currShuffledIdx = -1;
 	private List<Integer> shuffled;
 
 	public MusicPlayerModelImpl() {
@@ -28,8 +28,9 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	}
 
 	private Optional<URL> shuffle() {
-		int idx = (new Random()).nextInt(playList.size());
+		final int idx = new Random().nextInt(playList.size());
 		shuffled.add(idx);
+		currShuffledIdx = shuffled.size() - 1;
 		return Optional.ofNullable(playList.get(idx));
 	}
 
@@ -43,50 +44,51 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	}
 
 	@Override
-	public String getCurrentTitle(){
-		if(this.currentSong.isPresent()){
+	public String getCurrentTitle() {
+		if (this.currentSong.isPresent()) {
 			String[] urlSplitted = this.currentSong.get().toString().split("/");
-			return urlSplitted[urlSplitted.length - 1];			
+			return urlSplitted[urlSplitted.length - 1];
 		}
 		return "";
 	}
-	
+
 	@Override
 	public Optional<URL> getNextSong() {
 		// Check if was selected a song
+
 		if (!this.currentPlaylistIndex.isPresent()) {
 			// if the song wasn't selected I return a empty Optional
 			return Optional.empty();
 		}
-		
+
 		// Controllo se sono all'ultima canzone
 		if (this.playList.size() == this.currentPlaylistIndex.get() + 1) {
 			// In tal caso ritorno un oggetto Optional vuoto
 			return Optional.empty();
 		}
-
+		
 		if (this.shuffleMode) {
 			// call the method that implements the random choice of the song
-			if (this.getCurrentSongIndex().get() == shuffled.get(shuffled
-					.size() - 1)) {
-				// Ovvero la canzone � l'ultima dello Pseudo-Stack, quindi devo
-				// aggiungerne un'altra
+			// the shuffled list is empty or the actual index is the last
+			if (shuffled.size() == 0
+					|| this.currShuffledIdx == shuffled.size() - 1) {
+				// I get a new shuffled song
 				return this.shuffle();
 			} else {
 				// Altrimenti prendo la canzone successiva dall'array di indici
 				return Optional.ofNullable(this.playList.get(this.shuffled
-						.get(this.getCurrentSongIndex().get() + 1)));
+						.get(++this.currShuffledIdx)));
 			}
 
 		}
-
+		
 		return Optional
 				.of(this.playList.get(this.currentPlaylistIndex.get() + 1));
 	}
 
 	@Override
 	public Optional<URL> getPreviousSong() {
-		// Controllo se non è stata selezionata una canzone
+
 		if (!this.currentPlaylistIndex.isPresent()) {
 			// se la canzone corrente non è stata selezionata restituisco un
 			// optional vuoto
@@ -99,23 +101,34 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 			return Optional.empty();
 		}
 
-		if (this.shuffleMode) {
+		// Controllo se non è stata selezionata una canzone
+		if (this.shuffleMode && currShuffledIdx != -1) {
 			// take the previous song from the stack
-			return Optional.ofNullable(this.playList.get(this.shuffled
-					.get(this.currentPlaylistIndex.get() - 1)));
+			// If it is the first song of the shuffled playlist then it'll start
+			// again
+			if (currShuffledIdx == 0) {
+				return Optional.ofNullable(this.playList.get(this.shuffled
+						.get(currShuffledIdx)));
+			} else {
+				return Optional.ofNullable(this.playList.get(this.shuffled
+						.get(--currShuffledIdx)));
+			}
+
 		}
+
 		return Optional
 				.of(this.playList.get(this.currentPlaylistIndex.get() - 1));
 	}
 
 	@Override
 	public Optional<URL> changeToTheNextSong() {
-		Optional<URL> nextSong = this.getNextSong();	
-		//If the previous song there isn't I don't change the current song
+		final Optional<URL> nextSong = this.getNextSong();
+		// If the previous song there isn't I don't change the current song
 		if (nextSong.isPresent()) {
-			this.currentSong = nextSong;	
+			this.currentSong = nextSong;
 			if (this.shuffleMode) {
-				// ???
+				this.currentPlaylistIndex = Optional.of(shuffled
+						.get(currShuffledIdx));
 			} else {
 				this.currentPlaylistIndex = Optional
 						.of(this.currentPlaylistIndex.get() + 1);
@@ -128,11 +141,12 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	@Override
 	public Optional<URL> changeToThePreviousSong() {
 		Optional<URL> previousSong = this.getPreviousSong();
-		//If the previous song there isn't I don't change the current song
+		// If the previous song there isn't I don't change the current song
 		if (previousSong.isPresent()) {
 			this.currentSong = previousSong;
 			if (this.shuffleMode) {
-				// ???
+				this.currentPlaylistIndex = Optional.of(shuffled
+						.get(currShuffledIdx));
 			} else {
 				this.currentPlaylistIndex = Optional
 						.of(this.currentPlaylistIndex.get() - 1);
@@ -162,6 +176,8 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 			// In questo modo creo una nuova lista, lasciando l'altra al Garbage
 			// Collector
 			shuffled = new ArrayList<Integer>();
+		} else {
+			currShuffledIdx = -1;
 		}
 	}
 
@@ -198,15 +214,12 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 	@Override
 	public void removeSongFromPlayList(final int index)
 			throws IllegalArgumentException {
-		if (index < 0 || index > this.playList.size() - 1) {
-			throw new IllegalArgumentException();
-		}
 		this.playList.remove(index);
 		// Se la canzone che ho rimosso è quella corrente modifico anche
 		// currentSong e currentPlaylistIndex
 		if (this.currentPlaylistIndex.get() == index) {
 			this.currentSong = Optional.empty();
-			this.currentPlaylistIndex = Optional.empty();
+			this.currentPlaylistIndex = Optional.of(-1);
 		}
 	}
 
