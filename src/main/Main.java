@@ -28,11 +28,6 @@ public final class Main {
 	public static void main(final String... args) {
 		new Configuration();
 		new SoundFrame(MP, GBC);
-		// try {
-		// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		// } catch (final Exception e) {
-		//
-		// }
 	}
 
 }

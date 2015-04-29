@@ -47,10 +47,13 @@ public class PlayPauseButton extends TJB {
 				|| status.equals(PlayerState.PAUSED)
 				|| status.equals(PlayerState.STOPPED)) {
 			// change to pausable or playble strategy
-			this.strategy = this.strategy.equals(PPStrategy.PLAY) ? PPStrategy.PAUSE
-					: PPStrategy.PLAY;
+			this.strategy = status.equals(PlayerState.RUNNING)
+					|| status.equals(PlayerState.PAUSED) ? this.strategy.equals(PPStrategy.PLAY) ? PPStrategy.PAUSE
+					: PPStrategy.PLAY : PPStrategy.PLAY;
 			this.setIcon(strategy.getImage());
 			this.changeTitle(strategy.getTitle());
+		} else if(status.equals(ERROR)){
+			showErrorDialog(null, "WTF");
 		}
 	}
 
