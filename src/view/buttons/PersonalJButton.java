@@ -139,7 +139,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * 
 	 */
 	@Override
-	public void updateStatus(PlayerState status) {
+	public void updateStatus(final PlayerState status) {
 		//Override this method
 	}
 }

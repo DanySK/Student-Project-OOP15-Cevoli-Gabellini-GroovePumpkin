@@ -1,11 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import view.viewModel.GrooveTableModel;
 import model.lessons.Pair;
 
@@ -138,29 +134,6 @@ public final class GrooveValues {
 			final DefaultValues def) {
 
 		list.add(new GrooveValues(def));
-	}
-	
-	/**
-	 * Keys-> A Pair<String, Integer>,
-	 * 		the String value is the name of the tone;
-	 *		the Integer value is the ID associated to the Tone;
-	 * 
-	 * Values-> A List<Integer>, rapresenting the indexes (or time's quantum) 
-	 *  	where the specified tone is active
-	 * 
-	 * @return A Map that will rapresents the groovebox's pattern
-	 */
-	public static Map<Integer,List<Integer>> getIndexedTab(final List<GrooveValues> grooveBox){
-		
-		final Map<Integer, List<Integer>> idx= new HashMap<>();
-		
-		grooveBox.stream().forEach(gVal-> idx.put(gVal.getID(), 
-						gVal.getRow().stream()
-							.filter(pair-> pair.getFirst().equals(true))
-							.mapToInt(pair->pair.getSecond())
-							.mapToObj(i -> Integer.valueOf(i))
-							.collect(Collectors.toList())));
-		return idx;
 	}
 	
 	/**

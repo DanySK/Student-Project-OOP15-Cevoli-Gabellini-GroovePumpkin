@@ -12,8 +12,6 @@ import controller.MusicPlayer;
 
 public class PLML implements MouseListener {
 	
-	
-	
 	private final RemoveButton remove;
 	private final MusicPlayer controller;
 
@@ -28,8 +26,10 @@ public class PLML implements MouseListener {
 
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		remove.setSelectedIndex(((JTable) e.getSource())
-				.getSelectedRow());
+		if(e.isConsumed()){
+			remove.setSelectedIndex(((JTable) e.getSource())
+					.rowAtPoint(e.getPoint()));
+		}
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class PLML implements MouseListener {
 		if (e.getClickCount() == DOUBLE_CLICK) {
 				controller.stop();
 				controller.goToSong(((JTable) e.getSource())
-						.getSelectedRow());
+						.rowAtPoint(e.getPoint()));
 				controller.play();
 		}
 	}

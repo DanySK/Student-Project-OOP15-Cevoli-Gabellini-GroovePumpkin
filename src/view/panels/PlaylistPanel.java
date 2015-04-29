@@ -48,7 +48,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		this.setController(mp);
 		((Observable) this.getController()).addUpdatableObserver(this);
 
-		this.tableModel = new PlaylistTableModel(((MusicPlayer) getController()).getPlayList());
+		this.tableModel = new PlaylistTableModel((MusicPlayer) getController());
 		this.playlist = new PersonalJTable(tableModel, SINGLE_SELECTION);
 		this.playlist.setColumnHeaderBounds(0, 25, 25);
 		jsp.setViewportView(playlist);
@@ -112,18 +112,15 @@ public class PlaylistPanel extends PersonalJPanel{
 	public void setPlaylistModel(final TableModel model) {
 		this.tableModel = model;
 		this.setPlaylistTable(new PersonalJTable(model,
-				MULTIPLE_INTERVAL_SELECTION));
+				SINGLE_SELECTION));
 	}
 
 	// Called by the Controller when a song is added or removed from the
 	// playlist
 	@Override
 	public void updateStatus(final PlayerState status) {
-		//super.updateStatus(status);
 		// ricrea la nuova tabella
 		if (status == PlayerState.RELOAD) {
-			((PlaylistTableModel) tableModel).updatePlaylist(((MusicPlayer) getController())
-					.getPlayList());
 			playlist.tableChanged(new TableModelEvent(tableModel));
 		}
 	}

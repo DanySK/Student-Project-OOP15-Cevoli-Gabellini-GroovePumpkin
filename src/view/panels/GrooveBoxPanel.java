@@ -71,18 +71,18 @@ public class GrooveBoxPanel extends PersonalJPanel{
 
 		final PersonalJPanel timePanel = new PersonalJPanel(new FlowLayout(
 				FlowLayout.CENTER, 5, 10));
-		timePanel.add(timeDialerLabel);
-		timePanel.add(timeDialerOptions);
+		timePanel.addComponents(timeDialerLabel, timeDialerOptions);
 		westPanel.add(timePanel, BorderLayout.NORTH);
 
 		final PersonalJPanel buttonPanel = new PersonalJPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
 		addObservers((Updatable) createButton(PLAY_BUTTON, true, getController()));
-		buttonPanel.add((JButton) getObservers().get(getObservers().size()-1));
-		buttonPanel.add(createButton(LOOP_BUTTON, true, controller));
-		buttonPanel.add(createButton(SAVE_BUTTON, true, controller));
-		buttonPanel.add(createButton(LOAD_BUTTON, true, controller));
+		buttonPanel.addComponents((JButton) getObservers().get(getObservers().size()-1), 
+				createButton(LOOP_BUTTON, true, controller), 
+				createButton(SAVE_BUTTON, true, controller), 
+				createButton(LOAD_BUTTON, true, controller));
+		
 		final PersonalJButton reset= new PersonalJButton(RESET_IMG, "Reset");
 		reset.addActionListener(new ActionListener() {
 			@Override
