@@ -22,6 +22,7 @@ public class StopButton extends TJB{
 		this.setEnabled(false);
 		
 		this.addActionListener(e->{
+			//System.out.println("Metto in Pausa\n");
 			controller.stop();
 		});
 	}
@@ -29,7 +30,7 @@ public class StopButton extends TJB{
 	@Override
 	public void updateStatus(final PlayerState status) {
 		
-		if(status.equals(STOPPED)) {
+		if(status.equals(STOPPED) || status.equals(REMOVED)) {
 			this.setEnabled(false);
 		} else if(status.equals(RUNNING) && !this.isEnabled()) {
 			this.setEnabled(true);

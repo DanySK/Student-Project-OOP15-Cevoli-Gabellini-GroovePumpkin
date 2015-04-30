@@ -26,8 +26,8 @@ public class PlayPauseButton extends TJB {
 	 * @param buttonEnabled
 	 *            if the button have to be enabled or not
 	 */
-	protected PlayPauseButton(final Player controller, final PPStrategy strategy,
-			final boolean showTitle) {
+	protected PlayPauseButton(final Player controller,
+			final PPStrategy strategy, final boolean showTitle) {
 
 		super(strategy.getImage());
 		super.setController(controller);
@@ -36,7 +36,7 @@ public class PlayPauseButton extends TJB {
 		doShow(showTitle, strategy.getTitle());
 
 		this.addActionListener(e -> {
-			strategy.doStrategy();
+			this.strategy.doStrategy();
 		});
 	}
 
@@ -45,28 +45,32 @@ public class PlayPauseButton extends TJB {
 
 		if (status.equals(PlayerState.RUNNING)
 				|| status.equals(PlayerState.PAUSED)
-				|| status.equals(PlayerState.STOPPED)) {
+				|| status.equals(PlayerState.STOPPED)
+				|| status.equals(PlayerState.REMOVED)) {
 			// change to pausable or playble strategy
-			this.strategy = status.equals(PlayerState.RUNNING)
-					|| status.equals(PlayerState.PAUSED) ? this.strategy.equals(PPStrategy.PLAY) ? PPStrategy.PAUSE
-					: PPStrategy.PLAY : PPStrategy.PLAY;
+			this.strategy = status.equals(PlayerState.RUNNING) ? PPStrategy.PAUSE
+					: PPStrategy.PLAY;
+			this.strategy.attachController((Player) getController());
+			// System.out.println(strategy);
 			this.setIcon(strategy.getImage());
 			this.changeTitle(strategy.getTitle());
-		} else if(status.equals(ERROR)){
-			showErrorDialog(null, "WTF");
+			this.repaint();
 		}
 	}
 
 	public static enum PPStrategy {
-		PLAY("Play", PLAY_IMG), PAUSE("Pause", PAUSE_IMG);
+		PLAY("Play", PLAY_IMG, true), PAUSE("Pause", PAUSE_IMG, false);
 
 		private String title;
 		private ImageIcon img;
 		private Player controller;
+		private boolean b;
 
-		private PPStrategy(final String title, final ImageIcon img) {
+		private PPStrategy(final String title, final ImageIcon img,
+				final boolean b) {
 			this.title = title;
 			this.img = img;
+			this.b = b;
 		}
 
 		public void attachController(final Player controller) {
@@ -83,9 +87,11 @@ public class PlayPauseButton extends TJB {
 
 		public void doStrategy() {
 			try {
-				if (this.equals(PLAY)) {
+				if (b) {
+					System.out.println("Metto in Riproduzione");
 					controller.play();
 				} else {
+					System.out.println("Metto in Pausa");
 					controller.pause();
 				}
 			} catch (final Exception e) {

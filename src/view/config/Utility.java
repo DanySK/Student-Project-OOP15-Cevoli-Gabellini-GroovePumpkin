@@ -150,6 +150,7 @@ public final class Utility {
 		//([^/]+) -> keep all the characters until the first '/' occurrence
 		final String s= URLPath.replaceFirst(".*\\/([^/\\?]+).*", "$1")
 				.replaceFirst(".*-([^/\\?]+)", "$1")
+				.replace('_', ' ')
 				//.replaceFirst(".*\\d([^/\\?]+)", "$1")
 				.trim();
 		return s.substring(0, s.lastIndexOf('.'));

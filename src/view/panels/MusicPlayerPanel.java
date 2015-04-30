@@ -87,7 +87,7 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		// self update
 		if (status.equals(RUNNING) || status.equals(SONGCHANGED)) {
 			// change the name of the songs to the new one
-			this.songName.setText("< "
+			this.songName.setText("< " 
 					+ convertURLPath(((MusicPlayer) getController())
 							.getCurrentSong().get().getPath()) + " >");
 
