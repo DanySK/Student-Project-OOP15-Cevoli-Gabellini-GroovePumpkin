@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import controller.Player;
 import controller.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
@@ -28,7 +29,7 @@ import static view.config.Utility.*;
 public class PersonalJButton extends JButton implements Updatable{
 
 	private static final long serialVersionUID = -7937866815197131576L;
-	private Object controller;
+	private Player controller;
 	private boolean hasIcon;
 	private boolean hasTitle;
 	
@@ -73,9 +74,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	
 	private TitledBorder getTitledBorder() {
 
-		if (this.getBorder() instanceof CompoundBorder
-				&& ((CompoundBorder) this.getBorder())
-						.getOutsideBorder() instanceof TitledBorder){
+		if (this.hasTitle){
 			return ((TitledBorder) ((CompoundBorder) this.getBorder())
 					.getOutsideBorder());
 		}
@@ -96,8 +95,8 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * @param newTitle
 	 */
 	public void changeTitle(final String newTitle){
-		final TitledBorder tb= this.getTitledBorder();
-		if (tb != null) {
+		if (this.hasTitle) {
+			final TitledBorder tb= this.getTitledBorder();
 			tb.setTitle(newTitle);
 		}
 	}
@@ -106,7 +105,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * 
 	 * @return the controller associated with this button
 	 */
-	public Object getController(){
+	public Player getController(){
 		return controller;
 	}
 	
@@ -114,11 +113,12 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * 
 	 * @return the controller associated with this button
 	 */
-	public void setController(final Object controller){
+	public void setController(final Player controller){
 		this.controller=controller;
 	}
 	
 	/**
+	 * Set a title border on this button
 	 * 
 	 * @param name
 	 *            to be shown on the TitledBorder
@@ -129,15 +129,19 @@ public class PersonalJButton extends JButton implements Updatable{
 		this.hasTitle=true;
 	}
 	
+	/**
+	 * Remove the title border displayed on this button
+	 * 
+	 */
 	public void removeTitledBorder(){
 		this.setBorder(getADefaultButtonBorder());
 		this.setSize();
 		this.repaint();
 		this.hasTitle=false;
 	}
+	
 	/**
-	 * Override this method
-	 * 
+	 * Override this method if you want to use it
 	 */
 	@Override
 	public void updateStatus(final PlayerState status) {

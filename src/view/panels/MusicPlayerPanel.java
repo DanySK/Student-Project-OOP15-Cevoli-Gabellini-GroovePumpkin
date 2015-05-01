@@ -69,15 +69,15 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		final JButton stop = createButton(STOP_BUTTON, false, getController());
 		final JButton fw = createButton(FW_BUTTON, false, getController());
 		center.addComponents(rw, play, stop,  fw);
-		this.addObservers((Updatable) play, (Updatable) stop);
 
 		panel.add(center, BorderLayout.CENTER);
 
 		final PersonalJPanel south = new PersonalJPanel(
 				new FlowLayout(1, -5, 0));
-		south.addComponents(createButton(LOOP_BUTTON, false, getController()), 
-				createButton(SHUFFLE_BUTTON, false, getController()));
+		final JButton shfl= createButton(SHUFFLE_BUTTON, false, getController());
+		south.addComponents(createButton(LOOP_BUTTON, false, getController()), shfl);
 		panel.add(south, BorderLayout.SOUTH);
+		this.addObservers((Updatable) play, (Updatable) stop, (Updatable)shfl);
 	}
 
 	@Override

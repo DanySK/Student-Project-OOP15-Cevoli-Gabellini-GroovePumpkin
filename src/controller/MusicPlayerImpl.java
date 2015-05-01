@@ -299,6 +299,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void setShuffleMode(boolean active) {
 		this.model.setShuffleMode(active);
+		this.notifyToUpdatable(active ? PlayerState.SHUFFLED : PlayerState.UNSHUFFLED);
 	}
 
 	@Override

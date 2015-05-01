@@ -2,12 +2,12 @@ package view.buttons;
 
 import javax.swing.JButton;
 
-import view.buttons.FwRwButton.FRStrategy;
+import view.buttons.strategies.MusicPlayerStrategy;
+import view.buttons.strategies.PlayerStrategy;
 import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
-import view.buttons.PlayPauseButton.PPStrategy;
 
 /**
  * A simple factory class to simply creates functional Button
@@ -56,27 +56,27 @@ public final class ButtonFactory {
 	 * @return the chosen type of button or a normal button if a wrong value is chosen
 	 */
 	public static JButton createButton(final int type, final boolean showTitle,
-			final Object controller) {
+			final Player controller) {
 
 		switch (type) {
 		case 0:
-			return new PlayPauseButton((Player) controller, PPStrategy.PLAY, showTitle);
+			return new PlayerButton((Player) controller, PlayerStrategy.PLAY, showTitle);
 		case 1:
-			return new PlayPauseButton((Player) controller, PPStrategy.PAUSE, showTitle);
+			return new PlayerButton((Player) controller, PlayerStrategy.PAUSE, showTitle);
 		case 2:
-			return new StopButton((Player) controller, showTitle);
+			return new PlayerButton((Player) controller, PlayerStrategy.STOP, showTitle);
 		case 3:
 			return new LoopButton((LoopablePlayer) controller, showTitle);
 		case 4:
-			return new ShuffleButton((MusicPlayer) controller, showTitle);
+			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.SHUFFLE);
 		case 5:
 			return new SaveButton((GrooveBoxPlayer) controller, showTitle);
 		case 6:
 			return new LoadButton((GrooveBoxPlayer) controller, showTitle);
 		case 7:
-			return new FwRwButton((MusicPlayer) controller, showTitle, FRStrategy.FORWARD);
+			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.FORWARD);
 		case 8:
-			return new FwRwButton((MusicPlayer) controller, showTitle, FRStrategy.REWIND);
+			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.REWIND);
 		case 9:
 			return new AddButton((MusicPlayer) controller, showTitle);
 		case 10:
