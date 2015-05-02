@@ -10,7 +10,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class SaveButton extends PersonalJButton {
+public class SaveButton extends PersonalJButton<GrooveBoxPlayer> {
 
 	private static final long serialVersionUID = 2740908838399780756L;
 	private static final String TITLE = "Save";

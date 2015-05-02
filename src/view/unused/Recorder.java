@@ -1,4 +1,4 @@
-package view.frames;
+package view.unused;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

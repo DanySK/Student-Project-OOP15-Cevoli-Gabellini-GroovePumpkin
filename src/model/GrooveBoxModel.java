@@ -1,11 +1,7 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
 import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
 
 /**
  * This class rappresent the logic for manage the data of a groove box. 

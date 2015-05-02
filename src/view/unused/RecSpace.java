@@ -1,5 +1,6 @@
-package view.buttons;
+package view.unused;
 
+import view.buttons.PersonalJButton;
 import controller.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
@@ -9,7 +10,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class RecSpace extends PersonalJButton implements Updatable{
+public class RecSpace<C> extends PersonalJButton<C> implements Updatable{
 
 	private static final long serialVersionUID = -2653526539862883988L;
 	public static final String REC = "Rec";

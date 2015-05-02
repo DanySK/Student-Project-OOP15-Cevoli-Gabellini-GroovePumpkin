@@ -4,6 +4,7 @@ import javax.swing.JButton;
 
 import view.buttons.strategies.MusicPlayerStrategy;
 import view.buttons.strategies.PlayerStrategy;
+import view.buttons.strategies.PlaylistStrategy;
 import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
@@ -60,27 +61,27 @@ public final class ButtonFactory {
 
 		switch (type) {
 		case 0:
-			return new PlayerButton((Player) controller, PlayerStrategy.PLAY, showTitle);
+			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.PLAY);
 		case 1:
-			return new PlayerButton((Player) controller, PlayerStrategy.PAUSE, showTitle);
+			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.PAUSE);
 		case 2:
-			return new PlayerButton((Player) controller, PlayerStrategy.STOP, showTitle);
+			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.STOP);
 		case 3:
 			return new LoopButton((LoopablePlayer) controller, showTitle);
 		case 4:
-			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.SHUFFLE);
+			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.SHUFFLE);
 		case 5:
 			return new SaveButton((GrooveBoxPlayer) controller, showTitle);
 		case 6:
 			return new LoadButton((GrooveBoxPlayer) controller, showTitle);
 		case 7:
-			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.FORWARD);
+			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.FORWARD);
 		case 8:
-			return new MusicPlayerButton((MusicPlayer) controller, showTitle, MusicPlayerStrategy.REWIND);
+			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.REWIND);
 		case 9:
-			return new AddButton((MusicPlayer) controller, showTitle);
+			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, PlaylistStrategy.ADD);
 		case 10:
-			return new RemoveButton((MusicPlayer) controller, showTitle);
+			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, PlaylistStrategy.REMOVE);
 		default:
 			return new JButton("Hai sbagliato type, pirla.");
 		}

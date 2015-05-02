@@ -4,17 +4,12 @@ import static view.config.Utility.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 import javax.swing.ImageIcon;
-
 import model.PlayerState;
-import view.buttons.MusicPlayerButton;
-import view.viewModel.ShuffleConsumer;
-import view.viewModel.Strategy;
+import view.buttons.StrategicalButton;
 import controller.MusicPlayer;
 
-public enum MusicPlayerStrategy implements Strategy<MusicPlayer>,
-		BiConsumer<MusicPlayerButton, PlayerState> {
+public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, StrategicalButton<MusicPlayer>>{
 	
 	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 
 	REWIND("Rewind", RW_IMG, c -> c.goToPreviousSong(), null),
@@ -24,11 +19,11 @@ public enum MusicPlayerStrategy implements Strategy<MusicPlayer>,
 	private String title;
 	private ImageIcon img;
 	private Consumer<MusicPlayer> ctrlUser;
-	private BiConsumer<MusicPlayerButton, PlayerState> updater;
+	private BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> updater;
 
 	private MusicPlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<MusicPlayer> ctrlUser,
-			final BiConsumer<MusicPlayerButton, PlayerState> updater) {
+			final BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser= ctrlUser;
@@ -50,7 +45,7 @@ public enum MusicPlayerStrategy implements Strategy<MusicPlayer>,
 	}
 
 	@Override
-	public void accept(final MusicPlayerButton b, final PlayerState s) {
+	public void update(final StrategicalButton<MusicPlayer> b, final PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

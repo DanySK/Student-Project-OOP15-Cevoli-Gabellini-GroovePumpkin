@@ -153,6 +153,7 @@ public class MusicPlayerTester {
 	
 	
 	
+	@SuppressWarnings("unused")
 	private void testReproduction(MusicPlayer lettore, int pauseTime){
 		double elapsedTime;
 		

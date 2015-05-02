@@ -1,14 +1,17 @@
-package view.viewModel;
+package view.buttons.strategies;
 
 import static model.PlayerState.*;
 import model.PlayerState;
-import view.buttons.PlayerButton;
+import view.buttons.StrategicalButton;
+
 import java.util.function.BiConsumer;
 
-public class StopConsumer implements BiConsumer<PlayerButton, PlayerState> {
+import controller.Player;
+
+public class StopConsumer implements BiConsumer<StrategicalButton<Player>, PlayerState> {
 
 	@Override
-	public void accept(PlayerButton b, PlayerState s) {
+	public void accept(StrategicalButton<Player> b, PlayerState s) {
 		if (s.equals(STOPPED) || s.equals(REMOVED)) {
 			b.setEnabled(false);
 		} else if (s.equals(RUNNING) && !b.isEnabled()) {

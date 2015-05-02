@@ -6,8 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
-
-import controller.Player;
 import controller.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
@@ -26,10 +24,10 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class PersonalJButton extends JButton implements Updatable{
+public class PersonalJButton<C> extends JButton implements Updatable{
 
 	private static final long serialVersionUID = -7937866815197131576L;
-	private Player controller;
+	private C controller;
 	private boolean hasIcon;
 	private boolean hasTitle;
 	
@@ -105,7 +103,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * 
 	 * @return the controller associated with this button
 	 */
-	public Player getController(){
+	public C getController(){
 		return controller;
 	}
 	
@@ -113,7 +111,7 @@ public class PersonalJButton extends JButton implements Updatable{
 	 * 
 	 * @return the controller associated with this button
 	 */
-	public void setController(final Player controller){
+	public void setController(final C controller){
 		this.controller=controller;
 	}
 	

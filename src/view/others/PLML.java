@@ -4,10 +4,7 @@ import static view.config.Utility.DOUBLE_CLICK;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JTable;
-
-import view.buttons.RemoveButton;
 import controller.MusicPlayer;
 
 public class PLML implements MouseListener {
@@ -15,7 +12,7 @@ public class PLML implements MouseListener {
 	//private final RemoveButton remove;
 	private final MusicPlayer controller;
 
-	public PLML(final RemoveButton rb, final MusicPlayer mp) {
+	public PLML(final MusicPlayer mp) {
 		//this.remove= rb;
 		this.controller= mp;
 	}

@@ -4,14 +4,9 @@ import static view.config.Utility.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 import javax.swing.ImageIcon;
-
 import model.PlayerState;
-import view.buttons.PlayerButton;
-import view.viewModel.PlayPauseConsumer;
-import view.viewModel.StopConsumer;
-import view.viewModel.Strategy;
+import view.buttons.StrategicalButton;
 import controller.Player;
 
 /**
@@ -21,7 +16,7 @@ import controller.Player;
  * @author Alessandro
  *
  */
-public enum PlayerStrategy implements Strategy<Player>, BiConsumer<PlayerButton, PlayerState>{
+public enum PlayerStrategy implements ButtonStrategy<Player, StrategicalButton<Player>>{
 
 	PLAY("Play", PLAY_IMG, c -> c.play(), new PlayPauseConsumer()), 
 	PAUSE("Pause", PAUSE_IMG, c -> c.pause(), new PlayPauseConsumer()), 
@@ -30,11 +25,11 @@ public enum PlayerStrategy implements Strategy<Player>, BiConsumer<PlayerButton,
 	private String title;
 	private ImageIcon img;
 	private Consumer<Player> ctrlUser;
-	private BiConsumer<PlayerButton, PlayerState> updater;
+	private BiConsumer<StrategicalButton<Player>, PlayerState> updater;
 
 	private PlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<Player> ctrlUser,
-			final BiConsumer<PlayerButton, PlayerState> updater) {
+			final BiConsumer<StrategicalButton<Player>, PlayerState> updater) {
 		
 		this.title = title;
 		this.img = img;
@@ -60,7 +55,7 @@ public enum PlayerStrategy implements Strategy<Player>, BiConsumer<PlayerButton,
 	}
 	
 	@Override
-	public void accept(final PlayerButton b, final PlayerState s) {
+	public void update(final StrategicalButton<Player> b, final PlayerState s) {
 		updater.accept(b, s);
 	}
 }

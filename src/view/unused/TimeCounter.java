@@ -1,4 +1,4 @@
-package view;
+package view.unused;
 
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JLabel;

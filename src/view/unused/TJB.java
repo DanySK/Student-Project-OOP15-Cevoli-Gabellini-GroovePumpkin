@@ -1,9 +1,9 @@
-package view.buttons;
+package view.unused;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import view.TimeCounter;
+import view.buttons.PersonalJButton;
 
 /**
  * This abstract class rapresent a button that needs to communicate with
@@ -12,7 +12,7 @@ import view.TimeCounter;
  * @author Alessandro
  *
  */
-public abstract class TJB extends PersonalJButton {
+public abstract class TJB<C> extends PersonalJButton<C> {
 
 	private static final long serialVersionUID = 4880819512343834501L;
 	

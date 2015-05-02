@@ -2,24 +2,22 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import static javax.swing.ListSelectionModel.*;
-import static view.buttons.ButtonFactory.*;
-import static view.config.Utility.*;
-
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
-
-import view.buttons.RemoveButton;
+import view.buttons.MusicPlayerButton;
+import view.buttons.strategies.PlaylistStrategy;
 import view.others.PLML;
 import view.tables.PersonalJTable;
 import view.viewModel.PlaylistTableModel;
 import model.PlayerState;
 import controller.MusicPlayer;
 import controller.Observable;
+import static javax.swing.ListSelectionModel.*;
+import static view.buttons.ButtonFactory.*;
+import static view.config.Utility.*;
 
 /**
  * Personalized Panel for the PlayBackPanel class, this class manages the
@@ -41,6 +39,7 @@ public class PlaylistPanel extends PersonalJPanel{
 	 * 
 	 * @param mp
 	 */
+	@SuppressWarnings("unchecked")
 	public PlaylistPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
 		this.setBorder(getADefaultPanelBorder());
@@ -58,8 +57,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 
-		final RemoveButton remove = (RemoveButton) createButton(REMOVE_BUTTON,
-				true, mp);
+		final JButton remove = createButton(REMOVE_BUTTON, true, mp);
 		buttonRow.add(remove);
 
 		this.add(buttonRow, BorderLayout.SOUTH);
@@ -69,13 +67,14 @@ public class PlaylistPanel extends PersonalJPanel{
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								remove.setSelectedIndex(playlist.getSelectedRows());
+								((PlaylistStrategy) ((MusicPlayerButton<MusicPlayer>) remove)
+										.getStrategy()).setSelectedIndexes(playlist.getSelectedRows());
 							}
 						});
 		
 		//this.addKeyListener(this.getPlayAdapter());
 		
-		this.playlist.addMouseListener(new PLML(remove, (MusicPlayer) getController()));
+		this.playlist.addMouseListener(new PLML((MusicPlayer) getController()));
 	}
 
 	/**

@@ -13,7 +13,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class LoadButton extends PersonalJButton {
+public class LoadButton extends PersonalJButton<GrooveBoxPlayer> {
 
 	private static final long serialVersionUID = 3196123775349555103L;
 	private static final String TITLE = "Load";

@@ -9,7 +9,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class LoopButton extends PersonalJButton {
+public class LoopButton extends PersonalJButton<LoopablePlayer> {
 
 	private static final long serialVersionUID = -7087889831741979163L;
 	private static final String TITLE= "Loop";

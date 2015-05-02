@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.event.TableModelEvent;
 
 import view.buttons.PersonalJButton;
 import view.tables.GrooveBox;
@@ -83,11 +84,12 @@ public class GrooveBoxPanel extends PersonalJPanel{
 				createButton(SAVE_BUTTON, true, controller), 
 				createButton(LOAD_BUTTON, true, controller));
 		
-		final PersonalJButton reset= new PersonalJButton(RESET_IMG, "Reset");
+		final PersonalJButton<GrooveBoxPlayer> reset= new PersonalJButton<>(RESET_IMG, "Reset");
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.reset();
+				grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
 			}
 		});
 		buttonPanel.add(reset);
