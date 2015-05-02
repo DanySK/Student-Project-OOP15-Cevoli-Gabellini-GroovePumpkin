@@ -1,26 +1,27 @@
 package view.buttons;
 
 import static view.buttons.strategies.PlayerStrategy.*;
-import controller.Player;
-import view.buttons.strategies.ButtonStrategy;
+import view.buttons.strategies.*;
 
 /**
- * This class implements the functionality of a forwarder or a Rewinder
+ * This class implements the functionality of a 
+ * multifunctional button using the chisen strategy
  * depending on which strategy as been chosen
  * 
  * @author Alessandro
  *
  */
-public class MusicPlayerButton<C extends Player> extends StrategicalButton<C> {
+public class FunctionalButton<C> extends StrategicalButton<C> {
 
 	private static final long serialVersionUID = -5804691980876122814L;
+	
 	/**
 	 * 
 	 * @param controller
 	 * @param showTitle
 	 * @param strategy
 	 */
-	protected MusicPlayerButton(final C controller, final boolean showTitle,
+	protected FunctionalButton(final C controller, final boolean showTitle,
 			final ButtonStrategy<C, StrategicalButton<C>> strategy) {
 		
 		super(strategy.getImage(), controller, strategy, showTitle);

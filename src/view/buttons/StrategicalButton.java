@@ -6,6 +6,8 @@ import model.PlayerState;
 import view.buttons.strategies.ButtonStrategy;
 
 /**
+ * This abstract class implements a button ables to
+ * use strategy to modify its behaviour
  * 
  * @author Alessandro
  *

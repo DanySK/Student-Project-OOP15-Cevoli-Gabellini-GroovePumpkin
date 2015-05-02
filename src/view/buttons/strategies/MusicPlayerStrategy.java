@@ -4,11 +4,22 @@ import static view.config.Utility.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
 import javax.swing.ImageIcon;
+
 import model.PlayerState;
 import view.buttons.StrategicalButton;
+import view.buttons.strategies.consumers.ShuffleConsumer;
 import controller.MusicPlayer;
 
+/**
+ * This strategy class implements the actions for
+ * Rewinding, Forwarding and Shuffling of an object 
+ * that can communicate with a MusicPlayer controller type
+ * 
+ * @author Alessandro
+ *
+ */
 public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, StrategicalButton<MusicPlayer>>{
 	
 	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 

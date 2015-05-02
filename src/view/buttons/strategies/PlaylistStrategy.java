@@ -3,8 +3,6 @@ package view.buttons.strategies;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiConsumer;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -14,10 +12,17 @@ import view.viewModel.MyFileChooser;
 import controller.MusicPlayer;
 import static view.config.Utility.*;
 
+/**
+ * 
+ * 
+ * @author Alessandro
+ *
+ */
 public enum PlaylistStrategy implements
 		ButtonStrategy<MusicPlayer, StrategicalButton<MusicPlayer>> {
-	ADD("Add", ADD_IMG, (c, u) -> c.addSong(u), null), REMOVE("Remove",
-			REMOVE_IMG, null, null);
+	
+	ADD("Add", ADD_IMG, (c, u) -> c.addSong(u), null), 
+	REMOVE("Remove", REMOVE_IMG, null, null);
 
 	private ImageIcon img;
 	private String title;
@@ -26,9 +31,7 @@ public enum PlaylistStrategy implements
 
 	private int[] selectedIndexes = { -1 };
 
-	private PlaylistStrategy(
-			final String title,
-			final ImageIcon img,
+	private PlaylistStrategy(final String title, final ImageIcon img,
 			final BiConsumer<MusicPlayer, URL> ctrlUser,
 			final BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> updater) {
 		this.img = img;
@@ -37,7 +40,7 @@ public enum PlaylistStrategy implements
 		this.updater = updater;
 	}
 
-	private void removeStrategy(final MusicPlayer controller) {
+	private void remove(final MusicPlayer controller) {
 		try {
 			for (final int i : selectedIndexes) {
 				controller.removeSong(i);
@@ -48,15 +51,13 @@ public enum PlaylistStrategy implements
 		}
 	}
 
-	private void addStrategy(final MusicPlayer controller) {
+	private void add(final MusicPlayer controller) {
 		// aggiungi una canzone
 		final MyFileChooser chooser = new MyFileChooser();
 
 		final int val = chooser.showOpenDialog(null);
-		final List<File> f = new ArrayList<>();
 
 		if (val == JFileChooser.APPROVE_OPTION) {
-
 			/*
 			 * NOTE: Now I can add Multiple folders and files, but as now, I
 			 * can't add subfolder! I need to create a recorsive method, but if
@@ -64,25 +65,23 @@ public enum PlaylistStrategy implements
 			 */
 			for (final File i : chooser.getSelectedFiles()) {
 				if (i.isDirectory()) {
-					for (final File file : i.listFiles(chooser
-							.getMyFileFilter())) {
-						f.add(file);
+					for (final File file : i.listFiles(chooser.getMyFileFilter())) {
+						try {
+							ctrlUser.accept(controller,
+									new URL(anURLPathBuilder(file.getAbsolutePath())));
+						} catch ( IllegalArgumentException | MalformedURLException e) {
+							showErrorDialog(null, "Invalid song format ");
+						}
 					}
 				} else {
-					f.add(i);
+					try {
+						ctrlUser.accept(controller,
+								new URL(anURLPathBuilder(i.getAbsolutePath())));
+					} catch ( IllegalArgumentException | MalformedURLException e) {
+						showErrorDialog(null, "Invalid song format ");
+					}
 				}
 			}
-
-			try {
-				for (final File i : f) {
-					ctrlUser.accept(controller,
-							new URL(anURLPathBuilder(i.getAbsolutePath())));
-				}
-			} catch (IllegalArgumentException | MalformedURLException e1) {
-				e1.printStackTrace();
-				showErrorDialog(null, "Invalid song format ");
-			}
-
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			showErrorDialog(null, "An Error has occurred");
 		}
@@ -103,12 +102,17 @@ public enum PlaylistStrategy implements
 	@Override
 	public void doStrategy(MusicPlayer controller) {
 		if (this.equals(ADD)) {
-			this.addStrategy(controller);
+			this.add(controller);
 		} else {
-			this.removeStrategy(controller);
+			this.remove(controller);
 		}
 	}
-
+	
+	/**
+	 * Set which indexes have been selected 
+	 * 
+	 * @param idx
+	 */
 	public void setSelectedIndexes(final int... idx) {
 		this.selectedIndexes = idx;
 	}

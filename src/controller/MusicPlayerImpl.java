@@ -294,6 +294,7 @@ public class MusicPlayerImpl implements MusicPlayer {
 	@Override
 	public void setLoop(boolean value) {
 		model.setLoopMode(value);
+		this.notifyToUpdatable(value ? PlayerState.LOOPED : PlayerState.UNLOOPED);
 	}
 
 	@Override

@@ -4,14 +4,19 @@ import static view.config.Utility.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
 import javax.swing.ImageIcon;
+
 import model.PlayerState;
 import view.buttons.StrategicalButton;
+import view.buttons.strategies.consumers.PlayPauseConsumer;
+import view.buttons.strategies.consumers.StopConsumer;
 import controller.Player;
 
 /**
- * This enum implements various strategies 
- * that could be used by an object
+ * This enum implements Play, Pause and Stop strategies 
+ * that could be used by an object that
+ * can communicate with a Player controller type
  * 
  * @author Alessandro
  *

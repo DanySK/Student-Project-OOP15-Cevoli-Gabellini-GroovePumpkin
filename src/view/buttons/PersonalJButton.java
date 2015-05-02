@@ -11,17 +11,13 @@ import model.PlayerState;
 import static view.config.Utility.*;
 
 /**
- * A personal JButton class that stores all the imagines for the oject of this
- * class and the color of Background and Foreground; It manages also the border
- * of the button
- * 
- * NOTE: 
- * Avrei voluto implementare un pattern creazionale quale Factory o Strategy o Decorator
- * ma a livello di riuso del codice/uso della memoria (decorator) non mi convincevano:
- * l'unico che si presterebbe nel modo migliore sarebbe lo Strategy che se riesco implementerò 
- * anzichè l'ammucchiata di classi.
+ * A personal JButton class with modifed bg ad fg,
+ * few helpful methods and able to communicate with a
+ * given generic controller 
  * 
  * @author Alessandro
+ * 
+ * @param <C> the type of the attachable controller
  *
  */
 public class PersonalJButton<C> extends JButton implements Updatable{

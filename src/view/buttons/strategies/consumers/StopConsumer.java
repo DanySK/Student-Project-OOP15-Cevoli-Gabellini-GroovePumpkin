@@ -1,4 +1,4 @@
-package view.buttons.strategies;
+package view.buttons.strategies.consumers;
 
 import static model.PlayerState.*;
 import model.PlayerState;
@@ -8,6 +8,11 @@ import java.util.function.BiConsumer;
 
 import controller.Player;
 
+/**
+ * 
+ * @author Alessandro
+ *
+ */
 public class StopConsumer implements BiConsumer<StrategicalButton<Player>, PlayerState> {
 
 	@Override

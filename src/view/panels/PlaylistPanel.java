@@ -2,12 +2,13 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
-import view.buttons.MusicPlayerButton;
+import view.buttons.FunctionalButton;
 import view.buttons.strategies.PlaylistStrategy;
 import view.others.PLML;
 import view.tables.PersonalJTable;
@@ -26,7 +27,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends PersonalJPanel{
+public class PlaylistPanel extends PersonalJPanel<MusicPlayer>{
 
 	private static final long serialVersionUID = 5045956389400601388L;
 	private TableModel tableModel;
@@ -54,7 +55,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
 
-		final PersonalJPanel buttonRow = new PersonalJPanel(new FlowLayout());
+		final PersonalJPanel<Object> buttonRow = new PersonalJPanel<>(new FlowLayout());
 		buttonRow.add(createButton(ADD_BUTTON, true, mp));
 
 		final JButton remove = createButton(REMOVE_BUTTON, true, mp);
@@ -67,7 +68,7 @@ public class PlaylistPanel extends PersonalJPanel{
 		this.playlist.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e -> {
 							if (!e.getValueIsAdjusting()) {
-								((PlaylistStrategy) ((MusicPlayerButton<MusicPlayer>) remove)
+								((PlaylistStrategy) ((FunctionalButton<MusicPlayer>) remove)
 										.getStrategy()).setSelectedIndexes(playlist.getSelectedRows());
 							}
 						});

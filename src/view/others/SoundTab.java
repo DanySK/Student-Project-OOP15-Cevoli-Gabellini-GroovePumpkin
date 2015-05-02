@@ -3,6 +3,8 @@ package view.others;
 import java.awt.BorderLayout;
 
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import view.panels.GrooveBoxPanel;
 import view.panels.PlayerPanel;
@@ -28,12 +30,32 @@ public class SoundTab extends JTabbedPane {
 		this.setDoubleBuffered(true);
 		this.setFocusable(false);
 		this.setForeground(DARK_GRAY);
-		
 		final PlayerPanel play= new PlayerPanel(mp);
 		this.add("Play Music", play);
 		
 		final GrooveBoxPanel grooveBox= new GrooveBoxPanel(groove);
 		this.add("Groove Box", grooveBox);	
+		
+		this.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if(((SoundTab) e.getSource()).getSelectedIndex()>=1){
+					try{
+						mp.stop();
+					} catch(Exception ex){
+						
+					}
+				} else {
+					try{
+						groove.stop();
+					} catch(Exception ex){
+						
+					}
+				}
+			}
+		});
+		
 		
 		this.setBackgroundAt(0, WHITE);
 		this.setBackgroundAt(1, WHITE);

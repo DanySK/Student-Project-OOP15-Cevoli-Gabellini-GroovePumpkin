@@ -1,17 +1,14 @@
 package view.buttons;
 
-import javax.swing.JButton;
-
-import view.buttons.strategies.MusicPlayerStrategy;
-import view.buttons.strategies.PlayerStrategy;
-import view.buttons.strategies.PlaylistStrategy;
-import controller.GrooveBoxPlayer;
-import controller.LoopablePlayer;
-import controller.MusicPlayer;
-import controller.Player;
+import static view.buttons.strategies.PlayerStrategy.*;
+import static view.buttons.strategies.PlaylistStrategy.*;
+import static view.buttons.strategies.MusicPlayerStrategy.*;
+import static view.buttons.strategies.LoopStrategy.*;
+import static view.buttons.strategies.GroovePlayerStrategy.*;
+import controller.*;
 
 /**
- * A simple factory class to simply creates functional Button
+ * A simple factory class to simply creates functional Buttons
  * 
  * NOTE:
  * 
@@ -35,8 +32,8 @@ public final class ButtonFactory {
 	public static final int SHUFFLE_BUTTON = 4;
 	public static final int SAVE_BUTTON = 5;
 	public static final int LOAD_BUTTON = 6;
-	public static final int FW_BUTTON= 7;
-	public static final int RW_BUTTON= 8;
+	public static final int FW_BUTTON = 7;
+	public static final int RW_BUTTON = 8;
 	public static final int ADD_BUTTON = 9;
 	public static final int REMOVE_BUTTON = 10;
 
@@ -44,7 +41,10 @@ public final class ButtonFactory {
 	}
 
 	/**
-	 * This method creates the chosen type of button
+	 * This method creates the chosen type of button.
+	 * 
+	 * NOTE: To make this fully generics I should make generics the various
+	 * strategies too. That we'll be done if there'll be time left
 	 * 
 	 * @param type
 	 *            the type of button to create -> choose between the given
@@ -54,36 +54,37 @@ public final class ButtonFactory {
 	 *            border
 	 * @param controller
 	 *            to communicate with
-	 * @return the chosen type of button or a normal button if a wrong value is chosen
+	 * @return the chosen type of button or a normal button if a wrong value is
+	 *         chosen
 	 */
-	public static JButton createButton(final int type, final boolean showTitle,
-			final Player controller) {
+	public static <C extends Player> FunctionalButton<? extends Player> createButton(
+			final int type, final boolean showTitle, final C controller) {
 
 		switch (type) {
 		case 0:
-			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.PLAY);
+			return new FunctionalButton<Player>(controller, showTitle, PLAY);
 		case 1:
-			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.PAUSE);
+			return new FunctionalButton<Player>(controller, showTitle, PAUSE);
 		case 2:
-			return new MusicPlayerButton<Player>((Player) controller, showTitle, PlayerStrategy.STOP);
+			return new FunctionalButton<Player>(controller, showTitle, STOP);
 		case 3:
-			return new LoopButton((LoopablePlayer) controller, showTitle);
+			return new FunctionalButton<LoopablePlayer>((LoopablePlayer) controller, showTitle, LOOP);
 		case 4:
-			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.SHUFFLE);
+			return new FunctionalButton<MusicPlayer>((MusicPlayer) controller, showTitle, SHUFFLE);
 		case 5:
-			return new SaveButton((GrooveBoxPlayer) controller, showTitle);
+			return new FunctionalButton<GrooveBoxPlayer>((GrooveBoxPlayer) controller, showTitle, SAVE);
 		case 6:
-			return new LoadButton((GrooveBoxPlayer) controller, showTitle);
+			return new FunctionalButton<GrooveBoxPlayer>((GrooveBoxPlayer) controller, showTitle, LOAD);
 		case 7:
-			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.FORWARD);
+			return new FunctionalButton<MusicPlayer>((MusicPlayer) controller, showTitle, FORWARD);
 		case 8:
-			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, MusicPlayerStrategy.REWIND);
+			return new FunctionalButton<MusicPlayer>((MusicPlayer) controller, showTitle, REWIND);
 		case 9:
-			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, PlaylistStrategy.ADD);
+			return new FunctionalButton<MusicPlayer>((MusicPlayer) controller, showTitle, ADD);
 		case 10:
-			return new MusicPlayerButton<MusicPlayer>((MusicPlayer) controller, showTitle, PlaylistStrategy.REMOVE);
+			return new FunctionalButton<MusicPlayer>((MusicPlayer) controller, showTitle, REMOVE);
 		default:
-			return new JButton("Hai sbagliato type, pirla.");
+			return null;
 		}
 	}
 }

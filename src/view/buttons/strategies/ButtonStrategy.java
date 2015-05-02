@@ -3,7 +3,15 @@ package view.buttons.strategies;
 import javax.swing.ImageIcon;
 import model.PlayerState;
 
-public interface ButtonStrategy<T, B> extends Strategy<T> {
+/**
+ * An extended Strategy class for buttons
+ * 
+ * @author Alessandro
+ *
+ * @param <C>  
+ * @param <B>
+ */
+public interface ButtonStrategy<C, B> extends Strategy<C> {
 	
 	/**
 	 * Return the image associated with the strategy
@@ -26,5 +34,5 @@ public interface ButtonStrategy<T, B> extends Strategy<T> {
 	 * 		because a wanted to inglobate this here instead of using a biconsumer
 	 * 
 	 */
-	public void update(final B button, final PlayerState status);
+	public void update(final B b, final PlayerState s);
 }

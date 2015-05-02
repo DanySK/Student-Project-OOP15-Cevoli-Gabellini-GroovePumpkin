@@ -16,7 +16,7 @@ import controller.MusicPlayer;
  * @author Alessandro
  *
  */
-public class PlayerPanel extends PersonalJPanel {
+public class PlayerPanel extends PersonalJPanel<MusicPlayer> {
 
 	private static final long serialVersionUID = -1634789109356603711L;
 	private JSplitPane splitter;

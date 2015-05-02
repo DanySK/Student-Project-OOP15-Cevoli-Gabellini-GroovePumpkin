@@ -6,14 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
-
 import view.buttons.PersonalJButton;
 import view.tables.GrooveBox;
 import view.viewModel.GrooveTableModel;
@@ -31,7 +29,7 @@ import static view.config.Utility.*;
  *
  */
 
-public class GrooveBoxPanel extends PersonalJPanel{
+public class GrooveBoxPanel extends PersonalJPanel<GrooveBoxPlayer>{
 
 	private static final long serialVersionUID = 1116768170189928089L;
 	private final Integer[] items = new Integer[] { 40, 60, 80, 100, 120,
@@ -62,7 +60,7 @@ public class GrooveBoxPanel extends PersonalJPanel{
 			}
 		});
 
-		final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5,
+		final PersonalJPanel<Object> westPanel = new PersonalJPanel<>(new BorderLayout(5,
 				5));
 		westPanel.setBorder(getADefaultPanelBorder());
 
@@ -70,19 +68,19 @@ public class GrooveBoxPanel extends PersonalJPanel{
 		timeDialerLabel.setBackground(WHITE);
 		timeDialerLabel.setForeground(DARK_GRAY);
 
-		final PersonalJPanel timePanel = new PersonalJPanel(new FlowLayout(
+		final PersonalJPanel<Object> timePanel = new PersonalJPanel<>(new FlowLayout(
 				FlowLayout.CENTER, 5, 10));
 		timePanel.addComponents(timeDialerLabel, timeDialerOptions);
 		westPanel.add(timePanel, BorderLayout.NORTH);
 
-		final PersonalJPanel buttonPanel = new PersonalJPanel();
+		final PersonalJPanel<Object> buttonPanel = new PersonalJPanel<>();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
 		addObservers((Updatable) createButton(PLAY_BUTTON, true, getController()));
 		buttonPanel.addComponents((JButton) getObservers().get(getObservers().size()-1), 
-				createButton(LOOP_BUTTON, true, controller), 
-				createButton(SAVE_BUTTON, true, controller), 
-				createButton(LOAD_BUTTON, true, controller));
+				 createButton(LOOP_BUTTON, true, controller), 
+				 createButton(SAVE_BUTTON, true, controller), 
+				 createButton(LOAD_BUTTON, true, controller));
 		
 		final PersonalJButton<GrooveBoxPlayer> reset= new PersonalJButton<>(RESET_IMG, "Reset");
 		reset.addActionListener(new ActionListener() {

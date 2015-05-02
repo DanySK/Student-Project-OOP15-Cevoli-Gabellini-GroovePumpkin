@@ -7,12 +7,12 @@ package view.buttons.strategies;
  * @author Alessandro
  *
  */
-public interface Strategy<T> {
+public interface Strategy<C> {
 	
 	/**
 	 * Apply the desired strategy to the given object
 	 * 
 	 * @param t
 	 */
-	public void doStrategy(final T t);
+	public void doStrategy(final C c);
 }

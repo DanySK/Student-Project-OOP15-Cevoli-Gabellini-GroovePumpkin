@@ -5,11 +5,8 @@ import java.awt.LayoutManager;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JPanel;
-
 import model.PlayerState;
-import controller.Player;
 import controller.Updatable;
 import static view.config.Utility.*;
 
@@ -21,11 +18,11 @@ import static view.config.Utility.*;
  *
  */
 
-public class PersonalJPanel extends JPanel implements Updatable{
+public class PersonalJPanel<C> extends JPanel implements Updatable{
 
 	private static final long serialVersionUID = -7098020132793828090L;
 	
-	private Player controller;
+	private C controller;
 	private final List<Updatable> observers= new ArrayList<>();
 	
 	/**
@@ -99,7 +96,7 @@ public class PersonalJPanel extends JPanel implements Updatable{
 	 * 
 	 * @return
 	 */
-	public Player getController(){
+	public C getController(){
 		return this.controller;
 	}
 	
@@ -109,7 +106,7 @@ public class PersonalJPanel extends JPanel implements Updatable{
 	 * 
 	 * @param controller
 	 */
-	public void setController(final Player controller){
+	public void setController(final C controller){
 		this.controller=controller;
 	}
 

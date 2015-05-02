@@ -10,7 +10,8 @@ public class MyFileChooser extends JFileChooser {
 	
 	public MyFileChooser() {
 		super(System.getProperty("user.home"));
-		//This way only supported files will be showed
+		
+		//This way only supported files will be shown
 		this.removeChoosableFileFilter(this.getFileFilter());
 		this.setFileFilter(filter);
 		this.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

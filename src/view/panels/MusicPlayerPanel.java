@@ -2,10 +2,8 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import model.PlayerState;
 import controller.MusicPlayer;
 import controller.Updatable;
@@ -14,13 +12,13 @@ import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
 
 /**
- * Personalized JPanel for the PlayBackPanel, this class "handles" the playing
- * and pausing of a choosen song.
+ * Personalized JPanel for the PlayerPanel, this class "handles" the playing
+ * and pausing of a chosen song.
  * 
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends PersonalJPanel {
+public class MusicPlayerPanel extends PersonalJPanel<MusicPlayer> {
 
 	private static final long serialVersionUID = 4164776505153007930L;
 
@@ -42,42 +40,33 @@ public class MusicPlayerPanel extends PersonalJPanel {
 		songName.setBackground(WHITE);
 		songName.setForeground(DARK_GREEN);
 
-		final PersonalJPanel north = new PersonalJPanel(new BorderLayout());
-		populateNorthPanel(north);
-		this.add(north, BorderLayout.NORTH);
-
-		final PersonalJPanel gainPanel = new PersonalJPanel(new BorderLayout(
-				10, 5));
-
-		this.add(gainPanel, BorderLayout.SOUTH);
-
-		// this.addKeyListener(super.getPlayAdapter());
-	}
-
-	private void populateNorthPanel(final PersonalJPanel panel) {
-
-		final PersonalJPanel north = new PersonalJPanel(new FlowLayout(1, 20,
+		final PersonalJPanel<Object> north = new PersonalJPanel<>(new BorderLayout());
+		final PersonalJPanel<Object> labelsPane = new PersonalJPanel<>(new FlowLayout(1, 20,
 				10));
-		north.add(songName);
-		north.add(songTime);
-		panel.add(north, BorderLayout.NORTH);
+		labelsPane.add(songName);
+		labelsPane.add(songTime);
+		north.add(labelsPane, BorderLayout.NORTH);
 
-		final PersonalJPanel center = new PersonalJPanel(new FlowLayout(1, 10,
+		final PersonalJPanel<Object> center = new PersonalJPanel<>(new FlowLayout(1, 10,
 				10));
 		final JButton rw = createButton(RW_BUTTON, false, getController());
 		final JButton play = createButton(PLAY_BUTTON, false, getController());
 		final JButton stop = createButton(STOP_BUTTON, false, getController());
 		final JButton fw = createButton(FW_BUTTON, false, getController());
-		center.addComponents(rw, play, stop,  fw);
-
-		panel.add(center, BorderLayout.CENTER);
-
-		final PersonalJPanel south = new PersonalJPanel(
-				new FlowLayout(1, -5, 0));
 		final JButton shfl= createButton(SHUFFLE_BUTTON, false, getController());
-		south.addComponents(createButton(LOOP_BUTTON, false, getController()), shfl);
-		panel.add(south, BorderLayout.SOUTH);
-		this.addObservers((Updatable) play, (Updatable) stop, (Updatable)shfl);
+		final JButton loop= createButton(LOOP_BUTTON, false, getController());
+		
+		center.addComponents(rw, play, stop,  fw);
+		north.add(center, BorderLayout.CENTER);
+
+		final PersonalJPanel<Object> south = new PersonalJPanel<>(new FlowLayout(1, -5, 0));
+		south.addComponents(loop, shfl);
+		north.add(south, BorderLayout.SOUTH);
+		
+		this.addObservers((Updatable) play, (Updatable) stop, (Updatable)shfl, (Updatable) loop);
+		this.add(north, BorderLayout.NORTH);
+
+		// this.addKeyListener(super.getPlayAdapter());
 	}
 
 	@Override
