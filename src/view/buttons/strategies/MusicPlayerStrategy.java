@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.StrategicalButton;
+import view.buttons.AbstractStrategicalButton;
 import view.buttons.strategies.consumers.ShuffleConsumer;
 import controller.MusicPlayer;
 
@@ -20,21 +20,21 @@ import controller.MusicPlayer;
  * @author Alessandro
  *
  */
-public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, StrategicalButton<MusicPlayer>>{
+public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, AbstractStrategicalButton<MusicPlayer>>{
 	
 	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 
-	REWIND("Rewind", RW_IMG, c -> c.goToPreviousSong(), null),
+	BACKWARD("Rewind", RW_IMG, c -> c.goToPreviousSong(), null),
 	SHUFFLE("Shuffle", UNSHUFFLED_IMG, c -> c.setShuffleMode(true), new ShuffleConsumer()),
 	UNSHUFFLE("Unshuffle", SHUFFLED_IMG, c -> c.setShuffleMode(false), new ShuffleConsumer());
 	
 	private String title;
 	private ImageIcon img;
 	private Consumer<MusicPlayer> ctrlUser;
-	private BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> updater;
+	private BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater;
 
 	private MusicPlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<MusicPlayer> ctrlUser,
-			final BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> updater) {
+			final BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser= ctrlUser;
@@ -51,12 +51,11 @@ public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, Strategic
 
 	@Override
 	public void doStrategy(final MusicPlayer t) {
-		//System.out.println(this);
 		this.ctrlUser.accept(t);
 	}
 
 	@Override
-	public void update(final StrategicalButton<MusicPlayer> b, final PlayerState s) {
+	public void update(final AbstractStrategicalButton<MusicPlayer> b, final PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

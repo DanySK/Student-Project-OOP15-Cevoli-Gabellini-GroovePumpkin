@@ -18,14 +18,14 @@ public interface ButtonStrategy<C, B> extends Strategy<C> {
 	 * 
 	 * @return
 	 */
-	public ImageIcon getImage();
+	ImageIcon getImage();
 	
 	/**
 	 * Return the title associated with this strategy
 	 * 
 	 * @return
 	 */
-	public String getTitle();
+	String getTitle();
 	
 	/**
 	 * Update the status of the object
@@ -34,5 +34,5 @@ public interface ButtonStrategy<C, B> extends Strategy<C> {
 	 * 		because a wanted to inglobate this here instead of using a biconsumer
 	 * 
 	 */
-	public void update(final B b, final PlayerState s);
+	void update(final B b, final PlayerState s);
 }

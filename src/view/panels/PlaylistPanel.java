@@ -2,15 +2,14 @@ package view.panels;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
-import javax.swing.JButton;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 import view.buttons.FunctionalButton;
 import view.buttons.strategies.PlaylistStrategy;
-import view.others.PLML;
 import view.tables.PersonalJTable;
 import view.viewModel.PlaylistTableModel;
 import model.PlayerState;
@@ -27,7 +26,7 @@ import static view.config.Utility.*;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends PersonalJPanel<MusicPlayer>{
+public class PlaylistPanel extends PersonalJPanel<MusicPlayer> {
 
 	private static final long serialVersionUID = 5045956389400601388L;
 	private TableModel tableModel;
@@ -40,7 +39,6 @@ public class PlaylistPanel extends PersonalJPanel<MusicPlayer>{
 	 * 
 	 * @param mp
 	 */
-	@SuppressWarnings("unchecked")
 	public PlaylistPanel(final MusicPlayer mp) {
 		super(new BorderLayout());
 		this.setBorder(getADefaultPanelBorder());
@@ -55,27 +53,64 @@ public class PlaylistPanel extends PersonalJPanel<MusicPlayer>{
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
 
-		final PersonalJPanel<Object> buttonRow = new PersonalJPanel<>(new FlowLayout());
-		buttonRow.add(createButton(ADD_BUTTON, true, mp));
+		// final ButtonFactory<MusicPlayer> f= new ButtonFactory<>();
 
-		final JButton remove = createButton(REMOVE_BUTTON, true, mp);
+		final PersonalJPanel<Object> buttonRow = new PersonalJPanel<>(
+				new FlowLayout());
+
+		buttonRow.add(createButton(ADD_BUTTON, mp, true));
+
+		final FunctionalButton<MusicPlayer> remove = createButton(
+				REMOVE_BUTTON, mp, true);
 		buttonRow.add(remove);
 
 		this.add(buttonRow, BorderLayout.SOUTH);
 		this.add(jsp, BorderLayout.CENTER);
-		
-		
-		this.playlist.getColumnModel().getSelectionModel()
-				.addListSelectionListener(e -> {
-							if (!e.getValueIsAdjusting()) {
-								((PlaylistStrategy) ((FunctionalButton<MusicPlayer>) remove)
-										.getStrategy()).setSelectedIndexes(playlist.getSelectedRows());
-							}
-						});
-		
-		//this.addKeyListener(this.getPlayAdapter());
-		
-		this.playlist.addMouseListener(new PLML((MusicPlayer) getController()));
+
+		/*
+		 * this.playlist.getColumnModel().getSelectionModel()
+		 * .addListSelectionListener(e -> { if (!e.getValueIsAdjusting()) {
+		 * ((PlaylistStrategy) remove.getStrategy())
+		 * .setSelectedIndexes(playlist .getSelectedRows()); } });
+		 */
+		// this.addKeyListener(this.getPlayAdapter());
+
+		this.playlist.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mousePressed(final MouseEvent e) {
+				((PlaylistStrategy) remove.getStrategy())
+						.setSelectedIndexes(((JTable) e.getSource())
+								.getSelectedRows());
+			}
+
+			@Override
+			public void mouseExited(final MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(final MouseEvent e) {
+			}
+
+			@Override
+			public void mouseClicked(final MouseEvent e) {
+				if (e.getClickCount() == DOUBLE_CLICK) {
+					try {
+						getController().stop();
+					} catch (Exception ex) {
+						// Do Nothing
+					}
+					getController().goToSong(((JTable) e.getSource())
+							.rowAtPoint(e.getPoint()));
+					getController().play();
+				}
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+			}
+		});
 	}
 
 	/**
@@ -112,12 +147,9 @@ public class PlaylistPanel extends PersonalJPanel<MusicPlayer>{
 	 */
 	public void setPlaylistModel(final TableModel model) {
 		this.tableModel = model;
-		this.setPlaylistTable(new PersonalJTable(model,
-				SINGLE_SELECTION));
+		this.setPlaylistTable(new PersonalJTable(model, SINGLE_SELECTION));
 	}
 
-	// Called by the Controller when a song is added or removed from the
-	// playlist
 	@Override
 	public void updateStatus(final PlayerState status) {
 		// ricrea la nuova tabella

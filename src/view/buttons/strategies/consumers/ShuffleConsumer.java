@@ -6,7 +6,7 @@ import controller.MusicPlayer;
 import static model.PlayerState.*;
 import static view.buttons.strategies.MusicPlayerStrategy.*;
 import model.PlayerState;
-import view.buttons.StrategicalButton;
+import view.buttons.AbstractStrategicalButton;
 
 /**
  * 
@@ -14,10 +14,10 @@ import view.buttons.StrategicalButton;
  *
  */
 public class ShuffleConsumer implements
-		BiConsumer<StrategicalButton<MusicPlayer>, PlayerState> {
+		BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> {
 
 	@Override
-	public void accept(StrategicalButton<MusicPlayer> b, PlayerState s) {
+	public void accept(AbstractStrategicalButton<MusicPlayer> b, PlayerState s) {
 		if (s.equals(SHUFFLED) || s.equals(UNSHUFFLED)) {
 			b.setStrategy(b.getController().isShuffleModeActive() ? 
 					UNSHUFFLE : SHUFFLE);

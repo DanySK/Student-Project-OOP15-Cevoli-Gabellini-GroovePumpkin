@@ -49,12 +49,12 @@ public class MusicPlayerPanel extends PersonalJPanel<MusicPlayer> {
 
 		final PersonalJPanel<Object> center = new PersonalJPanel<>(new FlowLayout(1, 10,
 				10));
-		final JButton rw = createButton(RW_BUTTON, false, getController());
-		final JButton play = createButton(PLAY_BUTTON, false, getController());
-		final JButton stop = createButton(STOP_BUTTON, false, getController());
-		final JButton fw = createButton(FW_BUTTON, false, getController());
-		final JButton shfl= createButton(SHUFFLE_BUTTON, false, getController());
-		final JButton loop= createButton(LOOP_BUTTON, false, getController());
+		final JButton rw = createButton(RW_BUTTON, getController(), false);
+		final JButton play = createButton(PLAY_BUTTON, getController(), false);
+		final JButton stop = createButton(STOP_BUTTON, getController(), false);
+		final JButton fw = createButton(FW_BUTTON, getController(), false);
+		final JButton shfl= createButton(SHUFFLE_BUTTON, getController(), false);
+		final JButton loop= createButton(LOOP_BUTTON, getController(), false);
 		
 		center.addComponents(rw, play, stop,  fw);
 		north.add(center, BorderLayout.CENTER);

@@ -76,11 +76,11 @@ public class GrooveBoxPanel extends PersonalJPanel<GrooveBoxPlayer>{
 		final PersonalJPanel<Object> buttonPanel = new PersonalJPanel<>();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 		
-		addObservers((Updatable) createButton(PLAY_BUTTON, true, getController()));
+		addObservers((Updatable) createButton(PLAY_BUTTON, getController(), true));
 		buttonPanel.addComponents((JButton) getObservers().get(getObservers().size()-1), 
-				 createButton(LOOP_BUTTON, true, controller), 
-				 createButton(SAVE_BUTTON, true, controller), 
-				 createButton(LOAD_BUTTON, true, controller));
+				 createButton(LOOP_BUTTON, getController(), true), 
+				 createButton(SAVE_BUTTON, getController(), true), 
+				 createButton(LOAD_BUTTON, getController(), true));
 		
 		final PersonalJButton<GrooveBoxPlayer> reset= new PersonalJButton<>(RESET_IMG, "Reset");
 		reset.addActionListener(new ActionListener() {

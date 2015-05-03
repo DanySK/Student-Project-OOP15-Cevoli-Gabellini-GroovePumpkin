@@ -14,5 +14,5 @@ public interface Strategy<C> {
 	 * 
 	 * @param t
 	 */
-	public void doStrategy(final C c);
+	void doStrategy(final C c);
 }

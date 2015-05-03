@@ -77,7 +77,6 @@ public final class TimeCounter extends Thread {
 			try {
 				this.wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{

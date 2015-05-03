@@ -1,6 +1,7 @@
 package view.buttons;
 
 import static view.buttons.strategies.PlayerStrategy.*;
+import controller.Player;
 import view.buttons.strategies.*;
 
 /**
@@ -11,7 +12,7 @@ import view.buttons.strategies.*;
  * @author Alessandro
  *
  */
-public class FunctionalButton<C> extends StrategicalButton<C> {
+public class FunctionalButton<C extends Player> extends AbstractStrategicalButton<C> {
 
 	private static final long serialVersionUID = -5804691980876122814L;
 	
@@ -21,8 +22,8 @@ public class FunctionalButton<C> extends StrategicalButton<C> {
 	 * @param showTitle
 	 * @param strategy
 	 */
-	protected FunctionalButton(final C controller, final boolean showTitle,
-			final ButtonStrategy<C, StrategicalButton<C>> strategy) {
+	public FunctionalButton(final C controller, final boolean showTitle,
+			final ButtonStrategy<C, AbstractStrategicalButton<C>> strategy) {
 		
 		super(strategy.getImage(), controller, strategy, showTitle);
 		

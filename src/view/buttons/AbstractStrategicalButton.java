@@ -13,17 +13,17 @@ import view.buttons.strategies.ButtonStrategy;
  *
  * @param <C>
  */
-public abstract class StrategicalButton<C> extends PersonalJButton<C> {
+public abstract class AbstractStrategicalButton<C> extends PersonalJButton<C> {
 
 	private static final long serialVersionUID = 5596342092610796464L;
 
-	private ButtonStrategy<C, StrategicalButton<C>> strategy;
+	private ButtonStrategy<C, AbstractStrategicalButton<C>> strategy;
 
-	protected StrategicalButton(final ImageIcon image, C controller,
-			ButtonStrategy<C, StrategicalButton<C>> strategy,
-			boolean showTitle) {
-		super(image);
+	protected AbstractStrategicalButton(final ImageIcon image,final C controller,
+			final ButtonStrategy<C, AbstractStrategicalButton<C>> strategy,
+			final boolean showTitle) {
 		
+		super(image);
 		super.setController(controller);
 		this.setStrategy(strategy);
 		this.doShow(showTitle, strategy.getTitle());
@@ -38,7 +38,7 @@ public abstract class StrategicalButton<C> extends PersonalJButton<C> {
 	 * 
 	 * @return The strategy implemented by this Object
 	 */
-	public ButtonStrategy<C, StrategicalButton<C>> getStrategy() {
+	public ButtonStrategy<C, AbstractStrategicalButton<C>> getStrategy() {
 		return this.strategy;
 	}
 
@@ -47,7 +47,7 @@ public abstract class StrategicalButton<C> extends PersonalJButton<C> {
 	 * 
 	 * @param strategy
 	 */
-	public void setStrategy(final ButtonStrategy<C, StrategicalButton<C>> strategy) {
+	public void setStrategy(final ButtonStrategy<C, AbstractStrategicalButton<C>> strategy) {
 		this.strategy = strategy;
 	}
 	

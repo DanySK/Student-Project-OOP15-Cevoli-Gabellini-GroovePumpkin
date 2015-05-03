@@ -3,7 +3,7 @@ package view.buttons.strategies.consumers;
 import java.util.function.BiConsumer;
 
 import model.PlayerState;
-import view.buttons.StrategicalButton;
+import view.buttons.AbstractStrategicalButton;
 import controller.LoopablePlayer;
 import static view.buttons.strategies.LoopStrategy.*;
 import static model.PlayerState.*;
@@ -13,10 +13,10 @@ import static model.PlayerState.*;
  * @author Alessandro
  *
  */
-public class LoopConsumer implements BiConsumer<StrategicalButton<LoopablePlayer>, PlayerState> {
+public class LoopConsumer implements BiConsumer<AbstractStrategicalButton<LoopablePlayer>, PlayerState> {
 
 	@Override
-	public void accept(StrategicalButton<LoopablePlayer> b, PlayerState s) {
+	public void accept(AbstractStrategicalButton<LoopablePlayer> b, PlayerState s) {
 		if(s.equals(LOOPED) || s.equals(UNLOOPED)){
 			b.setStrategy(b.getController().isLoopModeActive() ? 
 					UNLOOP : LOOP);

@@ -9,7 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import model.PlayerState;
-import view.buttons.StrategicalButton;
+import view.buttons.AbstractStrategicalButton;
 import controller.GrooveBoxPlayer;
 import static view.config.Utility.*;
 
@@ -21,7 +21,7 @@ import static view.config.Utility.*;
  *
  */
 public enum GroovePlayerStrategy implements
-		ButtonStrategy<GrooveBoxPlayer, StrategicalButton<GrooveBoxPlayer>> {
+		ButtonStrategy<GrooveBoxPlayer, AbstractStrategicalButton<GrooveBoxPlayer>> {
 	SAVE("Save", SAVE_IMG, null, null), 
 	LOAD("Load", LOAD_IMG, null, null);
 
@@ -30,13 +30,13 @@ public enum GroovePlayerStrategy implements
 	
 	@SuppressWarnings("unused")
 	private Consumer<GrooveBoxPlayer> ctrlUser;
-	private BiConsumer<StrategicalButton<GrooveBoxPlayer>, PlayerState> updater;
+	private BiConsumer<AbstractStrategicalButton<GrooveBoxPlayer>, PlayerState> updater;
 
 	private GroovePlayerStrategy(
 			final String title,
 			final ImageIcon img,
 			final Consumer<GrooveBoxPlayer> ctrlUser,
-			final BiConsumer<StrategicalButton<GrooveBoxPlayer>, PlayerState> updater) {
+			final BiConsumer<AbstractStrategicalButton<GrooveBoxPlayer>, PlayerState> updater) {
 		this.img = img;
 		this.title = title;
 		this.ctrlUser = ctrlUser;
@@ -101,7 +101,7 @@ public enum GroovePlayerStrategy implements
 	}
 
 	@Override
-	public void update(StrategicalButton<GrooveBoxPlayer> button,
+	public void update(AbstractStrategicalButton<GrooveBoxPlayer> button,
 			PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);

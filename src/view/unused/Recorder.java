@@ -5,10 +5,12 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+
 import controller.Updatable;
 import static view.buttons.ButtonFactory.*;
 import view.panels.PersonalJPanel;
@@ -19,6 +21,7 @@ import model.PlayerState;
  * @author Alessandro
  *
  */
+@SuppressWarnings("unused")
 public class Recorder extends JFrame implements Updatable{
 
 	private static final long serialVersionUID = -4303337519550483522L;
@@ -36,16 +39,16 @@ public class Recorder extends JFrame implements Updatable{
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		final PersonalJPanel<Object> mainPanel = new PersonalJPanel<>(new FlowLayout());
-		final JButton rps = createButton(PAUSE_BUTTON, true, null);
-		rps.setEnabled(false);
+		//final JButton rps = createButton(PAUSE_BUTTON, true, null);
+		//rps.setEnabled(false);
 		
 		//mainPanel.add(ButtonFactory.createButton(ButtonFactory.REC_BUTTON, true, rps));
-		mainPanel.add(rps);
+		//mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 
 		final PersonalJPanel<Object> southPanel = new PersonalJPanel<>(new FlowLayout());
 	
-		southPanel.add(createButton(SAVE_BUTTON, true, null));
+		//southPanel.add(createButton(SAVE_BUTTON, true, null));
 
 		this.add(southPanel, BorderLayout.SOUTH);
 		this.add(mainPanel, BorderLayout.CENTER);
