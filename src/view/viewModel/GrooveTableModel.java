@@ -1,13 +1,10 @@
 package view.viewModel;
 
-import static view.config.Utility.*;
-
 import java.awt.Color;
-
 import javax.swing.table.AbstractTableModel;
-
 import model.DefaultValues;
 import controller.GrooveBoxPlayer;
+import static view.config.Configuration.*;
 
 /**
  * This class is a specialized Table Model for the groove box
@@ -78,7 +75,9 @@ public class GrooveTableModel extends AbstractTableModel {
 	
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
-		controller.changeCellState(rowIndex, columnIndex-1);
+		if(columnIndex!= 0){
+			controller.changeCellState(rowIndex, columnIndex-1);
+		}
 	}
 	
 	/**

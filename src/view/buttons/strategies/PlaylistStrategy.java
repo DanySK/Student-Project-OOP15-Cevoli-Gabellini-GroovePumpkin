@@ -4,13 +4,17 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.BiConsumer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+
 import model.PlayerState;
-import view.buttons.AbstractStrategicalButton;
+import view.buttons.AbsStratBtn;
+import view.interfaces.BtnStrategy;
 import view.viewModel.MyFileChooser;
 import controller.MusicPlayer;
 import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * 
@@ -19,7 +23,7 @@ import static view.config.Utility.*;
  *
  */
 public enum PlaylistStrategy implements
-		ButtonStrategy<MusicPlayer, AbstractStrategicalButton<MusicPlayer>> {
+		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> {
 	
 	ADD("Add", ADD_IMG, (c, u) -> c.addSong(u), null), 
 	REMOVE("Remove", REMOVE_IMG, null, null);
@@ -27,13 +31,13 @@ public enum PlaylistStrategy implements
 	private ImageIcon img;
 	private String title;
 	private BiConsumer<MusicPlayer, URL> ctrlUser;
-	private BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater;
+	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
 
 	private int[] selectedIndexes = { -1 };
 
 	private PlaylistStrategy(final String title, final ImageIcon img,
 			final BiConsumer<MusicPlayer, URL> ctrlUser,
-			final BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater) {
+			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.img = img;
 		this.title = title;
 		this.ctrlUser = ctrlUser;
@@ -118,7 +122,7 @@ public enum PlaylistStrategy implements
 	}
 
 	@Override
-	public void update(AbstractStrategicalButton<MusicPlayer> button, PlayerState status) {
+	public void updateUser(AbsStratBtn<MusicPlayer> button, PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);
 		}

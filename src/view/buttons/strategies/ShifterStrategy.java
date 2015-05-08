@@ -1,16 +1,15 @@
 package view.buttons.strategies;
 
-import static view.config.Utility.*;
-
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.AbstractStrategicalButton;
-import view.buttons.strategies.consumers.ShuffleConsumer;
+import view.buttons.AbsStratBtn;
+import view.interfaces.BtnStrategy;
 import controller.MusicPlayer;
+import static view.config.Configuration.*;
 
 /**
  * This strategy class implements the actions for
@@ -20,21 +19,20 @@ import controller.MusicPlayer;
  * @author Alessandro
  *
  */
-public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, AbstractStrategicalButton<MusicPlayer>>{
+public enum ShifterStrategy implements 
+		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState>{
 	
 	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 
-	BACKWARD("Rewind", RW_IMG, c -> c.goToPreviousSong(), null),
-	SHUFFLE("Shuffle", UNSHUFFLED_IMG, c -> c.setShuffleMode(true), new ShuffleConsumer()),
-	UNSHUFFLE("Unshuffle", SHUFFLED_IMG, c -> c.setShuffleMode(false), new ShuffleConsumer());
+	BACKWARD("Rewind", RW_IMG, c -> c.goToPreviousSong(), null);
 	
 	private String title;
 	private ImageIcon img;
 	private Consumer<MusicPlayer> ctrlUser;
-	private BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater;
+	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
 
-	private MusicPlayerStrategy(final String title, final ImageIcon img,
+	private ShifterStrategy(final String title, final ImageIcon img,
 			final Consumer<MusicPlayer> ctrlUser,
-			final BiConsumer<AbstractStrategicalButton<MusicPlayer>, PlayerState> updater) {
+			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser= ctrlUser;
@@ -55,7 +53,7 @@ public enum MusicPlayerStrategy implements ButtonStrategy<MusicPlayer, AbstractS
 	}
 
 	@Override
-	public void update(final AbstractStrategicalButton<MusicPlayer> b, final PlayerState s) {
+	public void updateUser(final AbsStratBtn<MusicPlayer> b, final PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

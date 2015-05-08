@@ -46,7 +46,7 @@ public class SoundFrame extends JFrame {
 		this.setTitle("Groove&Pumpkins");
 		this.setLayout(new BorderLayout());
 
-		final PersonalJPanel<Object> mainPanel = new PersonalJPanel<>(new BorderLayout());
+		final PersonalJPanel mainPanel = new PersonalJPanel(new BorderLayout());
 		tabbedPane = new SoundTab(mp, groove);
 		menuBar = new SoundMenu();
 		mainPanel.add(menuBar, BorderLayout.NORTH);

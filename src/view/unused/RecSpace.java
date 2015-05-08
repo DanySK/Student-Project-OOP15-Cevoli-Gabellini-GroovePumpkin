@@ -3,7 +3,7 @@ package view.unused;
 import view.buttons.PersonalJButton;
 import controller.Updatable;
 import model.PlayerState;
-import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * 

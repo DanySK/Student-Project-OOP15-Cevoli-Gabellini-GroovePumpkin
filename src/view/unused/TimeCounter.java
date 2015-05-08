@@ -1,7 +1,10 @@
 package view.unused;
 
 import java.lang.reflect.InvocationTargetException;
+
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
 /**
@@ -10,31 +13,33 @@ import javax.swing.SwingUtilities;
  * @author Alessandro
  *
  */
-public final class TimeCounter extends Thread {
+@SuppressWarnings("unused")
+public class TimeCounter extends Thread {
 
-	private static TimeCounter SINGLETON= new TimeCounter();
-	
 	private boolean stop;
-	private boolean pause;
+	private boolean paused;
 	private int sec;
+	private int dur;
+
 	private JLabel timeLabel;
+	//private JProgressBar timeBar;
 
-	private boolean init;
-
-	private TimeCounter() {
+	public TimeCounter(final JLabel label, final int dur) {
+		this.timeLabel = label;
+		this.dur = dur;
 	}
 
 	private String digitalize() {
 
 		String s = "";
 
-		if ((sec % 3600) < 10) {
+		if ((sec / 3600) < 10) {
 			s = String.join("", s, "0", String.valueOf(sec / 3600));
 		} else {
 			s = String.join("", s, String.valueOf(sec / 3600));
 		}
 
-		if ((sec % 60) < 10) {
+		if ((sec / 60) < 10) {
 			s = String.join("", s, ":", "0", String.valueOf(sec / 60));
 		} else {
 			s = String.join("", s, ":", String.valueOf(sec / 60));
@@ -49,47 +54,31 @@ public final class TimeCounter extends Thread {
 		return s;
 
 	}
-	
-	public static TimeCounter getSINGLETON(){
-		return SINGLETON;
+
+	public boolean isPaused() {
+		return paused;
 	}
-	
-	public static void resetSINGLETON(){
-		SINGLETON= new TimeCounter();
-	}
-	
-	public void attachLabel(final JLabel label){
-		this.timeLabel = label;
-		this.init=true;
-	}
-	
-	public boolean isInit(){
-		return this.init;
-	}
-	
-	public boolean isPaused(){
-		return pause;
-	}
-	
+
 	public void pause(final boolean b) {
-		pause = b;
-		if(pause){
+		paused = b;
+		if (paused) {
 			try {
 				this.wait();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
-		}else{
-			this.notify();
+		} else {
+			this.notifyAll();
 		}
 	}
-	
+
 	public void stopTime() {
-		stop=true;
+		stop = true;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				TimeCounter.this.timeLabel.setText("00:00:00");
+				timeLabel.setText("00:00:00");
+				//timeBar.setValue(0);
 			}
 		});
 		this.interrupt();
@@ -98,24 +87,33 @@ public final class TimeCounter extends Thread {
 	@Override
 	public void run() {
 		while (!this.stop) {
-				try {
-					SwingUtilities.invokeAndWait(new Runnable() {
-						@Override
-						public void run() {
-							timeLabel.setText(digitalize());
-						}
-					});
-				} catch (InvocationTargetException | InterruptedException e) {
-					//e.printStackTrace();
-				}
+//			try {
+//				paused=true;
+//				this.wait();
+//			} catch (InterruptedException e1) {
+//				// TODO Auto-generated catch block
+//				//e1.printStackTrace();
+//			}
+			try {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						timeLabel.setText(digitalize());
+						//timeBar.setValue(sec*dur/timeBar.getMaximum());
+						timeLabel.repaint();
+					}
+				});
+			} catch (InvocationTargetException | InterruptedException e) {
+				e.printStackTrace();
+			}
 
-				this.sec++;
+			this.sec++;
 
-				try {
-					Thread.sleep(1000l);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			try {
+				Thread.sleep(1000l);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

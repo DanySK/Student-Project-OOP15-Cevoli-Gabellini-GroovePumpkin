@@ -1,4 +1,4 @@
-package view.buttons.strategies;
+package view.interfaces;
 
 /**
  * That a functional interface which allows to apply 

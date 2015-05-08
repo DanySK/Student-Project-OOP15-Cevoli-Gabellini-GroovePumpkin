@@ -8,10 +8,12 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.AbstractStrategicalButton;
+import controller.Player;
+import view.buttons.AbsStratBtn;
 import view.buttons.strategies.consumers.PlayPauseConsumer;
 import view.buttons.strategies.consumers.StopConsumer;
-import controller.Player;
+import view.interfaces.BtnStrategy;
+import static view.config.Configuration.*;
 
 /**
  * This enum implements Play, Pause and Stop strategies 
@@ -21,7 +23,8 @@ import controller.Player;
  * @author Alessandro
  *
  */
-public enum PlayerStrategy implements ButtonStrategy<Player, AbstractStrategicalButton<Player>>{
+public enum PlayerStrategy implements 
+		BtnStrategy<Player, AbsStratBtn<Player>, PlayerState>{
 
 	PLAY("Play", PLAY_IMG, c -> c.play(), new PlayPauseConsumer()), 
 	PAUSE("Pause", PAUSE_IMG, c -> c.pause(), new PlayPauseConsumer()), 
@@ -30,11 +33,11 @@ public enum PlayerStrategy implements ButtonStrategy<Player, AbstractStrategical
 	private String title;
 	private ImageIcon img;
 	private Consumer<Player> ctrlUser;
-	private BiConsumer<AbstractStrategicalButton<Player>, PlayerState> updater;
+	private BiConsumer<AbsStratBtn<Player>, PlayerState> updater;
 
 	private PlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<Player> ctrlUser,
-			final BiConsumer<AbstractStrategicalButton<Player>, PlayerState> updater) {
+			final BiConsumer<AbsStratBtn<Player>, PlayerState> updater) {
 		
 		this.title = title;
 		this.img = img;
@@ -60,7 +63,7 @@ public enum PlayerStrategy implements ButtonStrategy<Player, AbstractStrategical
 	}
 	
 	@Override
-	public void update(final AbstractStrategicalButton<Player> b, final PlayerState s) {
+	public void updateUser(final AbsStratBtn<Player> b, final PlayerState s) {
 		if(updater!=null){
 			updater.accept(b, s);
 		}

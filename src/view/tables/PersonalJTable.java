@@ -1,15 +1,15 @@
 package view.tables;
 
-import static view.config.Utility.*;
-
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 import controller.Updatable;
 import model.PlayerState;
+import static view.config.Configuration.*;
 
 /**
  * 
@@ -47,7 +47,9 @@ public class PersonalJTable extends JTable implements Updatable {
 	}
 
 	@Override
-	public void updateStatus(PlayerState status) {
-		// Override this method
+	public void updateStatus(final PlayerState status) {
+		if(status.equals(PlayerState.RELOAD)){
+			this.tableChanged(new TableModelEvent(getModel()));
+		}
 	}
 }

@@ -169,6 +169,12 @@ public class MusicPlayerModelImpl implements MusicPlayerModel {
 		}
 		this.currentSong = Optional.of(this.playList.get(index));
 		this.currentPlaylistIndex = Optional.of(index);
+		
+		if(isShuffleModeActive()){
+			shuffled.add(index);
+			currShuffledIdx++;
+		}
+		
 		return this.currentSong;
 	}
 

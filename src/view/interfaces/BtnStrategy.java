@@ -1,17 +1,17 @@
-package view.buttons.strategies;
+package view.interfaces;
 
 import javax.swing.ImageIcon;
-import model.PlayerState;
 
 /**
  * An extended Strategy class for buttons
  * 
  * @author Alessandro
  *
- * @param <C>  
- * @param <B>
+ * @param <C>  -> Controller
+ * @param <B>  -> Button
+ * @param <S>  -> Command
  */
-public interface ButtonStrategy<C, B> extends Strategy<C> {
+public interface BtnStrategy<C, B, S> extends Strategy<C> {
 	
 	/**
 	 * Return the image associated with the strategy
@@ -30,9 +30,9 @@ public interface ButtonStrategy<C, B> extends Strategy<C> {
 	/**
 	 * Update the status of the object
 	 * 
-	 * NOTE: that a not functional method, is similar to accept of BiConsumer
-	 * 		because a wanted to inglobate this here instead of using a biconsumer
+	 * NOTE: that not a functional method, is similar to accept of BiConsumer
+	 * 		because I wanted to inglobate this here instead of using a biconsumer
 	 * 
 	 */
-	void update(final B b, final PlayerState s);
+	void updateUser(final B b, final S s);
 }

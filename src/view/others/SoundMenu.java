@@ -1,17 +1,12 @@
 package view.others;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
-import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame
@@ -22,7 +17,6 @@ import static view.config.Utility.*;
  *
  */
 
-@SuppressWarnings("unused")
 public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;

@@ -5,13 +5,10 @@ import java.awt.LayoutManager;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JPanel;
-
-import view.Controllable;
 import model.PlayerState;
 import controller.Updatable;
-import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * A Personalized White&DarkGrey JPanel, with a personalizable Layout
@@ -20,12 +17,10 @@ import static view.config.Utility.*;
  *
  */
 
-public class PersonalJPanel<C> extends JPanel implements Updatable,
-		Controllable<C> {
+public class PersonalJPanel extends JPanel implements Updatable{
 
 	private static final long serialVersionUID = -7098020132793828090L;
 
-	private C controller;
 	private final List<Updatable> observers = new ArrayList<>();
 
 	/**
@@ -58,8 +53,10 @@ public class PersonalJPanel<C> extends JPanel implements Updatable,
 	 * @param cmp
 	 */
 	public void addComponents(final Component... cmp) {
-		for (Component c : cmp) {
-			this.add(c);
+		for (final Component c : cmp) {
+			if(c!=null){
+				this.add(c);
+			}
 		}
 	}
 
@@ -69,7 +66,7 @@ public class PersonalJPanel<C> extends JPanel implements Updatable,
 	 * @param up
 	 */
 	public void addObservers(final Updatable... up) {
-		for (Updatable u : up) {
+		for (final Updatable u : up) {
 			observers.add(u);
 		}
 	}
@@ -90,28 +87,6 @@ public class PersonalJPanel<C> extends JPanel implements Updatable,
 	 */
 	public List<Updatable> getObservers() {
 		return observers;
-	}
-
-	@Override
-	public C getController() {
-		return this.controller;
-	}
-
-	/**
-	 * NOTE: This method assumes that all the Controllolable object inside 
-	 * this component are of the same type <C>
-	 * 
-	 * @param controller
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setController(final C controller) {
-		this.controller = controller;
-		for (Component c : this.getComponents()) {
-			if (c instanceof Controllable) {
-				((Controllable<C>) c).setController(controller);
-			}
-		}
 	}
 
 	@Override

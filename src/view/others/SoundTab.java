@@ -5,12 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import view.panels.GrooveBoxPanel;
 import view.panels.PlayerPanel;
 import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
-import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class

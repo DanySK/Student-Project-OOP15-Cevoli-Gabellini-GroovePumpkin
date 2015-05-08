@@ -9,34 +9,34 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import model.PlayerState;
-import view.buttons.AbstractStrategicalButton;
+import view.buttons.AbsStratBtn;
+import view.interfaces.BtnStrategy;
 import controller.GrooveBoxPlayer;
 import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
- * This strategy class implements the function of
- * saving and loading patterns from a groovebox player
+ * This strategy class implements the function of saving and loading patterns
+ * from a groovebox player
  * 
  * @author Alessandro
  *
  */
 public enum GroovePlayerStrategy implements
-		ButtonStrategy<GrooveBoxPlayer, AbstractStrategicalButton<GrooveBoxPlayer>> {
-	SAVE("Save", SAVE_IMG, null, null), 
-	LOAD("Load", LOAD_IMG, null, null);
+		BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> {
+	
+	SAVE("Save", SAVE_IMG, null, null), LOAD("Load", LOAD_IMG, null, null);
 
 	private ImageIcon img;
 	private String title;
-	
+
 	@SuppressWarnings("unused")
 	private Consumer<GrooveBoxPlayer> ctrlUser;
-	private BiConsumer<AbstractStrategicalButton<GrooveBoxPlayer>, PlayerState> updater;
+	private BiConsumer<AbsStratBtn<GrooveBoxPlayer>, PlayerState> updater;
 
-	private GroovePlayerStrategy(
-			final String title,
-			final ImageIcon img,
+	private GroovePlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<GrooveBoxPlayer> ctrlUser,
-			final BiConsumer<AbstractStrategicalButton<GrooveBoxPlayer>, PlayerState> updater) {
+			final BiConsumer<AbsStratBtn<GrooveBoxPlayer>, PlayerState> updater) {
 		this.img = img;
 		this.title = title;
 		this.ctrlUser = ctrlUser;
@@ -59,22 +59,21 @@ public enum GroovePlayerStrategy implements
 
 			System.out.println(f.getName());
 		} else if (val != JFileChooser.CANCEL_OPTION) {
-			JOptionPane.showMessageDialog(null,
-					"An Error has occurred", "Error Message",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "An Error has occurred",
+					"Error Message", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	private void save(final GrooveBoxPlayer t) {
-		final JFileChooser chooser = new JFileChooser(System
-				.getProperty("user.home"));
+		final JFileChooser chooser = new JFileChooser(
+				System.getProperty("user.home"));
 
 		chooser.setVisible(true);
 		final int val = chooser.showSaveDialog(null);
 		if (val == JFileChooser.APPROVE_OPTION) {
 
-			//save the file
-			//controller.savePattern();
+			// save the file
+			// controller.savePattern();
 
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			showErrorDialog(null, "An Error has occurred");
@@ -83,9 +82,9 @@ public enum GroovePlayerStrategy implements
 
 	@Override
 	public void doStrategy(final GrooveBoxPlayer t) {
-		if(this.equals(SAVE)){
+		if (this.equals(SAVE)) {
 			save(t);
-		}else{
+		} else {
 			load(t);
 		}
 	}
@@ -101,7 +100,7 @@ public enum GroovePlayerStrategy implements
 	}
 
 	@Override
-	public void update(AbstractStrategicalButton<GrooveBoxPlayer> button,
+	public void updateUser(AbsStratBtn<GrooveBoxPlayer> button,
 			PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);

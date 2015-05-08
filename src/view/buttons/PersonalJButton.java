@@ -7,10 +7,11 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import view.Controllable;
+import view.interfaces.Controllable;
 import controller.Updatable;
 import model.PlayerState;
 import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * A personal JButton class with modifed bg ad fg,

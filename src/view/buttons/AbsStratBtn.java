@@ -3,7 +3,8 @@ package view.buttons;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.strategies.ButtonStrategy;
+import view.interfaces.BtnStrategy;
+import view.interfaces.StratObj;
 
 /**
  * This abstract class implements a button ables to
@@ -13,14 +14,15 @@ import view.buttons.strategies.ButtonStrategy;
  *
  * @param <C>
  */
-public abstract class AbstractStrategicalButton<C> extends PersonalJButton<C> {
+public abstract class AbsStratBtn<C> extends PersonalJButton<C>
+	implements StratObj<BtnStrategy<C, AbsStratBtn<C>, PlayerState>>{
 
 	private static final long serialVersionUID = 5596342092610796464L;
 
-	private ButtonStrategy<C, AbstractStrategicalButton<C>> strategy;
+	private BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy;
 
-	protected AbstractStrategicalButton(final ImageIcon image,final C controller,
-			final ButtonStrategy<C, AbstractStrategicalButton<C>> strategy,
+	protected AbsStratBtn(final ImageIcon image,final C controller,
+			final BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy,
 			final boolean showTitle) {
 		
 		super(image);
@@ -30,15 +32,23 @@ public abstract class AbstractStrategicalButton<C> extends PersonalJButton<C> {
 		
 		this.addActionListener(e -> {
 			// go to the next song
-			this.getStrategy().doStrategy(this.getController());
+			this.doStrategy();
 		});
 	}
-
+	
+	/**
+	 * Applies the implemented strategy
+	 * 
+	 */
+	public void doStrategy(){
+		this.getStrategy().doStrategy(getController());
+	}
+	
 	/**
 	 * 
 	 * @return The strategy implemented by this Object
 	 */
-	public ButtonStrategy<C, AbstractStrategicalButton<C>> getStrategy() {
+	public BtnStrategy<C, AbsStratBtn<C>, PlayerState> getStrategy() {
 		return this.strategy;
 	}
 
@@ -47,13 +57,13 @@ public abstract class AbstractStrategicalButton<C> extends PersonalJButton<C> {
 	 * 
 	 * @param strategy
 	 */
-	public void setStrategy(final ButtonStrategy<C, AbstractStrategicalButton<C>> strategy) {
+	public void setStrategy(final BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy) {
 		this.strategy = strategy;
 	}
 	
 	@Override
 	public void updateStatus(PlayerState status) {
 		
-		this.getStrategy().update(this, status);
+		this.getStrategy().updateUser(this, status);
 	}
 }

@@ -6,10 +6,11 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.AbstractStrategicalButton;
+import view.buttons.AbsStratBtn;
 import view.buttons.strategies.consumers.LoopConsumer;
+import view.interfaces.BtnStrategy;
 import controller.LoopablePlayer;
-import static view.config.Utility.*;
+import static view.config.Configuration.*;
 
 /**
  * This strategy class implements the strategies for shuffle or unshuffling a
@@ -19,20 +20,21 @@ import static view.config.Utility.*;
  *
  */
 public enum LoopStrategy implements
-		ButtonStrategy<LoopablePlayer, AbstractStrategicalButton<LoopablePlayer>> {
+		BtnStrategy<LoopablePlayer, AbsStratBtn<LoopablePlayer>, PlayerState> {
+	
 	LOOP("Loop", LOOP_OFF_IMG, c -> c.setLoop(true), new LoopConsumer()), UNLOOP(
 			"UnLoop", LOOP_ON_IMG, c -> c.setLoop(false), new LoopConsumer());
 
 	private String title;
 	private ImageIcon img;
 	private Consumer<LoopablePlayer> ctrlUser;
-	private BiConsumer<AbstractStrategicalButton<LoopablePlayer>, PlayerState> updater;
+	private BiConsumer<AbsStratBtn<LoopablePlayer>, PlayerState> updater;
 
 	private LoopStrategy(
 			final String title,
 			final ImageIcon img,
 			final Consumer<LoopablePlayer> ctrlUser,
-			final BiConsumer<AbstractStrategicalButton<LoopablePlayer>, PlayerState> updater) {
+			final BiConsumer<AbsStratBtn<LoopablePlayer>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser = ctrlUser;
@@ -57,7 +59,7 @@ public enum LoopStrategy implements
 	}
 
 	@Override
-	public void update(AbstractStrategicalButton<LoopablePlayer> b, PlayerState s) {
+	public void updateUser(AbsStratBtn<LoopablePlayer> b, PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

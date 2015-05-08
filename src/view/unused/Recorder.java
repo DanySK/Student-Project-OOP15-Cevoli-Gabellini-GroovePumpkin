@@ -38,7 +38,7 @@ public class Recorder extends JFrame implements Updatable{
 				Toolkit.getDefaultToolkit().getScreenSize().height / 4);
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		final PersonalJPanel<Object> mainPanel = new PersonalJPanel<>(new FlowLayout());
+		final PersonalJPanel mainPanel = new PersonalJPanel(new FlowLayout());
 		//final JButton rps = createButton(PAUSE_BUTTON, true, null);
 		//rps.setEnabled(false);
 		
@@ -46,7 +46,7 @@ public class Recorder extends JFrame implements Updatable{
 		//mainPanel.add(rps);
 		mainPanel.add(timerLabel);
 
-		final PersonalJPanel<Object> southPanel = new PersonalJPanel<>(new FlowLayout());
+		final PersonalJPanel southPanel = new PersonalJPanel(new FlowLayout());
 	
 		//southPanel.add(createButton(SAVE_BUTTON, true, null));
 

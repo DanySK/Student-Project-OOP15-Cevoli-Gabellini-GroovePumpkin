@@ -2,18 +2,20 @@ package view.tables;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-
 import controller.Updatable;
+import view.viewModel.AbstractMouseListener;
 import view.viewModel.GrooveTableModel;
-import model.PlayerState;
 import static javax.swing.ListSelectionModel.*;
+import static view.config.Configuration.*;
 
 /**
  * The Class that implements the groovebox
@@ -62,29 +64,46 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 		}
 		
 
-		this.addMouseListener(new MouseListener() {
+		this.addMouseListener(new AbstractMouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				//System.out.println("Released");
 				locked=false;
 			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				locked=false;
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				locked=false;
-			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				if(SwingUtilities.isRightMouseButton(e)){
+					final JPopupMenu jpm = new JPopupMenu();
+					final JMenuItem setRow = new JMenuItem("Invert row's color");
+					setRow.setForeground(RED);
+					setRow.addActionListener(al->{
+						
+						final int r= ((PersonalJTable)e.getSource())
+								.rowAtPoint(e.getPoint());
+						for (int c=1; c< tableModel.getColumnCount(); c++){
+								tableModel.setValueAt(null, r, c);
+						}
+						GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
+					});
+					jpm.add(setRow);
+					
+					final JMenuItem setCol = new JMenuItem("Invert column's color");
+					setCol.setForeground(RED);
+					setCol.addActionListener(al->{
+						
+							final int c= ((PersonalJTable)e.getSource())
+									.columnAtPoint(e.getPoint());
+							for (int r=0; r< tableModel.getRowCount(); r++){
+									tableModel.setValueAt(null,	r, c);
+							}
+						GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
+					});
+					jpm.add(setCol);
+					
+					jpm.show(e.getComponent(), e.getX(), e.getY());
+				}
 			}
 		});
 
@@ -95,12 +114,12 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 					@Override
 					public void valueChanged(final ListSelectionEvent e) {
 						
-						/*
-						if(c!= getColumn() || r!=getRow()){
-							locked=false;
-						}
-						*/
-						if (!e.getValueIsAdjusting() && getColumn() != 0 && !locked) {
+						
+//						if(col!= getColumn() || row!=getRow()){
+//							locked=false;
+//						}
+						
+						if (!e.getValueIsAdjusting() &&  getColumn() != 0 && !locked) {
 							
 							locked=true;
 							row=getRow();
@@ -125,12 +144,5 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 					}
 
 				});
-	}
-
-	@Override
-	public void updateStatus(final PlayerState status) {
-		if(status.equals(PlayerState.RELOAD)){
-			this.tableChanged(new TableModelEvent(tableModel));
-		}
 	}
 }
