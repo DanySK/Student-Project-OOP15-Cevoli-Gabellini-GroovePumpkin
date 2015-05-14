@@ -1,4 +1,4 @@
-package model;
+package model.groovebox;
 
 import java.util.Optional;
 import javax.sound.midi.Sequence;
@@ -11,18 +11,6 @@ import javax.sound.midi.Sequence;
  *
  */
 public interface GrooveBoxContentManager{
-	/**
-	 * Able or disale the loop mode
-	 * @param true if the loop must be activeted otherwise false
-	 */
-	void setLoop(final boolean value);
-	
-	/**
-	 * Take the state of the loop mode
-	 * @return true if loop mode is active otherwise false
-	 */
-	boolean isLoopActive();	
-	
 	/**
 	 * Take the midi sequence that corresponding to the groove box table
 	 * @return an Optional that may contains the groove sequence

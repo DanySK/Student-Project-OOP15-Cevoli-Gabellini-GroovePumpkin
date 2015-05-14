@@ -1,5 +1,5 @@
 package model;
 
-public enum SingleSongPlayerState {
+public enum SongPlayerState {
 	RUNNING, PAUSED, STOPPED;
 }

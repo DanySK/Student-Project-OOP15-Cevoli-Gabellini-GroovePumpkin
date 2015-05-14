@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +12,15 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 
-import model.GrooveBoxContentManager;
-import model.GrooveBoxModel;
+import controller.songplayer.MidiSongPlayer;
+import controller.songplayer.SongWatchDog;
+import model.LoopManager;
 import model.PlayerState;
+import model.SongPlayerState;
+import model.groovebox.GrooveBoxContentManager;
+import model.groovebox.GrooveBoxModel;
+import static model.PlayerState.*;
+
 
 /**
  * The implementation of GrooveBoxController
@@ -25,15 +32,17 @@ import model.PlayerState;
  * @author Matteo Gabellini
  *
  */
-public class GrooveBoxController implements GrooveBoxPlayer,Observable{
+public class GrooveBoxController extends UpdatableObserversManager implements GrooveBoxPlayer{
 	private static final GrooveBoxController GROOVE_BOX = new GrooveBoxController();
 	
 	
 	private Optional<MidiSongPlayer> sequencer;
 	private GrooveBoxContentManager model;
-	private List<Updatable> component;
+	private LoopManager lManager;
+	private SongWatchDog threadGrooveWatchdog;
 	
 	private GrooveBoxController(){
+		super();
 		this.model = new GrooveBoxModel();
 	}
 	
@@ -47,10 +56,11 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 		
 		if(sequence.isPresent()){
 			try {
-				sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
-				sequencer.get().play();
+				this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
+				this.sequencer.get().play();
+				this.threadGrooveWatchdog = new SongWatchDog(this, this.sequencer.get());
 				if(this.sequencer.get().isActive()){
-					notifyToUpdatable(PlayerState.RUNNING);
+					notifyToUpdatable(RUNNING);
 				}
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
@@ -64,35 +74,32 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	public void pause() {
 		if (sequencer.isPresent()) {
 			sequencer.get().pause();
-			notifyToUpdatable(PlayerState.PAUSED);
+			notifyToUpdatable(PAUSED);
 		}
 	}
 
 	@Override
 	public void stop() {
 		if (sequencer.isPresent()) {
-			sequencer.get().stop();
-			notifyToUpdatable(PlayerState.STOPPED);
-		}
-	}
-
-	@Override
-	public void setLoop(final boolean loopActive) {
-		this.model.setLoop(loopActive);
-	}
-
-	@Override
-	public void addUpdatableObserver(final Updatable component) {
-		if (this.component == null) {
-			this.component = new ArrayList<>();
-		}
-		this.component.add(component);
-	}
-	
-	private void notifyToUpdatable(final PlayerState state) {
-		if(this.component != null){
-			this.component.stream().forEach(x -> x.updateStatus(state));
-		}
+			if(this.sequencer.get().isActive()){
+				//This code is execute when the stop is called by the user
+				this.sequencer.get().stop();
+				try {
+					this.threadGrooveWatchdog.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? PlayerState.STOPPED
+						: PlayerState.ERROR);
+				this.sequencer = Optional.empty();
+			} else {
+				//This code is executed when the stop is called by the Song Watcher
+				this.sequencer.get().stop();
+				if(this.lManager.isLoopModeActive() == true){
+					this.play();
+				}
+			}	
+		}		
 	}
 	
 	@Override
@@ -121,12 +128,6 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	}
 
 	@Override
-	public void setInstrument() {
-		// TODO Auto-generated method stub
-	}
-	
-
-	@Override
 	public void changeCellState(final int rowIndex, final int columnIndex) {
 		this.model.changeCellState(rowIndex, columnIndex);
 	}
@@ -137,8 +138,14 @@ public class GrooveBoxController implements GrooveBoxPlayer,Observable{
 	}
 
 	@Override
+	public void setLoop(final boolean loopActive) {
+		this.lManager.setLoopMode(loopActive);
+		this.notifyToUpdatable(this.lManager.isLoopModeActive()? LOOPED : UNLOOPED);
+	}
+	
+	@Override
 	public boolean isLoopModeActive() {
-		return this.model.isLoopActive();
+		return this.lManager.isLoopModeActive();
 	}
 
 	@Override

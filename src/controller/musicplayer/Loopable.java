@@ -1,10 +1,10 @@
-package controller;
+package controller.musicplayer;
 /**
- * This interface rappresent a Player with the loop function
+ * This interface rappresent an object that manages the loop mode
  * @author Matteo Gabellini
  *
  */
-public interface LoopablePlayer extends Player {
+public interface Loopable{
 	/**
 	 * Set the function of loop
 	 * @param loopActive

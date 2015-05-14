@@ -1,19 +1,23 @@
-package controller;
+package controller.musicplayer;
 
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
-import model.PlayerState;
+import controller.Observable;
+import controller.Player;
 
 /**
  * 
  * This interface represents the contract of the music player itself,
  * that is the part of the "Music Player" that deals with taking songs and start them
+ * 
+ * A music player is something that take different format song and reproduce
+ * them 
  * @author Matteo Gabellini
  *
  */
-public interface MusicPlayer extends LoopablePlayer, Observable{
+public interface MusicPlayer extends Player, Observable{
 	
 	
 	/**
@@ -45,15 +49,19 @@ public interface MusicPlayer extends LoopablePlayer, Observable{
 	 */
 	double getElapsedTime();
 	
+	/**
+	 * a getter for the duration of current song
+	 * @return the duration in milliseconds of the current track
+	 */
+	double getDurationOfCurrentSong();
 	
 	/**
-	 * This method set the shuffle mode
-	 * 
-	 * @param true if we want to active the shuffle mode or false for deactive if was be already activated
+	 * This method is used for set the position in the current song
+	 * @param the microsecond past from the begin of the song
+	 * @throws IllegalArgumentException if the parameter time is out of the range of the song
 	 */
-	void setShuffleMode(boolean active);
-	
-	boolean isShuffleModeActive();
+	void setPosition(final int time) throws IllegalArgumentException;
+	 
 	
 	/**
 	 * This method implements the logic for add the URL of a audio file to the playlist
@@ -69,19 +77,6 @@ public interface MusicPlayer extends LoopablePlayer, Observable{
 	 * @throws IllegalArgumentException if parameter is incorrect
 	 */
 	void removeSong(int index) throws IllegalArgumentException;
-	
-	/**
-	 * This method permits to load the playlist specified like parameter
-	 * @param playList to load
-	 * @throws IllegalArgumentException if parameter is null
-	 */
-	void loadPlayList(List<URL> playList) throws  IllegalArgumentException;
-	
-	/**
-	 * Getter for the current state of the Player
-	 * @return current player state
-	 */
-	PlayerState getState();
 	
 	/**
 	 * This method return the current playlist

@@ -1,4 +1,4 @@
-package model;
+package model.groovebox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,6 @@ public final class GrooveValues {
 	// I've made the constructor final, if you want to build a new GrooveBox
 	// tone use the static method
 	private GrooveValues(final DefaultValues value) {
-
 		this.value = value;
 		for (int i = 0; i < TIME_QUANTI; i++) {
 			row.add(new Pair<>(false, i));

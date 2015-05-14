@@ -13,5 +13,5 @@ public interface Observable {
 	 * This method add an Updatable Observer
 	 * @param component
 	 */
-	void addUpdatableObserver(final Updatable component);
+	void addUpdatableObservers(final Updatable... component);
 }
