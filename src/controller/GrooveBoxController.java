@@ -2,11 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
@@ -15,7 +11,6 @@ import javax.sound.midi.Sequence;
 import controller.songplayer.MidiSongPlayer;
 import controller.songplayer.SongWatchDog;
 import model.LoopManager;
-import model.PlayerState;
 import model.SongPlayerState;
 import model.groovebox.GrooveBoxContentManager;
 import model.groovebox.GrooveBoxModel;
@@ -37,7 +32,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	
 	
 	private Optional<MidiSongPlayer> sequencer;
-	private GrooveBoxContentManager model;
+	private final GrooveBoxContentManager model;
 	private LoopManager lManager;
 	private SongWatchDog threadGrooveWatchdog;
 	
@@ -52,7 +47,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	
 	@Override
 	public void play() {
-		Optional<Sequence> sequence = model.getSequence();
+		final Optional<Sequence> sequence = model.getSequence();
 		
 		if(sequence.isPresent()){
 			try {
@@ -89,13 +84,13 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? PlayerState.STOPPED
-						: PlayerState.ERROR);
+				notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? STOPPED
+						: ERROR);
 				this.sequencer = Optional.empty();
 			} else {
 				//This code is executed when the stop is called by the Song Watcher
 				this.sequencer.get().stop();
-				if(this.lManager.isLoopModeActive() == true){
+				if(this.lManager.isLoopModeActive()){
 					this.play();
 				}
 			}	
@@ -107,13 +102,11 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 		final File outPutFile = new File(pathName);
 		final Optional<Sequence> createdSequence = this.model.getSequence();
 		if(createdSequence.isPresent()){
-			int[] fileTypes = MidiSystem.getMidiFileTypes(createdSequence.get());
+			final int[] fileTypes = MidiSystem.getMidiFileTypes(createdSequence.get());
 			//I check how many midi file type my system is able to write
-			if(fileTypes.length != 0){
-				//I try to write the file and check how may bytes were written
-				if(MidiSystem.write(createdSequence.get(), fileTypes[0], outPutFile) != -1){
-					return true;
-				}
+			//and I try to write the file and check how may bytes were written			
+			if(fileTypes.length != 0 && MidiSystem.write(createdSequence.get(), fileTypes[0], outPutFile) != -1){				
+					return true;				
 			}
 		}
 		return false;
@@ -133,7 +126,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	}
 
 	@Override
-	public boolean getCellState(int rowIndex, int columnIndex) {
+	public boolean getCellState(final int rowIndex, final int columnIndex) {
 		return this.model.getCellState(rowIndex, columnIndex);
 	}
 
@@ -151,7 +144,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	@Override
 	public void reset() {
 		this.model.resetContent();
-		notifyToUpdatable(PlayerState.RELOAD);
+		notifyToUpdatable(RELOAD);
 	}
 
 }

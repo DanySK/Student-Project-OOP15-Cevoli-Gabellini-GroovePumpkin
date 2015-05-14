@@ -1,17 +1,12 @@
 package controller.songplayer;
 
 import java.io.IOException;
-import java.net.URL;
 
-import javax.naming.OperationNotSupportedException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.Mixer;
-import javax.sound.sampled.SourceDataLine;
 
 import model.SongPlayerState;
 
@@ -28,7 +23,7 @@ public class SampledSongPlayer implements SongPlayer {
 	 * data can be loaded prior to playback, instead of being streamed in real
 	 * time.
 	 */
-	private Clip clip;
+	final private Clip clip;
 	private SongPlayerState statoLettore;
 	/**
 	 * This constructor create a new instance of a songPlayer
@@ -38,7 +33,7 @@ public class SampledSongPlayer implements SongPlayer {
 	 * @throws LineUnavailableException
 	 * @throws IOException
 	 */
-	public SampledSongPlayer(AudioInputStream song)
+	public SampledSongPlayer(final AudioInputStream song)
 			throws LineUnavailableException, IOException {
 		// Va creata una classe per le impostazioni
 		// Prendo il primo dispositivo audio;

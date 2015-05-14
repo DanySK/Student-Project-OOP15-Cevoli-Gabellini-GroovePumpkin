@@ -40,26 +40,26 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 	 * il comportamento per controllare quando la canzone termina perchè è stata
 	 * riprodotta tutta
 	 */
-	private SongWatchDog threadSongWatcher;	
+	private Optional<SongWatchDog> threadSongWatcher;	
 	private Optional<SongPlayer> soundPlayer; // this field rappresents the
 												// concrete track player
 
-	public BasicMusicPlayer(ExtendedPlaylistManager<URL> plManager) {
-		if(plManager != null){
-			this.model = plManager;
-		} else {
+	public BasicMusicPlayer(final ExtendedPlaylistManager<URL> plManager) {
+		if(plManager == null){
 			this.model = new ClassicPlaylistManager<URL>();
+		} else {
+			this.model = plManager;
 		}
 		this.soundPlayer = Optional.empty();
 	}
 
 	
 
-	private void changeSong(Optional<URL> song) {
+	private void changeSong(final Optional<URL> song) {
 		if (song.isPresent()) {
 			// Se la canzone indicata dall'indice è presente la carico
 
-			SongPlayerState preChangePlayerState = (this.soundPlayer
+			final SongPlayerState preChangePlayerState = (this.soundPlayer
 					.isPresent() ? this.soundPlayer.get().getState()
 					: SongPlayerState.STOPPED);
 
@@ -91,7 +91,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 	}
 
 	@Override
-	public synchronized void goToSong(int index) {
+	public synchronized void goToSong(final int index) {
 		final Optional<URL> song = this.model.changeSong(index);
 		if (song.isPresent()) {
 			this.changeSong(song);
@@ -104,7 +104,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 	}
 
 	/* This method take the URL of the song and try to load the track */
-	private void loadSong(URL songPath) {
+	private void loadSong(final URL songPath) {
 		// Check if the player is present and if is active
 		if (this.soundPlayer.isPresent() && !this.soundPlayer.get().equals(SongPlayerState.STOPPED)) {
 			// if the player is active I stop them...
@@ -114,7 +114,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 		}
 
 		AudioInputStream audioStream;
-		final Sequence midiSequence;
+		Sequence midiSequence;
 		// Provo a caricare l'url come sequenza midi
 		try {
 			midiSequence = MidiSystem.getSequence(songPath);
@@ -180,16 +180,13 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 			// e lo notifico
 			notifyToUpdatable(soundPlayer.get().getState() == SongPlayerState.RUNNING ? PlayerState.RUNNING
 					: PlayerState.ERROR);
-
-			if (this.soundPlayer.get().isActive()) {
-				// Avvio un thread che controlla quando la canzone termina se
-				// non è già attivo
-				if (threadSongWatcher == null || !threadSongWatcher.isAlive()) {
+			// Avvio un thread che controlla quando la canzone termina se
+			// non è già attivo
+			if (this.soundPlayer.get().isActive() && (threadSongWatcher.isPresent() || !threadSongWatcher.get().isAlive())) {
 					// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
 					// CONTROLLARE LA FINE DEL MIDI
-					threadSongWatcher = new SongWatchDog(this, this.soundPlayer.get());
-					threadSongWatcher.start();
-				}
+					threadSongWatcher = Optional.of(new SongWatchDog(this, this.soundPlayer.get()));
+					threadSongWatcher.get().start();				
 			}
 		} catch (NoSuchElementException e) {
 			notifyToUpdatable(PlayerState.ERROR);
@@ -211,7 +208,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 			if (!songEnded) {
 				// wait the termination of song watchdog
 				try {
-					this.threadSongWatcher.join();
+					this.threadSongWatcher.get().join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -222,7 +219,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 						: PlayerState.ERROR);
 			} 
 			this.soundPlayer = Optional.empty();
-			this.threadSongWatcher = null;
+			this.threadSongWatcher = Optional.empty();
 			//If the state of the sound player is RUNNING and the sound player isn't active means that the stop was called by the song watchdog because the song was terminated
 			if(songEnded){
 				this.afterSongEnding();
@@ -240,13 +237,13 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 		}
 	}
 	
-	public void addSong(URL songPath) throws IllegalArgumentException {
+	public void addSong(final URL songPath) throws IllegalArgumentException {
 		this.model.addSongToPlayList(songPath);
 		notifyToUpdatable(PlayerState.RELOAD);
 	}
 
 	@Override
-	public synchronized void removeSong(int index) throws IllegalArgumentException {
+	public synchronized void removeSong(final int index) throws IllegalArgumentException {
 		// Se la canzone che voglio togliere e quella che sto riproducendo
 		// blocco la riproduzione
 		if (this.soundPlayer.isPresent()
@@ -284,7 +281,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 	}
 	
 	@Override
-	public void setShuffleMode(boolean active) {
+	public void setShuffleMode(final boolean active) {
 		this.model.setFeatureState(ShuffablePlaylistManager.class,active);	
 		notifyToUpdatable(this.model.isFeatureActive(ShuffablePlaylistManager.class)? PlayerState.SHUFFLED : PlayerState.UNSHUFFLED);
 	}	

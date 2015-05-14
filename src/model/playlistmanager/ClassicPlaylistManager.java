@@ -15,7 +15,7 @@ public class ClassicPlaylistManager<X> extends AbstractExtendedPlaylistManager<X
 		super(new BasicPlaylistManager<>(new ClassicStrategy<>()));
 	}
 	
-	public ClassicPlaylistManager(PlaylistManager<X> decorated) {
+	public ClassicPlaylistManager(final PlaylistManager<X> decorated) {
 		super(decorated);
 	}
 	
@@ -27,7 +27,7 @@ public class ClassicPlaylistManager<X> extends AbstractExtendedPlaylistManager<X
 	 * @throw {@link UnsupportedOperationException}
 	 */
 	@Override
-	public void setChoiceStrategy(PlaylistChoiceStrategy<X> strategy) {
+	public void setChoiceStrategy(final PlaylistChoiceStrategy<X> strategy) {
 		throw new UnsupportedOperationException("The choice strategy changing is doing internally by this object");
 	}
 }

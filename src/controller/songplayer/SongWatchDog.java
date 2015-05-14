@@ -11,8 +11,8 @@ import controller.Player;
  */
 public class SongWatchDog extends Thread{
 	
-	private Player player;
-	private SongPlayer soundPlayer;
+	final private Player player;
+	final private SongPlayer soundPlayer;
 	
 	public SongWatchDog(final Player player, final SongPlayer soundPlayer){
 		this.player = player; 

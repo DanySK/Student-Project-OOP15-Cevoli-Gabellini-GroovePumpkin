@@ -28,7 +28,7 @@ public class MidiSequenceCreationStrategy {
 	 * @param partitura
 	 * @return An optional that contains the midi track, if during the creation there is some problem the return value is Optional.empty
 	 */
-	public Optional<Sequence> createMidiSequence(List<? extends GrooveValues> partitura){
+	public Optional<Sequence> createMidiSequence(final List<? extends GrooveValues> partitura){
 		Sequence midiSequence = null;
 		try {
 			midiSequence = new Sequence(Sequence.PPQ, 4);
@@ -42,7 +42,7 @@ public class MidiSequenceCreationStrategy {
 					X -> {
 						X.getRow()
 						.stream()
-						.filter(K -> K.getFirst() == true)
+						.filter(K -> K.getFirst())
 						.forEach(
 								Y -> {
 									//System.out.println("Strumento " + X.getID() + " First " + Y.getFirst() + " Second" + Y.getSecond());

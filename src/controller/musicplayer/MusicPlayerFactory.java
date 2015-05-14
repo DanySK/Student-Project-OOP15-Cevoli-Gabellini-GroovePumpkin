@@ -2,7 +2,6 @@ package controller.musicplayer;
 
 import java.net.URL;
 
-import model.playlistmanager.BasicPlaylistManager;
 import model.playlistmanager.ClassicPlaylistManager;
 import model.playlistmanager.ShuffablePlaylistManager;
 

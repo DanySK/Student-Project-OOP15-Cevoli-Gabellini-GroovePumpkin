@@ -4,7 +4,7 @@ public class LoopManager implements LoopableComponent{
 	private boolean loop;
 	
 	@Override
-	public void setLoopMode(boolean value) {
+	public void setLoopMode(final boolean value) {
 		this.loop = value;
 	}
 	

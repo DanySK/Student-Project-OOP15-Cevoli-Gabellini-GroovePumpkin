@@ -12,11 +12,11 @@ import model.playlistmanager.choicestrategy.PlaylistChoiceStrategy;
  */
 public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 	private PlaylistChoiceStrategy<X> extractionStrategy;
-	private List<X> playlist;
+	private final List<X> playlist;
 	private Optional<X> currentSong;
 
 
-	public BasicPlaylistManager(PlaylistChoiceStrategy<X> extractionStrategy) {
+	public BasicPlaylistManager(final PlaylistChoiceStrategy<X> extractionStrategy) {
 		this.playlist = new ArrayList<>();
 		this.currentSong = Optional.empty();
 		this.extractionStrategy = extractionStrategy;
@@ -51,7 +51,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 
 	@Override
 	public Optional<X> changeToThePreviousSong() {
-		Optional<Integer> previousSong = this.extractionStrategy.getPreviousSong(this.playlist);
+		final Optional<Integer> previousSong = this.extractionStrategy.getPreviousSong(this.playlist);
 		// If the previous song there isn't I don't change the current song
 		if (previousSong.isPresent()) {
 			this.currentSong = Optional.of(this.playlist.get(previousSong.get()));

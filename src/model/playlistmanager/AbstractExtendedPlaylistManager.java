@@ -16,12 +16,12 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 	
 	protected final PlaylistManager<X> decorated;
 	
-	protected AbstractExtendedPlaylistManager(PlaylistManager<X> decorated) {
+	protected AbstractExtendedPlaylistManager(final PlaylistManager<X> decorated) {
 		this.decorated = decorated;
 	}
 	
 	@Override
-	public void setChoiceStrategy(PlaylistChoiceStrategy<X> strategy) {
+	public void setChoiceStrategy(final PlaylistChoiceStrategy<X> strategy) {
 		this.decorated.setChoiceStrategy(strategy);
 	}
 
@@ -46,23 +46,23 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 	}
 
 	@Override
-	public Optional<X> changeSong(int index) throws IllegalArgumentException {
+	public Optional<X> changeSong(final int index) throws IllegalArgumentException {
 		return this.decorated.changeSong(index);
 	}
 
 	@Override
-	public void addSongToPlayList(X songPath) throws IllegalArgumentException {
+	public void addSongToPlayList(final X songPath) throws IllegalArgumentException {
 		this.decorated.addSongToPlayList(songPath);
 	}
 
 	@Override
-	public void removeSongFromPlayList(int index)
+	public void removeSongFromPlayList(final int index)
 			throws IllegalArgumentException {
 		this.decorated.removeSongFromPlayList(index);
 	}
 
 	@Override
-	public void loadPlayList(List<X> playList) throws IllegalArgumentException {
+	public void loadPlayList(final List<X> playList) throws IllegalArgumentException {
 		this.decorated.loadPlayList(playList);
 	}
 
@@ -71,7 +71,7 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 		return this.decorated.getPlayList();
 	}
 
-	public void setFeatureState(Class<? extends PlaylistFeatures> featureClass,boolean active){
+	public void setFeatureState(final Class<? extends PlaylistFeatures> featureClass,final boolean active){
 		if(this.decorated instanceof PlaylistFeatures){
 			((PlaylistFeatures) this.decorated).setFeatureState(featureClass,active);
 		} else {
@@ -79,7 +79,7 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 		}
 	}
 
-	public boolean isFeatureActive(Class<? extends PlaylistFeatures> featureClass){
+	public boolean isFeatureActive(final Class<? extends PlaylistFeatures> featureClass){
 		if(this.decorated instanceof PlaylistFeatures){
 			return ((PlaylistFeatures) this.decorated).isFeatureActive(featureClass);
 		}

@@ -2,7 +2,6 @@ package controller;
 
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
-import test.MusicPlayerTester;
 
 /**
  * This is the classes that rappresent the main controller and the start point of the program

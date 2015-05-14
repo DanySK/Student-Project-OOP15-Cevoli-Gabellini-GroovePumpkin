@@ -5,7 +5,6 @@ import java.net.URL;
 import model.LoopManager;
 import model.PlayerState;
 import model.playlistmanager.ExtendedPlaylistManager;
-import model.playlistmanager.PlaylistManager;
 
 /**
  * 
@@ -15,24 +14,24 @@ import model.playlistmanager.PlaylistManager;
  *
  */
 public class LoopableMusicPlayer extends BasicMusicPlayer implements Loopable {
-	private LoopManager loopModel;
+	final private LoopManager loopModel;
 	
-	public LoopableMusicPlayer(ExtendedPlaylistManager<URL> plManager) {
+	public LoopableMusicPlayer(final ExtendedPlaylistManager<URL> plManager) {
 		super(plManager);
 		this.loopModel = new LoopManager();
 	}
 	
 	@Override
 	protected void afterSongEnding() {
-		if (!this.isLoopModeActive()) {
-			super.afterSongEnding();
-		} else {
+		if (this.isLoopModeActive()) {
 			this.play();
+		} else {
+			super.afterSongEnding();
 		}
 	}
 
 	@Override
-	public synchronized void setLoop(boolean value) {
+	public synchronized void setLoop(final boolean value) {
 		this.loopModel.setLoopMode(value);
 		this.notifyToUpdatable(value ? PlayerState.LOOPED : PlayerState.UNLOOPED);
 	}

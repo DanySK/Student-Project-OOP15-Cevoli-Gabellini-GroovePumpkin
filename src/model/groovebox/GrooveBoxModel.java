@@ -30,12 +30,12 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	}
 
 	@Override
-	public void changeCellState(int rowIndex, int columnIndex) {
+	public void changeCellState(final int rowIndex, final int columnIndex) {
 		GrooveValues.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
 	}
 
 	@Override
-	public boolean getCellState(int rowIndex, int columnIndex) {
+	public boolean getCellState(final int rowIndex, final int columnIndex) {
 		return GrooveValues.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
 	}
 

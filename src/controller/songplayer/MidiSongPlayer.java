@@ -16,7 +16,7 @@ import model.SongPlayerState;
 
 public class MidiSongPlayer implements SongPlayer {
 
-	private Sequencer sequencer;
+	final private Sequencer sequencer;
 	private SongPlayerState singleSongPlayerState;
 
 	public MidiSongPlayer(final Sequence midiSequence)
@@ -73,7 +73,7 @@ public class MidiSongPlayer implements SongPlayer {
 		return this.sequencer.isRunning();
 	}
 
-	public void setBPM(int bpm) {
+	public void setBPM(final int bpm) {
 		this.sequencer.setTempoInBPM(bpm);
 	}
 	
