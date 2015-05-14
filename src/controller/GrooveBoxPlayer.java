@@ -2,12 +2,14 @@ package controller;
 
 import java.io.IOException;
 
+import controller.musicplayer.Loopable;
+
 /**
  * This rappresent the logic for manage a groove and reproduce them with groove box
  * @author Matteo Gabellini
  *
  */
-public interface GrooveBoxPlayer extends LoopablePlayer{
+public interface GrooveBoxPlayer extends Player,Loopable,Observable{
 	/**
 	 * Save the midi file of the created Groove
 	 * @param path 
@@ -47,6 +49,4 @@ public interface GrooveBoxPlayer extends LoopablePlayer{
 	 * Reset the groove box
 	 */
 	void reset();
-	
-	void setInstrument();
 }

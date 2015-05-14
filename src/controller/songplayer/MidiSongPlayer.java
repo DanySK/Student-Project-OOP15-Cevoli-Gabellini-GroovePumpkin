@@ -1,8 +1,8 @@
-package controller;
+package controller.songplayer;
 
 import javax.sound.midi.*;
 
-import model.SingleSongPlayerState;
+import model.SongPlayerState;
 
 /**
  * A midi song player take a midi track and play them
@@ -17,9 +17,7 @@ import model.SingleSongPlayerState;
 public class MidiSongPlayer implements SongPlayer {
 
 	private Sequencer sequencer;
-	private Synthesizer synthesizer;
-	private MidiChannel channels[];
-	private SingleSongPlayerState singleSongPlayerState;
+	private SongPlayerState singleSongPlayerState;
 
 	public MidiSongPlayer(final Sequence midiSequence)
 			throws MidiUnavailableException, InvalidMidiDataException {
@@ -31,47 +29,47 @@ public class MidiSongPlayer implements SongPlayer {
 	@Override
 	public synchronized void play() {
 		this.sequencer.start();
-		this.singleSongPlayerState = SingleSongPlayerState.RUNNING;
+		this.singleSongPlayerState = SongPlayerState.RUNNING;
 	}
 
 	@Override
 	public synchronized void stop() {
 		this.sequencer.stop();
-		this.singleSongPlayerState = SingleSongPlayerState.STOPPED;
+		this.singleSongPlayerState = SongPlayerState.STOPPED;
 		this.sequencer.close();		
 	}
 
 	@Override
 	public synchronized void pause() {
 		this.sequencer.stop();
-		this.singleSongPlayerState = SingleSongPlayerState.PAUSED;
+		this.singleSongPlayerState = SongPlayerState.PAUSED;
 	}
 
 	@Override
-	public void setPosition(final int time) throws IllegalArgumentException {
-		if (time < 0 || time > this.sequencer.getMicrosecondLength()) {
+	public synchronized void setPosition(final int time) throws IllegalArgumentException {
+		if (time < 0 || time > (this.getDuration() * 1000000)) {
 			throw new IllegalArgumentException();
 		}
 		this.sequencer.setMicrosecondPosition(time);
 	}
 
 	@Override
-	public double getDuration() {
-		return (this.sequencer.getMicrosecondLength() * 1000000);
+	public synchronized double getDuration() {
+		return this.sequencer.getMicrosecondLength() * 1000000;
 	}
 
 	@Override
-	public double getElapsedTime() {
+	public synchronized double getElapsedTime() {
 		return this.sequencer.getMicrosecondPosition();
 	}
 
 	@Override
-	public SingleSongPlayerState getState() {
+	public synchronized SongPlayerState getState() {
 		return this.singleSongPlayerState;
 	}
 
 	@Override
-	public boolean isActive() {
+	public synchronized boolean isActive() {
 		return this.sequencer.isRunning();
 	}
 
@@ -79,11 +77,4 @@ public class MidiSongPlayer implements SongPlayer {
 		this.sequencer.setTempoInBPM(bpm);
 	}
 	
-	/*
-	@Override
-	public void setGain(final double gainValue) throws IllegalArgumentException{
-		if(gainValue < 0 || gainValue > 100){
-			throw new IllegalArgumentException("The argument value is not between 0 and 100");
-		}
-	}*/
 }

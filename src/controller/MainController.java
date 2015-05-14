@@ -1,5 +1,7 @@
 package controller;
 
+import controller.musicplayer.MusicPlayer;
+import controller.musicplayer.MusicPlayerFactory;
 import test.MusicPlayerTester;
 
 /**
@@ -8,7 +10,7 @@ import test.MusicPlayerTester;
  *
  */
 public class MainController {
-	private static final MusicPlayer lettore = MusicPlayerImpl.getInstance();
+	private static final MusicPlayer lettore = MusicPlayerFactory.createLoopableAndShuffableMP();
 	private static final GrooveBoxPlayer grooveBox = GrooveBoxController.getInstance();
 	
 	public static void main(String... args){

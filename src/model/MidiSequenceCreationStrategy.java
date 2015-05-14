@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import javax.sound.midi.*;
 
+import model.groovebox.GrooveValues;
+
 /**
  * A MidiTrackBuilder implements the logic for create a midi track from a list of GrooveValues
  * @author Matteo Gabellini
  *
  */
-public class MidiSequenceBuilder {
+public class MidiSequenceCreationStrategy {
 	
 	private static final int VELOCITY = 100; // la velocità di tocco può essere
 												// da 0 a 127
