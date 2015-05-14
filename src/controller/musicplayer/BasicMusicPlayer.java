@@ -51,6 +51,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 			this.model = plManager;
 		}
 		this.soundPlayer = Optional.empty();
+		this.threadSongWatcher = Optional.empty();
 	}
 
 	
@@ -205,7 +206,7 @@ public class BasicMusicPlayer extends UpdatableObserversManager implements Music
 			this.soundPlayer.get().stop();
 			// If the song was invocated by the
 			// song watchdog the soundPlayer is not active
-			if (!songEnded) {
+			if (!songEnded && this.threadSongWatcher.isPresent()) {
 				// wait the termination of song watchdog
 				try {
 					this.threadSongWatcher.get().join();

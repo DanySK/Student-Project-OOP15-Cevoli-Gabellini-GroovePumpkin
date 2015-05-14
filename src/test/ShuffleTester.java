@@ -100,8 +100,18 @@ public class ShuffleTester {
 			e.printStackTrace();
 		}
 		
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 5; i++){
 			riproduttore.goToNextSong();
+			try {
+				Thread.sleep(WAIT_TIME);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for(int i = 0; i < 7; i++){
+			riproduttore.goToPreviousSong();
 			try {
 				Thread.sleep(WAIT_TIME);
 			} catch (InterruptedException e) {
