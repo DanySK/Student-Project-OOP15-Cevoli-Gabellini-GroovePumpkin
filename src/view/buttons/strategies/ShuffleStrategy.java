@@ -12,22 +12,22 @@ import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.buttons.strategies.consumers.ShuffleConsumer;
 import view.interfaces.BtnStrategy;
-import controller.MusicPlayer;
+import controller.musicplayer.Shuffable;
 
 public enum ShuffleStrategy implements
-		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> {
+		BtnStrategy<Shuffable, AbsStratBtn<Shuffable>, PlayerState> {
 	
 	SHUFFLE("Shuffle", UNSHUF_IMG, c -> c.setShuffleMode(true),	new ShuffleConsumer()), 
 	UNSHUFFLE("Unshuffle", SHUF_IMG, c -> c.setShuffleMode(false), new ShuffleConsumer());
 
 	private String title;
 	private ImageIcon img;
-	private Consumer<MusicPlayer> ctrlUser;
-	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
+	private Consumer<Shuffable> ctrlUser;
+	private BiConsumer<AbsStratBtn<Shuffable>, PlayerState> updater;
 
 	private ShuffleStrategy(final String title,	final ImageIcon img,
-			final Consumer<MusicPlayer> ctrlUser,
-			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
+			final Consumer<Shuffable> ctrlUser,
+			final BiConsumer<AbsStratBtn<Shuffable>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser = ctrlUser;
@@ -43,12 +43,12 @@ public enum ShuffleStrategy implements
 	}
 
 	@Override
-	public void doStrategy(final MusicPlayer t) {
+	public void doStrategy(final Shuffable t) {
 		this.ctrlUser.accept(t);
 	}
 
 	@Override
-	public void updateUser(final AbsStratBtn<MusicPlayer> b,
+	public void updateUser(final AbsStratBtn<Shuffable> b,
 			final PlayerState s) {
 		if (updater != null) {
 			this.updater.accept(b, s);

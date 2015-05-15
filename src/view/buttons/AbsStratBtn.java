@@ -29,11 +29,6 @@ public abstract class AbsStratBtn<C> extends PersonalJButton<C>
 		super.setController(controller);
 		this.setStrategy(strategy);
 		this.doShow(showTitle, strategy.getTitle());
-		
-		this.addActionListener(e -> {
-			// go to the next song
-			this.doStrategy();
-		});
 	}
 	
 	/**

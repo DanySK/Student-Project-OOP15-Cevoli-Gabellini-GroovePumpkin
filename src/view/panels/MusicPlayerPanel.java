@@ -1,5 +1,10 @@
 package view.panels;
 
+import static model.PlayerState.*;
+import static view.buttons.ButtonFactory.*;
+import static view.config.Configuration.*;
+import static view.config.Utility.*;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -9,11 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 import model.PlayerState;
-import controller.MusicPlayer;
-import static model.PlayerState.*;
-import static view.buttons.ButtonFactory.*;
-import static view.config.Utility.*;
-import static view.config.Configuration.*;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * Personalized JPanel for the PlayerPanel, this class "handles" the playing and
@@ -59,7 +60,7 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 		super(new BorderLayout());
 		this.setBorder(getADefaultPanelBorder());
 		this.setController(mp);
-		mp.addUpdatableObserver(this);
+		mp.addUpdatableObservers(this);
 
 		songName.setBackground(WHITE);
 		songName.setForeground(DARK_GREEN);
@@ -73,10 +74,10 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 			.setStop(createButton(STOP_B, getController(), false))
 			.setFW(createButton(FW_B, getController(), false))
 			.build(new FlowLayout(1, 10, 10)));
-		cmdPanes.add(new CmdPane.Builder()
-			.setLoop(createButton(LOOP_B, getController(), false))
-			.setShuffle(createButton(SHUFFLE_B, getController(), false))
-			.build(new FlowLayout(1, -5, 0)));		
+//		cmdPanes.add(new CmdPane.Builder()
+//			.setLoop(createButton(LOOP_B, getController(), false))
+//			.setShuffle(createButton(SHUFFLE_B, getController(), false))
+//			.build(new FlowLayout(1, -5, 0)));		
 		
 		north.add(cmdPanes.get(0), BorderLayout.CENTER);
 		north.add(cmdPanes.get(1), BorderLayout.SOUTH);

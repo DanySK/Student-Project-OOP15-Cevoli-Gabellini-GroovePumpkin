@@ -1,5 +1,8 @@
 package view.tables;
 
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+import static view.config.Configuration.RED;
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
@@ -11,11 +14,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-import controller.Updatable;
+
 import view.viewModel.AbstractMouseListener;
 import view.viewModel.GrooveTableModel;
-import static javax.swing.ListSelectionModel.*;
-import static view.config.Configuration.*;
+import controller.Updatable;
 
 /**
  * The Class that implements the groovebox

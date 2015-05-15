@@ -1,8 +1,9 @@
 package view.viewModel;
 
 import javax.swing.table.AbstractTableModel;
-import controller.MusicPlayer;
+
 import view.config.Utility;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * This class is a personalized Table Model for a playlist

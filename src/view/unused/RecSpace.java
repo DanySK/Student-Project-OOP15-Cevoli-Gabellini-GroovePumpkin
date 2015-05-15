@@ -1,9 +1,9 @@
 package view.unused;
 
+import static view.config.Configuration.REC_IMG;
+import model.PlayerState;
 import view.buttons.PersonalJButton;
 import controller.Updatable;
-import model.PlayerState;
-import static view.config.Configuration.*;
 
 /**
  * 

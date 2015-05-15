@@ -1,5 +1,10 @@
 package view.buttons;
 
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.WHITE;
+import static view.config.Utility.getACompoundTitledBorder;
+import static view.config.Utility.getADefaultButtonBorder;
+
 import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
@@ -7,11 +12,9 @@ import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
+import model.PlayerState;
 import view.interfaces.Controllable;
 import controller.Updatable;
-import model.PlayerState;
-import static view.config.Utility.*;
-import static view.config.Configuration.*;
 
 /**
  * A personal JButton class with modifed bg ad fg,

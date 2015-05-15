@@ -1,6 +1,9 @@
 package view.buttons.strategies;
 
-import static view.config.Utility.*;
+import static view.config.Configuration.PAUSE_IMG;
+import static view.config.Configuration.PLAY_IMG;
+import static view.config.Configuration.STOP_IMG;
+import static view.config.Utility.showErrorDialog;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -8,12 +11,11 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import controller.Player;
 import view.buttons.AbsStratBtn;
 import view.buttons.strategies.consumers.PlayPauseConsumer;
 import view.buttons.strategies.consumers.StopConsumer;
 import view.interfaces.BtnStrategy;
-import static view.config.Configuration.*;
+import controller.Player;
 
 /**
  * This enum implements Play, Pause and Stop strategies 

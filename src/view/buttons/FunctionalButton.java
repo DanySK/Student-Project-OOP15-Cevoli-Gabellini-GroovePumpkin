@@ -1,8 +1,8 @@
 package view.buttons;
 
+import static view.buttons.strategies.PlayerStrategy.STOP;
 import model.PlayerState;
 import view.interfaces.BtnStrategy;
-import static view.buttons.strategies.PlayerStrategy.*;
 
 /**
  * This class implements the functionality of a 
@@ -32,5 +32,10 @@ public class FunctionalButton<C> extends AbsStratBtn<C> {
 		if (this.getStrategy().equals(STOP)) {
 			this.setEnabled(false);
 		}
+		
+		this.addActionListener(e -> {
+			// go to the next song
+			this.doStrategy();
+		});
 	}
 }

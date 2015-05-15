@@ -1,10 +1,16 @@
 package view.buttons.strategies.consumers;
 
-import static model.PlayerState.*;
-import static view.buttons.strategies.PlayerStrategy.*;
+import static model.PlayerState.PAUSED;
+import static model.PlayerState.REMOVED;
+import static model.PlayerState.RUNNING;
+import static model.PlayerState.STOPPED;
+import static view.buttons.strategies.PlayerStrategy.PAUSE;
+import static view.buttons.strategies.PlayerStrategy.PLAY;
+
+import java.util.function.BiConsumer;
+
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
-import java.util.function.BiConsumer;
 import controller.Player;
 
 /**

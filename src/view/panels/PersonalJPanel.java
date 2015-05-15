@@ -1,14 +1,18 @@
 package view.panels;
 
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.WHITE;
+
 import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JPanel;
+
 import model.PlayerState;
 import controller.Updatable;
-import static view.config.Configuration.*;
 
 /**
  * A Personalized White&DarkGrey JPanel, with a personalizable Layout

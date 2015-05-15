@@ -3,8 +3,9 @@ package view.panels;
 import java.util.Optional;
 
 import view.buttons.AbsStratBtn;
-import controller.LoopablePlayer;
-import controller.MusicPlayer;
+import controller.musicplayer.LoopableMusicPlayer;
+import controller.musicplayer.MusicPlayer;
+import controller.musicplayer.Shuffable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
 
@@ -14,11 +15,14 @@ public class CmdWrapper {
 	private Optional<AbsStratBtn<Player>> stop;
 	private Optional<AbsStratBtn<MusicPlayer>> fw;
 	private Optional<AbsStratBtn<MusicPlayer>> bw;
-	private Optional<AbsStratBtn<MusicPlayer>> shuffle;
-	private Optional<AbsStratBtn<LoopablePlayer>> loop;
+	private Optional<AbsStratBtn<Shuffable>> shuffle;
+	private Optional<AbsStratBtn<LoopableMusicPlayer>> loop;
 	private Optional<AbsStratBtn<GrooveBoxPlayer>> save;
 	private Optional<AbsStratBtn<MusicPlayer>> add;
 	private Optional<AbsStratBtn<MusicPlayer>> remove;
+	
+	public CmdWrapper() {
+	}
 
 	/**
 	 * @return the play button associated to this panel
@@ -37,7 +41,7 @@ public class CmdWrapper {
 	/**
 	 * @return the Loop button associated with this panel
 	 */
-	public Optional<AbsStratBtn<LoopablePlayer>> getLoop() {
+	public Optional<AbsStratBtn<LoopableMusicPlayer>> getLoop() {
 		return loop;
 	}
 
@@ -58,7 +62,7 @@ public class CmdWrapper {
 	/**
 	 * @return the shuffle button associated with this panel
 	 */
-	public Optional<AbsStratBtn<MusicPlayer>> getShuffle() {
+	public Optional<AbsStratBtn<Shuffable>> getShuffle() {
 		return shuffle;
 	}
 
@@ -108,7 +112,7 @@ public class CmdWrapper {
 	 * 
 	 * @param loop
 	 */
-	public void setLoop(final AbsStratBtn<LoopablePlayer> b) {
+	public void setLoop(final AbsStratBtn<LoopableMusicPlayer> b) {
 		this.loop = Optional.ofNullable(b);
 	}
 
@@ -135,7 +139,7 @@ public class CmdWrapper {
 	 * 
 	 * @param shuffle
 	 */
-	public void setShuffle(final AbsStratBtn<MusicPlayer> b) {
+	public void setShuffle(final AbsStratBtn<Shuffable> b) {
 		this.shuffle = Optional.ofNullable(b);
 	}
 	

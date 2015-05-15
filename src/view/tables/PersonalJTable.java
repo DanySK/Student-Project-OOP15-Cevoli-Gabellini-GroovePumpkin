@@ -1,5 +1,9 @@
 package view.tables;
 
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.RED;
+import static view.config.Configuration.WHITE;
+
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -7,9 +11,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
-import controller.Updatable;
 import model.PlayerState;
-import static view.config.Configuration.*;
+import controller.Updatable;
 
 /**
  * 

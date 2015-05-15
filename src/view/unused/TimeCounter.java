@@ -3,8 +3,6 @@ package view.unused;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JLabel;
-import javax.swing.JProgressBar;
-import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 
 /**

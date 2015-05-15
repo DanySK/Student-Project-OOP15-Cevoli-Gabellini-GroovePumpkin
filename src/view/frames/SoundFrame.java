@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import view.others.SoundMenu;
 import view.others.SoundTab;
 import view.panels.PersonalJPanel;
-import controller.MusicPlayer;
+import controller.musicplayer.MusicPlayer;
 import controller.groovebox.GrooveBoxPlayer;
 
 

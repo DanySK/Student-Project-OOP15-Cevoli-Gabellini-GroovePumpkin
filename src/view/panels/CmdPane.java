@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import view.buttons.AbsStratBtn;
-import controller.LoopablePlayer;
-import controller.MusicPlayer;
+import controller.musicplayer.LoopableMusicPlayer;
+import controller.musicplayer.MusicPlayer;
+import controller.musicplayer.Shuffable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
 
@@ -76,13 +77,13 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setLoop(final AbsStratBtn<LoopablePlayer> b) {
+		public Builder setLoop(final AbsStratBtn<LoopableMusicPlayer> b) {
 			cW.setLoop(b);
 			l.add(b);
 			return this;
 		}
 
-		public Builder setShuffle(final AbsStratBtn<MusicPlayer> b) {
+		public Builder setShuffle(final AbsStratBtn<Shuffable> b) {
 			cW.setShuffle(b);
 			l.add(b);
 			return this;

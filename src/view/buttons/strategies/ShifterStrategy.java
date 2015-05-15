@@ -1,5 +1,8 @@
 package view.buttons.strategies;
 
+import static view.config.Configuration.FW_IMG;
+import static view.config.Configuration.RW_IMG;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -8,8 +11,7 @@ import javax.swing.ImageIcon;
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.interfaces.BtnStrategy;
-import controller.MusicPlayer;
-import static view.config.Configuration.*;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * This strategy class implements the actions for

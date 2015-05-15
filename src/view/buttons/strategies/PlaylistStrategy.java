@@ -1,5 +1,10 @@
 package view.buttons.strategies;
 
+import static view.config.Configuration.ADD_IMG;
+import static view.config.Configuration.REMOVE_IMG;
+import static view.config.Utility.anURLPathBuilder;
+import static view.config.Utility.showErrorDialog;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,9 +17,7 @@ import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.interfaces.BtnStrategy;
 import view.viewModel.MyFileChooser;
-import controller.MusicPlayer;
-import static view.config.Utility.*;
-import static view.config.Configuration.*;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * 

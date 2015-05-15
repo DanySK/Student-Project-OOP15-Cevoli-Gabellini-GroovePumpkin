@@ -1,10 +1,7 @@
 package view.config;
 
-import static model.PlayerState.*;
-
+import static view.config.Configuration.*;
 import java.awt.Component;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -12,8 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
-import controller.MusicPlayer;
-import static view.config.Configuration.*;
 
 /**
  * An Utility class
@@ -103,33 +98,33 @@ public final class Utility {
 		return s.substring(0, s.lastIndexOf('.'));
 	}
 	
-	/**
-	 * Return a play adapter for this class.
-	 * Bind the SPACE bar so that it will play/pause
-	 * the running song
-	 * 
-	 * @return keyAdp if controller is not null, otherwise null
-	 */
-	public KeyAdapter getPlayAdapter(final MusicPlayer controller){
-		 
-		if(controller!= null){
-			final KeyAdapter keyAdp=new KeyAdapter() {
-				@Override
-				public void keyPressed(final KeyEvent e) {
-					if(e.getKeyCode()== KeyEvent.VK_SPACE){
-						if(controller.getState().equals(RUNNING)){
-							controller.pause();
-						} else if(controller.getState().equals(PAUSED)){
-							controller.play();
-						}
-					}
-				}
-			};
-			return keyAdp;
-		}
-		return null;
-	}
-	
+//	/**
+//	 * Return a play adapter for this class.
+//	 * Bind the SPACE bar so that it will play/pause
+//	 * the running song
+//	 * 
+//	 * @return keyAdp if controller is not null, otherwise null
+//	 */
+//	public KeyAdapter getPlayAdapter(final MusicPlayer controller){
+//		 
+//		if(controller!= null){
+//			final KeyAdapter keyAdp=new KeyAdapter() {
+//				@Override
+//				public void keyPressed(final KeyEvent e) {
+//					if(e.getKeyCode()== KeyEvent.VK_SPACE){
+//						if(controller.getState().equals(RUNNING)){
+//							controller.pause();
+//						} else if(controller.getState().equals(PAUSED)){
+//							controller.play();
+//						}
+//					}
+//				}
+//			};
+//			return keyAdp;
+//		}
+//		return null;
+//	}
+//	
 	public static boolean checkObj(final Object o){
 		return o!=null;
 	}

@@ -1,27 +1,33 @@
 package view.panels;
 
-import controller.MusicPlayer;
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+import static view.buttons.ButtonFactory.ADD_B;
+import static view.buttons.ButtonFactory.REMOVE_B;
+import static view.buttons.ButtonFactory.createButton;
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.DOUBLE_CLICK;
+import static view.config.Configuration.RED;
+import static view.config.Configuration.WHITE;
+import static view.config.Utility.getADefaultPanelBorder;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
-import javax.swing.event.TableModelEvent;
-import javax.swing.table.TableModel;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.TableModel;
+
 import model.PlayerState;
-import view.tables.PersonalJTable;
 import view.buttons.strategies.PlaylistStrategy;
-import view.config.Configuration;
+import view.tables.PersonalJTable;
 import view.viewModel.AbstractMouseListener;
 import view.viewModel.PlaylistTableModel;
-import static javax.swing.ListSelectionModel.*;
-import static view.buttons.ButtonFactory.*;
-import static view.config.Utility.*;
-import static view.config.Configuration.*;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * Personalized Panel for the PlayBackPanel class, this class manages the
@@ -53,7 +59,7 @@ public class PlaylistPanel extends ControllablePane<MusicPlayer> {
 		super(new BorderLayout());
 		this.setBorder(getADefaultPanelBorder());
 		this.setController(mp);
-		this.getController().addUpdatableObserver(this);
+		this.getController().addUpdatableObservers(this);
 
 		this.tableModel = new PlaylistTableModel(getController());
 		this.playlist = new PersonalJTable(tableModel, SINGLE_SELECTION);
@@ -85,7 +91,7 @@ public class PlaylistPanel extends ControllablePane<MusicPlayer> {
 			@Override
 			public void mouseClicked(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)
-						&& e.getClickCount() == Configuration.DOUBLE_CLICK) {
+						&& e.getClickCount() == DOUBLE_CLICK) {
 					getController().stop();
 					getController().goToSong(((JTable) e.getSource())
 							.rowAtPoint(e.getPoint()));

@@ -1,13 +1,18 @@
 package view.unused;
 
+import static model.PlayerState.PAUSED;
+import static model.PlayerState.RUNNING;
+import static model.PlayerState.SONGCHANGED;
+import static model.PlayerState.STOPPED;
+
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
-import view.config.Configuration;
+
 import model.PlayerState;
-import controller.MusicPlayer;
+import view.config.Configuration;
+import controller.musicplayer.MusicPlayer;
 import controller.Updatable;
-import static model.PlayerState.*;
 
 /**
  * This class rapresent a controller communicates with a timer
@@ -30,7 +35,7 @@ public class TimerController implements Updatable {
 
 	public TimerController(final MusicPlayer controller) {
 		this.controller = controller;
-		this.controller.addUpdatableObserver(this);
+		this.controller.addUpdatableObservers(this);
 		timeBar.addChangeListener(e-> {
 				final Double d= new Double (controller.getElapsedTime());
 				((JProgressBar)e.getSource())

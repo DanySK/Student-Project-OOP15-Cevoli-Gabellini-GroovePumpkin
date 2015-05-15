@@ -1,11 +1,15 @@
 package view.panels;
 
+import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.WHITE;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JSplitPane;
+
 //import view.unused.TimerController;
-import controller.MusicPlayer;
-import static javax.swing.JSplitPane.*;
-import static view.config.Configuration.*;
+import controller.musicplayer.MusicPlayer;
 
 /**
  * This class rapresents the main player panel, which is divided into 2 other

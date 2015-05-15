@@ -1,12 +1,13 @@
 package view.buttons.strategies.consumers;
 
-import java.util.function.BiConsumer;
-
-import controller.MusicPlayer;
 import static model.PlayerState.*;
 import static view.buttons.strategies.ShuffleStrategy.*;
+
+import java.util.function.BiConsumer;
+
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
+import controller.musicplayer.Shuffable;
 
 /**
  * 
@@ -14,12 +15,12 @@ import view.buttons.AbsStratBtn;
  *
  */
 public class ShuffleConsumer implements
-		BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> {
+		BiConsumer<AbsStratBtn<Shuffable>, PlayerState> {
 
 	@Override
-	public void accept(AbsStratBtn<MusicPlayer> b, PlayerState s) {
+	public void accept(AbsStratBtn<Shuffable> b, PlayerState s) {
 		if (s.equals(SHUFFLED) || s.equals(UNSHUFFLED)) {
-			b.setStrategy(b.getController().isShuffleModeActive() ? 
+			b.setStrategy(b.getStrategy().equals(SHUFFLE) ? 
 					UNSHUFFLE : SHUFFLE);
 			b.changeTitle(b.getStrategy().getTitle());
 			b.setIcon(b.getStrategy().getImage());

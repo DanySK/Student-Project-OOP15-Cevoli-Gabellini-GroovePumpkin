@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.DefaultValues;
+import model.groovebox.DefaultValues;
 import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Configuration.*;
 

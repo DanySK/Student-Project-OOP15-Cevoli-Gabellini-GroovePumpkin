@@ -1,12 +1,15 @@
 package view.others;
 
+import static view.config.Configuration.DARK_GRAY;
+import static view.config.Configuration.WHITE;
+
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import static view.config.Configuration.*;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame

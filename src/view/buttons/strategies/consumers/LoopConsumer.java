@@ -1,22 +1,21 @@
 package view.buttons.strategies.consumers;
 
+import static model.PlayerState.*;
+import static view.buttons.strategies.LoopStrategy.*;
 import java.util.function.BiConsumer;
-
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
-import controller.LoopablePlayer;
-import static view.buttons.strategies.LoopStrategy.*;
-import static model.PlayerState.*;
+import controller.musicplayer.LoopableMusicPlayer;
 
 /**
  * 
  * @author Alessandro
  *
  */
-public class LoopConsumer implements BiConsumer<AbsStratBtn<LoopablePlayer>, PlayerState> {
+public class LoopConsumer implements BiConsumer<AbsStratBtn<LoopableMusicPlayer>, PlayerState> {
 
 	@Override
-	public void accept(AbsStratBtn<LoopablePlayer> b, PlayerState s) {
+	public void accept(AbsStratBtn<LoopableMusicPlayer> b, PlayerState s) {
 		if(s.equals(LOOPED) || s.equals(UNLOOPED)){
 			b.setStrategy(b.getController().isLoopModeActive() ? 
 					UNLOOP : LOOP);

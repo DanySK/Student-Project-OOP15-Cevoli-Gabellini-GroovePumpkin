@@ -13,6 +13,10 @@ import org.hamcrest.Factory;
 import view.interfaces.BtnStrategy;
 import controller.*;
 import controller.groovebox.GrooveBoxPlayer;
+import controller.musicplayer.LoopableMusicPlayer;
+import controller.musicplayer.MusicPlayer;
+import controller.musicplayer.Shuffable;
+
 
 /**
  * A simple factory class to simply creates functional Buttons
@@ -32,8 +36,8 @@ public final class ButtonFactory {
 	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> PLAY_B = PLAY;
 	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> PAUSE_B = PAUSE;
 	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> STOP_B = STOP;
-	public static final BtnStrategy<LoopablePlayer, AbsStratBtn<LoopablePlayer>, PlayerState> LOOP_B = LOOP;
-	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> SHUFFLE_B = SHUFFLE;
+	public static final BtnStrategy<LoopableMusicPlayer, AbsStratBtn<LoopableMusicPlayer>, PlayerState> LOOP_B = LOOP;
+	public static final BtnStrategy<Shuffable, AbsStratBtn<Shuffable>, PlayerState> SHUFFLE_B = SHUFFLE;
 	public static final BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> SAVE_B = SAVE;
 	public static final BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> LOAD_B = LOAD;
 	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> FW_B = FORWARD;

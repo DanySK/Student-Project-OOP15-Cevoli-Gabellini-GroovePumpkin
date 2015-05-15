@@ -6,22 +6,19 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
-import controller.Updatable;
-import static view.buttons.ButtonFactory.*;
-import view.panels.PersonalJPanel;
 import model.PlayerState;
+import view.panels.PersonalJPanel;
+import controller.Updatable;
 
 /**
  * 
  * @author Alessandro
  *
  */
-@SuppressWarnings("unused")
 public class Recorder extends JFrame implements Updatable{
 
 	private static final long serialVersionUID = -4303337519550483522L;
