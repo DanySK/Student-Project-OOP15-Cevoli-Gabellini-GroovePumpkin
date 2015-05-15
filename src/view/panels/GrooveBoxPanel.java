@@ -68,7 +68,7 @@ public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
 		cmdPane= new CmdPane.Builder()
 				.setPlay(createButton(PLAY_B, getController(), true))
 				.setStop(createButton(STOP_B, getController(), true))
-				.setLoop(createButton(LOOP_B, getController(), true))
+//				.setLoop(createButton(LOOP_B, getController(), true))
 				.setSave(createButton(SAVE_B, getController(), true))
 				.build();
 				
