@@ -3,15 +3,17 @@ package view.panels;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
+
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
+
 import view.buttons.PersonalJButton;
 import view.tables.GrooveBox;
 import view.viewModel.GrooveTableModel;
-import controller.GrooveBoxPlayer;
+import controller.groovebox.GrooveBoxPlayer;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
 import static view.config.Configuration.*;

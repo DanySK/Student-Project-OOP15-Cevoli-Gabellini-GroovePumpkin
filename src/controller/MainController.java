@@ -1,5 +1,7 @@
 package controller;
 
+import controller.groovebox.GrooveBoxController;
+import controller.groovebox.GrooveBoxPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 

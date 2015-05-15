@@ -2,8 +2,8 @@ package main;
 
 import view.config.Configuration;
 import view.frames.SoundFrame;
-import controller.GrooveBoxController;
-import controller.GrooveBoxPlayer;
+import controller.groovebox.GrooveBoxController;
+import controller.groovebox.GrooveBoxPlayer;
 import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 

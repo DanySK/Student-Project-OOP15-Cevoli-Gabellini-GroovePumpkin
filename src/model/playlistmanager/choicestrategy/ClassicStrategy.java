@@ -19,7 +19,7 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 	
 	@Override
-	public Optional<Integer> getNextSong(List<X> playlist) {
+	public Optional<Integer> getNextSong(final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty() || this.currentIdx >= playlist.size()-1) {
 			return Optional.empty();
 		} 
@@ -27,7 +27,7 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getPreviousSong(List<X> playlist) {
+	public Optional<Integer> getPreviousSong(final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty() || this.currentIdx == 0) {
 			return Optional.empty();
 		}		
@@ -35,9 +35,9 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getSong(int index, List<X> playlist) {
+	public Optional<Integer> getSong(final int index, final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty() || index < 0
-				|| (index > playlist.size() - 1)) {
+				|| index > playlist.size() - 1) {
 			return Optional.empty();
 		}
 		this.currentIdx = index;
@@ -50,7 +50,7 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public void removedIndex(int index) {
+	public void removedIndex(final int index) {
 		if (this.currentIdx == index) {
 			this.currentIdx = -1;
 		}

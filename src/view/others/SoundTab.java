@@ -5,10 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import view.panels.GrooveBoxPanel;
 import view.panels.PlayerPanel;
-import controller.GrooveBoxPlayer;
 import controller.MusicPlayer;
+import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Configuration.*;
 
 /**

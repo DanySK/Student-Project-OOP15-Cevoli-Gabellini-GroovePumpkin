@@ -1,9 +1,11 @@
 package view.viewModel;
 
 import java.awt.Color;
+
 import javax.swing.table.AbstractTableModel;
+
 import model.DefaultValues;
-import controller.GrooveBoxPlayer;
+import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Configuration.*;
 
 /**

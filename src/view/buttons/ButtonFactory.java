@@ -12,6 +12,7 @@ import org.hamcrest.Factory;
 
 import view.interfaces.BtnStrategy;
 import controller.*;
+import controller.groovebox.GrooveBoxPlayer;
 
 /**
  * A simple factory class to simply creates functional Buttons

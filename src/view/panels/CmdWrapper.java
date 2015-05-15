@@ -3,10 +3,10 @@ package view.panels;
 import java.util.Optional;
 
 import view.buttons.AbsStratBtn;
-import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
+import controller.groovebox.GrooveBoxPlayer;
 
 public class CmdWrapper {
 	

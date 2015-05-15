@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.interfaces.BtnStrategy;
-import controller.GrooveBoxPlayer;
+import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Utility.*;
 import static view.config.Configuration.*;
 

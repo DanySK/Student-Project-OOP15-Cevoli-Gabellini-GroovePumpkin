@@ -1,7 +1,9 @@
-package controller;
+package controller.groovebox;
 
 import java.io.IOException;
 
+import controller.Observable;
+import controller.Player;
 import controller.musicplayer.Loopable;
 
 /**

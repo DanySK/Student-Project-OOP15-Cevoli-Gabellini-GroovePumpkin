@@ -15,7 +15,7 @@ import java.util.Random;
  * @param <X> The type of the playlist elements
  */
 public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
-	private final int SHUFFLED_LIST_LIMIT = 50;
+	private static final int SHUFFLED_LIST_LIMIT = 50;
 	
 	private int currShuffledIdx = -1;
 	private List<Integer> shuffled;
@@ -49,7 +49,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 	
 	@Override
-	public Optional<Integer> getNextSong(List<X> playlist) {
+	public Optional<Integer> getNextSong(final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty()) {
 			return Optional.empty();
 		}		
@@ -96,13 +96,13 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getPreviousSong(List<X> playlist) {
+	public Optional<Integer> getPreviousSong(final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty()) {
 			return Optional.empty();
 		}
 		
 		// take the previous song from the stack
-		if (shuffled.size() == 0 || currShuffledIdx == 0) {
+		if (shuffled.isEmpty() || currShuffledIdx == 0) {
 			// if the shuffled playlist is empty i'll do nothing or
 			// If the currentShuffledIdx corresponding to the first song of the
 			// shuffled playlist
@@ -115,9 +115,9 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getSong(int index, List<X> playlist) {
+	public Optional<Integer> getSong(final int index, final List<X> playlist) {
 		if (playlist == null || playlist.isEmpty() || index < 0
-				|| (index > playlist.size() - 1)) {
+				|| index > playlist.size() - 1) {
 			return Optional.empty();
 		}
 
@@ -128,7 +128,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public void removedIndex(int index) {
+	public void removedIndex(final int index) {
 		for(int i = 0; i < this.shuffled.size(); i++){
 			if(this.shuffled.get(i) == index){
 				//if the value of the i-th element is equal than index 

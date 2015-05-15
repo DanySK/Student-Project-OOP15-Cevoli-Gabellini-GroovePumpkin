@@ -4,11 +4,12 @@ import java.awt.Component;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
+
 import view.buttons.AbsStratBtn;
-import controller.GrooveBoxPlayer;
 import controller.LoopablePlayer;
 import controller.MusicPlayer;
 import controller.Player;
+import controller.groovebox.GrooveBoxPlayer;
 
 /**
  * This class handle a single row of functional Buttons

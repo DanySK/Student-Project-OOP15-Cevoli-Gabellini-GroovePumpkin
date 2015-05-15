@@ -1,13 +1,15 @@
-package controller;
+package controller.groovebox;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 
+import controller.UpdatableObserversManager;
 import controller.songplayer.MidiSongPlayer;
 import controller.songplayer.SongWatchDog;
 import model.LoopManager;
