@@ -53,11 +53,12 @@ public enum GroovePlayerStrategy implements
 
 		final int val = chooser.showOpenDialog(null);
 		if (val == JFileChooser.APPROVE_OPTION) {
+			@SuppressWarnings("unused")
 			final File f = chooser.getSelectedFile();
 
 			// controller.
 
-			System.out.println(f.getName());
+			//System.out.println(f.getName());
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(null, "An Error has occurred",
 					"Error Message", JOptionPane.ERROR_MESSAGE);
@@ -100,8 +101,8 @@ public enum GroovePlayerStrategy implements
 	}
 
 	@Override
-	public void updateUser(AbsStratBtn<GrooveBoxPlayer> button,
-			PlayerState status) {
+	public void updateUser(final AbsStratBtn<GrooveBoxPlayer> button,
+			final PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);
 		}

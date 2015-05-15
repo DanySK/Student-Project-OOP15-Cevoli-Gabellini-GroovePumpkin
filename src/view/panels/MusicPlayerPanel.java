@@ -80,12 +80,14 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 //			.build(new FlowLayout(1, -5, 0)));		
 		
 		north.add(cmdPanes.get(0), BorderLayout.CENTER);
-		north.add(cmdPanes.get(1), BorderLayout.SOUTH);
+//		north.add(cmdPanes.get(1), BorderLayout.SOUTH);
 
-		this.addObservers(cmdPanes.get(0).getWrapper().getPlay().get(), 
-				cmdPanes.get(0).getWrapper().getStop().get(), 
-				cmdPanes.get(1).getWrapper().getShuffle().get(), 
-				cmdPanes.get(1).getWrapper().getLoop().get());
+		this.addUpdatableObservers(cmdPanes.get(0).getWrapper().getPlay().get(), 
+				cmdPanes.get(0).getWrapper().getStop().get()
+//				, 
+//				cmdPanes.get(1).getWrapper().getShuffle().get(), 
+//				cmdPanes.get(1).getWrapper().getLoop().get()
+				);
 		
 		this.add(north, BorderLayout.NORTH);
 	}

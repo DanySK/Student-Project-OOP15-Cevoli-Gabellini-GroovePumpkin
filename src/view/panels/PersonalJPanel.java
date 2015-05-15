@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import model.PlayerState;
+import controller.Observable;
 import controller.Updatable;
 
 /**
@@ -21,7 +22,7 @@ import controller.Updatable;
  *
  */
 
-public class PersonalJPanel extends JPanel implements Updatable{
+public class PersonalJPanel extends JPanel implements Updatable, Observable{
 
 	private static final long serialVersionUID = -7098020132793828090L;
 
@@ -69,7 +70,7 @@ public class PersonalJPanel extends JPanel implements Updatable{
 	 * 
 	 * @param up
 	 */
-	public void addObservers(final Updatable... up) {
+	public void addUpdatableObservers(final Updatable... up) {
 		for (final Updatable u : up) {
 			observers.add(u);
 		}

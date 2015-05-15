@@ -47,7 +47,7 @@ public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
 		super(new BorderLayout(5, 5));
 		this.setController(controller);
 		grooveBox= new GrooveBox(new GrooveTableModel(controller));
-		this.addObservers(grooveBox);
+		this.addUpdatableObservers(grooveBox);
 		//controller.addUpdatableObserver(this);
 		
 		timeDialerOptions.setBackground(WHITE);
@@ -74,7 +74,7 @@ public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
 				
 		cmdPane.setLayout(new BoxLayout(cmdPane, BoxLayout.Y_AXIS));
 		
-		addObservers(cmdPane.getWrapper().getPlay().get(), cmdPane.getWrapper().getStop().get());
+		addUpdatableObservers(cmdPane.getWrapper().getPlay().get(), cmdPane.getWrapper().getStop().get());
 		final PersonalJButton<GrooveBoxPlayer> reset;
 		reset= new PersonalJButton<>(RESET_IMG, "Reset");
 		reset.addActionListener(e->{
