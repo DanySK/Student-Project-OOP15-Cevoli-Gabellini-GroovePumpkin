@@ -7,6 +7,12 @@ import model.PlayerState;
 import model.playlistmanager.ExtendedPlaylistManager;
 import model.playlistmanager.ShuffablePlaylistManager;
 
+/**
+ * A classic music player is a normal music player that at the end of the song goes to the next
+ * if at the constructor i pass a ShuffablePlaylistManager it can able to manage the shuffle mode
+ * @author Matteo Gabellini
+ *
+ */
 public class ClassicMusicPlayer extends AbstractMusicPlayer implements Shuffable{
 	private final ExtendedPlaylistManager<URL> referenceToPL;
 	

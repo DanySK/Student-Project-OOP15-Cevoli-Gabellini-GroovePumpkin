@@ -9,7 +9,7 @@ import model.playlistmanager.ExtendedPlaylistManager;
 
 /**
  * 
- * A decoration of a MusicPlayer that add the management of the Loop mode
+ * An extension of a classic music player that add the management of the Loop mode
  * 
  * @author Matteo Gabellini
  *

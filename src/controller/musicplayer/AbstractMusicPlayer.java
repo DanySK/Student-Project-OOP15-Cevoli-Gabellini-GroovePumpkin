@@ -26,7 +26,9 @@ import model.PlayerState;
 import model.SongPlayerState;
 import model.playlistmanager.PlaylistManager;
 /**
- * A Basic implementation of a Music Player that manage the main function of a MusicPlayer
+ * A basic implementation of a Music Player that manage the main function of a MusicPlayer
+ * 
+ * The classes that exand this abstract class must implement the logic after the end of the song
  * @author Matteo Gabellini
  * 
  */
