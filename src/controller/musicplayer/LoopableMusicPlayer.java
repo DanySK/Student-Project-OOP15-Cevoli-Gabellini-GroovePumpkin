@@ -2,6 +2,7 @@ package controller.musicplayer;
 
 import java.net.URL;
 
+import controller.Loopable;
 import model.LoopManager;
 import model.PlayerState;
 import model.playlistmanager.ExtendedPlaylistManager;
@@ -13,7 +14,7 @@ import model.playlistmanager.ExtendedPlaylistManager;
  * @author Matteo Gabellini
  *
  */
-public class LoopableMusicPlayer extends BasicMusicPlayer implements Loopable {
+public class LoopableMusicPlayer extends ClassicMusicPlayer implements Loopable {
 	final private LoopManager loopModel;
 	
 	public LoopableMusicPlayer(final ExtendedPlaylistManager<URL> plManager) {

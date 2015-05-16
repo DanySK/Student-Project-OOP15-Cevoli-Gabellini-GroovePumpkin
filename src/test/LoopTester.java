@@ -34,10 +34,10 @@ public class LoopTester {
 		lmpTmp.setLoop(true);
 		riproduttore.play();
 		System.out.println("Durata Traccia: "
-				+ riproduttore.getDurationOfCurrentSong());
-		double durationOfSong = riproduttore.getDurationOfCurrentSong();
+				+ riproduttore.getCurrentSongInfosManager().get().getDuration());
+		double durationOfSong = riproduttore.getCurrentSongInfosManager().get().getDuration();
 		int tPosition = ((int) (durationOfSong * 1000)) - 1000;
-		riproduttore.setPosition(tPosition);
+		riproduttore.getCurrentSongInfosManager().get().setPosition(tPosition);
 
 		try {
 			Thread.sleep(5000);
@@ -45,8 +45,8 @@ public class LoopTester {
 			e.printStackTrace();
 		}
 
-		System.out.println("Tempo trascorso: " + riproduttore.getElapsedTime());
-		assertTrue(riproduttore.getElapsedTime() < tPosition);
+		System.out.println("Tempo trascorso: " + riproduttore.getCurrentSongInfosManager().get().getElapsedTime());
+		assertTrue(riproduttore.getCurrentSongInfosManager().get().getElapsedTime() < tPosition);
 		assertTrue(riproduttore.getPlayList().get(0)
 				.equals(riproduttore.getCurrentSong().get()));
 

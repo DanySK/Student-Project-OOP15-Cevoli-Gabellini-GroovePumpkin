@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import controller.Observable;
 import controller.Player;
+import controller.songplayer.SongInfosManager;
 
 /**
  * 
@@ -42,25 +43,14 @@ public interface MusicPlayer extends Player, Observable{
 	 * @return An optional that contains the song that will be played if will be call the method play
 	 */
 	Optional<URL> getCurrentSong();
-	
+
 	/**
-	 * a getter for the time past from the begin of the song
-	 * @return the elapsed second
+	 * Take the informations of the possible current song in reproduction
+	 * 
+	 * @return An optional with the information of the song in reproduction
+	 *         otherwise an Optional.empty() if there isn't
 	 */
-	double getElapsedTime();
-	
-	/**
-	 * a getter for the duration of current song
-	 * @return the duration in milliseconds of the current track
-	 */
-	double getDurationOfCurrentSong();
-	
-	/**
-	 * This method is used for set the position in the current song
-	 * @param the microsecond past from the begin of the song
-	 * @throws IllegalArgumentException if the parameter time is out of the range of the song
-	 */
-	void setPosition(final int time) throws IllegalArgumentException;
+	Optional<SongInfosManager> getCurrentSongInfosManager();
 	 
 	
 	/**

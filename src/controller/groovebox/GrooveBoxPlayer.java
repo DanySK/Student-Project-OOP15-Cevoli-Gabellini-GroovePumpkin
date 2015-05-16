@@ -2,9 +2,9 @@ package controller.groovebox;
 
 import java.io.IOException;
 
+import controller.Loopable;
 import controller.Observable;
 import controller.Player;
-import controller.musicplayer.Loopable;
 
 /**
  * This rappresent the logic for manage a groove and reproduce them with groove box

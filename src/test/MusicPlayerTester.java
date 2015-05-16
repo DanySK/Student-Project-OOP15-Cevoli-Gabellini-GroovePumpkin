@@ -1,20 +1,12 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.PlayerState;
-import controller.Updatable;
-import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
-import controller.musicplayer.Shuffable;
 
 /**
  * This is an automatic test with JUnit for my classes
@@ -104,10 +96,10 @@ public class MusicPlayerTester {
 		}
 
 		// Controllo che il tempo della traccia scorra
-		assertTrue(lettore.getElapsedTime() > 0);
+		assertTrue(lettore.getCurrentSongInfosManager().get().getElapsedTime() > 0);
 		System.out.println("Pause!!!!");
 		lettore.pause();
-		elapsedTime = lettore.getElapsedTime();
+		elapsedTime = lettore.getCurrentSongInfosManager().get().getElapsedTime();
 
 		// Attendo il tempo deciso dal parametro pauseTime millisecondi
 		try {

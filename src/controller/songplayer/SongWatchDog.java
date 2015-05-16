@@ -21,9 +21,7 @@ public class SongWatchDog extends Thread{
 	
 	@Override
 	public void run() {
-		System.out
-				.println("Sono il song watcher e sono partito");
-
+		
 		while (this.soundPlayer.isActive()
 				|| this.soundPlayer.getState() == SongPlayerState.PAUSED) {
 			// Finche la traccia è attiva stoppo
@@ -42,7 +40,5 @@ public class SongWatchDog extends Thread{
 			this.player.stop();
 		}
 
-		System.out
-				.println("Sono il song watcher e termino");
 	}
 }

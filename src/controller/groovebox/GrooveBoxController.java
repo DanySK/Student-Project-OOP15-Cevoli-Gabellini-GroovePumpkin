@@ -36,11 +36,13 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	private Optional<MidiSongPlayer> sequencer;
 	private final GrooveBoxContentManager model;
 	private LoopManager lManager;
-	private SongWatchDog threadGrooveWatchdog;
+	private Optional<SongWatchDog> threadGrooveWatchdog;
 	
 	private GrooveBoxController(){
 		super();
 		this.model = new GrooveBoxModel();
+		this.lManager = new LoopManager();
+		this.threadGrooveWatchdog = Optional.empty();
 	}
 	
 	public static GrooveBoxController getInstance(){
@@ -55,7 +57,12 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 			try {
 				this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
 				this.sequencer.get().play();
-				this.threadGrooveWatchdog = new SongWatchDog(this, this.sequencer.get());
+				if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
+					// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
+					// CONTROLLARE LA FINE DEL MIDI
+					threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
+					threadGrooveWatchdog.get().start();				
+			    }
 				if(this.sequencer.get().isActive()){
 					notifyToUpdatable(RUNNING);
 				}
@@ -78,23 +85,24 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	@Override
 	public void stop() {
 		if (sequencer.isPresent()) {
-			if(this.sequencer.get().isActive()){
+			final boolean songEnded = this.sequencer.get().getState().equals(SongPlayerState.RUNNING) && !this.sequencer.get().isActive();
+			this.sequencer.get().stop();
+			if(!songEnded && this.threadGrooveWatchdog.isPresent()){
 				//This code is execute when the stop is called by the user
-				this.sequencer.get().stop();
 				try {
-					this.threadGrooveWatchdog.join();
+					this.threadGrooveWatchdog.get().join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? STOPPED
 						: ERROR);
-				this.sequencer = Optional.empty();
-			} else {
-				//This code is executed when the stop is called by the Song Watcher
-				this.sequencer.get().stop();
-				if(this.lManager.isLoopModeActive()){
-					this.play();
-				}
+				
+			}
+			this.sequencer = Optional.empty();
+			this.threadGrooveWatchdog = Optional.empty();
+			// This code is executed when the stop is called by the Song Watcher
+			if (songEnded && this.lManager.isLoopModeActive()) {
+				this.play();
 			}	
 		}		
 	}

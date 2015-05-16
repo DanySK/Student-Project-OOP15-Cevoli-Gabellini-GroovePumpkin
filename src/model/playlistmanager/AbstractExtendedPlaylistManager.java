@@ -75,7 +75,7 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 		if(this.decorated instanceof PlaylistFeatures){
 			((PlaylistFeatures) this.decorated).setFeatureState(featureClass,active);
 		} else {
-			throw new UnsupportedOperationException("The playlist manager of this instance haven't the shuffle manage");
+			throw new UnsupportedOperationException("The playlist manager of this instance haven't this feature");
 		}
 	}
 
@@ -83,6 +83,6 @@ public abstract class AbstractExtendedPlaylistManager<X> implements ExtendedPlay
 		if(this.decorated instanceof PlaylistFeatures){
 			return ((PlaylistFeatures) this.decorated).isFeatureActive(featureClass);
 		}
-		throw new UnsupportedOperationException("The playlist manager haven't this instance");		
+		throw new UnsupportedOperationException("The playlist manager haven't this feature");		
 	}
 }

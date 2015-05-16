@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.musicplayer.BasicMusicPlayer;
+import controller.musicplayer.AbstractMusicPlayer;
 import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;

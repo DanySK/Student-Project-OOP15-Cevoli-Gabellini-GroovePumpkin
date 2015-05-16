@@ -28,6 +28,6 @@ public class ClassicPlaylistManager<X> extends AbstractExtendedPlaylistManager<X
 	 */
 	@Override
 	public void setChoiceStrategy(final PlaylistChoiceStrategy<X> strategy) {
-		throw new UnsupportedOperationException("The choice strategy changing is doing internally by this object");
+		throw new UnsupportedOperationException("The choice strategy for this object couldn't changed externally");
 	}
 }

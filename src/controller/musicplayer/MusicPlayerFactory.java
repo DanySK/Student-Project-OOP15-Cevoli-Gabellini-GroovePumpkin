@@ -13,11 +13,11 @@ import model.playlistmanager.ShuffablePlaylistManager;
 public class MusicPlayerFactory {
 
 	public static MusicPlayer createClassicMusicPlayer(){
-		return new BasicMusicPlayer(new ClassicPlaylistManager<URL>());
+		return new ClassicMusicPlayer(new ClassicPlaylistManager<URL>());
 	}
 	
-	public static MusicPlayer createBasicShuffableMusicPlayer(){
-		return new BasicMusicPlayer(new ShuffablePlaylistManager<>());
+	public static MusicPlayer createShuffableMusicPlayer(){
+		return new ClassicMusicPlayer(new ShuffablePlaylistManager<>());
 	}
 	
 	public static MusicPlayer createLoopableMusicPlayer(){

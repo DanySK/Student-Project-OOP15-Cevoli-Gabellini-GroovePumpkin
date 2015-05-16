@@ -1,4 +1,4 @@
-package controller.musicplayer;
+package controller;
 /**
  * This interface rappresent an object that manages the loop mode
  * @author Matteo Gabellini

@@ -53,6 +53,8 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	public void removedIndex(final int index) {
 		if (this.currentIdx == index) {
 			this.currentIdx = -1;
+		} else if(this.currentIdx > index){
+			this.currentIdx--;
 		}
 	}
 

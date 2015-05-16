@@ -37,7 +37,7 @@ public class TimerController implements Updatable {
 		this.controller = controller;
 		this.controller.addUpdatableObservers(this);
 		timeBar.addChangeListener(e-> {
-				final Double d= new Double (controller.getElapsedTime());
+				final Double d= new Double (controller.getCurrentSongInfosManager().get().getElapsedTime());
 				((JProgressBar)e.getSource())
 					.setValue(d.intValue());
 		});

@@ -16,8 +16,9 @@ import java.util.Random;
  */
 public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	private static final int SHUFFLED_LIST_LIMIT = 50;
+	private static final int NOT_SELECTED = -1;
 	
-	private int currShuffledIdx = -1;
+	private int currShuffledIdx = NOT_SELECTED;
 	private List<Integer> shuffled;
 	private ExtractionStrategy<Integer> eStrategy;
 
@@ -67,7 +68,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 				this.reorganizeShuffledList();
 			}
 			
-			if (this.currShuffledIdx == -1) {
+			if (this.currShuffledIdx == NOT_SELECTED) {
 				shuffled.add(this.eStrategy.getElement());
 			} else {
 				// I take the next song and i controll that isn't equals to the
@@ -90,6 +91,9 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 		} else {
 			// Otherwise i chose the next song from the list of the previous
 			// chosen song
+			if(this.currShuffledIdx == NOT_SELECTED){
+				this.currShuffledIdx = -1;
+			}
 			return Optional.ofNullable(this.shuffled
 					.get(++this.currShuffledIdx));
 		}
@@ -129,14 +133,19 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 	@Override
 	public void removedIndex(final int index) {
-		for(int i = 0; i < this.shuffled.size(); i++){
-			if(this.shuffled.get(i) == index){
-				//if the value of the i-th element is equal than index 
-				this.shuffled.remove(i);
-			} else if(this.shuffled.get(i) > index){
-				//if the value is greater than the index that i remove
-				this.shuffled.set(i,this.shuffled.get(index) - 1);
+		if (this.currShuffledIdx != NOT_SELECTED) {
+			for (int i = 0; i < this.currShuffledIdx; i++) {
+				if (this.shuffled.get(i) == index) {
+					this.currShuffledIdx--;
+				}
 			}
+			this.currShuffledIdx = this.currShuffledIdx < 0 ? NOT_SELECTED
+					: this.currShuffledIdx;
 		}
+		this.shuffled.removeIf(X -> X == index);
+		final List<Integer> updatedValue = new ArrayList<>();
+		this.shuffled.stream().filter(X -> X > index).forEach(Y -> updatedValue.add(Y - 1));
+		this.shuffled.removeIf(X -> X > index);
+		this.shuffled.addAll(updatedValue);
 	}
 }

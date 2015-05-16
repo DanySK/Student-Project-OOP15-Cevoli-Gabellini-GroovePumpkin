@@ -34,7 +34,7 @@ public class ShuffleTester {
 			}
 		};
 		final MusicPlayer riproduttore = MusicPlayerFactory
-				.createBasicShuffableMusicPlayer();
+				.createShuffableMusicPlayer();
 
 		riproduttore.addUpdatableObservers(component);
 		try {
