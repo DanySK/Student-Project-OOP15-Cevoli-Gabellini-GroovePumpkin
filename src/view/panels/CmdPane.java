@@ -4,11 +4,10 @@ import java.awt.Component;
 import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
-
-import view.buttons.AbsStratBtn;
-import controller.musicplayer.LoopableMusicPlayer;
+import view.buttons.AbstractStratBtn;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.Shuffable;
+import controller.Loopable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
 
@@ -50,7 +49,7 @@ public class CmdPane extends PersonalJPanel {
 
 	public static class Builder {
 		
-		private final List<AbsStratBtn<?>> l = new ArrayList<>();
+		private final List<AbstractStratBtn<?>> l = new ArrayList<>();
 		private final CmdWrapper cW= new CmdWrapper();
 		private boolean play;
 		private boolean stop;
@@ -61,9 +60,9 @@ public class CmdPane extends PersonalJPanel {
 		private boolean add;
 		private boolean remove;
 		private boolean save;
-		
+		private boolean reset;
 
-		public Builder setPlay(final AbsStratBtn<Player> b) 
+		public Builder setPlay(final AbstractStratBtn<Player> b) 
 				throws NullPointerException{
 			if(!play){
 				cW.setPlay(b);
@@ -73,7 +72,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setStop(final AbsStratBtn<Player> b) 
+		public Builder setStop(final AbstractStratBtn<Player> b) 
 				throws NullPointerException{
 			if(!stop){
 				cW.setStop(b);
@@ -83,7 +82,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setFW(final AbsStratBtn<MusicPlayer> b) 
+		public Builder setFW(final AbstractStratBtn<MusicPlayer> b) 
 				throws NullPointerException{
 			if(!fw){
 				cW.setFW(b);
@@ -93,7 +92,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setBW(final AbsStratBtn<MusicPlayer> b) 
+		public Builder setBW(final AbstractStratBtn<MusicPlayer> b) 
 				throws NullPointerException{
 			if(!bw){
 				cW.setBW(b);
@@ -103,7 +102,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setLoop(final AbsStratBtn<LoopableMusicPlayer> b) 
+		public Builder setLoop(final AbstractStratBtn<Loopable> b) 
 				throws NullPointerException{
 			if(!loop){
 				cW.setLoop(b);
@@ -113,7 +112,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setShuffle(final AbsStratBtn<Shuffable> b) 
+		public Builder setShuffle(final AbstractStratBtn<Shuffable> b) 
 				throws NullPointerException{
 			if(!shuffle){
 				cW.setShuffle(b);
@@ -122,7 +121,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setAdd(final AbsStratBtn<MusicPlayer> b) 
+		public Builder setAdd(final AbstractStratBtn<MusicPlayer> b) 
 				throws NullPointerException{
 			if(!add){
 				cW.setAdd(b);
@@ -132,7 +131,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setRemove(final AbsStratBtn<MusicPlayer> b) 
+		public Builder setRemove(final AbstractStratBtn<MusicPlayer> b) 
 				throws NullPointerException{
 			if(!remove){
 				cW.setRemove(b);
@@ -142,12 +141,22 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setSave(final AbsStratBtn<GrooveBoxPlayer> b) 
+		public Builder setSave(final AbstractStratBtn<GrooveBoxPlayer> b) 
 				throws NullPointerException{
 			if(!save){
 				cW.setSave(b);
 				l.add(b);
 				save=true;
+			}
+			return this;
+		}
+		
+		public Builder setReset(final AbstractStratBtn<GrooveBoxPlayer> b) 
+				throws NullPointerException{
+			if(!reset){
+				cW.setReset(b);
+				l.add(b);
+				reset=true;
 			}
 			return this;
 		}

@@ -7,13 +7,10 @@ import static view.buttons.strategies.LoopStrategy.*;
 import static view.buttons.strategies.GroovePlayerStrategy.*;
 import static view.buttons.strategies.ShuffleStrategy.*;
 import model.PlayerState;
-
 import org.hamcrest.Factory;
-
 import view.interfaces.BtnStrategy;
 import controller.*;
 import controller.groovebox.GrooveBoxPlayer;
-import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.Shuffable;
 
@@ -33,17 +30,18 @@ public final class ButtonFactory {
 	/**
 	 * 
 	 */
-	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> PLAY_B = PLAY;
-	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> PAUSE_B = PAUSE;
-	public static final BtnStrategy<Player, AbsStratBtn<Player>, PlayerState> STOP_B = STOP;
-	public static final BtnStrategy<LoopableMusicPlayer, AbsStratBtn<LoopableMusicPlayer>, PlayerState> LOOP_B = LOOP;
-	public static final BtnStrategy<Shuffable, AbsStratBtn<Shuffable>, PlayerState> SHUFFLE_B = SHUFFLE;
-	public static final BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> SAVE_B = SAVE;
-	public static final BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> LOAD_B = LOAD;
-	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> FW_B = FORWARD;
-	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> RW_B = BACKWARD;
-	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> ADD_B = ADD;
-	public static final BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> REMOVE_B = REMOVE;
+	public static final BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState> PLAY_B = PLAY;
+	public static final BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState> PAUSE_B = PAUSE;
+	public static final BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState> STOP_B = STOP;
+	public static final BtnStrategy<Loopable, AbstractStratBtn<Loopable>, PlayerState> LOOP_B = LOOP;
+	public static final BtnStrategy<Shuffable, AbstractStratBtn<Shuffable>, PlayerState> SHUFFLE_B = SHUFFLE;
+	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> SAVE_B = SAVE;
+	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> LOAD_B = LOAD;
+	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> RESET_B = RESET; 
+	public static final BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> FW_B = FORWARD;
+	public static final BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> RW_B = BACKWARD;
+	public static final BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> ADD_B = ADD;
+	public static final BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> REMOVE_B = REMOVE;
 
 	private ButtonFactory() {
 	}
@@ -64,10 +62,24 @@ public final class ButtonFactory {
 	 * @return the chosen type of button 
 	 */
 	@Factory
-	public static <C> AbsStratBtn<C> createButton(
-			final BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy,
+	public static <C> AbstractStratBtn<C> createButton(
+			final BtnStrategy<C, AbstractStratBtn<C>, PlayerState> strategy,
 			final C controller, final boolean showTitle) {
+		
+		final AbstractStratBtn<C> b= new AbstractStratBtn<C>(controller, strategy, showTitle){
 
-		return new FunctionalButton<C>(controller, showTitle, strategy);
+			private static final long serialVersionUID = 3239121438125525581L;
+		};
+		
+		if (strategy.equals(STOP)) {
+			b.setEnabled(false);
+		}
+		
+		b.addActionListener(e -> {
+			// go to the next song
+			b.doStrategy();
+		});
+		
+		return b;
 	}
 }

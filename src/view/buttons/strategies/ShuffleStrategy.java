@@ -9,13 +9,13 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.ShuffleConsumer;
 import view.interfaces.BtnStrategy;
 import controller.musicplayer.Shuffable;
 
 public enum ShuffleStrategy implements
-		BtnStrategy<Shuffable, AbsStratBtn<Shuffable>, PlayerState> {
+		BtnStrategy<Shuffable, AbstractStratBtn<Shuffable>, PlayerState> {
 	
 	SHUFFLE("Shuffle", UNSHUF_IMG, c -> c.setShuffleMode(true),	new ShuffleConsumer()), 
 	UNSHUFFLE("Unshuffle", SHUF_IMG, c -> c.setShuffleMode(false), new ShuffleConsumer());
@@ -23,11 +23,11 @@ public enum ShuffleStrategy implements
 	private String title;
 	private ImageIcon img;
 	private Consumer<Shuffable> ctrlUser;
-	private BiConsumer<AbsStratBtn<Shuffable>, PlayerState> updater;
+	private BiConsumer<AbstractStratBtn<Shuffable>, PlayerState> updater;
 
 	private ShuffleStrategy(final String title,	final ImageIcon img,
 			final Consumer<Shuffable> ctrlUser,
-			final BiConsumer<AbsStratBtn<Shuffable>, PlayerState> updater) {
+			final BiConsumer<AbstractStratBtn<Shuffable>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser = ctrlUser;
@@ -48,7 +48,7 @@ public enum ShuffleStrategy implements
 	}
 
 	@Override
-	public void updateUser(final AbsStratBtn<Shuffable> b,
+	public void updateUser(final AbstractStratBtn<Shuffable> b,
 			final PlayerState s) {
 		if (updater != null) {
 			this.updater.accept(b, s);

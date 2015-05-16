@@ -1,7 +1,5 @@
 package view.buttons;
 
-import javax.swing.ImageIcon;
-
 import model.PlayerState;
 import view.interfaces.BtnStrategy;
 import view.interfaces.StratObj;
@@ -14,18 +12,18 @@ import view.interfaces.StratObj;
  *
  * @param <C>
  */
-public abstract class AbsStratBtn<C> extends PersonalJButton<C>
-	implements StratObj<BtnStrategy<C, AbsStratBtn<C>, PlayerState>>{
+public abstract class AbstractStratBtn<C> extends PersonalJButton<C>
+	implements StratObj<BtnStrategy<C, AbstractStratBtn<C>, PlayerState>>{
 
 	private static final long serialVersionUID = 5596342092610796464L;
 
-	private BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy;
+	private BtnStrategy<C, AbstractStratBtn<C>, PlayerState> strategy;
 
-	protected AbsStratBtn(final ImageIcon image,final C controller,
-			final BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy,
+	protected AbstractStratBtn(final C controller,
+			final BtnStrategy<C, AbstractStratBtn<C>, PlayerState> strategy,
 			final boolean showTitle) {
 		
-		super(image);
+		super(strategy.getImage());
 		super.setController(controller);
 		this.setStrategy(strategy);
 		this.doShow(showTitle, strategy.getTitle());
@@ -43,7 +41,7 @@ public abstract class AbsStratBtn<C> extends PersonalJButton<C>
 	 * 
 	 * @return The strategy implemented by this Object
 	 */
-	public BtnStrategy<C, AbsStratBtn<C>, PlayerState> getStrategy() {
+	public BtnStrategy<C, AbstractStratBtn<C>, PlayerState> getStrategy() {
 		return this.strategy;
 	}
 
@@ -52,7 +50,7 @@ public abstract class AbsStratBtn<C> extends PersonalJButton<C>
 	 * 
 	 * @param strategy
 	 */
-	public void setStrategy(final BtnStrategy<C, AbsStratBtn<C>, PlayerState> strategy) {
+	public void setStrategy(final BtnStrategy<C, AbstractStratBtn<C>, PlayerState> strategy) {
 		this.strategy = strategy;
 	}
 	

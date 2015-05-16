@@ -10,7 +10,7 @@ import static view.buttons.strategies.PlayerStrategy.PLAY;
 import java.util.function.BiConsumer;
 
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import controller.Player;
 
 /**
@@ -18,10 +18,10 @@ import controller.Player;
  * @author Alessandro
  *
  */
-public class PlayPauseConsumer implements BiConsumer<AbsStratBtn<Player>, PlayerState> {
+public class PlayPauseConsumer implements BiConsumer<AbstractStratBtn<Player>, PlayerState> {
 
 	@Override
-	public void accept(AbsStratBtn<Player> b, PlayerState s) {
+	public void accept(AbstractStratBtn<Player> b, PlayerState s) {
 		if(s.equals(RUNNING) || s.equals(PAUSED)
 				|| s.equals(STOPPED) || s.equals(REMOVED)){
 			b.setStrategy(s.equals(RUNNING) ? PAUSE : PLAY);

@@ -1,15 +1,15 @@
 package view.buttons.strategies;
 
 import static view.config.Configuration.*;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.LoopConsumer;
 import view.interfaces.BtnStrategy;
-
-import controller.musicplayer.LoopableMusicPlayer;
+import controller.Loopable;
 
 /**
  * This strategy class implements the strategies for shuffle or unshuffling a
@@ -19,21 +19,19 @@ import controller.musicplayer.LoopableMusicPlayer;
  *
  */
 public enum LoopStrategy implements
-		BtnStrategy<LoopableMusicPlayer, AbsStratBtn<LoopableMusicPlayer>, PlayerState> {
+		BtnStrategy<Loopable, AbstractStratBtn<Loopable>, PlayerState> {
 	
-	LOOP("Loop", LOOP_OFF_IMG, c -> c.setLoop(true), new LoopConsumer()), UNLOOP(
-			"UnLoop", LOOP_ON_IMG, c -> c.setLoop(false), new LoopConsumer());
+	LOOP("Loop", LOOP_OFF_IMG, c -> c.setLoop(true), new LoopConsumer()), 
+	UNLOOP("UnLoop", LOOP_ON_IMG, c -> c.setLoop(false), new LoopConsumer());
 
 	private String title;
 	private ImageIcon img;
-	private Consumer<LoopableMusicPlayer> ctrlUser;
-	private BiConsumer<AbsStratBtn<LoopableMusicPlayer>, PlayerState> updater;
+	private Consumer<Loopable> ctrlUser;
+	private BiConsumer<AbstractStratBtn<Loopable>, PlayerState> updater;
 
-	private LoopStrategy(
-			final String title,
-			final ImageIcon img,
-			final Consumer<LoopableMusicPlayer> ctrlUser,
-			final BiConsumer<AbsStratBtn<LoopableMusicPlayer>, PlayerState> updater) {
+	private LoopStrategy(final String title, final ImageIcon img,
+			final Consumer<Loopable> ctrlUser,
+			final BiConsumer<AbstractStratBtn<Loopable>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser = ctrlUser;
@@ -41,7 +39,7 @@ public enum LoopStrategy implements
 	}
 
 	@Override
-	public void doStrategy(LoopableMusicPlayer t) {
+	public void doStrategy(Loopable t) {
 		ctrlUser.accept(t);
 	}
 
@@ -58,7 +56,7 @@ public enum LoopStrategy implements
 	}
 
 	@Override
-	public void updateUser(AbsStratBtn<LoopableMusicPlayer> b, PlayerState s) {
+	public void updateUser(AbstractStratBtn<Loopable> b, PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

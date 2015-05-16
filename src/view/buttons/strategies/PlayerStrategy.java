@@ -1,17 +1,12 @@
 package view.buttons.strategies;
 
-import static view.config.Configuration.PAUSE_IMG;
-import static view.config.Configuration.PLAY_IMG;
-import static view.config.Configuration.STOP_IMG;
-import static view.config.Utility.showErrorDialog;
-
+import static view.config.Configuration.*;
+import static view.config.Utility.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 import javax.swing.ImageIcon;
-
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.PlayPauseConsumer;
 import view.buttons.strategies.consumers.StopConsumer;
 import view.interfaces.BtnStrategy;
@@ -26,7 +21,7 @@ import controller.Player;
  *
  */
 public enum PlayerStrategy implements 
-		BtnStrategy<Player, AbsStratBtn<Player>, PlayerState>{
+		BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState>{
 
 	PLAY("Play", PLAY_IMG, c -> c.play(), new PlayPauseConsumer()), 
 	PAUSE("Pause", PAUSE_IMG, c -> c.pause(), new PlayPauseConsumer()), 
@@ -35,11 +30,11 @@ public enum PlayerStrategy implements
 	private String title;
 	private ImageIcon img;
 	private Consumer<Player> ctrlUser;
-	private BiConsumer<AbsStratBtn<Player>, PlayerState> updater;
+	private BiConsumer<AbstractStratBtn<Player>, PlayerState> updater;
 
 	private PlayerStrategy(final String title, final ImageIcon img,
 			final Consumer<Player> ctrlUser,
-			final BiConsumer<AbsStratBtn<Player>, PlayerState> updater) {
+			final BiConsumer<AbstractStratBtn<Player>, PlayerState> updater) {
 		
 		this.title = title;
 		this.img = img;
@@ -65,7 +60,7 @@ public enum PlayerStrategy implements
 	}
 	
 	@Override
-	public void updateUser(final AbsStratBtn<Player> b, final PlayerState s) {
+	public void updateUser(final AbstractStratBtn<Player> b, final PlayerState s) {
 		if(updater!=null){
 			updater.accept(b, s);
 		}

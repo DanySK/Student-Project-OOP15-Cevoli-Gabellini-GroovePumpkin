@@ -4,12 +4,15 @@ import static model.PlayerState.*;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Configuration.*;
 import static view.config.Utility.*;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+
 import model.PlayerState;
-import controller.musicplayer.LoopableMusicPlayer;
+import controller.Loopable;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.Shuffable;
 
@@ -72,7 +75,7 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 			.setFW(createButton(FW_B, getController(), false))
 			.build(new FlowLayout(1, 10, 10)));
 		this.getCommandPane().add(new CmdPane.Builder()
-			.setLoop(createButton(LOOP_B, (LoopableMusicPlayer)getController(), false))
+			.setLoop(createButton(LOOP_B, (Loopable)getController(), false))
 			.setShuffle(createButton(SHUFFLE_B, (Shuffable)getController(), false))
 			.build(new FlowLayout(1, -5, 0)));		
 		
@@ -104,39 +107,28 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 			this.songName.setText("< Any song is playing >");
 		}
 	}
-	
-	
 
 	/**
-	 * 
-	 * @return
-	 */
-	public JLabel getSongTimeLabel() {
-		return this.songTime;
-	}
-	
-	public JProgressBar getProgressBar(){
-		return this.jpb;
-	}
-
-	/**
+	 * Attach a new time label to this object
 	 * 
 	 * @param l
 	 */
 	public void setSongTimeLabel(final JLabel l) {
-		if (checkObj(getSongTimeLabel())) {
-			this.labelsPane.remove(getSongTimeLabel());
+		if (checkObj(songTime)) {
+			this.labelsPane.remove(songTime);
 		}
 		this.labelsPane.add(l, 1);
 		this.songTime = l;
 	}
 	
 	/**
+	 * Attach a new progressbar to this object
 	 * 
+	 * @param jpb
 	 */
 	public void setProgressBar(final JProgressBar jpb){
-		if (checkObj(getProgressBar())) {
-			this.barPane.remove(getProgressBar());
+		if (checkObj(this.jpb)) {
+			this.barPane.remove(this.jpb);
 		}
 		this.barPane.add(jpb, BorderLayout.CENTER);
 		this.jpb=jpb;

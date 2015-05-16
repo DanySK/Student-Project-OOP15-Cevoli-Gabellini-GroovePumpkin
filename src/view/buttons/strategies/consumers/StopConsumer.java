@@ -7,7 +7,7 @@ import static model.PlayerState.STOPPED;
 import java.util.function.BiConsumer;
 
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import controller.Player;
 
 /**
@@ -15,10 +15,10 @@ import controller.Player;
  * @author Alessandro
  *
  */
-public class StopConsumer implements BiConsumer<AbsStratBtn<Player>, PlayerState> {
+public class StopConsumer implements BiConsumer<AbstractStratBtn<Player>, PlayerState> {
 
 	@Override
-	public void accept(AbsStratBtn<Player> b, PlayerState s) {
+	public void accept(AbstractStratBtn<Player> b, PlayerState s) {
 		if (s.equals(STOPPED) || s.equals(REMOVED)) {
 			b.setEnabled(false);
 		} else if (s.equals(RUNNING) && !b.isEnabled()) {

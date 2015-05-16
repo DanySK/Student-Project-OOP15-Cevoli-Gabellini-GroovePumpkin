@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
 import controller.musicplayer.MusicPlayer;
 
@@ -22,7 +22,7 @@ import controller.musicplayer.MusicPlayer;
  *
  */
 public enum ShifterStrategy implements 
-		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState>{
+		BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState>{
 	
 	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 
 	BACKWARD("Rewind", RW_IMG, c -> c.goToPreviousSong(), null);
@@ -30,11 +30,11 @@ public enum ShifterStrategy implements
 	private String title;
 	private ImageIcon img;
 	private Consumer<MusicPlayer> ctrlUser;
-	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
+	private BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater;
 
 	private ShifterStrategy(final String title, final ImageIcon img,
 			final Consumer<MusicPlayer> ctrlUser,
-			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
+			final BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.title = title;
 		this.img = img;
 		this.ctrlUser= ctrlUser;
@@ -55,7 +55,7 @@ public enum ShifterStrategy implements
 	}
 
 	@Override
-	public void updateUser(final AbsStratBtn<MusicPlayer> b, final PlayerState s) {
+	public void updateUser(final AbstractStratBtn<MusicPlayer> b, final PlayerState s) {
 		if(updater!=null){
 			this.updater.accept(b, s);
 		}

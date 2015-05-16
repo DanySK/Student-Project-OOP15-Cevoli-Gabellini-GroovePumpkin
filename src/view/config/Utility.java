@@ -83,6 +83,8 @@ public final class Utility {
 	 * @link{http://stackoverflow.com/questions/4050087/how-to-obtain-the-last-path-segment-of-an-uri}
 	 * for the first replacement
 	 * 
+	 * This method expect a song name like type %Artist%-%Album%-%Title%
+	 * 
 	 * @param URLPath
 	 */
 	public static String convertURLPath(final String URLPath){
@@ -97,34 +99,7 @@ public final class Utility {
 				.trim();
 		return s.substring(0, s.lastIndexOf('.'));
 	}
-	
-//	/**
-//	 * Return a play adapter for this class.
-//	 * Bind the SPACE bar so that it will play/pause
-//	 * the running song
-//	 * 
-//	 * @return keyAdp if controller is not null, otherwise null
-//	 */
-//	public KeyAdapter getPlayAdapter(final MusicPlayer controller){
-//		 
-//		if(controller!= null){
-//			final KeyAdapter keyAdp=new KeyAdapter() {
-//				@Override
-//				public void keyPressed(final KeyEvent e) {
-//					if(e.getKeyCode()== KeyEvent.VK_SPACE){
-//						if(controller.getState().equals(RUNNING)){
-//							controller.pause();
-//						} else if(controller.getState().equals(PAUSED)){
-//							controller.play();
-//						}
-//					}
-//				}
-//			};
-//			return keyAdp;
-//		}
-//		return null;
-//	}
-//	
+
 	public static boolean checkObj(final Object o){
 		return o!=null;
 	}

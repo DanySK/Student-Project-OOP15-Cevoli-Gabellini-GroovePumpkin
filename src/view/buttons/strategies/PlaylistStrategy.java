@@ -9,7 +9,7 @@ import java.util.function.BiConsumer;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import model.PlayerState;
-import view.buttons.AbsStratBtn;
+import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
 import view.model.MyFileChooser;
 import controller.musicplayer.MusicPlayer;
@@ -21,42 +21,10 @@ import controller.musicplayer.MusicPlayer;
  *
  */
 public enum PlaylistStrategy implements
-		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> {
+		BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> {
 	
-	ADD("Add", ADD_IMG, (c, u) -> c.addSong((URL) u), null), 
-	REMOVE("Remove", REMOVE_IMG, (c, i)-> c.removeSong((int) i), null);
-
-	private ImageIcon img;
-	private String title;
-	private BiConsumer<MusicPlayer, Object> ctrlUser;
-	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
-
-	private int[] selectedIndexes = { -1 };
-
-	private PlaylistStrategy(final String title, final ImageIcon img,
-			final BiConsumer<MusicPlayer, Object> ctrlUser,
-			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
-		this.img = img;
-		this.title = title;
-		this.ctrlUser = ctrlUser;
-		this.updater = updater;
-	}
-
-	private void remove(final MusicPlayer controller) {
-		try {
-			for (final int i : selectedIndexes) {
-				this.ctrlUser.accept(controller, i);
-			}
-			selectedIndexes = new int[] { -1 };
-		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
-			showErrorDialog(null, "Invalid object selected!");
-		}
-	}
-
-	private void add(final MusicPlayer controller) {
-		// aggiungi una canzone
+	ADD("Add", ADD_IMG, (c, idx) ->{
 		final MyFileChooser chooser = new MyFileChooser(JFileChooser.FILES_AND_DIRECTORIES);
-
 		final int val = chooser.showOpenDialog(null);
 
 		if (val == JFileChooser.APPROVE_OPTION) {
@@ -65,20 +33,18 @@ public enum PlaylistStrategy implements
 			 * can't add subfolder! I need to create a recorsive method, but if
 			 * a users choose the rootfolderthat would become a problem :D
 			 */
-			for (final File i : chooser.getSelectedFiles()) {
-				if (i.isDirectory()) {
-					for (final File file : i.listFiles(chooser.getMyFileFilter())) {
+			for (final File f : chooser.getSelectedFiles()) {
+				if (f.isDirectory()) {
+					for (final File file : f.listFiles(chooser.getMyFileFilter())) {
 						try {
-							ctrlUser.accept(controller,
-									new URL(anURLPathBuilder(file.getAbsolutePath())));
+							c.addSong(new URL(anURLPathBuilder(file.getAbsolutePath())));
 						} catch ( IllegalArgumentException | MalformedURLException e) {
 							showErrorDialog(null, "Invalid song format ");
 						}
 					}
 				} else {
 					try {
-						ctrlUser.accept(controller,
-								new URL(anURLPathBuilder(i.getAbsolutePath())));
+						c.addSong(new URL(anURLPathBuilder(f.getAbsolutePath())));
 					} catch ( IllegalArgumentException | MalformedURLException e) {
 						showErrorDialog(null, "Invalid song format ");
 					}
@@ -87,6 +53,32 @@ public enum PlaylistStrategy implements
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			showErrorDialog(null, "An Error has occurred");
 		}
+	}, null), 
+	REMOVE("Remove", REMOVE_IMG, (c, idx)->{
+		try {
+			for (final int i : idx) {
+				c.removeSong(i);
+			}
+			idx = new int[] { -1 };
+		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
+			showErrorDialog(null, "Invalid object selected!");
+		}
+	}, null);
+
+	private ImageIcon img;
+	private String title;
+	private BiConsumer<MusicPlayer, int[]> ctrlUser;
+	private BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater;
+
+	private int[] selectedIndexes = { -1 };
+
+	private PlaylistStrategy(final String title, final ImageIcon img,
+			final BiConsumer<MusicPlayer, int[]> ctrlUser,
+			final BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater) {
+		this.img = img;
+		this.title = title;
+		this.ctrlUser = ctrlUser;
+		this.updater = updater;
 	}
 
 	@Override
@@ -103,11 +95,7 @@ public enum PlaylistStrategy implements
 
 	@Override
 	public void doStrategy(MusicPlayer controller) {
-		if (this.equals(ADD)) {
-			this.add(controller);
-		} else {
-			this.remove(controller);
-		}
+		this.ctrlUser.accept(controller, selectedIndexes);
 	}
 	
 	/**
@@ -120,7 +108,7 @@ public enum PlaylistStrategy implements
 	}
 
 	@Override
-	public void updateUser(final AbsStratBtn<MusicPlayer> button, 
+	public void updateUser(final AbstractStratBtn<MusicPlayer> button, 
 			final PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);
