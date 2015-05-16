@@ -1,4 +1,4 @@
-package view.viewModel;
+package view.model;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

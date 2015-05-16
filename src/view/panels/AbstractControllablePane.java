@@ -1,7 +1,8 @@
 package view.panels;
 
-import java.awt.Component;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import view.interfaces.Controllable;
 
@@ -13,17 +14,18 @@ import view.interfaces.Controllable;
  *
  * @param <C>
  */
-public abstract class ControllablePane<C> extends PersonalJPanel 
+public abstract class AbstractControllablePane<C> extends PersonalJPanel 
 		implements Controllable<C> {
 
 	private static final long serialVersionUID = 2742792723546786577L;
 	private C controller;
+	private final List<CmdPane> cmdPane= new ArrayList<>();
 
 	/**
 	 * A basic constructor
 	 * 
 	 */
-	public ControllablePane() {
+	public AbstractControllablePane() {
 		super();
 	}
 
@@ -32,7 +34,7 @@ public abstract class ControllablePane<C> extends PersonalJPanel
 	 * 
 	 * @param layout
 	 */
-	public ControllablePane(final LayoutManager layout) {
+	public AbstractControllablePane(final LayoutManager layout) {
 		super(layout);
 	}
 
@@ -42,27 +44,23 @@ public abstract class ControllablePane<C> extends PersonalJPanel
 	}
 
 	/**
-	 * NOTE: This method assumes that all the Controllolable object inside this
-	 * component are of the same type <C>
-	 * 
-	 * The warning has been suppressed because was annoying, I used a try catch
-	 * to avoid undesired effect
+	 * Change the controller attached to this object,
+	 * it doesn't change the one attached to the children
+	 * of this object if it has controllable children
 	 * 
 	 * @param controller
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void setController(final C controller) {
 		this.controller = controller;
-		for (final Component c : this.getComponents()) {
-			if (c instanceof Controllable) {
-				try {
-					((Controllable<C>) c).setController(controller);
-				} catch (ClassCastException ex) {
-
-				}
-			}
-		}
+	}
+	
+	/**
+	 * 
+	 * @return The list of commands panels associated with this object
+	 */
+	public List<CmdPane> getCommandPane(){
+		return this.cmdPane;
 	}
 
 }

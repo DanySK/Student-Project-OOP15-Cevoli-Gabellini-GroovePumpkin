@@ -1,22 +1,17 @@
 package view.buttons.strategies;
 
-import static view.config.Configuration.ADD_IMG;
-import static view.config.Configuration.REMOVE_IMG;
-import static view.config.Utility.anURLPathBuilder;
-import static view.config.Utility.showErrorDialog;
-
+import static view.config.Configuration.*;
+import static view.config.Utility.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.BiConsumer;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.interfaces.BtnStrategy;
-import view.viewModel.MyFileChooser;
+import view.model.MyFileChooser;
 import controller.musicplayer.MusicPlayer;
 
 /**
@@ -28,18 +23,18 @@ import controller.musicplayer.MusicPlayer;
 public enum PlaylistStrategy implements
 		BtnStrategy<MusicPlayer, AbsStratBtn<MusicPlayer>, PlayerState> {
 	
-	ADD("Add", ADD_IMG, (c, u) -> c.addSong(u), null), 
-	REMOVE("Remove", REMOVE_IMG, null, null);
+	ADD("Add", ADD_IMG, (c, u) -> c.addSong((URL) u), null), 
+	REMOVE("Remove", REMOVE_IMG, (c, i)-> c.removeSong((int) i), null);
 
 	private ImageIcon img;
 	private String title;
-	private BiConsumer<MusicPlayer, URL> ctrlUser;
+	private BiConsumer<MusicPlayer, Object> ctrlUser;
 	private BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater;
 
 	private int[] selectedIndexes = { -1 };
 
 	private PlaylistStrategy(final String title, final ImageIcon img,
-			final BiConsumer<MusicPlayer, URL> ctrlUser,
+			final BiConsumer<MusicPlayer, Object> ctrlUser,
 			final BiConsumer<AbsStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.img = img;
 		this.title = title;
@@ -50,7 +45,7 @@ public enum PlaylistStrategy implements
 	private void remove(final MusicPlayer controller) {
 		try {
 			for (final int i : selectedIndexes) {
-				controller.removeSong(i);
+				this.ctrlUser.accept(controller, i);
 			}
 			selectedIndexes = new int[] { -1 };
 		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
@@ -60,7 +55,7 @@ public enum PlaylistStrategy implements
 
 	private void add(final MusicPlayer controller) {
 		// aggiungi una canzone
-		final MyFileChooser chooser = new MyFileChooser();
+		final MyFileChooser chooser = new MyFileChooser(JFileChooser.FILES_AND_DIRECTORIES);
 
 		final int val = chooser.showOpenDialog(null);
 
@@ -125,7 +120,8 @@ public enum PlaylistStrategy implements
 	}
 
 	@Override
-	public void updateUser(AbsStratBtn<MusicPlayer> button, PlayerState status) {
+	public void updateUser(final AbsStratBtn<MusicPlayer> button, 
+			final PlayerState status) {
 		if (updater != null) {
 			updater.accept(button, status);
 		}

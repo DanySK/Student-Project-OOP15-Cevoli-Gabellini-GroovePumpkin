@@ -41,7 +41,7 @@ public class PlayerPanel extends PersonalJPanel {
 		splitter.setForeground(DARK_GRAY);
 		splitter.setContinuousLayout(true);
 		this.add(splitter);
-
+		
 //		this.tmCtrl= new TimerController(mp);
 //		player.setProgressBar(tmCtrl.getProgressbar());
 //		player.getProgressBar().setVisible(true);

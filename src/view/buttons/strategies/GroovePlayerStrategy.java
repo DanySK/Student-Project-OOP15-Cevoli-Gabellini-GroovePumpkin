@@ -1,16 +1,15 @@
 package view.buttons.strategies;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 import model.PlayerState;
 import view.buttons.AbsStratBtn;
 import view.interfaces.BtnStrategy;
+import view.model.MyFileChooser;
 import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Utility.*;
 import static view.config.Configuration.*;
@@ -25,17 +24,23 @@ import static view.config.Configuration.*;
 public enum GroovePlayerStrategy implements
 		BtnStrategy<GrooveBoxPlayer, AbsStratBtn<GrooveBoxPlayer>, PlayerState> {
 	
-	SAVE("Save", SAVE_IMG, null, null), LOAD("Load", LOAD_IMG, null, null);
+	SAVE("Save", SAVE_IMG, (g,s)->{
+		try{
+			g.saveTrack(s);
+		}catch(IOException ex){
+			showErrorDialog(null, "An error has occurred while attempting to save the pattern!");
+		}
+	}, null), 
+	LOAD("Load", LOAD_IMG, null, null);
 
 	private ImageIcon img;
 	private String title;
 
-	@SuppressWarnings("unused")
-	private Consumer<GrooveBoxPlayer> ctrlUser;
+	private BiConsumer<GrooveBoxPlayer, String> ctrlUser;
 	private BiConsumer<AbsStratBtn<GrooveBoxPlayer>, PlayerState> updater;
 
 	private GroovePlayerStrategy(final String title, final ImageIcon img,
-			final Consumer<GrooveBoxPlayer> ctrlUser,
+			final BiConsumer<GrooveBoxPlayer, String> ctrlUser,
 			final BiConsumer<AbsStratBtn<GrooveBoxPlayer>, PlayerState> updater) {
 		this.img = img;
 		this.title = title;
@@ -66,16 +71,14 @@ public enum GroovePlayerStrategy implements
 	}
 
 	private void save(final GrooveBoxPlayer t) {
-		final JFileChooser chooser = new JFileChooser(
-				System.getProperty("user.home"));
-
+		final MyFileChooser chooser = new MyFileChooser(JFileChooser.FILES_AND_DIRECTORIES);
+		chooser.setMultiSelectionEnabled(false);
 		chooser.setVisible(true);
 		final int val = chooser.showSaveDialog(null);
 		if (val == JFileChooser.APPROVE_OPTION) {
-
-			// save the file
-			// controller.savePattern();
-
+			
+			this.ctrlUser.accept(t, String.join("", chooser.getSelectedFile().getAbsolutePath(), ".midi"));
+			
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			showErrorDialog(null, "An Error has occurred");
 		}

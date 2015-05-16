@@ -1,4 +1,4 @@
-package view.viewModel;
+package view.model;
 
 import java.io.File;
 import java.io.FilenameFilter;

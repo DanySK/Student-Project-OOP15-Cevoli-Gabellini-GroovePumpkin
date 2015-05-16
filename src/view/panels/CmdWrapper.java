@@ -20,9 +20,6 @@ public class CmdWrapper {
 	private Optional<AbsStratBtn<GrooveBoxPlayer>> save;
 	private Optional<AbsStratBtn<MusicPlayer>> add;
 	private Optional<AbsStratBtn<MusicPlayer>> remove;
-	
-	public CmdWrapper() {
-	}
 
 	/**
 	 * @return the play button associated to this panel

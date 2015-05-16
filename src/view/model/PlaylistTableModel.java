@@ -1,4 +1,4 @@
-package view.viewModel;
+package view.model;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -16,12 +16,13 @@ public class PlaylistTableModel extends AbstractTableModel{
 
 	private static final long serialVersionUID = 3639938590302106582L;
 	private final String[] names = new String[] { "#", "Song" };
-	private MusicPlayer controller;
+	private final MusicPlayer controller;
 	
 	/**
 	 * @param playlist, the playlist to be associated with this table
 	 */
 	public PlaylistTableModel(final MusicPlayer controller) {
+		super();
 		this.controller= controller;
 	}
 	
@@ -41,21 +42,16 @@ public class PlaylistTableModel extends AbstractTableModel{
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		if(columnIndex==1){
+	public Object getValueAt(final int rowIndex,final int columnIndex) {
+		if(columnIndex == 1){
 			return Utility.convertURLPath(controller.getPlayList().get(rowIndex).getPath());
-		} else{
+		} else {
 			return String.join("", names[0], String.valueOf(rowIndex+1));
 		}
 	}
 
 	@Override
-	public String getColumnName(int column) {
+	public String getColumnName(final int column) {
 		return names[column];
-	}
-	
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		return super.getColumnClass(columnIndex);
 	}
 }

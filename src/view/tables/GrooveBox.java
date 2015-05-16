@@ -15,8 +15,8 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
 
-import view.viewModel.AbstractMouseListener;
-import view.viewModel.GrooveTableModel;
+import view.model.AbstractMouseListener;
+import view.model.GrooveTableModel;
 import controller.Updatable;
 
 /**

@@ -11,8 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
 
 import view.buttons.PersonalJButton;
+import view.model.GrooveTableModel;
 import view.tables.GrooveBox;
-import view.viewModel.GrooveTableModel;
 import controller.groovebox.GrooveBoxPlayer;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
@@ -26,7 +26,7 @@ import static view.config.Configuration.*;
  * @author Alessandro
  *
  */
-public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
+public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 
 	private static final long serialVersionUID = 1116768170189928089L;
 	private final Integer[] items = new Integer[] { 40, 60, 80, 100, 120,
@@ -36,7 +36,6 @@ public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
 	
 	private final PersonalJPanel westPanel = new PersonalJPanel(new BorderLayout(5, 5));
 	private final PersonalJPanel timePanel = new PersonalJPanel(new FlowLayout(FlowLayout.CENTER, 5, 10));
-	private final CmdPane cmdPane;
 	private final JScrollPane jsp;
 	
 	/**
@@ -65,24 +64,26 @@ public class GrooveBoxPanel extends ControllablePane<GrooveBoxPlayer>{
 		timeDialerLabel.setForeground(DARK_GRAY);
 		timePanel.addComponents(timeDialerLabel, timeDialerOptions);
 		westPanel.add(timePanel, BorderLayout.NORTH);
-		cmdPane= new CmdPane.Builder()
+		this.getCommandPane().add(new CmdPane.Builder()
 				.setPlay(createButton(PLAY_B, getController(), true))
 				.setStop(createButton(STOP_B, getController(), true))
-//				.setLoop(createButton(LOOP_B, getController(), true))
+//				.setLoop(createButton(LOOP_B, (LoopableMusicPlayer)getController(), true))
 				.setSave(createButton(SAVE_B, getController(), true))
-				.build();
+				.build());
 				
-		cmdPane.setLayout(new BoxLayout(cmdPane, BoxLayout.Y_AXIS));
+		this.getCommandPane().get(0).setLayout(new BoxLayout(this.getCommandPane().get(0), BoxLayout.Y_AXIS));
 		
-		addUpdatableObservers(cmdPane.getWrapper().getPlay().get(), cmdPane.getWrapper().getStop().get());
+		addUpdatableObservers(this.getCommandPane().get(0).getWrapper().getPlay().get(), 
+				this.getCommandPane().get(0).getWrapper().getStop().get());
+		
 		final PersonalJButton<GrooveBoxPlayer> reset;
 		reset= new PersonalJButton<>(RESET_IMG, "Reset");
 		reset.addActionListener(e->{
 				controller.reset();
 				grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
 			});
-		cmdPane.add(reset);
-		westPanel.add(cmdPane, BorderLayout.CENTER);
+		this.getCommandPane().get(0).add(reset);
+		westPanel.add(this.getCommandPane().get(0), BorderLayout.CENTER);
 		
 		jsp= new JScrollPane(grooveBox);
 		this.add(westPanel, BorderLayout.WEST);

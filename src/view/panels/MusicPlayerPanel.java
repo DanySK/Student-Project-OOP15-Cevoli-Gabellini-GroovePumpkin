@@ -4,20 +4,18 @@ import static model.PlayerState.*;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Configuration.*;
 import static view.config.Utility.*;
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
-
 import model.PlayerState;
+import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
+import controller.musicplayer.Shuffable;
 
 /**
- * Personalized JPanel for the PlayerPanel, this class "handles" the playing and
+ * Personalized JPanel for the PlayerPanel, 
+ * this class "handles" the playing and
  * pausing of a chosen song.
  * 
  * This class has by default: 
@@ -36,11 +34,11 @@ import controller.musicplayer.MusicPlayer;
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
+public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 
 	private static final long serialVersionUID = 4164776505153007930L;
 
-	private JLabel songName = new JLabel("< Nothing Else Matters >");
+	private final  JLabel songName = new JLabel("< Nothing Else Matters >");
 	private JLabel songTime;
 	private JProgressBar jpb;
 	
@@ -48,7 +46,6 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 	private final PersonalJPanel infoPane= new PersonalJPanel(new BorderLayout());
 	private final PersonalJPanel barPane= new PersonalJPanel(new BorderLayout(10, 30));
 	private final PersonalJPanel labelsPane = new PersonalJPanel(new FlowLayout(1, 20, 10));
-	private final List<CmdPane> cmdPanes = new ArrayList<>();
 
 	/**
 	 * Default build for this object, creates a raedy to use Music Player Panel
@@ -68,25 +65,24 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 		infoPane.add(labelsPane, BorderLayout.NORTH);
 		infoPane.add(barPane, BorderLayout.CENTER);
 		north.add(infoPane, BorderLayout.NORTH);
-		cmdPanes.add(new CmdPane.Builder()
+		this.getCommandPane().add(new CmdPane.Builder()
 			.setBW(createButton(RW_B, getController(), false))
 			.setPlay(createButton(PLAY_B, getController(), false))
 			.setStop(createButton(STOP_B, getController(), false))
 			.setFW(createButton(FW_B, getController(), false))
 			.build(new FlowLayout(1, 10, 10)));
-//		cmdPanes.add(new CmdPane.Builder()
-//			.setLoop(createButton(LOOP_B, getController(), false))
-//			.setShuffle(createButton(SHUFFLE_B, getController(), false))
-//			.build(new FlowLayout(1, -5, 0)));		
+		this.getCommandPane().add(new CmdPane.Builder()
+			.setLoop(createButton(LOOP_B, (LoopableMusicPlayer)getController(), false))
+			.setShuffle(createButton(SHUFFLE_B, (Shuffable)getController(), false))
+			.build(new FlowLayout(1, -5, 0)));		
 		
-		north.add(cmdPanes.get(0), BorderLayout.CENTER);
-//		north.add(cmdPanes.get(1), BorderLayout.SOUTH);
+		north.add(this.getCommandPane().get(0), BorderLayout.CENTER);
+		north.add(this.getCommandPane().get(1), BorderLayout.SOUTH);
 
-		this.addUpdatableObservers(cmdPanes.get(0).getWrapper().getPlay().get(), 
-				cmdPanes.get(0).getWrapper().getStop().get()
-//				, 
-//				cmdPanes.get(1).getWrapper().getShuffle().get(), 
-//				cmdPanes.get(1).getWrapper().getLoop().get()
+		this.addUpdatableObservers(this.getCommandPane().get(0).getWrapper().getPlay().get(), 
+				this.getCommandPane().get(0).getWrapper().getStop().get(),
+				this.getCommandPane().get(1).getWrapper().getShuffle().get(), 
+				this.getCommandPane().get(1).getWrapper().getLoop().get()
 				);
 		
 		this.add(north, BorderLayout.NORTH);
@@ -108,6 +104,8 @@ public class MusicPlayerPanel extends ControllablePane<MusicPlayer> {
 			this.songName.setText("< Any song is playing >");
 		}
 	}
+	
+	
 
 	/**
 	 * 

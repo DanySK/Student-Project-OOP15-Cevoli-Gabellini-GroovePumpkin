@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import model.lessons.Pair;
-import view.viewModel.GrooveTableModel;
+import view.model.GrooveTableModel;
 
 /**
  * This class rapresents the basic instruments playable by the groovebox

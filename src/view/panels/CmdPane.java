@@ -26,7 +26,7 @@ public class CmdPane extends PersonalJPanel {
 
 	private static final long serialVersionUID = 7485562589795747966L;
 
-	private CmdWrapper cmdW;
+	private final CmdWrapper cmdW;
 	
 	/**
 	 * Constructor with commands wrapper
@@ -52,58 +52,103 @@ public class CmdPane extends PersonalJPanel {
 		
 		private final List<AbsStratBtn<?>> l = new ArrayList<>();
 		private final CmdWrapper cW= new CmdWrapper();
+		private boolean play;
+		private boolean stop;
+		private boolean fw;
+		private boolean bw;
+		private boolean loop;
+		private boolean shuffle;
+		private boolean add;
+		private boolean remove;
+		private boolean save;
+		
 
-		public Builder setPlay(final AbsStratBtn<Player> b) {
-			cW.setPlay(b);
-			l.add(b);
+		public Builder setPlay(final AbsStratBtn<Player> b) 
+				throws NullPointerException{
+			if(!play){
+				cW.setPlay(b);
+				l.add(b);
+				play=true;
+			}
 			return this;
 		}
 
-		public Builder setStop(final AbsStratBtn<Player> b) {
-			cW.setStop(b);
-			l.add(b);
+		public Builder setStop(final AbsStratBtn<Player> b) 
+				throws NullPointerException{
+			if(!stop){
+				cW.setStop(b);
+				l.add(b);
+				stop= true;
+			}
 			return this;
 		}
 
-		public Builder setFW(final AbsStratBtn<MusicPlayer> b) {
-			cW.setFW(b);
-			l.add(b);
+		public Builder setFW(final AbsStratBtn<MusicPlayer> b) 
+				throws NullPointerException{
+			if(!fw){
+				cW.setFW(b);
+				l.add(b);
+				fw=true;
+			}
 			return this;
 		}
 
-		public Builder setBW(final AbsStratBtn<MusicPlayer> b) {
-			cW.setBW(b);
-			l.add(b);
+		public Builder setBW(final AbsStratBtn<MusicPlayer> b) 
+				throws NullPointerException{
+			if(!bw){
+				cW.setBW(b);
+				l.add(b);
+				bw=true;
+			}
 			return this;
 		}
 
-		public Builder setLoop(final AbsStratBtn<LoopableMusicPlayer> b) {
-			cW.setLoop(b);
-			l.add(b);
+		public Builder setLoop(final AbsStratBtn<LoopableMusicPlayer> b) 
+				throws NullPointerException{
+			if(!loop){
+				cW.setLoop(b);
+				l.add(b);
+				loop=true;
+			}
 			return this;
 		}
 
-		public Builder setShuffle(final AbsStratBtn<Shuffable> b) {
-			cW.setShuffle(b);
-			l.add(b);
+		public Builder setShuffle(final AbsStratBtn<Shuffable> b) 
+				throws NullPointerException{
+			if(!shuffle){
+				cW.setShuffle(b);
+				l.add(b);
+			}
 			return this;
 		}
 
-		public Builder setAdd(final AbsStratBtn<MusicPlayer> b) {
-			cW.setAdd(b);
-			l.add(b);
+		public Builder setAdd(final AbsStratBtn<MusicPlayer> b) 
+				throws NullPointerException{
+			if(!add){
+				cW.setAdd(b);
+				l.add(b);
+				add=true;
+			}
 			return this;
 		}
 
-		public Builder setRemove(final AbsStratBtn<MusicPlayer> b) {
-			cW.setRemove(b);
-			l.add(b);
+		public Builder setRemove(final AbsStratBtn<MusicPlayer> b) 
+				throws NullPointerException{
+			if(!remove){
+				cW.setRemove(b);
+				l.add(b);
+				remove=true;
+			}
 			return this;
 		}
 
-		public Builder setSave(final AbsStratBtn<GrooveBoxPlayer> b) {
-			cW.setSave(b);
-			l.add(b);
+		public Builder setSave(final AbsStratBtn<GrooveBoxPlayer> b) 
+				throws NullPointerException{
+			if(!save){
+				cW.setSave(b);
+				l.add(b);
+				save=true;
+			}
 			return this;
 		}
 

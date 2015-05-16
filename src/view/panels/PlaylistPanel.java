@@ -24,9 +24,9 @@ import javax.swing.table.TableModel;
 
 import model.PlayerState;
 import view.buttons.strategies.PlaylistStrategy;
+import view.model.AbstractMouseListener;
+import view.model.PlaylistTableModel;
 import view.tables.PersonalJTable;
-import view.viewModel.AbstractMouseListener;
-import view.viewModel.PlaylistTableModel;
 import controller.musicplayer.MusicPlayer;
 
 /**
@@ -39,15 +39,13 @@ import controller.musicplayer.MusicPlayer;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends ControllablePane<MusicPlayer> {
+public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 
 	private static final long serialVersionUID = 5045956389400601388L;
 
 	private TableModel tableModel;
 	private PersonalJTable playlist;
-
 	private final JScrollPane jsp = new JScrollPane();
-	private final CmdPane cmdPane;
 
 	/**
 	 * The default contructor for this object creates a ready to use Playlist
@@ -68,21 +66,21 @@ public class PlaylistPanel extends ControllablePane<MusicPlayer> {
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
 
-		cmdPane= new CmdPane.Builder()
+		this.getCommandPane().add(new CmdPane.Builder()
 		.setAdd(createButton(ADD_B, getController(), true))
 		.setRemove(createButton(REMOVE_B, getController(), true))
-		.build(new FlowLayout());
+		.build(new FlowLayout()));
 
-		this.add(cmdPane, BorderLayout.SOUTH);
+		this.add(this.getCommandPane().get(0), BorderLayout.SOUTH);
 		this.add(jsp, BorderLayout.CENTER);
 
 		this.playlist.addMouseListener(new AbstractMouseListener() {
 			@Override
 			public void mousePressed(final MouseEvent e) {
-				if(cmdPane.getWrapper().getRemove().isPresent() && 
-						cmdPane.getWrapper().getRemove().get()
+				if(getCommandPane().get(0).getWrapper().getRemove().isPresent() && 
+						getCommandPane().get(0).getWrapper().getRemove().get()
 						.getStrategy() instanceof PlaylistStrategy){
-					((PlaylistStrategy) cmdPane.getWrapper().getRemove().get().getStrategy())
+					((PlaylistStrategy) getCommandPane().get(0).getWrapper().getRemove().get().getStrategy())
 							.setSelectedIndexes(((JTable) e.getSource())
 								.getSelectedRows());
 				}
@@ -109,7 +107,7 @@ public class PlaylistPanel extends ControllablePane<MusicPlayer> {
 					final JMenuItem add = new JMenuItem("Add");
 					add.setForeground(RED);
 					add.addActionListener(actEv -> {
-						cmdPane.getWrapper().getAdd().get().doStrategy();
+						getCommandPane().get(0).getWrapper().getAdd().get().doStrategy();
 					});
 					jpm.add(add);
 					jpm.show(e.getComponent(), e.getX(), e.getY());
