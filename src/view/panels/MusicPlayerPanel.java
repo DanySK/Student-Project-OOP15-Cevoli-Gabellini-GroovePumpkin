@@ -93,8 +93,6 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 	
 	@Override
 	public void updateStatus(final PlayerState status) {
-		// Notify all the observers
-		super.updateStatus(status);
 		// self update
 		if (status.equals(RUNNING) || status.equals(SONGCHANGED)) {
 			// change the name of the songs to the new one
@@ -106,6 +104,9 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 			// set the no-song string
 			this.songName.setText("< Any song is playing >");
 		}
+		
+		// Notify all the observers
+		super.updateStatus(status);
 	}
 
 	/**

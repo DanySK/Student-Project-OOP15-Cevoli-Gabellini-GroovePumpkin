@@ -6,6 +6,7 @@ import static view.config.Utility.getACompoundTitledBorder;
 import static view.config.Utility.getADefaultButtonBorder;
 
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -37,11 +38,15 @@ public class PersonalJButton<C> extends JButton implements Updatable, Controllab
 	 * Basic constructor for the personal JButton
 	 */
 	protected PersonalJButton() {
+		super();
 		this.setBorder(getADefaultButtonBorder());
-		
 		this.setBackground(WHITE);
 		this.setForeground(DARK_GRAY);
 		this.setFocusPainted(false);
+		
+		for (final KeyListener kl : this.getKeyListeners()) {
+			this.removeKeyListener(kl);
+		}
 		
 		this.setSize();
 	}

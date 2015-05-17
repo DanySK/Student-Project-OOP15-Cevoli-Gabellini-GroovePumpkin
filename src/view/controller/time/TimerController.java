@@ -15,7 +15,6 @@ import controller.Updatable;
  * which values increment while a song is running, they stop if the song is
  * paused, and they reset if the song is stopped, or changed.
  * 
- * It implements the SINGLETON pattern.
  * 
  * @author Alessandro
  *
@@ -43,21 +42,25 @@ public class TimerController implements Updatable {
 		// timeBar.setStringPainted(true);
 	}
 
-	public void runTimer() {
-		try {
-			timer.start();
-		} catch (Exception e) {
-			e.printStackTrace();
+	public synchronized void runTimer() {
+		if (!timer.isAlive()) {
+			try {
+				timer.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public void pauseTimer() {
+	public synchronized void pauseTimer() {
 		timer.pauseTime();
 		timer = new TimeCounter(timeLabel, timer.getElapsedTime());
 	}
 
-	public void stopTimer() {
-		timer.stopTime();
+	public synchronized void stopTimer() {
+		if (timer.isAlive()) {
+			timer.stopTime();
+		}
 		timer = new TimeCounter(timeLabel, 0);
 	}
 
@@ -72,15 +75,16 @@ public class TimerController implements Updatable {
 	@Override
 	public void updateStatus(PlayerState status) {
 		if (status.equals(RUNNING)) {
-			// timeBar.setEnabled(true);
+			//System.out.println(status);
 			this.runTimer();
 		} else if (status.equals(PAUSED)) {
 			this.pauseTimer();
 		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
 			this.stopTimer();
-			if (status.equals(SONGCHANGED)) {
-				this.runTimer();
-			}
+		} else if (status.equals(SONGCHANGED)) {
+			// System.out.println(status);
+			this.stopTimer();
+			this.runTimer();
 		}
 
 	}

@@ -79,7 +79,8 @@ public class TimeCounter extends Thread {
 						timeLabel.repaint();
 					}
 				});
-			} catch (InvocationTargetException | InterruptedException e) {
+			} catch (InvocationTargetException 
+					| InterruptedException e) {
 				e.printStackTrace();
 			}
 
