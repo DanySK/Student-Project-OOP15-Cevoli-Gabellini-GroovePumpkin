@@ -1,7 +1,5 @@
 package view.buttons.strategies;
 
-import static view.config.Configuration.*;
-import static view.config.Utility.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,7 +10,10 @@ import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
 import view.model.MyFileChooser;
+import view.model.MyFileFilter;
 import controller.musicplayer.MusicPlayer;
+import static view.config.Configuration.*;
+import static view.config.Utility.*;
 
 /**
  * 
@@ -23,28 +24,33 @@ import controller.musicplayer.MusicPlayer;
 public enum PlaylistStrategy implements
 		BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> {
 	
-	ADD("Add", ADD_IMG, (c, idx) ->{
-		final MyFileChooser chooser = new MyFileChooser(JFileChooser.FILES_AND_DIRECTORIES);
-		final int val = chooser.showOpenDialog(null);
+	ADD("Add", ADD_IMG, (ctrl, idx) ->{
+		final MyFileChooser fc = new MyFileChooser(
+				JFileChooser.FILES_AND_DIRECTORIES, 
+				MyFileFilter.ExtensionStrategy.MIDI_AND_WAVE);
+		final int val = fc.showOpenDialog(null);
 
+//		fc.setFileFilter(new MyFileFilter(MyFileFilter.ExtensionStrategy.MIDI));
+//		fc.setFileFilter(new MyFileFilter(MyFileFilter.ExtensionStrategy.WAVE));
+		
 		if (val == JFileChooser.APPROVE_OPTION) {
 			/*
 			 * NOTE: Now I can add Multiple folders and files, but as now, I
 			 * can't add subfolder! I need to create a recorsive method, but if
-			 * a users choose the rootfolderthat would become a problem :D
+			 * a users choose the rootfolder that would became a problem :D
 			 */
-			for (final File f : chooser.getSelectedFiles()) {
+			for (final File f : fc.getSelectedFiles()) {
 				if (f.isDirectory()) {
-					for (final File file : f.listFiles(chooser.getMyFileFilter())) {
+					for (final File file : f.listFiles(fc.getMyFileFilter())) {
 						try {
-							c.addSong(new URL(anURLPathBuilder(file.getAbsolutePath())));
+							ctrl.addSong(new URL(anURLPathBuilder(file.getAbsolutePath())));
 						} catch ( IllegalArgumentException | MalformedURLException e) {
 							showErrorDialog(null, "Invalid song format ");
 						}
 					}
 				} else {
 					try {
-						c.addSong(new URL(anURLPathBuilder(f.getAbsolutePath())));
+						ctrl.addSong(new URL(anURLPathBuilder(f.getAbsolutePath())));
 					} catch ( IllegalArgumentException | MalformedURLException e) {
 						showErrorDialog(null, "Invalid song format ");
 					}
@@ -54,10 +60,10 @@ public enum PlaylistStrategy implements
 			showErrorDialog(null, "An Error has occurred");
 		}
 	}, null), 
-	REMOVE("Remove", REMOVE_IMG, (c, idx)->{
+	REMOVE("Remove", REMOVE_IMG, (ctrl, idx)->{
 		try {
 			for (final int i : idx) {
-				c.removeSong(i);
+				ctrl.removeSong(i);
 			}
 			idx = new int[] { -1 };
 		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {

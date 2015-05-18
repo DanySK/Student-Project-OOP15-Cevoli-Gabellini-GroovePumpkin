@@ -2,10 +2,14 @@ package view.model;
 
 import javax.swing.JFileChooser;
 
+import view.model.MyFileFilter.ExtensionStrategy;
+
 /**
  * A personalized file chooser 
  * with the specifed selection mode
- * and multiple selection
+ * and multiple selection by default.
+ * 
+ * Is also choosable the strategy used for files
  * 
  * @author Alessandro
  *
@@ -13,12 +17,12 @@ import javax.swing.JFileChooser;
 public class MyFileChooser extends JFileChooser {
 
 	private static final long serialVersionUID = 3073167697924621040L;
-	
-	private MyFileFilter filter = new MyFileFilter();
-	
-	public MyFileChooser(final int selectionMode) {
+	private final MyFileFilter filter;
+
+	public MyFileChooser(final int selectionMode, 
+			final ExtensionStrategy strategy) {
 		super(System.getProperty("user.home"));
-		
+		this.filter = new MyFileFilter(strategy);
 		//This way only supported files will be shown
 		this.removeChoosableFileFilter(this.getFileFilter());
 		this.setFileFilter(filter);
@@ -27,7 +31,10 @@ public class MyFileChooser extends JFileChooser {
 		this.setVisible(true);
 	}
 	
-	public MyFileFilter getMyFileFilter(){
+	/**
+	 * @return the filter
+	 */
+	public MyFileFilter getMyFileFilter() {
 		return filter;
 	}
 }

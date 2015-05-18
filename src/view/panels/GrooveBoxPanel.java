@@ -103,10 +103,12 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 	}
 	
 	@Override
-	public void updateStatus(PlayerState status) {
+	public void updateStatus(final PlayerState status) {
+		
+		super.updateStatus(status);
+		
 		if(status.equals(RELOAD)){
 			grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
 		}
-		super.updateStatus(status);
 	}
 }

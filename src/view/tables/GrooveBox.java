@@ -1,23 +1,17 @@
 package view.tables;
 
-import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 import static view.config.Configuration.RED;
-
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
-
 import view.model.AbstractMouseListener;
 import view.model.GrooveTableModel;
-import controller.Updatable;
 
 /**
  * The Class that implements the groovebox
@@ -25,7 +19,7 @@ import controller.Updatable;
  * @author Alessandro
  *
  */
-public class GrooveBox extends PersonalJTable implements Updatable{
+public class GrooveBox extends PersonalJTable{
 
 	private static final long serialVersionUID = -7907789613027061207L;
 	private final TableModel tableModel;
@@ -39,7 +33,7 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 	 * @param tm
 	 */
 	public GrooveBox(final TableModel tm) {
-		super(tm, SINGLE_SELECTION);
+		super(tm, ListSelectionModel.SINGLE_SELECTION);
 		tableModel = tm;
 		
 		super.setColumnHeaderBounds(0, 120, 120);
@@ -60,12 +54,11 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 				}
 			}
 		};
-
+		
 		for (int i = 1; i < GrooveTableModel.GROOVE_TIME_VALUES.length; i++) {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 		
-
 		this.addMouseListener(new AbstractMouseListener() {
 			
 			@Override
@@ -109,14 +102,16 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 			}
 		});
 
-		// Handle the changes of colours in the columns of the GrooveBox
+		/* 
+		 * Handles the changes of colours in the columns of the GrooveBox.
+		 * It Also lock the colored cell until the mouse is still pressed,
+		 * when the mouse is released it will unlock.
+		 * This way the rate of change is reduced and more precise.
+		 * 
+		 */
 		this.getColumnModel().getSelectionModel()
-				.addListSelectionListener(new ListSelectionListener() {
+				.addListSelectionListener(e->{
 					
-					@Override
-					public void valueChanged(final ListSelectionEvent e) {
-						
-						
 //						if(col!= getColumn() || row!=getRow()){
 //							locked=false;
 //						}
@@ -129,22 +124,32 @@ public class GrooveBox extends PersonalJTable implements Updatable{
 							tableModel.setValueAt(null, row, col);
 							GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
 						}
-					}
-
-					private int getRow() {
-
-						return GrooveBox.this.getMousePosition() == null ? 0
-								: GrooveBox.this.rowAtPoint(GrooveBox.this
-										.getMousePosition());
-					}
-
-					private int getColumn() {
-						
-						return GrooveBox.this.getMousePosition() == null ? 0
-								: GrooveBox.this.columnAtPoint(GrooveBox.this
-										.getMousePosition());
-					}
-
 				});
+	}
+	
+	/*
+	 * This method return the row number of the groovebox where 
+	 * the mouse is placed if the mouse position is avaible.
+	 * Otherwise it return 0.
+	 * 
+	 */
+	private int getRow() {
+
+		return GrooveBox.this.getMousePosition() == null ? 0
+				: GrooveBox.this.rowAtPoint(GrooveBox.this
+						.getMousePosition());
+	}
+	
+	/*
+	 * This method return the column number of the groovebox where 
+	 * the mouse is placed if the mouse position is avaible.
+	 * Otherwise it return 0.
+	 * 
+	 */
+	private int getColumn() {
+		
+		return GrooveBox.this.getMousePosition() == null ? 0
+				: GrooveBox.this.columnAtPoint(GrooveBox.this
+						.getMousePosition());
 	}
 }

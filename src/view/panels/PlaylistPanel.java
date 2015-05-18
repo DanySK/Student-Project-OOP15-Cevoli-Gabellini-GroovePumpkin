@@ -120,7 +120,7 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 	public void updateStatus(final PlayerState status) {
 		// ricrea la nuova tabella
 		if (status == PlayerState.RELOAD) {
-			playlist.tableChanged(new TableModelEvent(tableModel));
+			playlist.tableChanged(new TableModelEvent(this.tableModel));
 		}
 	}
 

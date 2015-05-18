@@ -25,7 +25,7 @@ public abstract class AbstractControllablePane<C> extends PersonalJPanel
 	 * A basic constructor
 	 * 
 	 */
-	public AbstractControllablePane() {
+	protected AbstractControllablePane() {
 		super();
 	}
 
@@ -34,7 +34,7 @@ public abstract class AbstractControllablePane<C> extends PersonalJPanel
 	 * 
 	 * @param layout
 	 */
-	public AbstractControllablePane(final LayoutManager layout) {
+	protected AbstractControllablePane(final LayoutManager layout) {
 		super(layout);
 	}
 
@@ -62,5 +62,4 @@ public abstract class AbstractControllablePane<C> extends PersonalJPanel
 	public List<CmdPane> getCommandPane(){
 		return this.cmdPane;
 	}
-
 }

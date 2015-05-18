@@ -4,14 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
 import view.model.MyFileChooser;
+import view.model.MyFileFilter;
 import controller.groovebox.GrooveBoxPlayer;
 import static view.config.Utility.*;
 import static view.config.Configuration.*;
@@ -23,13 +22,13 @@ import static view.config.Configuration.*;
  * @author Alessandro
  *
  */
-public enum GroovePlayerStrategy
-		implements
+public enum GroovePlayerStrategy implements
 		BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> {
 
 	SAVE("Save", SAVE_IMG, g -> {
 			final MyFileChooser chooser = new MyFileChooser(
-					JFileChooser.FILES_AND_DIRECTORIES);
+					JFileChooser.FILES_AND_DIRECTORIES, 
+					MyFileFilter.ExtensionStrategy.MIDI);
 			chooser.setMultiSelectionEnabled(false);
 			chooser.setVisible(true);
 			final int val = chooser.showSaveDialog(null);
@@ -48,7 +47,8 @@ public enum GroovePlayerStrategy
 	LOAD("Load", LOAD_IMG, g -> {
 			// carica un pattern per la groovebox
 			final MyFileChooser chooser = new MyFileChooser(
-					JFileChooser.FILES_AND_DIRECTORIES);
+					JFileChooser.FILES_AND_DIRECTORIES, 
+					MyFileFilter.ExtensionStrategy.MIDI);
 			chooser.setMultiSelectionEnabled(false);
 			chooser.setVisible(true);
 
@@ -65,7 +65,6 @@ public enum GroovePlayerStrategy
 
 	private ImageIcon img;
 	private String title;
-
 	private Consumer<GrooveBoxPlayer> ctrlUser;
 	private BiConsumer<AbstractStratBtn<GrooveBoxPlayer>, PlayerState> updater;
 

@@ -181,7 +181,7 @@ public class CmdWrapper {
 	 * 
 	 * @param newRemove
 	 */
-	public void setReset(AbstractStratBtn<GrooveBoxPlayer> b) {
+	public void setReset(final AbstractStratBtn<GrooveBoxPlayer> b) {
 		this.reset=Optional.ofNullable(b);
 	}
 }

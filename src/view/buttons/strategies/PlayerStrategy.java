@@ -1,7 +1,6 @@
 package view.buttons.strategies;
 
 import static view.config.Configuration.*;
-import static view.config.Utility.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.ImageIcon;
@@ -52,11 +51,7 @@ public enum PlayerStrategy implements
 
 	@Override
 	public void doStrategy(final Player controller) {
-		try {
 			this.ctrlUser.accept(controller);
-		} catch (final Exception e) {
-			showErrorDialog(null, "No item found");
-		}
 	}
 	
 	@Override
