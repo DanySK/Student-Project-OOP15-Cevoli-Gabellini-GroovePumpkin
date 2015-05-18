@@ -44,10 +44,11 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 		// If the previous song there isn't I don't change the current song
 		if (nextSong.isPresent()) {
 			this.currentSong = Optional.of(this.playlist.get(nextSong.get()));
+			return this.currentSong;
 		} else {
-			this.currentSong = Optional.empty();
+			return Optional.empty(); 
 		}
-		return this.currentSong;
+		
 	}
 
 	@Override
@@ -61,10 +62,10 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 		// If the previous song there isn't I don't change the current song
 		if (previousSong.isPresent()) {
 			this.currentSong = Optional.of(this.playlist.get(previousSong.get()));
+			return this.currentSong;
 		} else {
-			this.currentSong = Optional.empty();
+			return Optional.empty(); 
 		}
-		return this.currentSong;
 	}
 
 	@Override

@@ -102,12 +102,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 	@Override
 	public Optional<Integer> getPreviousSong(final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty()) {
-			return Optional.empty();
-		}
-		
-		// take the previous song from the stack
-		if (shuffled.isEmpty() || currShuffledIdx == 0) {
+		if (playlist == null || playlist.isEmpty() || shuffled.isEmpty() || currShuffledIdx == 0) {
 			return Optional.empty();
 		} else {
 			return Optional.ofNullable(this.shuffled
