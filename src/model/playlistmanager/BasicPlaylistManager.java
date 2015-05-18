@@ -29,7 +29,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 
 	@Override
 	public Optional<X> getCurretSong() {
-		return Optional.ofNullable(this.currentSong.get());
+		return this.currentSong.isPresent()? Optional.of(this.currentSong.get()) : Optional.empty();
 	}
 	
 
@@ -44,20 +44,27 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 		// If the previous song there isn't I don't change the current song
 		if (nextSong.isPresent()) {
 			this.currentSong = Optional.of(this.playlist.get(nextSong.get()));
-			return this.currentSong;
+		} else {
+			this.currentSong = Optional.empty();
 		}
-		return Optional.empty();
+		return this.currentSong;
 	}
 
 	@Override
 	public Optional<X> changeToThePreviousSong() {
+		if (!this.extractionStrategy.getCurrentSongIndex().isPresent()) {
+			// if the song wasn't selected I return a empty Optional
+			return Optional.empty();
+		}
+		
 		final Optional<Integer> previousSong = this.extractionStrategy.getPreviousSong(this.playlist);
 		// If the previous song there isn't I don't change the current song
 		if (previousSong.isPresent()) {
 			this.currentSong = Optional.of(this.playlist.get(previousSong.get()));
-			return this.currentSong;
+		} else {
+			this.currentSong = Optional.empty();
 		}
-		return Optional.empty();
+		return this.currentSong;
 	}
 
 	@Override

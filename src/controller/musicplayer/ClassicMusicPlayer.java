@@ -23,7 +23,7 @@ public class ClassicMusicPlayer extends AbstractMusicPlayer implements Shuffable
 
 	@Override
 	protected void afterSongEnding()  {
-		this.goToNextSong();				
+		this.goToNextSong();
 		this.play();
 	}
 

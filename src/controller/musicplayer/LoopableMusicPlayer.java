@@ -24,10 +24,10 @@ public class LoopableMusicPlayer extends ClassicMusicPlayer implements Loopable 
 	
 	@Override
 	protected void afterSongEnding() {
-		if (this.isLoopModeActive()) {
+ 		if (this.isLoopModeActive()) {
 			this.play();
 		} else {
-			super.afterSongEnding();
+ 			super.afterSongEnding();
 		}
 	}
 

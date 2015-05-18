@@ -35,7 +35,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	
 	private Optional<MidiSongPlayer> sequencer;
 	private final GrooveBoxContentManager model;
-	private LoopManager lManager;
+	private final LoopManager lManager;
 	private Optional<SongWatchDog> threadGrooveWatchdog;
 	
 	private GrooveBoxController(){
