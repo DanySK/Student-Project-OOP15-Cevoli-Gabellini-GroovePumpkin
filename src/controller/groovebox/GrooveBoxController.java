@@ -32,7 +32,7 @@ import static model.PlayerState.*;
 public class GrooveBoxController extends UpdatableObserversManager implements GrooveBoxPlayer{
 	private static final GrooveBoxController GROOVE_BOX = new GrooveBoxController();
 	
-	
+	private int bpm;
 	private Optional<MidiSongPlayer> sequencer;
 	private final GrooveBoxContentManager model;
 	private final LoopManager lManager;
@@ -42,7 +42,9 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 		super();
 		this.model = new GrooveBoxModel();
 		this.lManager = new LoopManager();
+		this.sequencer = Optional.empty();
 		this.threadGrooveWatchdog = Optional.empty();
+		this.bpm = 120;
 	}
 	
 	public static GrooveBoxController getInstance(){
@@ -55,21 +57,24 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 		
 		if(sequence.isPresent()){
 			try {
-				this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
-				this.sequencer.get().play();
-				if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
-					// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
-					// CONTROLLARE LA FINE DEL MIDI
-					threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
-					threadGrooveWatchdog.get().start();				
-			    }
-				if(this.sequencer.get().isActive()){
-					notifyToUpdatable(RUNNING);
-				}
+				if(!this.sequencer.isPresent()){
+					this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
+					this.sequencer.get().setBPM(this.bpm);
+				}				
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 			} catch (InvalidMidiDataException e) {
 				e.printStackTrace();
+			}			
+			this.sequencer.get().play();
+			if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
+				// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
+				// CONTROLLARE LA FINE DEL MIDI
+				threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
+				threadGrooveWatchdog.get().start();				
+		    }
+			if(this.sequencer.get().isActive()){
+				notifyToUpdatable(RUNNING);
 			}
 		}
 	}
@@ -93,11 +98,10 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 					this.threadGrooveWatchdog.get().join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
-				notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? STOPPED
-						: ERROR);
-				
+				}				
 			}
+			notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? STOPPED
+					: ERROR);
 			this.sequencer = Optional.empty();
 			this.threadGrooveWatchdog = Optional.empty();
 			// This code is executed when the stop is called by the Song Watcher
@@ -125,8 +129,9 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 	
 	@Override
 	public void setTempoInBPM(final int BPM) {
+		this.bpm = BPM;
 		if(this.sequencer.isPresent()){
-			this.sequencer.get().setBPM(BPM);
+			this.sequencer.get().setBPM(this.bpm);
 		}
 	}
 

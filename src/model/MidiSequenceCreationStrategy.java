@@ -64,24 +64,6 @@ public class MidiSequenceCreationStrategy {
 		} catch (InvalidMidiDataException e) { 
 			e.printStackTrace();
 		}
-		 /*
-		Sequencer sequencer;
-		try {
-			sequencer = MidiSystem.getSequencer();
-
-			sequencer.open();
-			try {
-				sequencer.setSequence(midiSequence);
-				sequencer.start();
-			} catch (InvalidMidiDataException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (MidiUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		return Optional.ofNullable(midiSequence);
 	}
 	

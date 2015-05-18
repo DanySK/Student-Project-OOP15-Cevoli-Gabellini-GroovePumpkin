@@ -11,16 +11,17 @@ import java.util.Optional;
  */
 
 public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
+	private static final int NOT_SELECTED = -1;
 	private int currentIdx;	
 	
 	
 	public ClassicStrategy(){
-		this.currentIdx = -1;
+		this.currentIdx = NOT_SELECTED;
 	}
 	
 	@Override
 	public Optional<Integer> getNextSong(final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty() || this.currentIdx >= playlist.size()-1) {
+		if (playlist == null || playlist.isEmpty() || this.currentIdx >= playlist.size()-1 || this.currentIdx == NOT_SELECTED) {
 			return Optional.empty();
 		} 
 		return Optional.ofNullable(++this.currentIdx);
@@ -28,7 +29,7 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 	@Override
 	public Optional<Integer> getPreviousSong(final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty() || this.currentIdx == 0) {
+		if (playlist == null || playlist.isEmpty() || this.currentIdx == 0 || this.currentIdx == NOT_SELECTED) {
 			return Optional.empty();
 		}		
 		return Optional.ofNullable(--this.currentIdx);
@@ -46,13 +47,13 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 	@Override
 	public Optional<Integer> getCurrentSongIndex() {
-		return this.currentIdx == -1? Optional.empty(): Optional.of(this.currentIdx);
+		return this.currentIdx == NOT_SELECTED? Optional.empty(): Optional.of(this.currentIdx);
 	}
 
 	@Override
 	public void removedIndex(final int index) {
 		if (this.currentIdx == index) {
-			this.currentIdx = -1;
+			this.currentIdx = NOT_SELECTED;
 		} else if(this.currentIdx > index){
 			this.currentIdx--;
 		}

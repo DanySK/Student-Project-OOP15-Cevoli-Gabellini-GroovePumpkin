@@ -46,7 +46,8 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	
 	@Override
 	public Optional<Integer> getCurrentSongIndex() {
-		return Optional.ofNullable(this.shuffled.get(this.currShuffledIdx));
+		return this.currShuffledIdx == NOT_SELECTED ? Optional.empty()
+				: Optional.ofNullable(this.shuffled.get(this.currShuffledIdx));
 	}
 	
 	@Override
@@ -73,7 +74,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 			} else {
 				// I take the next song and i controll that isn't equals to the
 				// current song
-				int nextSong = this.shuffled.get(this.currShuffledIdx);
+				int nextSong = this.eStrategy.getElement();
 				while (nextSong == this.shuffled.get(this.currShuffledIdx)) {
 					nextSong = this.eStrategy.getElement();
 				}
@@ -107,10 +108,6 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 		
 		// take the previous song from the stack
 		if (shuffled.isEmpty() || currShuffledIdx == 0) {
-			// if the shuffled playlist is empty i'll do nothing or
-			// If the currentShuffledIdx corresponding to the first song of the
-			// shuffled playlist
-			// I return an empty Optional
 			return Optional.empty();
 		} else {
 			return Optional.ofNullable(this.shuffled
