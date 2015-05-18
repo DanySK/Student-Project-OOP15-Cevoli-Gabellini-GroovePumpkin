@@ -49,7 +49,6 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 
 	private void changeSong(final Optional<URL> song) {
 		if (song.isPresent()) {
-			// Se la canzone indicata dall'indice è presente la carico
 
 			final SongPlayerState preChangePlayerState = (this.soundPlayer
 					.isPresent() ? this.soundPlayer.get().getState()
@@ -68,7 +67,7 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 
 	@Override
 	public synchronized void goToNextSong() {
-		if (this.soundPlayer.isPresent()) {
+		if (this.getCurrentSong().isPresent()) {
 			final Optional<URL> nextSong = this.model.changeToTheNextSong();
 			if (nextSong.isPresent()) {
 				this.changeSong(nextSong);
@@ -78,7 +77,7 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 
 	@Override
 	public synchronized void goToPreviousSong() {
-		if (this.soundPlayer.isPresent()) {
+		if (this.getCurrentSong().isPresent()) {
 			final Optional<URL> previousSong = this.model
 					.changeToThePreviousSong();
 			if (previousSong.isPresent()) {
@@ -157,25 +156,30 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 
 	@Override
 	public synchronized void play() {
-		if (!this.soundPlayer.isPresent()) {
-			// If there isn't a sound player i try to load the current song of the playlist
-			this.loadSong(this.model.getCurretSong().get());
-		}
+		if (this.model.getCurretSong().isPresent()) {
+			if (!this.soundPlayer.isPresent()) {
+				// If there isn't a sound player i try to load the current song
+				// of the playlist
+				this.loadSong(this.model.getCurretSong().get());
+			}
 
-		try {
-			
-			this.soundPlayer.get().play();			
-			if (this.soundPlayer.get().isActive() && !threadSongWatcher.isPresent()) {
+			try {
+
+				this.soundPlayer.get().play();
+				if (this.soundPlayer.get().isActive()
+						&& !threadSongWatcher.isPresent()) {
 					// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
 					// CONTROLLARE LA FINE DEL MIDI
-					threadSongWatcher = Optional.of(new SongWatchDog(this, this.soundPlayer.get()));
-					threadSongWatcher.get().start();				
+					threadSongWatcher = Optional.of(new SongWatchDog(this,
+							this.soundPlayer.get()));
+					threadSongWatcher.get().start();
+				}
+
+				this.notifyToUpdatable(soundPlayer.get().getState() == SongPlayerState.RUNNING ? PlayerState.RUNNING
+						: PlayerState.ERROR);
+			} catch (NoSuchElementException e) {
+				this.notifyToUpdatable(PlayerState.ERROR);
 			}
-			
-			this.notifyToUpdatable(soundPlayer.get().getState() == SongPlayerState.RUNNING ? PlayerState.RUNNING
-					: PlayerState.ERROR);
-		} catch (NoSuchElementException e) {
-			this.notifyToUpdatable(PlayerState.ERROR);
 		}
 	}
 
@@ -195,19 +199,15 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
-				// Chiedo al lettore lo stato perchè dipende da esso e lo
-				// notifico
-				this.notifyToUpdatable(this.soundPlayer.get().getState() == SongPlayerState.STOPPED ? PlayerState.STOPPED
-						: PlayerState.ERROR);
 			} 
+			this.notifyToUpdatable(this.soundPlayer.get().getState() == SongPlayerState.STOPPED ? PlayerState.STOPPED
+					: PlayerState.ERROR);
 			this.threadSongWatcher = Optional.empty();
+			this.soundPlayer = Optional.empty();
 			//If the state of the sound player is RUNNING and the sound player isn't active means that the stop was called by the song watchdog because the song was terminated
 			if(songEnded){
 				this.afterSongEnding();
-			} else {
-				this.soundPlayer = Optional.empty();
-			}
+			} 
 		}
 	}
 	

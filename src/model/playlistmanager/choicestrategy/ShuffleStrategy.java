@@ -57,7 +57,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 		
 		this.eStrategy = new ExtractionStrategy<Integer>() {
 			public Integer getElement() {
-				return new Random().nextInt(playlist.size()) % playlist.size();
+				return (new Random().nextInt(playlist.size()) *new Random().nextInt(playlist.size()))% playlist.size();
 			}
 		};
 
