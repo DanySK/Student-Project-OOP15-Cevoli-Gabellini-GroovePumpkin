@@ -1,6 +1,6 @@
 package view.interfaces;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 
 /**
  * An extended Strategy class for buttons
@@ -18,7 +18,7 @@ public interface BtnStrategy<C, B, S> extends Strategy<C> {
 	 * 
 	 * @return
 	 */
-	ImageIcon getImage();
+	Icon getImage();
 	
 	/**
 	 * Return the title associated with this strategy

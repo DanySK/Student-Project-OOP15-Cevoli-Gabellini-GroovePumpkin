@@ -1,13 +1,10 @@
 package view.buttons.strategies;
 
-import static view.config.Configuration.FW_IMG;
-import static view.config.Configuration.RW_IMG;
+import static view.config.Configuration.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import javax.swing.ImageIcon;
-
+import javax.swing.Icon;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
@@ -24,15 +21,15 @@ import controller.musicplayer.MusicPlayer;
 public enum ShifterStrategy implements 
 		BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState>{
 	
-	FORWARD("Forward", FW_IMG, c -> c.goToNextSong(), null), 
-	BACKWARD("Rewind", RW_IMG, c -> c.goToPreviousSong(), null);
+	FORWARD("Forward", getConfig().getFwImage(), c -> c.goToNextSong(), null), 
+	BACKWARD("Backward", getConfig().getBwImage(), c -> c.goToPreviousSong(), null);
 	
 	private String title;
-	private ImageIcon img;
+	private Icon img;
 	private Consumer<MusicPlayer> ctrlUser;
 	private BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater;
 
-	private ShifterStrategy(final String title, final ImageIcon img,
+	private ShifterStrategy(final String title, final Icon img,
 			final Consumer<MusicPlayer> ctrlUser,
 			final BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.title = title;
@@ -40,12 +37,14 @@ public enum ShifterStrategy implements
 		this.ctrlUser= ctrlUser;
 		this.updater= updater;
 	}
-
+	
+	@Override
 	public String getTitle() {
 		return title;
 	}
-
-	public ImageIcon getImage() {
+	
+	@Override
+	public Icon getImage() {
 		return img;
 	}
 

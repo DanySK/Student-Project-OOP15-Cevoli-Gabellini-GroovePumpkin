@@ -51,24 +51,28 @@ public class PlayerPanel extends PersonalJPanel {
 //				.setLoop(b1)
 //				.setShuffle(b2)
 //				.build(new FlowLayout(1, -5, 0)));
-//				((PersonalJPanel)player.getComponent(0)).add(player.getCommandPane().get(1), BorderLayout.SOUTH);
+//				((PersonalJPanel)player.getComponent(0))
+//						.add(player.getCommandPane().get(1), BorderLayout.SOUTH);
 //				player.addUpdatableObservers(b1, b2);
 //			} else if(mp instanceof Loopable){
 //				b1=createButton(LOOP_B, (Loopable) mp, false);
 //				player.getCommandPane().add(new CmdPane.Builder()
 //				.setLoop(b1)
 //				.build(new FlowLayout(1, -5, 0)));
-//				((PersonalJPanel)player.getComponent(0)).add(player.getCommandPane().get(1), BorderLayout.SOUTH);
+//				((PersonalJPanel)player.getComponent(0))
+//						.add(player.getCommandPane().get(1), BorderLayout.SOUTH);
 //				player.addUpdatableObservers(b1);
 //			} else if(mp instanceof Shuffable){
 //				b2=createButton(SHUFFLE_B, (Shuffable) mp, false);
 //				player.getCommandPane().add(new CmdPane.Builder()
 //				.setShuffle(b2)
 //				.build(new FlowLayout(1, -5, 0)));
-//				((PersonalJPanel)player.getComponent(0)).add(player.getCommandPane().get(1), BorderLayout.SOUTH);
+//				((PersonalJPanel)player.getComponent(0))
+//						.add(player.getCommandPane().get(1), BorderLayout.SOUTH);
 //				player.addUpdatableObservers(b2);
 //			}
 //		}
+		
 		this.tmCtrl= new TimerController(mp);
 		player.setSongTimeLabel(tmCtrl.getLabel());
 	}

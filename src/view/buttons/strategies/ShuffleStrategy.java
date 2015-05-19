@@ -1,13 +1,10 @@
 package view.buttons.strategies;
 
-import static view.config.Configuration.SHUF_IMG;
-import static view.config.Configuration.UNSHUF_IMG;
+import static view.config.Configuration.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import javax.swing.ImageIcon;
-
+import javax.swing.Icon;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.ShuffleConsumer;
@@ -17,15 +14,15 @@ import controller.musicplayer.Shuffable;
 public enum ShuffleStrategy implements
 		BtnStrategy<Shuffable, AbstractStratBtn<Shuffable>, PlayerState> {
 	
-	SHUFFLE("Shuffle", UNSHUF_IMG, c -> c.setShuffleMode(true),	new ShuffleConsumer()), 
-	UNSHUFFLE("Unshuffle", SHUF_IMG, c -> c.setShuffleMode(false), new ShuffleConsumer());
+	SHUFFLE("Shuffle", getConfig().getUnshuffleImage(), c -> c.setShuffleMode(true),	new ShuffleConsumer()), 
+	UNSHUFFLE("Unshuffle", getConfig().getShuffleImage(), c -> c.setShuffleMode(false), new ShuffleConsumer());
 
 	private String title;
-	private ImageIcon img;
+	private Icon img;
 	private Consumer<Shuffable> ctrlUser;
 	private BiConsumer<AbstractStratBtn<Shuffable>, PlayerState> updater;
 
-	private ShuffleStrategy(final String title,	final ImageIcon img,
+	private ShuffleStrategy(final String title,	final Icon img,
 			final Consumer<Shuffable> ctrlUser,
 			final BiConsumer<AbstractStratBtn<Shuffable>, PlayerState> updater) {
 		this.title = title;
@@ -33,12 +30,14 @@ public enum ShuffleStrategy implements
 		this.ctrlUser = ctrlUser;
 		this.updater = updater;
 	}
-
+	
+	@Override
 	public String getTitle() {
 		return title;
 	}
-
-	public ImageIcon getImage() {
+	
+	@Override
+	public Icon getImage() {
 		return img;
 	}
 

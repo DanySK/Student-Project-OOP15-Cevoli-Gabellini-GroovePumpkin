@@ -1,10 +1,9 @@
 package view.buttons.strategies;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
@@ -25,7 +24,7 @@ import static view.config.Configuration.*;
 public enum GroovePlayerStrategy implements
 		BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> {
 
-	SAVE("Save", SAVE_IMG, g -> {
+	SAVE("Save", getConfig().getSaveImage(), g -> {
 			final MyFileChooser chooser = new MyFileChooser(
 					JFileChooser.FILES_AND_DIRECTORIES, 
 					MyFileFilter.ExtensionStrategy.MIDI);
@@ -44,7 +43,7 @@ public enum GroovePlayerStrategy implements
 				showErrorDialog(null, "An Error has occurred");
 			}
 		}, null), 
-	LOAD("Load", LOAD_IMG, g -> {
+	LOAD("Load", getConfig().getLoadImage(), g -> {
 			// carica un pattern per la groovebox
 			final MyFileChooser chooser = new MyFileChooser(
 					JFileChooser.FILES_AND_DIRECTORIES, 
@@ -54,21 +53,21 @@ public enum GroovePlayerStrategy implements
 
 			final int val = chooser.showOpenDialog(null);
 			if (val == JFileChooser.APPROVE_OPTION) {
-				@SuppressWarnings("unused")
-				final File f = chooser.getSelectedFile();
-				// choose the pattern to be loaded
+				
+				//do something
+				
 		} else if (val != JFileChooser.CANCEL_OPTION) {
 			showErrorDialog(null, "An Error has occurred");
 		}
 	}, null), 
-	RESET("Reset", RESET_IMG, g -> g.reset(), null);
+	RESET("Reset", getConfig().getResetImage(), g -> g.reset(), null);
 
-	private ImageIcon img;
+	private Icon img;
 	private String title;
 	private Consumer<GrooveBoxPlayer> ctrlUser;
 	private BiConsumer<AbstractStratBtn<GrooveBoxPlayer>, PlayerState> updater;
 
-	private GroovePlayerStrategy(final String title, final ImageIcon img,
+	private GroovePlayerStrategy(final String title, final Icon img,
 			final Consumer<GrooveBoxPlayer> ctrlUser,
 			final BiConsumer<AbstractStratBtn<GrooveBoxPlayer>, PlayerState> updater) {
 		this.img = img;
@@ -83,7 +82,7 @@ public enum GroovePlayerStrategy implements
 	}
 
 	@Override
-	public ImageIcon getImage() {
+	public Icon getImage() {
 		return img;
 	}
 

@@ -4,7 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.BiConsumer;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
@@ -24,7 +24,7 @@ import static view.config.Utility.*;
 public enum PlaylistStrategy implements
 		BtnStrategy<MusicPlayer, AbstractStratBtn<MusicPlayer>, PlayerState> {
 	
-	ADD("Add", ADD_IMG, (ctrl, idx) ->{
+	ADD("Add", getConfig().getAddImage(), (ctrl, idx) ->{
 		final MyFileChooser fc = new MyFileChooser(
 				JFileChooser.FILES_AND_DIRECTORIES, 
 				MyFileFilter.ExtensionStrategy.MIDI_AND_WAVE);
@@ -60,7 +60,7 @@ public enum PlaylistStrategy implements
 			showErrorDialog(null, "An Error has occurred");
 		}
 	}, null), 
-	REMOVE("Remove", REMOVE_IMG, (ctrl, idx)->{
+	REMOVE("Remove", getConfig().getRemoveImage(), (ctrl, idx)->{
 		try {
 			for (final int i : idx) {
 				ctrl.removeSong(i);
@@ -71,14 +71,14 @@ public enum PlaylistStrategy implements
 		}
 	}, null);
 
-	private ImageIcon img;
+	private Icon img;
 	private String title;
 	private BiConsumer<MusicPlayer, int[]> ctrlUser;
 	private BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater;
 
 	private int[] selectedIndexes = { -1 };
 
-	private PlaylistStrategy(final String title, final ImageIcon img,
+	private PlaylistStrategy(final String title, final Icon img,
 			final BiConsumer<MusicPlayer, int[]> ctrlUser,
 			final BiConsumer<AbstractStratBtn<MusicPlayer>, PlayerState> updater) {
 		this.img = img;
@@ -88,7 +88,7 @@ public enum PlaylistStrategy implements
 	}
 
 	@Override
-	public ImageIcon getImage() {
+	public Icon getImage() {
 
 		return this.img;
 	}

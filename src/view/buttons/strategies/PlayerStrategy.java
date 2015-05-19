@@ -1,9 +1,10 @@
 package view.buttons.strategies;
 
 import static view.config.Configuration.*;
+
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.PlayPauseConsumer;
@@ -22,16 +23,16 @@ import controller.Player;
 public enum PlayerStrategy implements 
 		BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState>{
 
-	PLAY("Play", PLAY_IMG, c -> c.play(), new PlayPauseConsumer()), 
-	PAUSE("Pause", PAUSE_IMG, c -> c.pause(), new PlayPauseConsumer()), 
-	STOP("Stop", STOP_IMG, c -> c.stop(), new StopConsumer());
+	PLAY("Play", getConfig().getPlayImage(), c -> c.play(), new PlayPauseConsumer()), 
+	PAUSE("Pause", getConfig().getPauseImage(), c -> c.pause(), new PlayPauseConsumer()), 
+	STOP("Stop", getConfig().getStopImage(), c -> c.stop(), new StopConsumer());
 
 	private String title;
-	private ImageIcon img;
+	private Icon img;
 	private Consumer<Player> ctrlUser;
 	private BiConsumer<AbstractStratBtn<Player>, PlayerState> updater;
 
-	private PlayerStrategy(final String title, final ImageIcon img,
+	private PlayerStrategy(final String title, final Icon img,
 			final Consumer<Player> ctrlUser,
 			final BiConsumer<AbstractStratBtn<Player>, PlayerState> updater) {
 		
@@ -45,7 +46,7 @@ public enum PlayerStrategy implements
 		return title;
 	}
 
-	public ImageIcon getImage() {
+	public Icon getImage() {
 		return img;
 	}
 

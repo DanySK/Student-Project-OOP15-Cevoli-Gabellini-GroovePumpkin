@@ -1,6 +1,6 @@
 package view.unused;
 
-import static view.config.Configuration.REC_IMG;
+import view.config.Configuration;
 import model.PlayerState;
 import view.buttons.PersonalJButton;
 import controller.Updatable;
@@ -18,7 +18,7 @@ public class RecSpace<C> extends PersonalJButton<C> implements Updatable{
 
 	protected RecSpace(final Object rps, final boolean showTitle) {
 
-		super(REC_IMG);
+		super(Configuration.getConfig().getRecImage());
 		
 		doShow(showTitle, REC);
 

@@ -1,10 +1,9 @@
 package view.buttons.strategies;
 
 import static view.config.Configuration.*;
-
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.LoopConsumer;
@@ -21,15 +20,15 @@ import controller.Loopable;
 public enum LoopStrategy implements
 		BtnStrategy<Loopable, AbstractStratBtn<Loopable>, PlayerState> {
 	
-	LOOP("Loop", LOOP_OFF_IMG, c -> c.setLoop(true), new LoopConsumer()), 
-	UNLOOP("UnLoop", LOOP_ON_IMG, c -> c.setLoop(false), new LoopConsumer());
+	LOOP("Loop", getConfig().getLoopOffImage(), c -> c.setLoop(true), new LoopConsumer()), 
+	UNLOOP("UnLoop", getConfig().getLoopOnImage(), c -> c.setLoop(false), new LoopConsumer());
 
 	private String title;
-	private ImageIcon img;
+	private Icon img;
 	private Consumer<Loopable> ctrlUser;
 	private BiConsumer<AbstractStratBtn<Loopable>, PlayerState> updater;
 
-	private LoopStrategy(final String title, final ImageIcon img,
+	private LoopStrategy(final String title, final Icon img,
 			final Consumer<Loopable> ctrlUser,
 			final BiConsumer<AbstractStratBtn<Loopable>, PlayerState> updater) {
 		this.title = title;
@@ -44,7 +43,7 @@ public enum LoopStrategy implements
 	}
 
 	@Override
-	public ImageIcon getImage() {
+	public Icon getImage() {
 
 		return img;
 	}

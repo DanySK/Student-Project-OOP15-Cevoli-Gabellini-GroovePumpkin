@@ -74,6 +74,17 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 			.setStop(createButton(STOP_B, getController(), false))
 			.setFW(createButton(FW_B, getController(), false))
 			.build(new FlowLayout(1, 10, 10)));
+		
+		/*
+		 *	Normally I should have check if the controller is instance of 
+		 *	Loopable or Shuffable or both but by the moment that i already know
+		 *	what this controller implements I preffered only to do a cast.
+		 *
+		 *	More code can be found into the PlayerPanel.java, where I've commented
+		 *	the lines of code that should have checked and chosed which function 
+		 *	instanciate.
+		 * 
+		 */
 		this.getCommandPane().add(new CmdPane.Builder()
 			.setLoop(createButton(LOOP_B, (Loopable)getController(), false))
 			.setShuffle(createButton(SHUFFLE_B, (Shuffable)getController(), false))

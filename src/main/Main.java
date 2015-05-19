@@ -24,7 +24,7 @@ public final class Main {
 
 	@SuppressWarnings("unused")
 	public static void main(final String... args) {
-		final Configuration config= new Configuration();
+		final Configuration config= Configuration.getConfig();
 		final SoundFrame jf= new SoundFrame(MP, GBC);
 	}
 

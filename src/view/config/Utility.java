@@ -74,7 +74,7 @@ public final class Utility {
 	 */
 	public static String anURLPathBuilder(final String filePath){
 		//Prendo il separatore di sistema
-		return SEPARATOR.equals("/") ? String.join("", "file://localhost",
+		return SEP.equals("/") ? String.join("", "file://localhost",
 				filePath) : String.join("", "file:/", filePath);
 	}
 	

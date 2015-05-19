@@ -1,21 +1,16 @@
 package view.buttons;
 
-import static view.config.Configuration.DARK_GRAY;
-import static view.config.Configuration.WHITE;
-import static view.config.Utility.getACompoundTitledBorder;
-import static view.config.Utility.getADefaultButtonBorder;
-
-import java.awt.Dimension;
 import java.awt.event.KeyListener;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
-
 import model.PlayerState;
 import view.interfaces.Controllable;
 import controller.Updatable;
+import static view.config.Configuration.*;
+import static view.config.Utility.*;
 
 /**
  * A personal JButton class with modifed bg ad fg,
@@ -31,7 +26,6 @@ public class PersonalJButton<C> extends JButton implements Updatable, Controllab
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	private C controller;
-	private boolean hasIcon;
 	private boolean hasTitle;
 	
 	/**
@@ -47,34 +41,25 @@ public class PersonalJButton<C> extends JButton implements Updatable, Controllab
 		for (final KeyListener kl : this.getKeyListeners()) {
 			this.removeKeyListener(kl);
 		}
-		
-		this.setSize();
 	}
 
 	/**
 	 * @param img to be applied to the button
 	 */
-	public PersonalJButton(final ImageIcon img) {
+	public PersonalJButton(final Icon img) {
 		this();
-		this.setIcon(img);
-		this.hasIcon=true;
+		if(img!=null){
+			this.setIcon(img);
+		}
 	}
 
 	/**
 	 * @param title to be shown upon the button
 	 * @param img to be applied to the button
 	 */
-	public PersonalJButton(final ImageIcon img, final String title) {
+	public PersonalJButton(final Icon img, final String title) {
 		this(img);
 		this.setTitledBorder(title);
-	}
-	
-	private void setSize() {
-		
-		if(this.hasIcon && !this.hasTitle){
-			this.setPreferredSize(new Dimension(this.getIcon().getIconWidth(), 
-					this.getIcon().getIconHeight()));
-		} 
 	}
 	
 	private TitledBorder getTitledBorder() {
@@ -134,7 +119,6 @@ public class PersonalJButton<C> extends JButton implements Updatable, Controllab
 	 */
 	public void removeTitledBorder(){
 		this.setBorder(getADefaultButtonBorder());
-		this.setSize();
 		this.repaint();
 		this.hasTitle=false;
 	}
