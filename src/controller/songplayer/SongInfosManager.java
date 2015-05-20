@@ -14,7 +14,7 @@ public interface SongInfosManager {
 	void setPosition(final int time) throws IllegalArgumentException;
 	
 	/**
-	 * Obtain the length of the song, exspressed in second
+	 * Obtain the length of the song, expressed in second
 	 * @return the length of the track 
 	 */
 	double getDuration();

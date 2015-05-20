@@ -5,9 +5,10 @@ import java.util.*;
 import model.playlistmanager.choicestrategy.PlaylistChoiceStrategy;
 
 /**
- * This class rappresents a basic playlist manager.
+ * This class represents a basic playlist manager.
  * the classic strategy is the default strategy used for select song from the playlist 
  * 
+ * @see PlaylistManager
  * @author Matteo Gabellini
  */
 public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
@@ -75,9 +76,9 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 		if (index < 0 || index >= this.playlist.size()) {
 			throw new IllegalArgumentException();
 		}
+		this.extractionStrategy.goToSong(index, playlist);
 		this.currentSong = Optional.of(this.playlist
-				.get(this.extractionStrategy.getSong(index, this.playlist)
-						.get()));
+				.get(index));
 		return this.currentSong;
 	}
 
@@ -100,14 +101,19 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 	@Override
 	public void removeSongFromPlayList(final int index)
 			throws IllegalArgumentException {
-		this.playlist.remove(index);
-		//If the song that i removed is the current song
-		if (this.getCurrentSongIndex().get() == index) {
-			//Update the currentSong variable
-			this.currentSong = Optional.empty();
-		}		
-		//Now update the datastructure of the strategy
-		this.extractionStrategy.removedIndex(index);
+		if (index >= 0 && index < this.playlist.size()) {
+			this.playlist.remove(index);
+			// If the song that i removed is the current song
+			if (this.getCurrentSongIndex().isPresent()
+					&& this.getCurrentSongIndex().get() == index) {
+				// Update the currentSong variable
+				this.currentSong = Optional.empty();
+			}
+			// Now update the datastructure of the strategy
+			this.extractionStrategy.removedIndex(index);
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	@Override
@@ -133,7 +139,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 	public void setChoiceStrategy(PlaylistChoiceStrategy<X> strategy){
 		if(strategy != null){
 			if (this.extractionStrategy.getCurrentSongIndex().isPresent()) {
-				strategy.getSong(this.extractionStrategy.getCurrentSongIndex().get(),
+				strategy.goToSong(this.extractionStrategy.getCurrentSongIndex().get(),
 						this.playlist);
 			}
 			this.extractionStrategy = strategy;

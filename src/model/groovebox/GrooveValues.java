@@ -10,8 +10,8 @@ import model.lessons.Pair;
 import view.model.GrooveTableModel;
 
 /**
- * This class rapresents the basic instruments playable by the groovebox
- * Each each elements (GrooveValues) is a row of colors (the time quantum where
+ * This class represents the basic instruments playable by the groovebox
+ * Each elements (GrooveValues) is a row of colors (the time quantum where
  * the tone is active) with an associated tone
  * 
  * How I've managed this class should be similar to a SINGLETON pattern

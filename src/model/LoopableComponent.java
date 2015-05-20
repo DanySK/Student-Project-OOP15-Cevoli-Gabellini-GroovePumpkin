@@ -1,5 +1,10 @@
 package model;
-
+/**
+ * A class that implements this interface has the loop management
+ * 
+ * @author Matteo Gabellini
+ *
+ */
 public interface LoopableComponent {
 	/**
 	 * Able or disale the loop mode

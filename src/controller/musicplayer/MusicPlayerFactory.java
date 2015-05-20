@@ -12,18 +12,34 @@ import model.playlistmanager.ShuffablePlaylistManager;
  */
 public class MusicPlayerFactory {
 
+	/** 
+	 * Create new classic music player with base function
+	 * @return new istance of a classic music player
+	 */
 	public static MusicPlayer createClassicMusicPlayer(){
 		return new ClassicMusicPlayer(new ClassicPlaylistManager<URL>());
 	}
 	
+	/**
+	 * Create a classic music player with the base function and also the shuffle management
+	 * @return new instance of a classic music player
+	 */
 	public static MusicPlayer createShuffableMusicPlayer(){
 		return new ClassicMusicPlayer(new ShuffablePlaylistManager<>());
 	}
 	
+	/**
+	 * Create a new music player with the base function and also the loop management
+	 * @return new loopable music player
+	 */
 	public static MusicPlayer createLoopableMusicPlayer(){
 		return new LoopableMusicPlayer(new ClassicPlaylistManager<>());
 	}
 	
+	/**
+	 * Create a new music player with the base function, the loop and shuffle management
+	 * @return new loopable and shuffable music player
+	 */
 	public static MusicPlayer createLoopableAndShuffableMP(){
 		return new LoopableMusicPlayer(new ShuffablePlaylistManager<URL>());
 	}

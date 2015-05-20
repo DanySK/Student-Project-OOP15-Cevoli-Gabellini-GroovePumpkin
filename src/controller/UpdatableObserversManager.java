@@ -7,28 +7,31 @@ import java.util.List;
 import model.PlayerState;
 /**
  * This class manage the observers that implements the interface Updatable
+ * 
+ * This class can be extended from a class that must be oberved from an Updatable object
  * @author Matteo Gabellini
  *
  */
 public class UpdatableObserversManager implements Observable {
 	
-	private List<Updatable> observers;
+	private final List<Updatable> observers;
+	
+    public UpdatableObserversManager() {
+		this.observers = new ArrayList<>();
+	}
 	
 	@Override
 	public void addUpdatableObservers(final Updatable... component) {
-		if (observers == null) {
-			observers = new ArrayList<>();
-		}
 		Arrays.asList(component).stream().forEach(X -> observers.add(X));
 	}
 
 	/**
 	 * This method notify a player state to the added observer
+	 * This method should only be used by classes that extend this 
+	 * and can't be used externally
 	 */
 	protected void notifyToUpdatable(final PlayerState state) {
-		if (observers != null) {
-			observers.stream().forEach(x -> x.updateStatus(state));
-		}
+		observers.stream().forEach(x -> x.updateStatus(state));
 	}
 
 }

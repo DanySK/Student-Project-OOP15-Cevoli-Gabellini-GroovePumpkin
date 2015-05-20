@@ -8,13 +8,11 @@ import controller.Observable;
 import controller.Player;
 import controller.songplayer.SongInfosManager;
 
-/**
- * 
- * This interface represents the contract of the music player itself,
- * that is the part of the "Music Player" that deals with taking songs and start them
- * 
- * A music player is something that take different format song and reproduce
+/** 
+ * A music player is something that take different format song from a playlist and reproduce
  * them 
+ * 
+ * This interface extends the interface {@link controller.Player} and {@link controller.Observable}
  * @author Matteo Gabellini
  *
  */

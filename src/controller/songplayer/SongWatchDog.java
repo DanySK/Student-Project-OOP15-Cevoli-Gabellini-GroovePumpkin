@@ -5,7 +5,8 @@ import controller.Player;
 
 /**
  * Song watch dog is a thread that control during the reproduction the state of the song 
- * when song finish them call the method for close the reproduction on the song player and call the stop of the music player
+ * when song finish them call the stop of the music player
+ * 
  * @author Matteo Gabellini
  *
  */

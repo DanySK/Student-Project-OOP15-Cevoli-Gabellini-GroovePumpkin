@@ -19,7 +19,7 @@ public interface GrooveBoxContentManager{
 	Optional<Sequence> getSequence();
 	
 	/**
-	 * Change the state of the Cell specified by the parameters
+	 * Change the state of the cell specified by the parameters
 	 * @param rowIndex 
 	 * 			the index of the Groove table row
 	 * @param columnIndex

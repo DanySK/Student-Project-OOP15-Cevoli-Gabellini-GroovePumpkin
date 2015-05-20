@@ -18,8 +18,8 @@ import model.groovebox.GrooveValues;
  */
 public class MidiSequenceCreationStrategy {
 	
-	private static final int VELOCITY = 100; // la velocità di tocco può essere
-												// da 0 a 127
+	/*This rappresent the velocity with which the note is pressed */
+	private static final int VELOCITY = 100; 
 	/*
 	 * Midi Channels are 16 and the channel 10 in the GM(General Midi) standard
 	 * is reserved for percussion. In the program the channels are indexed from
@@ -27,9 +27,11 @@ public class MidiSequenceCreationStrategy {
 	 */
 	private static final int SELECTED_CHANNEL = 9; 
 	private static final int INSTRUMENT_INDEX = 0;
+	
 	/**
-	 * 
+	 * Create the midi sequence from a list of {@link model.groovebox.GrooveValues}
 	 * @param partitura
+	 * 		the list of groove values
 	 * @return An optional that contains the midi track, if during the creation there is some problem the return value is Optional.empty
 	 */
 	public Optional<Sequence> createMidiSequence(final List<? extends GrooveValues> partitura){

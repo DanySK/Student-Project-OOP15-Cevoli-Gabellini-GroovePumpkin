@@ -9,8 +9,9 @@ import model.playlistmanager.ExtendedPlaylistManager;
 
 /**
  * 
- * An extension of a classic music player that add the management of the Loop mode
+ * An extension of the class {@link controller.musicplayer.ClassicMusicPlayer} that add the management of the Loop mode
  * 
+ * This class implement the interface {@link controller.Loopable}
  * @author Matteo Gabellini
  *
  */
@@ -22,6 +23,10 @@ public class LoopableMusicPlayer extends ClassicMusicPlayer implements Loopable 
 		this.loopModel = new LoopManager();
 	}
 	
+	/**
+	 * When song ended and the {@link controller.musicplayer.AbstractMusicPlayer#stop} method invoked
+	 * this method if the loop was active the current song will be repeated  
+	 */
 	@Override
 	protected void afterSongEnding() {
  		if (this.isLoopModeActive()) {

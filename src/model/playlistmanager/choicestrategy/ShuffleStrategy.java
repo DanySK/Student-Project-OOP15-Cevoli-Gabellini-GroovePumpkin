@@ -111,16 +111,9 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getSong(final int index, final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty() || index < 0
-				|| index > playlist.size() - 1) {
-			return Optional.empty();
-		}
-
+	public void goToSong(final int index, final List<X> playlist) {
 		this.shuffled.add(index);
 		this.currShuffledIdx = shuffled.size() - 1;
-		return Optional.ofNullable(this.shuffled
-				.get(this.currShuffledIdx));
 	}
 
 	@Override
@@ -140,4 +133,5 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 		this.shuffled.removeIf(X -> X > index);
 		this.shuffled.addAll(updatedValue);
 	}
+	
 }

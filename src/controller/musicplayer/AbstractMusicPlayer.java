@@ -27,50 +27,74 @@ import model.SongPlayerState;
 import model.playlistmanager.PlaylistManager;
 /**
  * A basic implementation of a Music Player that manage the main function of a MusicPlayer
+ * see also {@link controller.musicplayer.MusicPlayer}
  * 
- * The classes that exand this abstract class must implement the logic after the end of the song
+ * The classes that extend this abstract class must implement the action to do after the song ending
  * @author Matteo Gabellini
  * 
  */
 public abstract class AbstractMusicPlayer extends UpdatableObserversManager implements MusicPlayer{
 	
+	private volatile boolean waitBeforeChange;
 	private final PlaylistManager<URL> model;	
 	
 	private Optional<SongWatchDog> threadSongWatcher;	
 	private Optional<SongPlayer> soundPlayer;
 
 	public AbstractMusicPlayer(final PlaylistManager<URL> plManager) {
+		super();
 		this.model = plManager;
 		this.soundPlayer = Optional.empty();
 		this.threadSongWatcher = Optional.empty();
+		this.waitBeforeChange = true;
 	}
 
 	
 
-	private void changeSong(final Optional<URL> song) {
-		if (song.isPresent()) {
+	private void changeSong() {
+		final SongPlayerState preChangePlayerState = (this.soundPlayer
+				.isPresent() ? this.soundPlayer.get().getState()
+				: SongPlayerState.STOPPED);
 
-			final SongPlayerState preChangePlayerState = (this.soundPlayer
-					.isPresent() ? this.soundPlayer.get().getState()
-					: SongPlayerState.STOPPED);
+		// Check if the player is present and if is active
+		if (this.soundPlayer.isPresent()
+				&& !this.soundPlayer.get().equals(SongPlayerState.STOPPED)) {
+			// if the player is active I stop them...
+			// For the correct synchronization of threads i call the stop method
+			// of this class
+			this.stop();
+		}
+		this.notifyToUpdatable(PlayerState.SONGCHANGED);
+		// If before the song changing the song player was running...
+		if (preChangePlayerState == SongPlayerState.RUNNING) {
+			Thread threadChange = new Thread(new Runnable() {
 
-			this.loadSong(song.get());
-			this.notifyToUpdatable(PlayerState.SONGCHANGED);
-			// If before the song changing the song player was running...
-			if (preChangePlayerState == SongPlayerState.RUNNING) {
-				// Start the reproduction of the new song
-				this.play();
-			}
-
+				@Override
+				public void run() {
+					/*If the user invoke the methods to change song more 
+					 * than one time in less than 500 millisecond wait 
+					 * before start the new song*/
+					while (AbstractMusicPlayer.this.waitBeforeChange) {
+						AbstractMusicPlayer.this.waitBeforeChange = false;
+						try {
+							Thread.sleep(500);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					AbstractMusicPlayer.this.play();
+				}
+			});
+			threadChange.start();
 		}
 	}
 
 	@Override
 	public synchronized void goToNextSong() {
 		if (this.getCurrentSong().isPresent()) {
-			final Optional<URL> nextSong = this.model.changeToTheNextSong();
-			if (nextSong.isPresent()) {
-				this.changeSong(nextSong);
+			if (this.model.changeToTheNextSong().isPresent()) {
+				this.waitBeforeChange = true;
+				this.changeSong();
 			}
 		}
 	}
@@ -78,35 +102,28 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 	@Override
 	public synchronized void goToPreviousSong() {
 		if (this.getCurrentSong().isPresent()) {
-			final Optional<URL> previousSong = this.model
-					.changeToThePreviousSong();
-			if (previousSong.isPresent()) {
-				this.changeSong(previousSong);
+			if (this.model
+					.changeToThePreviousSong().isPresent()) {
+				this.waitBeforeChange = true;
+				this.changeSong();
 			}
 		}
 	}
 
 	@Override
 	public synchronized void goToSong(final int index) {
-		final Optional<URL> song = this.model.changeSong(index);
-		if (song.isPresent()) {
-			this.changeSong(song);
+		if (this.model.changeSong(index).isPresent()) {
+			this.waitBeforeChange = true;
+			this.changeSong();
 		}
 	}
 
 	@Override
-	public synchronized Optional<URL> getCurrentSong() {
+	public  Optional<URL> getCurrentSong() {
 		return this.model.getCurretSong();
 	}
 
 	private void loadSong(final URL songPath) {
-		// Check if the player is present and if is active
-		if (this.soundPlayer.isPresent() && !this.soundPlayer.get().equals(SongPlayerState.STOPPED)) {
-			// if the player is active I stop them...
-			// For the correct synchronization of threads i call the stop method
-			// of this class
-			this.stop();
-		}
 
 		AudioInputStream audioStream;
 		Sequence midiSequence;
@@ -168,8 +185,6 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 				this.soundPlayer.get().play();
 				if (this.soundPlayer.get().isActive()
 						&& !threadSongWatcher.isPresent()) {
-					// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
-					// CONTROLLARE LA FINE DEL MIDI
 					threadSongWatcher = Optional.of(new SongWatchDog(this,
 							this.soundPlayer.get()));
 					threadSongWatcher.get().start();
@@ -186,7 +201,7 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 	protected abstract void afterSongEnding();
 
 	@Override
-	public synchronized void stop() {
+	public  synchronized void stop() {
 		if(this.soundPlayer.isPresent()){
 			final boolean songEnded = this.soundPlayer.get().getState().equals(SongPlayerState.RUNNING) && !this.soundPlayer.get().isActive();
 			this.soundPlayer.get().stop();
@@ -226,7 +241,7 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 	}
 
 	@Override
-	public synchronized void removeSong(final int index) throws IllegalArgumentException {
+	public  void removeSong(final int index) throws IllegalArgumentException {
 		if (this.soundPlayer.isPresent()
 				&& this.model.getCurrentSongIndex().get() == index) {
 			this.soundPlayer.get().stop();

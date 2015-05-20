@@ -1,20 +1,20 @@
 package controller.songplayer;
 
 import javax.sound.midi.InvalidMidiDataException;
-import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import javax.sound.midi.Synthesizer;
 
 import model.SongPlayerState;
 
 /**
  * A midi song player take a midi track and play them
  * 
- * this class gives all method for manage the reproduction (play, stop,
- * pause...)
+ * this class exhibits method for managing the reproduction (play, stop,
+ * pause...) and the infos of a midi track
+ * 
+ * see also {@link controller.SongPlayer}
  * 
  * @author Matteo Gabellini
  *
@@ -79,6 +79,11 @@ public class MidiSongPlayer implements SongPlayer {
 		return this.sequencer.isRunning();
 	}
 
+	/**
+	 * Set the time with which the midi sequence is played
+	 * @param bpm
+	 * 	    beat per minute
+	 */
 	public void setBPM(final int bpm) {
 		this.sequencer.setTempoInBPM(bpm);
 	}

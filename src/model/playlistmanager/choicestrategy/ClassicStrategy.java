@@ -5,6 +5,7 @@ import java.util.Optional;
 /**
  * A Classic strategy rappresent the classic mode for chose song from a playlist
  * 
+ * @see PlaylistChoiceStrategy
  * @author Matteo Gabellini
  *
  * @param <X> the type of the elements that compose the playlist handled
@@ -36,13 +37,8 @@ public class ClassicStrategy<X> implements PlaylistChoiceStrategy<X> {
 	}
 
 	@Override
-	public Optional<Integer> getSong(final int index, final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty() || index < 0
-				|| index > playlist.size() - 1) {
-			return Optional.empty();
-		}
+	public void goToSong(final int index, final List<X> playlist) {
 		this.currentIdx = index;
-		return Optional.ofNullable(this.currentIdx);
 	}
 
 	@Override

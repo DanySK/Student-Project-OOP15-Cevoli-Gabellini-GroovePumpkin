@@ -9,8 +9,8 @@ import model.PlayerState;
  */
 public interface Updatable {
 	/**
-	 * This method is called by the obsverved object to notufy the observer
+	 * This method is called by the observed object to notify the observer
 	 * 
 	 */
-	public void updateStatus(final PlayerState status);
+	 void updateStatus(final PlayerState status);
 }

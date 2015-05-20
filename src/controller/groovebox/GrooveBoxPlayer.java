@@ -7,7 +7,7 @@ import controller.Observable;
 import controller.Player;
 
 /**
- * This rappresent the logic for manage a groove and reproduce them with groove box
+ * This rappresent the logic to manage a groove and reproduce them with groove box
  * @author Matteo Gabellini
  *
  */
@@ -15,9 +15,8 @@ public interface GrooveBoxPlayer extends Player,Loopable,Observable{
 	/**
 	 * Save the midi file of the created Groove
 	 * @param path 
-	 * 			specify where the midi file will be saved
-	 * @param fileName
-	 * 			specify the name of the midi file
+	 * 			specify where the midi file will be saved,
+	 * 			the last word of the path is the name of the file
 	 * @return true if the file was saved otherwise false
 	 */
 	boolean saveTrack(final String pathName) throws IOException;
@@ -43,12 +42,12 @@ public interface GrooveBoxPlayer extends Player,Loopable,Observable{
 	 * 			the index of the Groove table row
 	 * @param columnIndex
 	 * 			the index of the Groove table column  
-	 * @return true if the cell is active or false
+	 * @return true if the cell is active otherwise false
 	 */
 	boolean getCellState(final int rowIndex, final int columnIndex);
 	
 	/**
-	 * Reset the groove box
+	 * Reset the groove box table 
 	 */
 	void reset();
 }

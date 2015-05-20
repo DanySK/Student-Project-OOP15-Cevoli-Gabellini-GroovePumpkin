@@ -13,16 +13,16 @@ import model.SongPlayerState;
 /**
  * A Player of sampled song (wav song)
  * 
+ * this class exhibits method for managing the reproduction (play, stop,
+ * pause...) and the infos of a sampled track
+ * 
+ * see also {@link controller.SongPlayer}
+ * 
  * @author Matteo Gabellini
  *
  */
 public class SampledSongPlayer implements SongPlayer {
 
-	/*
-	 * The Clip interface represents a special kind of data line whose audio
-	 * data can be loaded prior to playback, instead of being streamed in real
-	 * time.
-	 */
 	final private Clip clip;
 	private SongPlayerState statoLettore;
 	/**
@@ -35,9 +35,6 @@ public class SampledSongPlayer implements SongPlayer {
 	 */
 	public SampledSongPlayer(final AudioInputStream song)
 			throws LineUnavailableException, IOException {
-		// Va creata una classe per le impostazioni
-		// Prendo il primo dispositivo audio;
-		// mixer = AudioSystem.getMixer(mixInfos[0]);
 
 		clip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, song
 				.getFormat()));
