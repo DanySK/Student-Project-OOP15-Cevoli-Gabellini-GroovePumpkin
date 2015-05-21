@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+
 /**
  * This strategy rappresent the mode for chosing song randomly from a playlist
  * This strategy remember some extracted song, 
@@ -15,39 +16,20 @@ import java.util.Random;
  * @param <X> The type of the playlist elements
  */
 public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
-	private static final int SHUFFLED_LIST_LIMIT = 50;
 	private static final int NOT_SELECTED = -1;
 	
 	private int currShuffledIdx = NOT_SELECTED;
-	private List<Integer> shuffled;
-	private ExtractionStrategy<Integer> eStrategy;
+	private final ShuffledListManager listManager;
 
 	public ShuffleStrategy() {
-		this.shuffled = new ArrayList<>();
-	}
-
-	/*
-	 * This method reorganize the shuffled list delete the first half part of
-	 * the list and move the elements in the second part at the begin of the
-	 * list
-	 */
-	private void reorganizeShuffledList() {
-		final int divisionIdx = SHUFFLED_LIST_LIMIT / 2;
-		this.currShuffledIdx = this.currShuffledIdx/2;
-		// Create the new list
-		final List<Integer> newShuffledList = new ArrayList<>();
-		// Copy all elements of the second part of the list
-		for (int i = divisionIdx; i < shuffled.size(); i++) {
-			newShuffledList.add(shuffled.get(i));
-		}
-		this.shuffled = newShuffledList;
+		this.listManager = new ShuffledListManager();
 	}	
 
 	
 	@Override
 	public Optional<Integer> getCurrentSongIndex() {
 		return this.currShuffledIdx == NOT_SELECTED ? Optional.empty()
-				: Optional.ofNullable(this.shuffled.get(this.currShuffledIdx));
+				: Optional.ofNullable(this.listManager.getElement(this.currShuffledIdx));
 	}
 	
 	@Override
@@ -56,7 +38,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 			return Optional.empty();
 		}		
 		
-		this.eStrategy = new ExtractionStrategy<Integer>() {
+		ExtractionStrategy<Integer> eStrategy = new ExtractionStrategy<Integer>() {
 			public Integer getElement() {
 				return (new Random().nextInt(playlist.size()) *new Random().nextInt(playlist.size()))% playlist.size();
 			}
@@ -64,74 +46,122 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 		// call the method that implements the random choice of the song
 		// the shuffled list is empty or the actual index is the last
-		if (shuffled.size() == 0 || this.currShuffledIdx == shuffled.size() - 1) {
-			if (shuffled.size() == SHUFFLED_LIST_LIMIT) {
-				this.reorganizeShuffledList();
-			}
+		if (this.listManager.getSize() == 0 || this.currShuffledIdx == this.listManager.getSize() - 1) {
 			
 			if (this.currShuffledIdx == NOT_SELECTED) {
-				shuffled.add(this.eStrategy.getElement());
+				this.listManager.addElement(eStrategy.getElement());
 			} else {
 				// I take the next song and i controll that isn't equals to the
 				// current song
-				int nextSong = this.eStrategy.getElement();
-				while (nextSong == this.shuffled.get(this.currShuffledIdx)) {
-					nextSong = this.eStrategy.getElement();
+				int nextSong = eStrategy.getElement();
+				while (nextSong == this.listManager.getElement(this.currShuffledIdx)) {
+					nextSong = eStrategy.getElement();
 				}
 				// I get a new shuffled song
-				shuffled.add(nextSong);
+				this.listManager.addElement(nextSong);
 			}
 			
-			if(this.shuffled.size() >= SHUFFLED_LIST_LIMIT){
-				this.reorganizeShuffledList();
-			}
-			
-			currShuffledIdx = shuffled.size() - 1;
-			return Optional.ofNullable(this.shuffled
-					.get(this.currShuffledIdx));
+			currShuffledIdx = this.listManager.getSize() - 1;
+			return Optional.ofNullable(this.listManager.getElement(this.currShuffledIdx));
 		} else {
 			// Otherwise i chose the next song from the list of the previous
 			// chosen song
 			if(this.currShuffledIdx == NOT_SELECTED){
 				this.currShuffledIdx = -1;
 			}
-			return Optional.ofNullable(this.shuffled
-					.get(++this.currShuffledIdx));
+			return Optional.ofNullable(this.listManager.getElement(++this.currShuffledIdx));
 		}
 	}
 
 	@Override
 	public Optional<Integer> getPreviousSong(final List<X> playlist) {
-		if (playlist == null || playlist.isEmpty() || shuffled.isEmpty() || currShuffledIdx == 0) {
+		if (playlist == null || playlist.isEmpty() || this.listManager.listIsEmpty() || currShuffledIdx == 0) {
 			return Optional.empty();
 		} else {
-			return Optional.ofNullable(this.shuffled
-					.get(--this.currShuffledIdx));
+			return Optional.ofNullable(this.listManager.getElement(--this.currShuffledIdx));
 		}
 	}
 
 	@Override
 	public void goToSong(final int index, final List<X> playlist) {
-		this.shuffled.add(index);
-		this.currShuffledIdx = shuffled.size() - 1;
+		this.listManager.addElement(index);
+		this.currShuffledIdx = this.listManager.getSize() - 1;
 	}
 
 	@Override
-	public void removedIndex(final int index) {
-		if (this.currShuffledIdx != NOT_SELECTED) {
-			for (int i = 0; i < this.currShuffledIdx; i++) {
-				if (this.shuffled.get(i) == index) {
+	public void removedIndex(final int index){
+		if (ShuffleStrategy.this.currShuffledIdx != NOT_SELECTED) {
+			for (int i = 0; i < ShuffleStrategy.this.currShuffledIdx; i++) {
+				if (this.listManager.getElement(i) == index) {
 					this.currShuffledIdx--;
 				}
 			}
 			this.currShuffledIdx = this.currShuffledIdx < 0 ? NOT_SELECTED
 					: this.currShuffledIdx;
 		}
-		this.shuffled.removeIf(X -> X == index);
-		final List<Integer> updatedValue = new ArrayList<>();
-		this.shuffled.stream().filter(X -> X > index).forEach(Y -> updatedValue.add(Y - 1));
-		this.shuffled.removeIf(X -> X > index);
-		this.shuffled.addAll(updatedValue);
+		this.listManager.removeElement(index);
 	}
 	
+	
+	/*
+	 * This class manages the list of the shuffled index extract by the outer strategy
+	 * When the internal list will be reorganize this class update also the field of the outer class 
+	 * currShuffledIdx
+	 * @author Matteo Gabellini
+	 *
+	 */
+	private class ShuffledListManager{
+		private static final int SHUFFLED_LIST_LIMIT = 50;
+		
+		private List<Integer> shuffled;
+		
+		
+		public ShuffledListManager(){
+			this.shuffled = new ArrayList<>();
+		}
+		
+		public void addElement(int index){
+			shuffled.add(index);
+			if (shuffled.size() == SHUFFLED_LIST_LIMIT) {
+				this.reorganizeShuffledList();
+			}			
+		}
+		
+		public Integer getElement(int index){
+			return this.shuffled.get(index);
+		}
+		
+		public int getSize(){
+			return this.shuffled.size();
+		}
+		
+		public boolean listIsEmpty(){
+			return this.shuffled.isEmpty();
+		}
+		
+		/*
+		 * This method reorganize the shuffled list delete the first half part of
+		 * the list and move the elements in the second part at the begin of the
+		 * list
+		 */
+		private void reorganizeShuffledList() {
+			final int divisionIdx = SHUFFLED_LIST_LIMIT / 2;
+			ShuffleStrategy.this.currShuffledIdx = ShuffleStrategy.this.currShuffledIdx/2;
+			// Create the new list
+			final List<Integer> newShuffledList = new ArrayList<>();
+			// Copy all elements of the second part of the list
+			for (int i = divisionIdx; i < shuffled.size(); i++) {
+				newShuffledList.add(shuffled.get(i));
+			}
+			this.shuffled = newShuffledList;
+		}
+		
+		public void removeElement(final int index) {
+			this.shuffled.removeIf(X -> X == index);
+			final List<Integer> updatedValue = new ArrayList<>();
+			this.shuffled.stream().filter(X -> X > index).forEach(Y -> updatedValue.add(Y - 1));
+			this.shuffled.removeIf(X -> X > index);
+			this.shuffled.addAll(updatedValue);
+		}
+	}
 }
