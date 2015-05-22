@@ -10,7 +10,9 @@ import view.buttons.AbstractStratBtn;
 import controller.Loopable;
 
 /**
- * 
+ * That biconsumer implementation handles the 
+ * update of the button that use a LoopStrategy
+ *  
  * @author Alessandro
  *
  */

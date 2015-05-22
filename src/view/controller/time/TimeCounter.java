@@ -1,6 +1,7 @@
 package view.controller.time;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.function.Consumer;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -19,10 +20,42 @@ public class TimeCounter extends Thread {
 	private boolean stop;
 	private int sec;
 	private JLabel timeLabel;
-	//private JProgressBar timeBar;
 	private int h;
 	private int m;
 	private int s;
+	
+	/**
+	 * This enum wrap the strategy to do when an event happens.
+	 * 
+	 * @author Alessandro
+	 *
+	 */
+	public static enum Strategy{
+		PAUSE(j->{
+			
+		}), STOP(j->{
+			SwingUtilities.invokeLater(()-> {
+				j.setText("00:00:00");
+				j.repaint();
+			});
+		});
+		
+		private final Consumer<JLabel> c;
+		private Strategy(final Consumer<JLabel> c){
+			this.c= c;
+		}
+		
+		/*
+		 * Unlike the normal strategy pattern I've prefered to
+		 * hide the doStrategy method because is something 
+		 * attached to this class and it would have been useless
+		 * for other classes
+		 * 
+		 */
+		private void doStrategy(final JLabel l){
+			this.c.accept(l);
+		}
+	}
 	
 	public TimeCounter(final JLabel label, final int elapsedTime ) {
 		super();
@@ -31,7 +64,6 @@ public class TimeCounter extends Thread {
 	}
 
 	private String digitalize() {
-
 		String str = "";
 		h= sec / 3600;
 		m=(sec % 3600)/60;
@@ -39,23 +71,25 @@ public class TimeCounter extends Thread {
 		str= String.join("", str, h < TEN ? "0" : "", String.valueOf(h));
 		str= String.join("", str, ":", m < TEN ? "0" : "", String.valueOf(m));
 		str= String.join("", str, ":", s < TEN ? "0" : "", String.valueOf(s));
-		
 		return str;
-
 	}
 	
+	/**
+	 * 
+	 * @return Return the elapsed time by the start of the timer
+	 */
 	public int getElapsedTime(){
 		return sec;
 	}
 	
-	public void pauseTime(){
+	/**
+	 * Manipulate time with the given strategy
+	 * 
+	 * @param s
+	 */
+	public void manipulateTime(final Strategy s) {
 		stop=true;
-	}
-	
-	public void stopTime() {
-		pauseTime();
-		SwingUtilities.invokeLater(()-> timeLabel.setText("00:00:00"));
-		timeLabel.repaint();
+		s.doStrategy(timeLabel);
 	}
 
 	@Override

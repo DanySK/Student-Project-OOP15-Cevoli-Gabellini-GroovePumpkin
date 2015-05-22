@@ -10,6 +10,8 @@ import view.buttons.AbstractStratBtn;
 import controller.musicplayer.PlaylistFeatureCommand;
 
 /**
+ * That biconsumer implementation handles the 
+ * update of the button that use a ShuffleStrategy
  * 
  * @author Alessandro
  *

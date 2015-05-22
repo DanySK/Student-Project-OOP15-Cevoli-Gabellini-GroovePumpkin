@@ -10,6 +10,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 
 import model.PlayerState;
 import controller.Loopable;
@@ -108,13 +109,17 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 		// self update
 		if (status.equals(RUNNING) || status.equals(SONGCHANGED)) {
 			// change the name of the songs to the new one
-			this.songName.setText(String.join("" ,"< ",
-					convertURLPath(((MusicPlayer) getController())
-					.getCurrentSong().get().getPath()), " >"));
+			SwingUtilities.invokeLater(()->{
+				this.songName.setText(String.join("" ,"< ",
+						convertURLPath(((MusicPlayer) getController())
+						.getCurrentSong().get().getPath()), " >"));
+			});
 
 		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
 			// set the no-song string
-			this.songName.setText("< Any song is playing >");
+			SwingUtilities.invokeLater(()->{
+				this.songName.setText("< Any song is playing >");
+			});
 		}
 	}
 

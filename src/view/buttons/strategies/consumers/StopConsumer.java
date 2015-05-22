@@ -11,6 +11,8 @@ import view.buttons.AbstractStratBtn;
 import controller.Player;
 
 /**
+ * That biconsumer implementation handles the 
+ * update of the button that use a PlayerStrategy.STOP
  * 
  * @author Alessandro
  *
