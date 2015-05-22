@@ -5,7 +5,8 @@ import java.net.URL;
 import controller.Loopable;
 import model.LoopManager;
 import model.PlayerState;
-import model.playlistmanager.ExtendedPlaylistManager;
+import model.playlistmanager.PlaylistFeatures;
+import model.playlistmanager.PlaylistManager;
 
 /**
  * 
@@ -18,8 +19,8 @@ import model.playlistmanager.ExtendedPlaylistManager;
 public class LoopableMusicPlayer extends ClassicMusicPlayer implements Loopable {
 	final private LoopManager loopModel;
 	
-	public LoopableMusicPlayer(final ExtendedPlaylistManager<URL> plManager) {
-		super(plManager);
+	public LoopableMusicPlayer(final PlaylistManager<URL> plManager, final PlaylistFeatures<URL> features) {
+		super(plManager, features);
 		this.loopModel = new LoopManager();
 	}
 	

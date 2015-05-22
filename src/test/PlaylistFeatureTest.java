@@ -6,20 +6,20 @@ import java.net.URL;
 
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 import model.playlistmanager.ClassicPlaylistManager;
 import model.playlistmanager.ExtendedPlaylistManager;
-import model.playlistmanager.ShuffablePlaylistManager;
+import model.playlistmanager.ShuffablePlaylistFeature;
 
 public class PlaylistFeatureTest {
 	@org.junit.Test
 	public void testControls() {
-		ExtendedPlaylistManager<URL> plfeatures = new ShuffablePlaylistManager<>(new ClassicPlaylistManager<>());
+		ExtendedPlaylistManager<URL> plfeatures = new ShuffablePlaylistFeature<>(new ClassicPlaylistManager<>());
 		System.out.println("Classe: " + plfeatures.getClass());
-		assertEquals(plfeatures.getClass() , ShuffablePlaylistManager.class);
+		assertEquals(plfeatures.getClass() , ShuffablePlaylistFeature.class);
 		assertNotEquals(plfeatures.getClass(), ClassicPlaylistManager.class);
 		
 		MusicPlayer MP = MusicPlayerFactory.createLoopableAndShuffableMP();
-		assertEquals(MP instanceof Shuffable, true);
+		assertEquals(MP instanceof PlaylistFeatureCommand, true);
 	}
 }

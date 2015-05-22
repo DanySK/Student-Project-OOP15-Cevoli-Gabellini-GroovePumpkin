@@ -14,6 +14,7 @@ import controller.musicplayer.MusicPlayerFactory;
  * @link{http://audio.online-convert.com/} <- The best imho
  * 
  * @author Alessandro
+ * @author Matteo Gabellini
  *
  */
 public final class Main {

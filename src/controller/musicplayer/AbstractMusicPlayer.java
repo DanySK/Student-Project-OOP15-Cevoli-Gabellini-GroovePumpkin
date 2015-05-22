@@ -67,7 +67,7 @@ public abstract class AbstractMusicPlayer extends UpdatableObserversManager impl
 		this.notifyToUpdatable(PlayerState.SONGCHANGED);
 		// If before the song changing the song player was running...
 		if (preChangePlayerState == SongPlayerState.RUNNING) {
-			Thread threadChange = new Thread(new Runnable() {
+			final Thread threadChange = new Thread(new Runnable() {
 
 				@Override
 				public void run() {

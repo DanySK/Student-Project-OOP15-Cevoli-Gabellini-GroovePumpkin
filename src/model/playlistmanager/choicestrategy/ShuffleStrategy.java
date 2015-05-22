@@ -38,7 +38,7 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 			return Optional.empty();
 		}		
 		
-		ExtractionStrategy<Integer> eStrategy = new ExtractionStrategy<Integer>() {
+		final ExtractionStrategy<Integer> eStrategy = new ExtractionStrategy<Integer>() {
 			public Integer getElement() {
 				return (new Random().nextInt(playlist.size()) *new Random().nextInt(playlist.size()))% playlist.size();
 			}
@@ -120,14 +120,14 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 			this.shuffled = new ArrayList<>();
 		}
 		
-		public void addElement(int index){
+		public void addElement(final int index){
 			shuffled.add(index);
 			if (shuffled.size() == SHUFFLED_LIST_LIMIT) {
 				this.reorganizeShuffledList();
 			}			
 		}
 		
-		public Integer getElement(int index){
+		public Integer getElement(final int index){
 			return this.shuffled.get(index);
 		}
 		

@@ -14,7 +14,7 @@ import view.model.AbstractKeyListener;
 import controller.*;
 import controller.groovebox.GrooveBoxPlayer;
 import controller.musicplayer.MusicPlayer;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 
 
 /**
@@ -37,7 +37,7 @@ public final class ButtonFactory {
 	public static final BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState> PAUSE_B = PAUSE;
 	public static final BtnStrategy<Player, AbstractStratBtn<Player>, PlayerState> STOP_B = STOP;
 	public static final BtnStrategy<Loopable, AbstractStratBtn<Loopable>, PlayerState> LOOP_B = LOOP;
-	public static final BtnStrategy<Shuffable, AbstractStratBtn<Shuffable>, PlayerState> SHUFFLE_B = SHUFFLE;
+	public static final BtnStrategy<PlaylistFeatureCommand, AbstractStratBtn<PlaylistFeatureCommand>, PlayerState> SHUFFLE_B = SHUFFLE;
 	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> SAVE_B = SAVE;
 	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> LOAD_B = LOAD;
 	public static final BtnStrategy<GrooveBoxPlayer, AbstractStratBtn<GrooveBoxPlayer>, PlayerState> RESET_B = RESET; 

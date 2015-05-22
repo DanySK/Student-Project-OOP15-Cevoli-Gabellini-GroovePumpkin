@@ -67,7 +67,7 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 		this.getCommandPane().add(new CmdPane.Builder()
 				.setPlay(createButton(PLAY_B, getController(), true))
 				.setStop(createButton(STOP_B, getController(), true))
-//				.setLoop(createButton(LOOP_B, (LoopableMusicPlayer)getController(), true))
+				.setLoop(createButton(LOOP_B, getController(), true))
 				.setReset(createButton(RESET_B, getController(), true))
 				.setSave(createButton(SAVE_B, getController(), true))
 				.build());
@@ -75,7 +75,8 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 		this.getCommandPane().get(0).setLayout(new BoxLayout(this.getCommandPane().get(0), BoxLayout.Y_AXIS));
 		
 		addUpdatableObservers(this.getCommandPane().get(0).getWrapper().getPlay().get(), 
-				this.getCommandPane().get(0).getWrapper().getStop().get());
+				this.getCommandPane().get(0).getWrapper().getStop().get(),
+				this.getCommandPane().get(0).getWrapper().getLoop().get());
 		
 		westPanel.add(this.getCommandPane().get(0), BorderLayout.CENTER);
 		

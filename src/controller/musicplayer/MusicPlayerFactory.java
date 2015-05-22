@@ -2,8 +2,9 @@ package controller.musicplayer;
 
 import java.net.URL;
 
-import model.playlistmanager.ClassicPlaylistManager;
-import model.playlistmanager.ShuffablePlaylistManager;
+import model.playlistmanager.BasicPlaylistManager;
+import model.playlistmanager.ShuffablePlaylistFeature;
+import model.playlistmanager.choicestrategy.ClassicStrategy;
 
 /**
  * A Factory for creating the different type of music player
@@ -17,7 +18,7 @@ public class MusicPlayerFactory {
 	 * @return new istance of a classic music player
 	 */
 	public static MusicPlayer createClassicMusicPlayer(){
-		return new ClassicMusicPlayer(new ClassicPlaylistManager<URL>());
+		return new ClassicMusicPlayer(new BasicPlaylistManager<URL>(new ClassicStrategy<>()), null);
 	}
 	
 	/**
@@ -25,7 +26,7 @@ public class MusicPlayerFactory {
 	 * @return new instance of a classic music player
 	 */
 	public static MusicPlayer createShuffableMusicPlayer(){
-		return new ClassicMusicPlayer(new ShuffablePlaylistManager<>());
+		return new ClassicMusicPlayer(new BasicPlaylistManager<URL>(new ClassicStrategy<>()), new ShuffablePlaylistFeature<URL>());
 	}
 	
 	/**
@@ -33,7 +34,7 @@ public class MusicPlayerFactory {
 	 * @return new loopable music player
 	 */
 	public static MusicPlayer createLoopableMusicPlayer(){
-		return new LoopableMusicPlayer(new ClassicPlaylistManager<>());
+		return new LoopableMusicPlayer(new BasicPlaylistManager<URL>(new ClassicStrategy<>()), null);
 	}
 	
 	/**
@@ -41,6 +42,6 @@ public class MusicPlayerFactory {
 	 * @return new loopable and shuffable music player
 	 */
 	public static MusicPlayer createLoopableAndShuffableMP(){
-		return new LoopableMusicPlayer(new ShuffablePlaylistManager<URL>());
+		return new LoopableMusicPlayer(new BasicPlaylistManager<URL>(new ClassicStrategy<>()), new ShuffablePlaylistFeature<>());
 	}
 }

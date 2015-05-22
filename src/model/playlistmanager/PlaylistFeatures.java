@@ -11,7 +11,7 @@ package model.playlistmanager;
  * @author Matteo Gabellini
  *
  */
-public interface PlaylistFeatures {
+public interface PlaylistFeatures<X> {
 
 	/**
 	 * Setter for the state of this feature
@@ -24,7 +24,7 @@ public interface PlaylistFeatures {
 	 *            true if i want activate the feature otherwise false if i will
 	 *            deactive the feature
 	 */
-	void setFeatureState(Class<? extends PlaylistFeatures> featureClass,boolean active);
+	void setFeatureState(Class<?> featureClass,PlaylistManager<X> plManager,boolean active);
 	
 	/**
 	 * Check the feature state
@@ -34,5 +34,5 @@ public interface PlaylistFeatures {
 	 *            hierarchy of features
 	 * @return
 	 */
-	boolean isFeatureActive(Class<? extends PlaylistFeatures> featureClass);
+	boolean isFeatureActive(Class<?> featureClass);
 }

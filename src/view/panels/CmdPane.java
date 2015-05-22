@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import view.buttons.AbstractStratBtn;
 import controller.musicplayer.MusicPlayer;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 import controller.Loopable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
@@ -112,7 +112,7 @@ public class CmdPane extends PersonalJPanel {
 			return this;
 		}
 
-		public Builder setShuffle(final AbstractStratBtn<Shuffable> b) 
+		public Builder setShuffle(final AbstractStratBtn<PlaylistFeatureCommand> b) 
 				throws NullPointerException{
 			if(!shuffle){
 				cW.setShuffle(b);

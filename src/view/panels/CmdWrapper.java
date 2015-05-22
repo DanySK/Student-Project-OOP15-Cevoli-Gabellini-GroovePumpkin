@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import view.buttons.AbstractStratBtn;
 import controller.musicplayer.MusicPlayer;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 import controller.Loopable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
@@ -15,7 +15,7 @@ public class CmdWrapper {
 	private Optional<AbstractStratBtn<Player>> stop;
 	private Optional<AbstractStratBtn<MusicPlayer>> fw;
 	private Optional<AbstractStratBtn<MusicPlayer>> bw;
-	private Optional<AbstractStratBtn<Shuffable>> shuffle;
+	private Optional<AbstractStratBtn<PlaylistFeatureCommand>> shuffle;
 	private Optional<AbstractStratBtn<Loopable>> loop;
 	private Optional<AbstractStratBtn<GrooveBoxPlayer>> save;
 	private Optional<AbstractStratBtn<MusicPlayer>> add;
@@ -60,7 +60,7 @@ public class CmdWrapper {
 	/**
 	 * @return the shuffle button
 	 */
-	public Optional<AbstractStratBtn<Shuffable>> getShuffle() {
+	public Optional<AbstractStratBtn<PlaylistFeatureCommand>> getShuffle() {
 		return shuffle;
 	}
 
@@ -144,7 +144,7 @@ public class CmdWrapper {
 	 * 
 	 * @param shuffle
 	 */
-	public void setShuffle(final AbstractStratBtn<Shuffable> b) {
+	public void setShuffle(final AbstractStratBtn<PlaylistFeatureCommand> b) {
 		this.shuffle = Optional.ofNullable(b);
 	}
 	

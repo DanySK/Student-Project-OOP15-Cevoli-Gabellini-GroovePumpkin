@@ -79,13 +79,9 @@ public class TimerController implements Updatable {
 			this.runTimer();
 		} else if (status.equals(PAUSED)) {
 			this.pauseTimer();
-		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
+		} else if (status.equals(STOPPED) || status.equals(REMOVED) 
+				|| status.equals(SONGCHANGED)) {
 			this.stopTimer();
-		} else if (status.equals(SONGCHANGED)) {
-			// System.out.println(status);
-			this.stopTimer();
-			this.runTimer();
 		}
-
 	}
 }

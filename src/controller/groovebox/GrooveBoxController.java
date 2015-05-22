@@ -68,8 +68,6 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 			}			
 			this.sequencer.get().play();
 			if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
-				// VALUTA LA POSSIBILITA' DI USARE META EVENT LISTENER PER
-				// CONTROLLARE LA FINE DEL MIDI
 				threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
 				threadGrooveWatchdog.get().start();				
 		    }

@@ -55,6 +55,7 @@ public class TimeCounter extends Thread {
 	public void stopTime() {
 		pauseTime();
 		SwingUtilities.invokeLater(()-> timeLabel.setText("00:00:00"));
+		timeLabel.repaint();
 	}
 
 	@Override

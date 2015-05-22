@@ -14,7 +14,7 @@ import javax.swing.JProgressBar;
 import model.PlayerState;
 import controller.Loopable;
 import controller.musicplayer.MusicPlayer;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 
 /**
  * Personalized JPanel for the PlayerPanel, 
@@ -87,7 +87,7 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 		 */
 		this.getCommandPane().add(new CmdPane.Builder()
 			.setLoop(createButton(LOOP_B, (Loopable)getController(), false))
-			.setShuffle(createButton(SHUFFLE_B, (Shuffable)getController(), false))
+			.setShuffle(createButton(SHUFFLE_B, (PlaylistFeatureCommand)getController(), false))
 			.build(new FlowLayout(1, -5, 0)));		
 		
 		north.add(this.getCommandPane().get(0), BorderLayout.CENTER);

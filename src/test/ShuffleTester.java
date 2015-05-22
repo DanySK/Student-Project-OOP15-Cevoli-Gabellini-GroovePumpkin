@@ -10,7 +10,7 @@ import model.PlayerState;
 import controller.Updatable;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
-import controller.musicplayer.Shuffable;
+import controller.musicplayer.PlaylistFeatureCommand;
 
 
 /**
@@ -58,8 +58,8 @@ public class ShuffleTester {
 			fail(e1.getMessage());
 		}
 
-		if(riproduttore instanceof Shuffable){
-			((Shuffable) riproduttore).setShuffleMode(true);
+		if(riproduttore instanceof PlaylistFeatureCommand){
+			((PlaylistFeatureCommand) riproduttore).setShuffleMode(true);
 			assertEquals(this.statoRiproduttore, PlayerState.SHUFFLED);
 		}
 		riproduttore.play();
