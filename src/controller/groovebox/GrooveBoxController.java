@@ -59,7 +59,6 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 			try {
 				if(!this.sequencer.isPresent()){
 					this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
-					this.sequencer.get().setBPM(this.bpm);
 				}				
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
@@ -67,6 +66,7 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 				e.printStackTrace();
 			}			
 			this.sequencer.get().play();
+			this.sequencer.get().setBPM(this.bpm);
 			if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
 				threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
 				threadGrooveWatchdog.get().start();				
