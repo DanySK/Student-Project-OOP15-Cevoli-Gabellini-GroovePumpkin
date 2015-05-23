@@ -9,11 +9,9 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 
-import controller.UpdatableObserversManager;
+import controller.AbstractBasicPlayer;
 import controller.songplayer.MidiSongPlayer;
-import controller.songplayer.SongWatchDog;
 import model.LoopManager;
-import model.SongPlayerState;
 import model.groovebox.GrooveBoxContentManager;
 import model.groovebox.GrooveBoxModel;
 import static model.PlayerState.*;
@@ -29,21 +27,19 @@ import static model.PlayerState.*;
  * @author Matteo Gabellini
  *
  */
-public class GrooveBoxController extends UpdatableObserversManager implements GrooveBoxPlayer{
+public class GrooveBoxController extends AbstractBasicPlayer implements GrooveBoxPlayer{
 	private static final GrooveBoxController GROOVE_BOX = new GrooveBoxController();
 	
 	private int bpm;
 	private Optional<MidiSongPlayer> sequencer;
 	private final GrooveBoxContentManager model;
 	private final LoopManager lManager;
-	private Optional<SongWatchDog> threadGrooveWatchdog;
 	
 	private GrooveBoxController(){
 		super();
 		this.model = new GrooveBoxModel();
 		this.lManager = new LoopManager();
 		this.sequencer = Optional.empty();
-		this.threadGrooveWatchdog = Optional.empty();
 		this.bpm = 120;
 	}
 	
@@ -51,62 +47,32 @@ public class GrooveBoxController extends UpdatableObserversManager implements Gr
 		return GrooveBoxController.GROOVE_BOX;
 	}
 	
-	@Override
-	public void play() {
+	protected void loadSong(){
 		final Optional<Sequence> sequence = model.getSequence();
-		
-		if(sequence.isPresent()){
-			try {
-				if(!this.sequencer.isPresent()){
-					this.sequencer = Optional.of(new MidiSongPlayer(sequence.get()));
-				}				
-			} catch (MidiUnavailableException e) {
-				e.printStackTrace();
-			} catch (InvalidMidiDataException e) {
-				e.printStackTrace();
-			}			
-			this.sequencer.get().play();
-			this.sequencer.get().setBPM(this.bpm);
-			if (this.sequencer.get().isActive() && !threadGrooveWatchdog.isPresent()) {
-				threadGrooveWatchdog = Optional.of(new SongWatchDog(this, this.sequencer.get()));
-				threadGrooveWatchdog.get().start();				
-		    }
-			if(this.sequencer.get().isActive()){
-				notifyToUpdatable(RUNNING);
-			}
-		}
-	}
-
-	@Override
-	public void pause() {
-		if (sequencer.isPresent()) {
-			sequencer.get().pause();
-			notifyToUpdatable(PAUSED);
-		}
-	}
-
-	@Override
-	public void stop() {
-		if (sequencer.isPresent()) {
-			final boolean songEnded = this.sequencer.get().getState().equals(SongPlayerState.RUNNING) && !this.sequencer.get().isActive();
-			this.sequencer.get().stop();
-			if(!songEnded && this.threadGrooveWatchdog.isPresent()){
-				//This code is execute when the stop is called by the user
-				try {
-					this.threadGrooveWatchdog.get().join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}				
-			}
-			notifyToUpdatable(this.sequencer.get().getState() == SongPlayerState.STOPPED ? STOPPED
-					: ERROR);
-			this.sequencer = Optional.empty();
-			this.threadGrooveWatchdog = Optional.empty();
-			// This code is executed when the stop is called by the Song Watcher
-			if (songEnded && this.lManager.isLoopModeActive()) {
-				this.play();
-			}	
+		try {
+			if(!this.soundPlayer.isPresent()){
+				this.soundPlayer = Optional.of(new MidiSongPlayer(sequence.get()));
+			}				
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		} catch (InvalidMidiDataException e) {
+			e.printStackTrace();
 		}		
+	}
+	
+	@Override
+	public void play() {	
+		super.play();
+		if(this.soundPlayer.isPresent()){
+			((MidiSongPlayer)this.soundPlayer.get()).setBPM(this.bpm);
+		}
+		
+	}
+	
+	protected void afterSongEnding() {
+		if(this.lManager.isLoopModeActive()) {
+			this.play();
+		}	
 	}
 	
 	@Override

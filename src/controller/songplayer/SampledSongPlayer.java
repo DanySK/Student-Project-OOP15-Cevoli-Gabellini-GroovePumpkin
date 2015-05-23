@@ -50,14 +50,18 @@ public class SampledSongPlayer implements SongPlayer {
 			// Avvia la riproduzione su un altro thread
 			this.statoLettore = SongPlayerState.RUNNING;
 			this.clip.start();
-			try {
-				// Fermo un attimo il thread in modo che
-				// possa partire la riproduzione della traccia sul thread della
-				// clip
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			/*
+			 * if the reproduction on the clip isn't started for sheduling
+			 * reason wait 1 second
+			 */
+			if(!this.clip.isActive()){
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+			
 		}
 	}
 
