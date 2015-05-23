@@ -14,7 +14,7 @@ import view.model.AbstractMouseListener;
 import view.model.GrooveTableModel;
 
 /**
- * The Class that implements the groovebox
+ * The Class that implements the groovebox table
  * 
  * @author Alessandro
  *
@@ -29,6 +29,9 @@ public class GrooveBox extends PersonalJTable{
 	private int col;
 
 	/**
+	 * A default constructor for a Groovebox, 
+	 * it initialize the main property to make it work
+	 * properly.
 	 * 
 	 * @param tm
 	 */
@@ -132,6 +135,8 @@ public class GrooveBox extends PersonalJTable{
 	 * the mouse is placed if the mouse position is avaible.
 	 * Otherwise it return 0.
 	 * 
+	 * Is farAway better amd precise than this.getSelectedRow()
+	 * 
 	 */
 	private int getRow() {
 
@@ -144,6 +149,8 @@ public class GrooveBox extends PersonalJTable{
 	 * This method return the column number of the groovebox where 
 	 * the mouse is placed if the mouse position is avaible.
 	 * Otherwise it return 0.
+	 * 
+	 * Is farAway better amd precise than this.getSelectedColumn()
 	 * 
 	 */
 	private int getColumn() {

@@ -13,8 +13,10 @@ import javax.swing.JMenuItem;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame
- * 1) Option-> show various options avaiable, like the infos about this application
- * 2)View-> Allows the user to view external windows like the audio recorder device
+ * 1)Option-> show various options avaiable, 
+ * 				like the infos about this application
+ * 2)View-> Allows the user to view external windows 
+ * 				like the audio recorder device
  * 
  * @author Alessandro
  *
@@ -24,7 +26,6 @@ public class SoundMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 840456297459950226L;
 	private JMenu option;
-	//private Recorder rec;
 	
 	/**
 	 * A Default Sound MenuBar

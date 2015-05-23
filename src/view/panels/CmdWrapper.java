@@ -9,6 +9,13 @@ import controller.Loopable;
 import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
 
+/**
+ * A class that wraps the functional buttons
+ * used by a Command Pane
+ * 
+ * @author Alessandro
+ *
+ */
 public class CmdWrapper {
 	
 	private Optional<AbstractStratBtn<Player>> play;

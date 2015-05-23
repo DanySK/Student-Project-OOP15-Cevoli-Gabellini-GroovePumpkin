@@ -11,7 +11,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
 /**
- * An Utility class
+ * An Utility class that implements various usefull
+ * methods.
  * 
  * @author Alessandro
  * @author Matteo Gabellini
@@ -37,8 +38,9 @@ public final class Utility {
 	}
 	
 	/**
-	 * This method set up an already chosen border 
+	 * This method set up an already prepared border
 	 * (CompoundBorder decorated with ad EtchedBorder)
+	 * For Panels.
 	 * 
 	 * @return a built-in Border
 	 */
@@ -48,6 +50,9 @@ public final class Utility {
 	}
 	
 	/**
+	 * This method set up an already prepared border 
+	 * (CompoundBorder decorated with ad EtchedBorder)
+	 * For Panels.
 	 * 
 	 * @return a built-in CompoundBorder
 	 */
@@ -68,6 +73,7 @@ public final class Utility {
 	}
 	
 	/**
+	 * Change an Absoluth path of a file into a URLpath
 	 * 
 	 * @param filePath
 	 * @return The URL built from the given path
@@ -84,6 +90,7 @@ public final class Utility {
 	 * for the first replacement
 	 * 
 	 * This method expect a song name like type %Artist%-%Album%-%Title%
+	 * It change the string so that it matches %Title%.
 	 * 
 	 * @param URLPath
 	 */

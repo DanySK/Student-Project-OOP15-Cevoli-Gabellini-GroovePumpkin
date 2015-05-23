@@ -13,9 +13,8 @@ import view.interfaces.BtnStrategy;
 import controller.Player;
 
 /**
- * This enum implements Play, Pause and Stop strategies 
- * that could be used by an object that
- * can communicate with a Player controller type
+* This enum implements the strategy to Play, Pause and Stop 
+ * an object that implements a Player controller type
  * 
  * @author Alessandro
  *
@@ -27,10 +26,10 @@ public enum PlayerStrategy implements
 	PAUSE("Pause", getConfig().getPauseImage(), c -> c.pause(), new PlayPauseConsumer()), 
 	STOP("Stop", getConfig().getStopImage(), c -> c.stop(), new StopConsumer());
 
-	private String title;
-	private Icon img;
-	private Consumer<Player> ctrlUser;
-	private BiConsumer<AbstractStratBtn<Player>, PlayerState> updater;
+	private final String title;
+	private final  Icon img;
+	private final Consumer<Player> ctrlUser;
+	private final BiConsumer<AbstractStratBtn<Player>, PlayerState> updater;
 
 	private PlayerStrategy(final String title, final Icon img,
 			final Consumer<Player> ctrlUser,
@@ -41,11 +40,13 @@ public enum PlayerStrategy implements
 		this.ctrlUser = ctrlUser;
 		this.updater= updater;
 	}
-
+	
+	@Override
 	public String getTitle() {
 		return title;
 	}
-
+	
+	@Override
 	public Icon getImage() {
 		return img;
 	}

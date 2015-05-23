@@ -7,7 +7,8 @@ import java.util.List;
 import view.interfaces.Controllable;
 
 /**
- * This class rapresents a Panel that can hold and communicate with the attached
+ * This class rapresents a Panel that can hold
+ * and communicate with the attached
  * controller of type <C>
  * 
  * @author Alessandro

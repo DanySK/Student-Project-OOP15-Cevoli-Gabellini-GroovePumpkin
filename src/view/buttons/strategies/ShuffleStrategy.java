@@ -14,6 +14,13 @@ import view.buttons.strategies.consumers.ShuffleConsumer;
 import view.interfaces.BtnStrategy;
 import controller.musicplayer.PlaylistFeatureCommand;
 
+/**
+ * This enum implements the strategy to to Shuffle and Ushuffle 
+ * an object that implements Shuffable Interface
+ * 
+ * @author Alessandro
+ *
+ */
 public enum ShuffleStrategy implements
 		BtnStrategy<PlaylistFeatureCommand, AbstractStratBtn<PlaylistFeatureCommand>, PlayerState> {
 	

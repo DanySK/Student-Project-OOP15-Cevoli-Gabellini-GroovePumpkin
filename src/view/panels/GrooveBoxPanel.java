@@ -38,6 +38,9 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 	private final JScrollPane jsp;
 	
 	/**
+	 * A default constructor for the groovebox,
+	 * it initialize the main components for this
+	 * object to be functional
 	 * 
 	 * @param controller
 	 */
@@ -48,9 +51,9 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 		this.addUpdatableObservers(grooveBox);
 		controller.addUpdatableObservers(this);
 		
-		timeDialerOptions.setToolTipText("Choose the time dial");
 		timeDialerOptions.setBackground(WHITE);
 		timeDialerOptions.setForeground(DARK_GRAY);
+		timeDialerOptions.setSelectedIndex(4);
 		timeDialerOptions.addItemListener(i->{
 				if(i.getStateChange()==ItemEvent.SELECTED){
 					((GrooveBoxPlayer) getController())
@@ -94,6 +97,7 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 	}
 	
 	/**
+	 * Set a New Groovebox attached to this object
 	 * 
 	 * @param gb
 	 */
@@ -101,6 +105,7 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 		this.grooveBox=gb;
 		this.jsp.removeAll();
 		this.jsp.setViewportView(gb);
+		grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
 	}
 	
 	@Override

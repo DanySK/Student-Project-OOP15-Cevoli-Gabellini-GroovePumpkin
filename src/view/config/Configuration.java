@@ -9,6 +9,14 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
+/**
+ * A configuration class for to load Icons 
+ * and setting various elements of the default
+ * L&F
+ * 
+ * @author Alessandro
+ *
+ */
 public final class Configuration {
 
 	public static final int DOUBLE_CLICK= 2;

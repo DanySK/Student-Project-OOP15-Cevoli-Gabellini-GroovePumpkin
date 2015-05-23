@@ -11,8 +11,9 @@ import view.interfaces.BtnStrategy;
 import controller.Loopable;
 
 /**
- * This strategy class implements the strategies for shuffle or unshuffling a
- * Loopable player
+ * This class implements the strategies 
+ * for Loop and Unloop a
+ * Loopable object
  * 
  * @author Alessandro
  *

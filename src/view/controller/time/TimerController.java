@@ -5,49 +5,52 @@ import static model.PlayerState.*;
 import javax.swing.JLabel;
 
 import view.config.Utility;
-import view.controller.time.TimeCounter.Strategy;
 import model.PlayerState;
-import controller.musicplayer.MusicPlayer;
+import controller.Observable;
 import controller.Updatable;
 
 /**
- * This class rapresent a controller that communicates with a timer
+ * This class rapresents a controller that communicates with a timer
  * which value increments while a song is running. 
- * This controller intercept the notify sent by the music player 
- * controller to its listener and manages the timer consequently 
- * 
+ * This controller intercepts the notifies sent by an Observable 
+ * Object to its listener and manages the timer consequently.
  * 
  * @author Alessandro
  *
  */
 public class TimerController implements Updatable {
 
-	private JLabel timeLabel = new JLabel("00:00:00");
+	private final JLabel timeLabel = new JLabel("00:00:00");
 	private TimeCounter timer = new TimeCounter(timeLabel, 0);
-	private MusicPlayer controller;
-
-	public TimerController(final MusicPlayer controller) {
+	private final Observable controller;
+	
+	/**
+	 * The constructor for 
+	 * 
+	 * @param controller
+	 */
+	public TimerController(final Observable controller) {
 		this.controller = controller;
 		this.controller.addUpdatableObservers(this);
 	}
 
-	public synchronized void runTimer() {
+	private void runTimer() {
 		if (!timer.isAlive()) {
 			try {
 				timer.start();
-			} catch (Exception e) {
+			} catch (IllegalThreadStateException e) {
 				Utility.showErrorDialog(timeLabel, "Errore durante l'avvio del timer");
 			}
 		}
 	}
 
-	public synchronized void pauseTimer() {
-		timer.manipulateTime(Strategy.PAUSE);
+	private void pauseTimer() {
+		timer.pauseTime();
 		timer = new TimeCounter(timeLabel, timer.getElapsedTime());
 	}
 
-	public synchronized void stopTimer() {
-		timer.manipulateTime(Strategy.STOP);
+	private void stopTimer() {
+		timer.stopTime();
 		timer = new TimeCounter(timeLabel, 0);
 	}
 

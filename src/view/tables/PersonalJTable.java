@@ -15,7 +15,8 @@ import model.PlayerState;
 import controller.Updatable;
 
 /**
- * 
+ * A personalized JTable with unresizable Header 
+ * and unswitchable columns
  * 
  * @author Alessandro
  *

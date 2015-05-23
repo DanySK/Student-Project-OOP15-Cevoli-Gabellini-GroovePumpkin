@@ -12,8 +12,8 @@ import controller.musicplayer.MusicPlayer;
 
 /**
  * This strategy class implements the actions for
- * Rewinding, Forwarding and Shuffling of an object 
- * that can communicate with a MusicPlayer controller type
+ * Rewinding, Forwarding an object 
+ * that implements a MusicPlayer controller type
  * 
  * @author Alessandro
  *

@@ -15,7 +15,8 @@ import static view.config.Utility.*;
 import static view.config.Configuration.*;
 
 /**
- * This strategy class implements the function of saving and loading patterns
+ * This strategy class implements 
+ * the function of saving, loading and reset pattern
  * from a groovebox player
  * 
  * @author Alessandro

@@ -29,6 +29,7 @@ public class CmdPane extends PersonalJPanel {
 	
 	/**
 	 * Constructor with commands wrapper
+	 * 
 	 */
 	public CmdPane(final CmdWrapper cW ) {
 		super();
@@ -43,10 +44,22 @@ public class CmdPane extends PersonalJPanel {
 		this.cmdW= cW;
 	}
 	
+	/**
+	 * 
+	 * @return The command wrapper attached to this object
+	 */
 	public CmdWrapper getWrapper(){
 		return cmdW;
 	}
-
+	
+	/**
+	 * This class is a builder for the class Command Pane
+	 * It offers a simple way to create a row of 
+	 * functional buttons with a given LayoutManager
+	 * 
+	 * @author Alessandro
+	 *
+	 */
 	public static class Builder {
 		
 		private final List<AbstractStratBtn<?>> l = new ArrayList<>();

@@ -16,7 +16,8 @@ import static view.config.Configuration.*;
 import static view.config.Utility.*;
 
 /**
- * 
+ * This enum implements the strategy to Add and Remove 
+ * an object that implements a MusicPlayer controller type
  * 
  * @author Alessandro
  *
@@ -29,9 +30,6 @@ public enum PlaylistStrategy implements
 				JFileChooser.FILES_AND_DIRECTORIES, 
 				MyFileFilter.ExtensionStrategy.MIDI_AND_WAVE);
 		final int val = fc.showOpenDialog(null);
-
-//		fc.setFileFilter(new MyFileFilter(MyFileFilter.ExtensionStrategy.MIDI));
-//		fc.setFileFilter(new MyFileFilter(MyFileFilter.ExtensionStrategy.WAVE));
 		
 		if (val == JFileChooser.APPROVE_OPTION) {
 			/*

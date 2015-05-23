@@ -1,11 +1,8 @@
 package view.controller.time;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.function.Consumer;
-
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-
 import view.config.Utility;
 
 /**
@@ -25,38 +22,13 @@ public class TimeCounter extends Thread {
 	private int s;
 	
 	/**
-	 * This enum wrap the strategy to do when an event happens.
+	 * Constructor for the time counter
+	 * It gets in inupt a JLabel on which change the time text written
+	 * and the time from which starting counting
 	 * 
-	 * @author Alessandro
-	 *
+	 * @param label
+	 * @param elapsedTime
 	 */
-	public static enum Strategy{
-		PAUSE(j->{
-			
-		}), STOP(j->{
-			SwingUtilities.invokeLater(()-> {
-				j.setText("00:00:00");
-				j.repaint();
-			});
-		});
-		
-		private final Consumer<JLabel> c;
-		private Strategy(final Consumer<JLabel> c){
-			this.c= c;
-		}
-		
-		/*
-		 * Unlike the normal strategy pattern I've prefered to
-		 * hide the doStrategy method because is something 
-		 * attached to this class and it would have been useless
-		 * for other classes
-		 * 
-		 */
-		private void doStrategy(final JLabel l){
-			this.c.accept(l);
-		}
-	}
-	
 	public TimeCounter(final JLabel label, final int elapsedTime ) {
 		super();
 		this.timeLabel = label;
@@ -82,14 +54,18 @@ public class TimeCounter extends Thread {
 		return sec;
 	}
 	
+	public void pauseTime(){
+		this.stop= true;
+	}
 	/**
 	 * Manipulate time with the given strategy
-	 * 
-	 * @param s
 	 */
-	public void manipulateTime(final Strategy s) {
-		stop=true;
-		s.doStrategy(timeLabel);
+	public void stopTime() {
+		this.pauseTime();
+		SwingUtilities.invokeLater(()-> {
+			this.timeLabel.setText("00:00:00");
+			this.timeLabel.repaint();
+		});
 	}
 
 	@Override
