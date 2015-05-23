@@ -31,7 +31,6 @@ public class GrooveBoxController extends AbstractBasicPlayer implements GrooveBo
 	private static final GrooveBoxController GROOVE_BOX = new GrooveBoxController();
 	
 	private int bpm;
-	private Optional<MidiSongPlayer> sequencer;
 	private final GrooveBoxContentManager model;
 	private final LoopManager lManager;
 	
@@ -39,7 +38,6 @@ public class GrooveBoxController extends AbstractBasicPlayer implements GrooveBo
 		super();
 		this.model = new GrooveBoxModel();
 		this.lManager = new LoopManager();
-		this.sequencer = Optional.empty();
 		this.bpm = 120;
 	}
 	
@@ -94,8 +92,8 @@ public class GrooveBoxController extends AbstractBasicPlayer implements GrooveBo
 	@Override
 	public void setTempoInBPM(final int BPM) {
 		this.bpm = BPM;
-		if(this.sequencer.isPresent()){
-			this.sequencer.get().setBPM(this.bpm);
+		if(this.soundPlayer.isPresent()){
+			((MidiSongPlayer)this.soundPlayer.get()).setBPM(this.bpm);
 		}
 	}
 
