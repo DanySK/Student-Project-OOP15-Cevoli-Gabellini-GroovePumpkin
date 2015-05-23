@@ -33,11 +33,10 @@
 
 ### Contribution guidelines ###
 
-* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
-* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
-* Cevoli Alessandro <bibo.cevoli@Gmail.com>, Matteo Gabellini
+* Cevoli Alessandro <alessandro.cevoli2@studio.unibo.it>; 
+* Matteo Gabellini <matteo.gabellini2@studio.unibo.it>;
 
 ### Who do I talk to? ###
 
 * https://bitbucket.org/Xander_
-* https://bitbucket.org/MatteoGabellini
+* https://bitbucket.org/mattiGabo
