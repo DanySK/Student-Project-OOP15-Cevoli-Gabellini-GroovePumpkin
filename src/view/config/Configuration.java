@@ -32,7 +32,7 @@ public final class Configuration {
 	public static final Color DARK_GREEN= new Color(0, 130, 50);
 	public static final Color RED = new Color(235, 0, 0);
 	
-	
+	public static final String LICENSE= "/license/License.txt";
 	private static final String PATH= "/icons/";
 	private final static Configuration SINGLETON = new Configuration();
 	
@@ -71,6 +71,7 @@ public final class Configuration {
 		UIManager.put("Frame.background", DARK_GRAY);
 		UIManager.put("ProgressBar.selectionForeground", Color.black);
 		UIManager.put("ProgressBar.selectionBackground", Color.black);
+		UIManager.put("JOptionPane.background", WHITE);
 //		
 		pauseImg = createIcon(String.join("", PATH, "Pause.png"));
 		playImg = createIcon(String.join("", PATH, "Play.png"));

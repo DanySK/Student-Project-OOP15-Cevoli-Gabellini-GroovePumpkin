@@ -114,10 +114,6 @@ public class GrooveBox extends PersonalJTable{
 		 */
 		this.getColumnModel().getSelectionModel()
 				.addListSelectionListener(e->{
-					
-//						if(col!= getColumn() || row!=getRow()){
-//							locked=false;
-//						}
 						
 						if (!e.getValueIsAdjusting() &&  getColumn() != 0 && !locked) {
 							
@@ -140,7 +136,7 @@ public class GrooveBox extends PersonalJTable{
 	 */
 	private int getRow() {
 
-		return GrooveBox.this.getMousePosition() == null ? 0
+		return GrooveBox.this.getMousePosition() == null ? -1
 				: GrooveBox.this.rowAtPoint(GrooveBox.this
 						.getMousePosition());
 	}
@@ -155,7 +151,7 @@ public class GrooveBox extends PersonalJTable{
 	 */
 	private int getColumn() {
 		
-		return GrooveBox.this.getMousePosition() == null ? 0
+		return GrooveBox.this.getMousePosition() == null ? -1
 				: GrooveBox.this.columnAtPoint(GrooveBox.this
 						.getMousePosition());
 	}

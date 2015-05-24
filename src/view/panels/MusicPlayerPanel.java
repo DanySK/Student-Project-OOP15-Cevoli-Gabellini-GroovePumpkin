@@ -109,16 +109,19 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 		// self update
 		if (status.equals(RUNNING) || status.equals(SONGCHANGED)) {
 			// change the name of the songs to the new one
+			final String s= convertURLPath(((MusicPlayer) getController())
+					.getCurrentSong().get().getPath());
 			SwingUtilities.invokeLater(()->{
-				this.songName.setText(String.join("" ,"< ",
-						convertURLPath(((MusicPlayer) getController())
-						.getCurrentSong().get().getPath()), " >"));
+				this.songName.setText(String.join("" ,"< ", 
+						s.subSequence(0, s.length() > 40 ? 40 : s.length()), " >"));
+				this.songName.setToolTipText(s);
 			});
 
 		} else if (status.equals(STOPPED) || status.equals(REMOVED)) {
 			// set the no-song string
 			SwingUtilities.invokeLater(()->{
 				this.songName.setText("< Any song is playing >");
+				this.songName.setToolTipText("");
 			});
 		}
 	}

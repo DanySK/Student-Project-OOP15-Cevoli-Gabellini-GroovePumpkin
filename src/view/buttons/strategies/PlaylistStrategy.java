@@ -4,8 +4,10 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.function.BiConsumer;
+
 import javax.swing.Icon;
 import javax.swing.JFileChooser;
+
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.interfaces.BtnStrategy;
@@ -63,7 +65,7 @@ public enum PlaylistStrategy implements
 			for (final int i : idx) {
 				ctrl.removeSong(i);
 			}
-			idx = new int[] { -1 };
+			
 		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
 			showErrorDialog(null, "Invalid object selected!");
 		}
@@ -100,6 +102,9 @@ public enum PlaylistStrategy implements
 	@Override
 	public void doStrategy(MusicPlayer controller) {
 		this.ctrlUser.accept(controller, selectedIndexes);
+		if(this.equals(REMOVE)){
+			selectedIndexes = new int[] { -1 };
+		}
 	}
 	
 	/**

@@ -6,10 +6,19 @@ import static view.config.Configuration.WHITE;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import view.config.Configuration;
+import view.config.Utility;
 
 /**
  * This class creates an already populated JMenuBar for SoundFrame
@@ -54,8 +63,20 @@ public class SoundMenu extends JMenuBar {
 		about.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Show Information about this Application
+			public void actionPerformed(final ActionEvent e) {
+				try {
+					final BufferedReader buf= new BufferedReader(
+							new InputStreamReader(SoundMenu.this.getClass()
+									.getResourceAsStream(Configuration.LICENSE), "UTF8"));
+					final JTextArea jta= new JTextArea();
+					jta.read(buf, null);
+
+					JOptionPane.showMessageDialog(null, new JScrollPane(jta), 
+							"About Groove&Pumpkin", JOptionPane.INFORMATION_MESSAGE);
+					buf.close();
+				} catch (IOException e1) {
+					Utility.showErrorDialog(null, "Error while loading the about of the program");
+				}
 			}
 		});
 		option.add(about);
@@ -71,31 +92,6 @@ public class SoundMenu extends JMenuBar {
 			}
 		});
 		option.add(exit);
-		
-		/*
-		final JMenu view = new JMenu("View");
-		view.setBackground(WHITE);
-		this.add(view);
-		final JMenuItem soundRec = new JMenuItem("Show/Hide Sound Recorder");
-		soundRec.setBackground(WHITE);
-		soundRec.setForeground(GRAY);
-		soundRec.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (rec == null) {
-					rec = new Recorder(SoundMenu.this);
-					rec.setVisible(true);
-				} else if (rec != null && !rec.isVisible()) {
-					rec.setVisible(true);
-				} else {
-					rec.setVisible(false);
-				}
-
-			}
-		});
-		view.add(soundRec);
-		*/
 	}
 	
 	/**

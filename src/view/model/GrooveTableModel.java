@@ -77,7 +77,7 @@ public class GrooveTableModel extends AbstractTableModel {
 	
 	@Override
 	public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
-		if(columnIndex!= 0){
+		if(columnIndex> 0){
 			controller.changeCellState(rowIndex, columnIndex-1);
 		}
 	}
