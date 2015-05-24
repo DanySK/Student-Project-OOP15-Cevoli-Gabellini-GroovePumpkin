@@ -2,6 +2,7 @@ package controller.musicplayer;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -119,7 +120,10 @@ public abstract class AbstractMusicPlayer extends AbstractBasicPlayer implements
 	}
 
 	protected void loadSong() {
-		if (this.model.getCurretSong().isPresent()) {
+		if (!this.model.getCurretSong().isPresent()) {
+			this.goToSong(0);
+		}
+		if(this.model.getCurretSong().isPresent()){
 			final URL songPath = this.model.getCurretSong().get();
 
 			AudioInputStream audioStream;
@@ -179,14 +183,19 @@ public abstract class AbstractMusicPlayer extends AbstractBasicPlayer implements
 	}
 
 	@Override
-	public  void removeSong(final int index) throws IllegalArgumentException {
+	public  void removeSong(final int... indexes) throws IllegalArgumentException {
+		final List<Integer> lIndexes = new ArrayList<>(indexes.length);
+		for(int i : indexes){
+			lIndexes.add(i);
+		}
 		if (this.soundPlayer.isPresent()
-				&& this.model.getCurrentSongIndex().get() == index) {
+				&& lIndexes.contains(this.model.getCurrentSongIndex().get())) {
 			this.soundPlayer.get().stop();
 			this.soundPlayer = Optional.empty(); 
 			this.notifyToUpdatable(PlayerState.REMOVED);
 		}
-		this.model.removeSongFromPlayList(index);
+		
+		lIndexes.stream().sorted((X,Y) -> Y-X).forEach(X -> this.model.removeSongFromPlayList(X.intValue()));//System.out.println(X.intValue()));
 		this.notifyToUpdatable(PlayerState.RELOAD);
 	}
 

@@ -41,9 +41,12 @@ public class ClassicMusicPlayer extends AbstractMusicPlayer implements PlaylistF
 	 */
 	@Override
 	protected void afterSongEnding()  {
-		if(this.referenceToPL.getCurrentSongIndex().isPresent() && this.referenceToPL.getCurrentSongIndex().get() != this.getPlayList().size() - 1){
-			this.goToNextSong();		
-			this.play();
+		if(this.referenceToPL.getCurrentSongIndex().isPresent()){
+			final int previousIndex = this.referenceToPL.getCurrentSongIndex().get();
+			this.goToNextSong();	
+			if(this.referenceToPL.getCurrentSongIndex().get() != previousIndex){
+				this.play();
+			}
 		}
 	}
 	

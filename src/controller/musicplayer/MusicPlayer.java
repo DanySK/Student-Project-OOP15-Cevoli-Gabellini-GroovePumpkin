@@ -61,10 +61,10 @@ public interface MusicPlayer extends Player, Observable{
 	
 	/**
 	 * This method implements the logic for remove a song from the playList
-	 * @param index rapprent the position in the playlist
+	 * @param indexes rapprent the position in the playlist
 	 * @throws IllegalArgumentException if parameter is incorrect
 	 */
-	void removeSong(int index) throws IllegalArgumentException;
+	void removeSong(int... indexes) throws IllegalArgumentException;
 	
 	/**
 	 * This method return the current playlist

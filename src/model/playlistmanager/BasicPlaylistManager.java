@@ -89,13 +89,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 			throw new IllegalArgumentException();
 		}
 		
-		this.playlist.add(songPath);
-		// Se è la prima canzone nella playlist la imposto anche come canzone
-		// corrente
-		if (this.playlist.size() == 1) {
-			this.changeSong(0);
-		}
-		
+		this.playlist.add(songPath);		
 	}
 
 	@Override

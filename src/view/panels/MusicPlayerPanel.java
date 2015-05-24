@@ -113,7 +113,7 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 					.getCurrentSong().get().getPath());
 			SwingUtilities.invokeLater(()->{
 				this.songName.setText(String.join("" ,"< ", 
-						s.subSequence(0, s.length() > 40 ? 40 : s.length()), " >"));
+						s.subSequence(0, s.length() > 40 ? 30 : s.length()), " >"));
 				this.songName.setToolTipText(s);
 			});
 

@@ -61,11 +61,8 @@ public enum PlaylistStrategy implements
 		}
 	}, null), 
 	REMOVE("Remove", getConfig().getRemoveImage(), (ctrl, idx)->{
-		try {
-			for (final int i : idx) {
-				ctrl.removeSong(i);
-			}
-			
+		try {				
+			ctrl.removeSong(idx);				
 		} catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
 			showErrorDialog(null, "Invalid object selected!");
 		}

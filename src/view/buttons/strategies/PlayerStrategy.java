@@ -4,11 +4,14 @@ import static view.config.Configuration.*;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
 import javax.swing.Icon;
+
 import model.PlayerState;
 import view.buttons.AbstractStratBtn;
 import view.buttons.strategies.consumers.PlayPauseConsumer;
 import view.buttons.strategies.consumers.StopConsumer;
+import view.config.Utility;
 import view.interfaces.BtnStrategy;
 import controller.Player;
 
@@ -53,7 +56,11 @@ public enum PlayerStrategy implements
 
 	@Override
 	public void doStrategy(final Player controller) {
+		try{
 			this.ctrlUser.accept(controller);
+		} catch (Exception e){
+			Utility.showErrorDialog(null, "Empty Playlist or invalid index!");
+		}
 	}
 	
 	@Override

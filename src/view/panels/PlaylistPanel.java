@@ -1,6 +1,6 @@
 package view.panels;
 
-import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
+import static javax.swing.ListSelectionModel.*;
 import static view.buttons.ButtonFactory.ADD_B;
 import static view.buttons.ButtonFactory.REMOVE_B;
 import static view.buttons.ButtonFactory.createButton;
@@ -60,7 +60,7 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 		this.getController().addUpdatableObservers(this);
 
 		this.tableModel = new PlaylistTableModel(getController());
-		this.playlist = new PersonalJTable(tableModel, SINGLE_SELECTION);
+		this.playlist = new PersonalJTable(tableModel, MULTIPLE_INTERVAL_SELECTION);
 		this.playlist.setColumnHeaderBounds(0, 25, 25);
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
