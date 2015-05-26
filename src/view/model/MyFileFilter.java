@@ -8,15 +8,17 @@ import javax.swing.filechooser.FileFilter;
 
 public class MyFileFilter extends FileFilter implements FilenameFilter {
 	
-	private static final String _MID= ".midi";
+	private static final String _MIDI= ".midi";
+	private static final String _MID= ".mid";
 	private static final String _WAV= ".wav";
 	
 	public static enum ExtensionStrategy{
 		
-		MIDI(s-> s.endsWith(_MID) ? true : false, _MID),
+		MIDI(s-> s.endsWith(_MIDI) ? true : false, _MIDI),
+		MID(s-> s.endsWith(_MID) ? true : false, _MID),
 		WAVE(f-> f.endsWith(_WAV) ? true : false, _WAV), 
-		MIDI_AND_WAVE(s-> s.endsWith(_MID) 
-				|| s.endsWith(_WAV) ? true : false, _MID, _WAV);
+		MIDI_AND_WAVE(s-> s.endsWith(_MIDI) 
+				|| s.endsWith(_WAV) || s.endsWith(_MID) ? true : false, _MIDI, _MID, _WAV);
 		
 		
 		private final String[] descr;

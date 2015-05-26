@@ -36,7 +36,7 @@ public class PersonalJPanel extends JPanel implements Updatable, Observable{
 		super();
 		this.setBackground(WHITE);
 		this.setForeground(DARK_GRAY);
-
+		this.setFocusable(false);
 		for (final KeyListener kl : this.getKeyListeners()) {
 			this.removeKeyListener(kl);
 		}

@@ -7,7 +7,6 @@ import static view.config.Utility.*;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
@@ -98,6 +97,8 @@ public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
 				this.getCommandPane().get(0).getWrapper().getStop().get(),
 				this.getCommandPane().get(1).getWrapper().getShuffle().get(), 
 				this.getCommandPane().get(1).getWrapper().getLoop().get());
+		
+		this.setFocusable(true);
 		
 		this.add(north, BorderLayout.NORTH);
 	}

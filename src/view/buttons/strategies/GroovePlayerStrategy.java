@@ -28,14 +28,14 @@ public enum GroovePlayerStrategy implements
 	SAVE("Save", getConfig().getSaveImage(), g -> {
 			final MyFileChooser chooser = new MyFileChooser(
 					JFileChooser.FILES_AND_DIRECTORIES, 
-					MyFileFilter.ExtensionStrategy.MIDI);
+					MyFileFilter.ExtensionStrategy.MID);
 			chooser.setMultiSelectionEnabled(false);
 			chooser.setVisible(true);
 			final int val = chooser.showSaveDialog(null);
 			if (val == JFileChooser.APPROVE_OPTION) {
 				try {
 					g.saveTrack(String.join("", chooser.getSelectedFile()
-							.getAbsolutePath(), ".midi"));
+							.getAbsolutePath(), ".mid"));
 				} catch (IOException ex) {
 					showErrorDialog(null,
 							"An error has occurred while attempting to save the pattern!");

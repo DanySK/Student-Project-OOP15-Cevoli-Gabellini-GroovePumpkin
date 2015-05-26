@@ -2,6 +2,7 @@ package view.panels;
 
 import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
 import static view.config.Configuration.*;
+
 import java.awt.BorderLayout;
 import javax.swing.JSplitPane;
 import view.controller.time.TimerController;
