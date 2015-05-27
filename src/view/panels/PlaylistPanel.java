@@ -1,13 +1,8 @@
 package view.panels;
 
 import static javax.swing.ListSelectionModel.*;
-import static view.buttons.ButtonFactory.ADD_B;
-import static view.buttons.ButtonFactory.REMOVE_B;
-import static view.buttons.ButtonFactory.createButton;
-import static view.config.Configuration.DARK_GRAY;
-import static view.config.Configuration.DOUBLE_CLICK;
-import static view.config.Configuration.RED;
-import static view.config.Configuration.WHITE;
+import static view.buttons.ButtonFactory.*;
+import static view.config.Configuration.*;
 import static view.config.Utility.getADefaultPanelBorder;
 
 import java.awt.BorderLayout;
@@ -61,7 +56,7 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 
 		this.tableModel = new PlaylistTableModel(getController());
 		this.playlist = new PersonalJTable(tableModel, MULTIPLE_INTERVAL_SELECTION);
-		this.playlist.setColumnHeaderBounds(0, 25, 25);
+		this.playlist.setColumnHeaderBounds(0, 30, 30);
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
@@ -77,9 +72,11 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 		this.playlist.addMouseListener(new AbstractMouseListener() {
 			@Override
 			public void mousePressed(final MouseEvent e) {
+				
 				if(getCommandPane().get(0).getWrapper().getRemove().isPresent() && 
 						getCommandPane().get(0).getWrapper().getRemove().get()
 						.getStrategy() instanceof PlaylistStrategy){
+					
 					((PlaylistStrategy) getCommandPane().get(0).getWrapper().getRemove().get().getStrategy())
 							.setSelectedIndexes(((JTable) e.getSource())
 								.getSelectedRows());
@@ -101,7 +98,7 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 					rem.setForeground(RED);
 					rem.addActionListener(actEv -> {
 						getController().removeSong(((JTable) e.getSource())
-							.rowAtPoint(e.getPoint()));
+							.getSelectedRows());
 					});
 					jpm.add(rem);
 					final JMenuItem add = new JMenuItem("Add");

@@ -6,11 +6,9 @@ import static view.buttons.strategies.ShifterStrategy.*;
 import static view.buttons.strategies.LoopStrategy.*;
 import static view.buttons.strategies.GroovePlayerStrategy.*;
 import static view.buttons.strategies.ShuffleStrategy.*;
-import java.awt.event.KeyEvent;
 import model.PlayerState;
 import org.hamcrest.Factory;
 import view.interfaces.BtnStrategy;
-import view.model.AbstractKeyListener;
 import controller.*;
 import controller.groovebox.GrooveBoxPlayer;
 import controller.musicplayer.MusicPlayer;
@@ -76,17 +74,9 @@ public final class ButtonFactory {
 		
 		if (strategy.equals(STOP)) {
 			b.setEnabled(false);
-		} else if(strategy.equals(PLAY) 
-				|| strategy.equals(PAUSE)){      
-			b.addKeyListener(new AbstractKeyListener() {
-				
-				@Override
-				public void keyPressed(final KeyEvent e) {
-					if(e.getKeyChar()== KeyEvent.VK_SPACE){
-						b.doStrategy();
-					}
-				}
-			});
+		} if(strategy.equals(PLAY) 
+				|| strategy.equals(PAUSE)){
+			b.setFocusable(true);
 		}
 		
 		b.addActionListener(e -> {

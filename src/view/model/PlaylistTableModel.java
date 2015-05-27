@@ -46,7 +46,7 @@ public class PlaylistTableModel extends AbstractTableModel{
 		if(columnIndex == 1){
 			return Utility.convertURLPath(controller.getPlayList().get(rowIndex).getPath());
 		} else {
-			return String.join("", names[0], String.valueOf(rowIndex+1));
+			return String.join("", String.valueOf(rowIndex+1), ".");
 		}
 	}
 

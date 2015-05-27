@@ -37,7 +37,7 @@ public class PersonalJButton<C> extends JButton implements Updatable, Controllab
 		this.setBackground(WHITE);
 		this.setForeground(DARK_GRAY);
 		this.setFocusPainted(false);
-		
+		 this.setFocusable(false);
 		for (final KeyListener kl : this.getKeyListeners()) {
 			this.removeKeyListener(kl);
 		}
