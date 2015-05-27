@@ -3,11 +3,13 @@ package view.panels;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
+
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
+
 import model.PlayerState;
 import view.model.GrooveTableModel;
 import view.tables.GrooveBox;

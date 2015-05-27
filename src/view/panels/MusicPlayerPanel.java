@@ -7,6 +7,7 @@ import static view.config.Utility.*;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
@@ -37,7 +38,7 @@ import controller.musicplayer.PlaylistFeatureCommand;
  * @author Alessandro
  *
  */
-public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer> {
+public class MusicPlayerPanel extends AbstractControllablePane<MusicPlayer>{
 
 	private static final long serialVersionUID = 4164776505153007930L;
 

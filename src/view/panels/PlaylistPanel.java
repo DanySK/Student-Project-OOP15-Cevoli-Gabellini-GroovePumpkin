@@ -19,6 +19,7 @@ import javax.swing.table.TableModel;
 
 import model.PlayerState;
 import view.buttons.strategies.PlaylistStrategy;
+import view.config.Utility;
 import view.model.AbstractMouseListener;
 import view.model.PlaylistTableModel;
 import view.tables.PersonalJTable;
@@ -34,7 +35,7 @@ import controller.musicplayer.MusicPlayer;
  * @author Alessandro
  *
  */
-public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
+public class PlaylistPanel extends AbstractControllablePane<MusicPlayer>{
 
 	private static final long serialVersionUID = 5045956389400601388L;
 
@@ -76,7 +77,6 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 				if(getCommandPane().get(0).getWrapper().getRemove().isPresent() && 
 						getCommandPane().get(0).getWrapper().getRemove().get()
 						.getStrategy() instanceof PlaylistStrategy){
-					
 					((PlaylistStrategy) getCommandPane().get(0).getWrapper().getRemove().get().getStrategy())
 							.setSelectedIndexes(((JTable) e.getSource())
 								.getSelectedRows());
@@ -97,8 +97,18 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer> {
 					final JMenuItem rem = new JMenuItem("Remove");
 					rem.setForeground(RED);
 					rem.addActionListener(actEv -> {
-						getController().removeSong(((JTable) e.getSource())
-							.getSelectedRows());
+						try{
+							if (((JTable) e.getSource())
+									.getSelectedRows().length > 1) {
+								getController().removeSong(((JTable) e.getSource())
+											.getSelectedRows());
+							} else {
+								getController().removeSong(((JTable) e.getSource())
+										.rowAtPoint(e.getPoint()));
+						}} catch(IllegalArgumentException ex){
+							Utility.showErrorDialog(playlist, 
+									"Illegal Argument, an error has probably occurred");
+						}
 					});
 					jpm.add(rem);
 					final JMenuItem add = new JMenuItem("Add");
