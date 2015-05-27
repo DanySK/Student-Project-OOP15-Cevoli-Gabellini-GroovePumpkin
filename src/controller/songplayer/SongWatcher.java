@@ -4,18 +4,18 @@ import model.SongPlayerState;
 import controller.Player;
 
 /**
- * Song watch dog is a thread that control during the reproduction the state of the song 
+ * Song watcher is a thread that control during the reproduction the state of the song 
  * when song finish them call the stop of the music player
  * 
  * @author Matteo Gabellini
  *
  */
-public class SongWatchDog extends Thread{
+public class SongWatcher extends Thread{
 	
 	final private Player player;
 	final private SongPlayer soundPlayer;
 	
-	public SongWatchDog(final Player player, final SongPlayer soundPlayer){
+	public SongWatcher(final Player player, final SongPlayer soundPlayer){
 		this.player = player; 
 		this.soundPlayer = soundPlayer;
 	}

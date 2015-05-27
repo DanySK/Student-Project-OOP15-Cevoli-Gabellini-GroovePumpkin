@@ -10,37 +10,42 @@ import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
+/**
+ * This is a test for the loop 
+ * @author matteogabellini
+ *
+ */
 public class LoopTester {
+	private static final String SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
+	private static final String MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
+	
 	@org.junit.Test
 	public void testLoopMode() {
 		final MusicPlayer riproduttore = MusicPlayerFactory
 				.createLoopableMusicPlayer();
 		try {
 			riproduttore
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid"));
+					.addSong(new URL(SAMPLED_SONG));
 			riproduttore
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
-
+					.addSong(new URL(MIDI_SONG));
 		} catch (IllegalArgumentException e1) {
 			fail(e1.getMessage());
 		} catch (MalformedURLException e1) {
 			fail(e1.getMessage());
 		}
 
-		LoopableMusicPlayer lmpTmp = (LoopableMusicPlayer) riproduttore;
+		final LoopableMusicPlayer lmpTmp = (LoopableMusicPlayer) riproduttore;
 
 		lmpTmp.setLoop(true);
 		riproduttore.play();
 		System.out.println("Durata Traccia: "
 				+ riproduttore.getCurrentSongInfosManager().get().getDuration());
-		double durationOfSong = riproduttore.getCurrentSongInfosManager().get().getDuration();
-		int tPosition = ((int) (durationOfSong * 1000)) - 1000;
+		final double durationOfSong = riproduttore.getCurrentSongInfosManager().get().getDuration();
+		final int tPosition = ((int) (durationOfSong * 1000000)) - 7000000;
 		riproduttore.getCurrentSongInfosManager().get().setPosition(tPosition);
 
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(9000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

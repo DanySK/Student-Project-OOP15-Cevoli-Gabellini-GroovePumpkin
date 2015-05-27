@@ -16,7 +16,7 @@ import model.playlistmanager.choicestrategy.ShuffleStrategy;
  */
 public class ShuffablePlaylistFeature<X> implements PlaylistFeatures<X> {
 	
-	private Optional<PlaylistFeatures<X>> nextHandler; 
+	private final Optional<PlaylistFeatures<X>> nextHandler; 
 	private boolean shuffleModeState;
 
 	public ShuffablePlaylistFeature() {

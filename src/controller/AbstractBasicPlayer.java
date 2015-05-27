@@ -6,7 +6,7 @@ import java.util.Optional;
 import model.PlayerState;
 import model.SongPlayerState;
 import controller.songplayer.SongPlayer;
-import controller.songplayer.SongWatchDog;
+import controller.songplayer.SongWatcher;
 /**
  * An abstract class that implements the basic function of a music player indipendent from 
  * song format
@@ -15,7 +15,7 @@ import controller.songplayer.SongWatchDog;
  */
 public abstract class AbstractBasicPlayer extends UpdatableObserversManager implements Player {
 	protected Optional<SongPlayer> soundPlayer;
-	private Optional<SongWatchDog> threadSongWatcher;	
+	private Optional<SongWatcher> threadSongWatcher;	
 	
 	protected AbstractBasicPlayer(){
 		this.soundPlayer = Optional.empty();
@@ -34,7 +34,7 @@ public abstract class AbstractBasicPlayer extends UpdatableObserversManager impl
 			this.soundPlayer.get().play();
 			if (this.soundPlayer.get().isActive()
 					&& !threadSongWatcher.isPresent()) {
-				threadSongWatcher = Optional.of(new SongWatchDog(this,
+				threadSongWatcher = Optional.of(new SongWatcher(this,
 						this.soundPlayer.get()));
 				threadSongWatcher.get().start();
 			}

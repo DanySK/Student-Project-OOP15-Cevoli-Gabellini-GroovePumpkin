@@ -9,12 +9,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.musicplayer.AbstractMusicPlayer;
-import controller.musicplayer.LoopableMusicPlayer;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
 public class PlayListManagerTester {
+	private static final String FIRST_SONG =  "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
+	private static final String SECOND_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
 	
 	@org.junit.Test
 	public void testAddAndRemoveSong() {
@@ -24,10 +24,8 @@ public class PlayListManagerTester {
 		try {
 			// Aggiungo una canzone alla checkList e alla playList del lettore
 			checkList
-					.add(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
-			lettore.addSong(new URL(
-					"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+					.add(new URL(FIRST_SONG));
+			lettore.addSong(new URL(FIRST_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -49,10 +47,8 @@ public class PlayListManagerTester {
 		try {
 			// Aggiungo una canzone alla checkList e alla playList del lettore
 			checkList
-					.add(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
-			lettore.addSong(new URL(
-					"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+					.add(new URL(FIRST_SONG));
+			lettore.addSong(new URL(FIRST_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -63,10 +59,8 @@ public class PlayListManagerTester {
 
 		try {
 			checkList
-					.add(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
-			lettore.addSong(new URL(
-					"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
+					.add(new URL(SECOND_SONG));
+			lettore.addSong(new URL(SECOND_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());

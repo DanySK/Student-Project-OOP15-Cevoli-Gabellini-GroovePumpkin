@@ -34,13 +34,14 @@ public class GrooveBoxController extends AbstractBasicPlayer implements GrooveBo
 	private final GrooveBoxContentManager model;
 	private final LoopManager lManager;
 	
-	private GrooveBoxController(){
+	protected GrooveBoxController(){
 		super();
 		this.model = new GrooveBoxModel();
 		this.lManager = new LoopManager();
 		this.bpm = 120;
 	}
 	
+
 	public static GrooveBoxController getInstance(){
 		return GrooveBoxController.GROOVE_BOX;
 	}

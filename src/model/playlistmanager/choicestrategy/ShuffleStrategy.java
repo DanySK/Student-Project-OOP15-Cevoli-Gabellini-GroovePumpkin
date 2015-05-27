@@ -90,14 +90,16 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 
 	@Override
 	public void removedIndex(final int index){
-		if (ShuffleStrategy.this.currShuffledIdx != NOT_SELECTED) {
-			for (int i = 0; i < ShuffleStrategy.this.currShuffledIdx; i++) {
-				if (this.listManager.getElement(i) == index) {
-					this.currShuffledIdx--;
+		if(this.getCurrentSongIndex().isPresent()){ 
+			if (this.getCurrentSongIndex().get() == index) {
+				this.currShuffledIdx = NOT_SELECTED;
+			} else {
+				for (int i = 0; i < this.currShuffledIdx; i++) {
+					if (this.listManager.getElement(i) == index) {
+						this.currShuffledIdx--;
+					}
 				}
 			}
-			this.currShuffledIdx = this.currShuffledIdx < 0 ? NOT_SELECTED
-					: this.currShuffledIdx;
 		}
 		this.listManager.removeElement(index);
 	}
@@ -158,10 +160,11 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 		
 		public void removeElement(final int index) {
 			this.shuffled.removeIf(X -> X == index);
-			final List<Integer> updatedValue = new ArrayList<>();
-			this.shuffled.stream().filter(X -> X > index).forEach(Y -> updatedValue.add(Y - 1));
-			this.shuffled.removeIf(X -> X > index);
-			this.shuffled.addAll(updatedValue);
+			for (int i = 0; i < this.shuffled.size(); i++) {
+				if (this.shuffled.get(i) > index) {
+					this.shuffled.set(i, this.shuffled.get(i) - 1);
+				}
+			}
 		}
 	}
 }

@@ -1,10 +1,11 @@
 package test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
@@ -15,75 +16,58 @@ import controller.musicplayer.MusicPlayerFactory;
  *
  */
 public class MusicPlayerTester {
+	private static final String FIRST_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
+	private static final String SECOND_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
+	private static final String FIRST_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
+	private static final String SECOND_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/jashisth.mid";
+	
+	
 	
 	@org.junit.Test
 	public void testSampledMusicPlayer() {
-		final MusicPlayer lettoreSample = MusicPlayerFactory.createClassicMusicPlayer();
+		final MusicPlayer lettore = MusicPlayerFactory.createClassicMusicPlayer();
 		try {
-			lettoreSample
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav"));
+			lettore.addSong(new URL(FIRST_SAMPLED_SONG));
+			lettore.addSong(new URL(SECOND_SAMPLED_SONG));
+			lettore.addSong(new URL(FIRST_MIDI_SONG));
+			lettore.addSong(new URL(SECOND_MIDI_SONG));
 		} catch (IllegalArgumentException e1) {
 			e1.printStackTrace();
 		} catch (MalformedURLException e1) {
 			e1.printStackTrace();
 		}
-
-		this.testReproduction(lettoreSample, 2000);
-
-		try {
-			lettoreSample
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav"));
-		} catch (IllegalArgumentException e1) {
-			fail(e1.getMessage());
-		} catch (MalformedURLException e1) {
-			fail(e1.getMessage());
-		}
-
-		lettoreSample.goToNextSong();
-
-		this.testReproduction(lettoreSample, 2000);
-
-		lettoreSample.stop();
-
-	}
-
-	@org.junit.Test
-	public void testMidiMusicPlayer() {
-		final MusicPlayer lettoreMidi =  MusicPlayerFactory.createClassicMusicPlayer();
-		try {
-			lettoreMidi
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid"));
-		} catch (IllegalArgumentException e1) {
-			fail(e1.getMessage());
-		} catch (MalformedURLException e1) {
-			fail(e1.getMessage());
-		}
-
-		this.testReproduction(lettoreMidi, 5000);
-
-		try {
-			lettoreMidi
-					.addSong(new URL(
-							"file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/jashisth.mid"));
-		} catch (IllegalArgumentException e1) {
-			fail(e1.getMessage());
-		} catch (MalformedURLException e1) {
-			fail(e1.getMessage());
-		}
-
-		lettoreMidi.goToNextSong();
-		this.testReproduction(lettoreMidi, 5000);
-
-		lettoreMidi.stop();
-	}
+		List<URL> checkPlaylist = lettore.getPlayList();
+		
+		this.testReproduction(lettore, 2000);
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(0)));
 	
-	@SuppressWarnings("unused")
+		lettore.goToNextSong();
 
-	private void testReproduction(MusicPlayer lettore, int pauseTime) {
-		double elapsedTime;
+		this.testReproduction(lettore, 2000);
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(1)));
+		
+		lettore.goToPreviousSong();
+		this.testReproduction(lettore, 2000);
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(0)));
+		lettore.goToSong(2);
+		this.testReproduction(lettore, 2000);
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(2)));
+		lettore.goToPreviousSong();
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(1)));
+		lettore.goToNextSong();
+		lettore.goToNextSong();
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(3)));
+		this.testReproduction(lettore, 2000);
+		lettore.goToNextSong();
+		lettore.goToNextSong();
+		assertTrue(lettore.getCurrentSong().get().equals(checkPlaylist.get(3)));
+		this.testReproduction(lettore, 2000);
+
+		lettore.stop();
+
+	}
+
+	private void testReproduction(final MusicPlayer lettore, final int pauseTime) {
 
 		System.out.println("Start Reproduction!!!!");
 		lettore.play();
@@ -99,7 +83,6 @@ public class MusicPlayerTester {
 		assertTrue(lettore.getCurrentSongInfosManager().get().getElapsedTime() > 0);
 		System.out.println("Pause!!!!");
 		lettore.pause();
-		elapsedTime = lettore.getCurrentSongInfosManager().get().getElapsedTime();
 
 		// Attendo il tempo deciso dal parametro pauseTime millisecondi
 		try {
@@ -108,7 +91,7 @@ public class MusicPlayerTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		System.out.println("Resume!!!!");
 		lettore.play();
 

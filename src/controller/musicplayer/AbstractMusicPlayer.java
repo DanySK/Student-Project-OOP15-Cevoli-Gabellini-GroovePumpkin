@@ -108,9 +108,13 @@ public abstract class AbstractMusicPlayer extends AbstractBasicPlayer implements
 
 	@Override
 	public synchronized void goToSong(final int index) {
-		if (this.model.changeSong(index).isPresent()) {
-			this.waitBeforeChange = true;
-			this.changeSong();
+		try{
+			if (this.model.changeSong(index).isPresent()) {
+				this.waitBeforeChange = true;
+				this.changeSong();
+			}
+		} catch(IllegalArgumentException e){
+			//If the index is incorrect i do nothing
 		}
 	}
 
@@ -195,7 +199,7 @@ public abstract class AbstractMusicPlayer extends AbstractBasicPlayer implements
 			this.notifyToUpdatable(PlayerState.REMOVED);
 		}
 		
-		lIndexes.stream().sorted((X,Y) -> Y-X).forEach(X -> this.model.removeSongFromPlayList(X.intValue()));//System.out.println(X.intValue()));
+		lIndexes.stream().sorted((X,Y) -> Y-X).forEach(X -> this.model.removeSongFromPlayList(X.intValue()));
 		this.notifyToUpdatable(PlayerState.RELOAD);
 	}
 

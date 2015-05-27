@@ -7,12 +7,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Sequence;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import controller.musicplayer.MusicPlayer;
+import controller.songplayer.MidiSongPlayer;
 import controller.songplayer.SampledSongPlayer;
 import controller.songplayer.SongPlayer;
 
@@ -24,13 +28,13 @@ import controller.songplayer.SongPlayer;
  *
  */
 public class SongPlayerTest {
-
+	private static final String SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
+	private static final String MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
 	@org.junit.Test
 	public void testSampledSongPlayer() {
 		URL songPath = null;
 		try {
-			songPath = new URL(
-					"file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav");
+			songPath = new URL(SAMPLED_SONG);
 		} catch (MalformedURLException e1) {
 			fail();
 		}
@@ -59,6 +63,40 @@ public class SongPlayerTest {
 
 	}
 	
+	@org.junit.Test
+	public void testMidiSongPlayer(){
+		URL songPath = null;
+		try {
+			songPath = new URL(MIDI_SONG);
+		} catch (MalformedURLException e1) {
+			fail();
+		}
+		
+		Sequence midiSequence;
+		Optional<SongPlayer> sSPlayer = Optional.empty();
+
+		try {
+			midiSequence = MidiSystem.getSequence(songPath);
+				
+			try {
+				sSPlayer = Optional.of(new MidiSongPlayer(midiSequence));
+			} catch (MidiUnavailableException e) {
+				e.printStackTrace();
+			}
+		} catch (InvalidMidiDataException e1) {
+			fail();
+		} catch (IOException e1) {
+			fail();
+		}	
+		
+		
+		if(sSPlayer.isPresent()){
+			this.testReproduction(sSPlayer.get(), 3000);
+		} else {
+			 fail();
+		}
+		
+	}
 	
 	private void testReproduction(SongPlayer lettore, int pauseTime){
 		double elapsedTime;
@@ -87,6 +125,7 @@ public class SongPlayerTest {
 			e.printStackTrace();
 		}
 		
+		assertTrue(lettore.getElapsedTime() == elapsedTime);
 		System.out.println("Resume!!!!");
 		lettore.play();
 		
@@ -101,25 +140,7 @@ public class SongPlayerTest {
 		System.out.println("Stop Reproduction!!!!");
 		lettore.stop();
 		
-		// Attendo il tempo deciso dal parametro pauseTime secondi
-		try {
-			Thread.sleep(pauseTime);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("Play another time!!!!");
-		
-		lettore.play();
-		
-		// Attendo il tempo deciso dal parametro pauseTime secondi
-		try {
-			Thread.sleep(pauseTime);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		assertTrue(lettore.getElapsedTime() == 0);	
 	}	
 
 }

@@ -77,8 +77,7 @@ public final class ButtonFactory {
 		if (strategy.equals(STOP)) {
 			b.setEnabled(false);
 		} else if(strategy.equals(PLAY) 
-				|| strategy.equals(PAUSE)){
-			System.out.println(strategy);          
+				|| strategy.equals(PAUSE)){      
 			b.addKeyListener(new AbstractKeyListener() {
 				
 				@Override

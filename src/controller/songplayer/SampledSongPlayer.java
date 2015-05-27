@@ -95,9 +95,9 @@ public class SampledSongPlayer implements SongPlayer {
 
 	@Override
 	public double getDuration() {
-		return this.clip.isOpen()?this.clip.getBufferSize()
-				/ (this.clip.getFormat().getFrameSize() * this.clip.getFormat()
-						.getFrameRate()): 0;
+		return this.clip.isOpen()?this.clip.getFrameLength()
+				/ this.clip.getFormat()
+						.getFrameRate(): 0;
 	}
 
 	@Override

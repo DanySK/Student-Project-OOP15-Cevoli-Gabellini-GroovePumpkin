@@ -14,12 +14,10 @@ import model.playlistmanager.choicestrategy.PlaylistChoiceStrategy;
 public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 	private PlaylistChoiceStrategy<X> extractionStrategy;
 	private final List<X> playlist;
-	private Optional<X> currentSong;
 
 
 	public BasicPlaylistManager(final PlaylistChoiceStrategy<X> extractionStrategy) {
 		this.playlist = new ArrayList<>();
-		this.currentSong = Optional.empty();
 		this.extractionStrategy = extractionStrategy;
 	}
 	
@@ -30,7 +28,9 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 
 	@Override
 	public Optional<X> getCurretSong() {
-		return this.currentSong.isPresent()? Optional.of(this.currentSong.get()) : Optional.empty();
+		return this.getCurrentSongIndex().isPresent()? 
+				Optional.of(this.playlist.get(this.getCurrentSongIndex().get())) 
+				: Optional.empty();
 	}
 	
 
@@ -41,15 +41,8 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 			return Optional.empty();
 		}
 		
-		final Optional<Integer> nextSong = this.extractionStrategy.getNextSong(this.playlist);
-		// If the previous song there isn't I don't change the current song
-		if (nextSong.isPresent()) {
-			this.currentSong = Optional.of(this.playlist.get(nextSong.get()));
-			return this.currentSong;
-		} else {
-			return Optional.empty(); 
-		}
-		
+		this.extractionStrategy.getNextSong(this.playlist);
+		return this.getCurretSong();	
 	}
 
 	@Override
@@ -59,14 +52,8 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 			return Optional.empty();
 		}
 		
-		final Optional<Integer> previousSong = this.extractionStrategy.getPreviousSong(this.playlist);
-		// If the previous song there isn't I don't change the current song
-		if (previousSong.isPresent()) {
-			this.currentSong = Optional.of(this.playlist.get(previousSong.get()));
-			return this.currentSong;
-		} else {
-			return Optional.empty(); 
-		}
+		this.extractionStrategy.getPreviousSong(this.playlist);
+		return this.getCurretSong();		
 	}
 
 	@Override
@@ -77,9 +64,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 			throw new IllegalArgumentException();
 		}
 		this.extractionStrategy.goToSong(index, playlist);
-		this.currentSong = Optional.of(this.playlist
-				.get(index));
-		return this.currentSong;
+		return this.getCurretSong();
 	}
 
 	@Override
@@ -97,12 +82,6 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 			throws IllegalArgumentException {
 		if (index >= 0 && index < this.playlist.size()) {
 			this.playlist.remove(index);
-			// If the song that i removed is the current song
-			if (this.getCurrentSongIndex().isPresent()
-					&& this.getCurrentSongIndex().get() == index) {
-				// Update the currentSong variable
-				this.currentSong = Optional.empty();
-			}
 			// Now update the datastructure of the strategy
 			this.extractionStrategy.removedIndex(index);
 		} else {
@@ -130,7 +109,7 @@ public  class BasicPlaylistManager<X> implements PlaylistManager<X>{
 	 * Set another strategy to chose songs from the playlist
 	 * @param strategy
 	 */
-	public void setChoiceStrategy(PlaylistChoiceStrategy<X> strategy){
+	public void setChoiceStrategy(final PlaylistChoiceStrategy<X> strategy){
 		if(strategy != null){
 			if (this.extractionStrategy.getCurrentSongIndex().isPresent()) {
 				strategy.goToSong(this.extractionStrategy.getCurrentSongIndex().get(),
