@@ -87,27 +87,28 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer>{
 			public void mouseClicked(final MouseEvent e) {
 				if (SwingUtilities.isLeftMouseButton(e)
 						&& e.getClickCount() == DOUBLE_CLICK) {
-					getController().stop();
-					getController().goToSong(((JTable) e.getSource())
-							.rowAtPoint(e.getPoint()));
-					getController().play();
-
+					try{
+						getController().stop();
+						getController().goToSong(((JTable) e.getSource())
+								.rowAtPoint(e.getPoint()));
+						getController().play();
+					}catch(IllegalArgumentException ex){
+						Utility.showErrorDialog(playlist, 
+								"Illegal Argument, an error has probably occurred");
+					}
 				} else if (SwingUtilities.isRightMouseButton(e)) {
 					final JPopupMenu jpm = new JPopupMenu();
 					final JMenuItem rem = new JMenuItem("Remove");
 					rem.setForeground(RED);
 					rem.addActionListener(actEv -> {
-						try{
-							if (((JTable) e.getSource())
-									.getSelectedRows().length > 1) {
-								getController().removeSong(((JTable) e.getSource())
-											.getSelectedRows());
-							} else {
-								getController().removeSong(((JTable) e.getSource())
-										.rowAtPoint(e.getPoint()));
-						}} catch(IllegalArgumentException ex){
-							Utility.showErrorDialog(playlist, 
-									"Illegal Argument, an error has probably occurred");
+						
+						if (((JTable) e.getSource())
+								.getSelectedRows().length > 1) {
+							getController().removeSong(((JTable) e.getSource())
+										.getSelectedRows());
+						} else {
+							getController().removeSong(((JTable) e.getSource())
+									.rowAtPoint(e.getPoint()));
 						}
 					});
 					jpm.add(rem);
