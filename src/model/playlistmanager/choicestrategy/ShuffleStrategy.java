@@ -94,7 +94,8 @@ public class ShuffleStrategy<X> implements PlaylistChoiceStrategy<X> {
 			if (this.getCurrentSongIndex().get() == index) {
 				this.currShuffledIdx = NOT_SELECTED;
 			} else {
-				for (int i = 0; i < this.currShuffledIdx; i++) {
+				int tmpIdx = this.currShuffledIdx;
+				for (int i = 0; i < tmpIdx; i++) {
 					if (this.listManager.getElement(i) == index) {
 						this.currShuffledIdx--;
 					}

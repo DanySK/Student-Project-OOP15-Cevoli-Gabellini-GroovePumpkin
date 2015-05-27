@@ -33,7 +33,7 @@ public interface MusicPlayer extends Player, Observable{
 	 * this method load the song of the playlist specified by the index
 	 * @param index
 	 */
-	void goToSong(int index);
+	void goToSong(int index) throws IllegalArgumentException;
 	
 	
 	/**
@@ -70,5 +70,5 @@ public interface MusicPlayer extends Player, Observable{
 	 * This method return the current playlist
 	 * @return a copy of the current playlist
 	 */
-	List<URL> getPlayList();
+	List<URL> getPlayList();	
 }

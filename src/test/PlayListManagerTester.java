@@ -36,8 +36,6 @@ public class PlayListManagerTester {
 
 		// Controllo che l'inserimento nella playList sia avvenuto
 		assertTrue(checkList.equals(lettore.getPlayList()));
-		// Controllo che la traccia corrente sia corretta
-		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
 
 		// Test rimozione
 		lettore.removeSong(0);
@@ -71,21 +69,18 @@ public class PlayListManagerTester {
 
 		// Controllo che l'inserimento nella playList sia avvenuto
 		assertTrue(checkList.equals(lettore.getPlayList()));
-		lettore.goToNextSong();
+		lettore.goToSong(1);
 		assertEquals(lettore.getCurrentSong().get(), checkList.get(1));
 
 		lettore.goToPreviousSong();
 		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
 
-		// Test rimozione
-		lettore.removeSong(1);
-		checkList.remove(1);
-		assertTrue(checkList.equals(lettore.getPlayList()));
 
 		// Provo a mandare avanti il lettore oltre al limite
 		lettore.goToNextSong();
+		lettore.goToNextSong();
 		// Controllo che rimanga come current song la traccia precedente
-		assertEquals(lettore.getCurrentSong().get(), checkList.get(0));
+		assertEquals(lettore.getCurrentSong().get(), checkList.get(1));
 	}
 
 	
