@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 import model.PlayerState;
 import controller.Observable;
-import controller.Updatable;
+import controller.UpdatableObserver;
 
 /**
  * A Personalized White&DarkGrey JPanel, with a personalizable Layout
@@ -22,11 +22,11 @@ import controller.Updatable;
  *
  */
 
-public class PersonalJPanel extends JPanel implements Updatable, Observable{
+public class PersonalJPanel extends JPanel implements UpdatableObserver, Observable{
 
 	private static final long serialVersionUID = -7098020132793828090L;
 
-	private final List<Updatable> observers = new ArrayList<>();
+	private final List<UpdatableObserver> observers = new ArrayList<>();
 
 	/**
 	 * A basic constructor for a White&Gray panel
@@ -70,8 +70,8 @@ public class PersonalJPanel extends JPanel implements Updatable, Observable{
 	 * 
 	 * @param up
 	 */
-	public void addUpdatableObservers(final Updatable... up) {
-		for (final Updatable u : up) {
+	public void addUpdatableObservers(final UpdatableObserver... up) {
+		for (final UpdatableObserver u : up) {
 			observers.add(u);
 		}
 	}
@@ -81,7 +81,7 @@ public class PersonalJPanel extends JPanel implements Updatable, Observable{
 	 * 
 	 * @param up
 	 */
-	public void removeObserver(final Updatable up) {
+	public void removeObserver(final UpdatableObserver up) {
 		observers.remove(up);
 	}
 
@@ -90,7 +90,7 @@ public class PersonalJPanel extends JPanel implements Updatable, Observable{
 	 * 
 	 * @return
 	 */
-	public List<Updatable> getObservers() {
+	public List<UpdatableObserver> getObservers() {
 		return observers;
 	}
 

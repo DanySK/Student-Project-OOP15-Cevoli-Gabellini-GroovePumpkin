@@ -7,7 +7,7 @@ import model.PlayerState;
  * @author Alessandro
  *
  */
-public interface Updatable {
+public interface UpdatableObserver {
 	/**
 	 * This method is called by the observed object to notify the observer
 	 * 

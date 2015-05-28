@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import model.PlayerState;
 import model.playlistmanager.FeaturesHandled;
-import controller.Updatable;
+import controller.UpdatableObserver;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 import controller.musicplayer.PlaylistFeatureCommand;
@@ -33,7 +33,7 @@ public class ShuffleTester {
 	
 	@org.junit.Test
 	public void testShuffleMode() {
-		Updatable component = new Updatable() {
+		UpdatableObserver component = new UpdatableObserver() {
 			@Override
 			public void updateStatus(PlayerState status) {
 				statoRiproduttore = status;

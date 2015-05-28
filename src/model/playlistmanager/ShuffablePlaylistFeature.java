@@ -14,9 +14,9 @@ import model.playlistmanager.choicestrategy.ShuffleStrategy;
  * @param <X>
  *            the elements type of the playlist
  */
-public class ShuffablePlaylistFeature<X> implements PlaylistFeatures<X> {
+public class ShuffablePlaylistFeature<X> implements PlaylistFeature<X> {
 	
-	private final Optional<PlaylistFeatures<X>> nextHandler; 
+	private final Optional<PlaylistFeature<X>> nextHandler; 
 	private boolean shuffleModeState;
 
 	public ShuffablePlaylistFeature() {
@@ -24,7 +24,7 @@ public class ShuffablePlaylistFeature<X> implements PlaylistFeatures<X> {
 		this.shuffleModeState = false;
 	}
 
-	public ShuffablePlaylistFeature(final PlaylistFeatures<X> nextHandler) {
+	public ShuffablePlaylistFeature(final PlaylistFeature<X> nextHandler) {
 		this.nextHandler = Optional.ofNullable(nextHandler);
 		this.shuffleModeState = false;
 	}
