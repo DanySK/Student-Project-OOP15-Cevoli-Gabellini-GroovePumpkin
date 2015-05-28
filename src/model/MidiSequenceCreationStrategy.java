@@ -9,7 +9,8 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-import model.groovebox.GrooveValues;
+import model.groovebox.GrooveTableManager;
+import model.groovebox.GrooveTableManager.GrooveValue;
 
 /**
  * A MidiTrackBuilder implements the logic for create a midi track from a list of GrooveValues
@@ -29,12 +30,12 @@ public class MidiSequenceCreationStrategy {
 	private static final int INSTRUMENT_INDEX = 0;
 	
 	/**
-	 * Create the midi sequence from a list of {@link model.groovebox.GrooveValues}
+	 * Create the midi sequence from a list of {@link model.groovebox.GrooveTableManager}
 	 * @param partitura
 	 * 		the list of groove values
 	 * @return An optional that contains the midi track, if during the creation there is some problem the return value is Optional.empty
 	 */
-	public Optional<Sequence> createMidiSequence(final List<? extends GrooveValues> partitura){
+	public Optional<Sequence> createMidiSequence(final List<? extends GrooveValue> partitura){
 		Sequence midiSequence = null;
 		try {
 			midiSequence = new Sequence(Sequence.PPQ, 4);
@@ -62,7 +63,7 @@ public class MidiSequenceCreationStrategy {
 								});
 					});
 
-			midiTrack.add(createEvent(GrooveValues.getTimeQuanti(), ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, INSTRUMENT_INDEX, VELOCITY));
+			midiTrack.add(createEvent(GrooveTableManager.getTimeQuanti(), ShortMessage.PROGRAM_CHANGE,SELECTED_CHANNEL, INSTRUMENT_INDEX, VELOCITY));
 		} catch (InvalidMidiDataException e) { 
 			e.printStackTrace();
 		}

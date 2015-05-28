@@ -17,11 +17,11 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 	private Optional<Sequence> grooveSequence;
 	
 	public GrooveBoxModel() {
-		GrooveValues.initAGrooveBoxList();
+		GrooveTableManager.getGrooveBox();
 	}
 	
 	private void createSequence() {
-		grooveSequence = new MidiSequenceCreationStrategy().createMidiSequence(GrooveValues.GROOVEBOX);
+		grooveSequence = new MidiSequenceCreationStrategy().createMidiSequence(GrooveTableManager.getGrooveBox());
 	}
 
 	@Override
@@ -32,17 +32,17 @@ public class GrooveBoxModel implements GrooveBoxContentManager {
 
 	@Override
 	public void changeCellState(final int rowIndex, final int columnIndex) {
-		GrooveValues.GROOVEBOX.get(rowIndex).setActiveAtIndex(columnIndex);		
+		GrooveTableManager.getGrooveBox().get(rowIndex).invertValueAtIndex(columnIndex);		
 	}
 
 	@Override
 	public boolean getCellState(final int rowIndex, final int columnIndex) {
-		return GrooveValues.GROOVEBOX.get(rowIndex).getValueAtIndex(columnIndex);
+		return GrooveTableManager.getGrooveBox().get(rowIndex).getValueAtIndex(columnIndex);
 	}
 
 	@Override
 	public void resetContent() {
-		GrooveValues.resetGrooveBox();		
+		GrooveTableManager.resetGrooveBox();		
 	}
 
 }
