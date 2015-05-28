@@ -12,7 +12,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 import model.PlayerState;
-import controller.Updatable;
+import controller.UpdatableObserver;
 
 /**
  * A personalized JTable with unresizable Header 
@@ -21,7 +21,7 @@ import controller.Updatable;
  * @author Alessandro
  *
  */
-public class PersonalJTable extends JTable implements Updatable {
+public class PersonalJTable extends JTable implements UpdatableObserver {
 
 	private static final long serialVersionUID = -2646448367133853783L;
 

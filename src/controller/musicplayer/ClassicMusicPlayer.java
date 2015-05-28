@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import model.PlayerState;
 import model.playlistmanager.FeaturesHandled;
-import model.playlistmanager.PlaylistFeatures;
+import model.playlistmanager.PlaylistFeature;
 import model.playlistmanager.PlaylistManager;
 
 /**
@@ -19,7 +19,7 @@ import model.playlistmanager.PlaylistManager;
  */
 public class ClassicMusicPlayer extends AbstractMusicPlayer implements PlaylistFeatureCommand{
 	private final PlaylistManager<URL> referenceToPL;
-	private Optional<PlaylistFeatures<URL>> plFeatures;
+	private Optional<PlaylistFeature<URL>> plFeatures;
 	/**
 	 * Crete a new instance of ClassicMusicPlayer
 	 * @param plManager
@@ -28,7 +28,7 @@ public class ClassicMusicPlayer extends AbstractMusicPlayer implements PlaylistF
 	 * 		through the method of the interface {@link controller.musicplayer.PlaylistFeatureCommand}
 	 * 		the instance can be manage the shuffle mode
 	 */
-	public ClassicMusicPlayer(final PlaylistManager<URL> plManager, final PlaylistFeatures<URL> features) {
+	public ClassicMusicPlayer(final PlaylistManager<URL> plManager, final PlaylistFeature<URL> features) {
 		super(plManager);
 		this.referenceToPL = plManager;
 		this.plFeatures = Optional.ofNullable(features);

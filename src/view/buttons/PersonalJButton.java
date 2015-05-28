@@ -8,7 +8,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import model.PlayerState;
 import view.interfaces.Controllable;
-import controller.Updatable;
+import controller.UpdatableObserver;
 import static view.config.Configuration.*;
 import static view.config.Utility.*;
 
@@ -22,7 +22,7 @@ import static view.config.Utility.*;
  * @param <C> the type of the attachable controller
  *
  */
-public class PersonalJButton<C> extends JButton implements Updatable, Controllable<C>{
+public class PersonalJButton<C> extends JButton implements UpdatableObserver, Controllable<C>{
 
 	private static final long serialVersionUID = -7937866815197131576L;
 	private C controller;

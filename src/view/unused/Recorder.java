@@ -12,19 +12,19 @@ import javax.swing.JMenuBar;
 
 import model.PlayerState;
 import view.panels.PersonalJPanel;
-import controller.Updatable;
+import controller.UpdatableObserver;
 
 /**
  * 
  * @author Alessandro
  *
  */
-public class Recorder extends JFrame implements Updatable{
+public class Recorder extends JFrame implements UpdatableObserver{
 
 	private static final long serialVersionUID = -4303337519550483522L;
 
 	private final JLabel timerLabel = new JLabel("00:00:00");
-	private final List<Updatable> buttons= new ArrayList<>();
+	private final List<UpdatableObserver> buttons= new ArrayList<>();
 
 	public Recorder(final JMenuBar jbm) {
 		this.setTitle("Audio Recorder");
@@ -60,7 +60,7 @@ public class Recorder extends JFrame implements Updatable{
 
 	@Override
 	public void updateStatus(PlayerState status) {
-		for(Updatable u : buttons){
+		for(UpdatableObserver u : buttons){
 			u.updateStatus(status);
 		}
 	}

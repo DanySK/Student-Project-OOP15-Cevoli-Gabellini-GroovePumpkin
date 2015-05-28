@@ -14,14 +14,14 @@ import model.PlayerState;
  */
 public class UpdatableObserversManager implements Observable {
 	
-	private final List<Updatable> observers;
+	private final List<UpdatableObserver> observers;
 	
     public UpdatableObserversManager() {
 		this.observers = new ArrayList<>();
 	}
 	
 	@Override
-	public void addUpdatableObservers(final Updatable... component) {
+	public void addUpdatableObservers(final UpdatableObserver... component) {
 		Arrays.asList(component).stream().forEach(X -> observers.add(X));
 	}
 

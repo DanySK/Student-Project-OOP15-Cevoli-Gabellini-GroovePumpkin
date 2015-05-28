@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import view.config.Utility;
 import model.PlayerState;
 import controller.Observable;
-import controller.Updatable;
+import controller.UpdatableObserver;
 
 /**
  * This class rapresents a controller that communicates with a timer
@@ -18,7 +18,7 @@ import controller.Updatable;
  * @author Alessandro
  *
  */
-public class TimerController implements Updatable {
+public class TimerController implements UpdatableObserver {
 
 	private final JLabel timeLabel = new JLabel("00:00:00");
 	private TimeCounter timer = new TimeCounter(timeLabel, 0);

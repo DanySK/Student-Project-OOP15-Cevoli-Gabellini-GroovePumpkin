@@ -3,14 +3,14 @@ package view.unused;
 import view.config.Configuration;
 import model.PlayerState;
 import view.buttons.PersonalJButton;
-import controller.Updatable;
+import controller.UpdatableObserver;
 
 /**
  * 
  * @author Alessandro
  *
  */
-public class RecSpace<C> extends PersonalJButton<C> implements Updatable{
+public class RecSpace<C> extends PersonalJButton<C> implements UpdatableObserver{
 
 	private static final long serialVersionUID = -2653526539862883988L;
 	public static final String REC = "Rec";

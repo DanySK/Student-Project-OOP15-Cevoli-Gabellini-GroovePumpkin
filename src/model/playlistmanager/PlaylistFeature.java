@@ -11,7 +11,7 @@ package model.playlistmanager;
  * @author Matteo Gabellini
  *
  */
-public interface PlaylistFeatures<X> {
+public interface PlaylistFeature<X> {
 
 	/**
 	 * Setter for the state of this feature
