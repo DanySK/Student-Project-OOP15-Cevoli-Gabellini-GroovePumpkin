@@ -11,8 +11,11 @@ import model.playlistmanager.choicestrategy.ClassicStrategy;
  * @author Matteo Gabellini
  *
  */
-public class MusicPlayerFactory {
-
+public final class MusicPlayerFactory {
+	
+	private MusicPlayerFactory(){		
+	}
+	
 	/** 
 	 * Create new classic music player with base function
 	 * @return new istance of a classic music player
