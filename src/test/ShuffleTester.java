@@ -6,9 +6,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Optional;
 
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
 import model.playlistmanager.FeaturesHandled;
-import controller.UpdatableObserver;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 import controller.musicplayer.PlaylistFeatureCommand;

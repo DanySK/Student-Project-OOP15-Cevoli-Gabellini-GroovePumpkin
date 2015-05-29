@@ -1,9 +1,9 @@
 package view.unused;
 
 import view.config.Configuration;
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
 import view.buttons.PersonalJButton;
-import controller.UpdatableObserver;
 
 /**
  * 

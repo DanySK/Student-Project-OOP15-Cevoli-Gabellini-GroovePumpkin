@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 
 import model.PlayerState;
+import view.interfaces.UpdatableObserver;
 import view.panels.PersonalJPanel;
-import controller.UpdatableObserver;
 
 /**
  * 

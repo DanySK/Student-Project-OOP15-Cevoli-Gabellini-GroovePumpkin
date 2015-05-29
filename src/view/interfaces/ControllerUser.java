@@ -1,13 +1,13 @@
 package view.interfaces;
 
 /**
- * Interface for a controllable object
+ * Interface that represents an object able to use a controller
  * 
  * @author Alessandro
  *
  * @param <C>
  */
-public interface Controllable<C> {
+public interface ControllerUser<C> {
 	
 	/**
 	 * 

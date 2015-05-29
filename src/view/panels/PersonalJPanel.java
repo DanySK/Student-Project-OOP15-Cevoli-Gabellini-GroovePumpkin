@@ -11,9 +11,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
 import controller.Observable;
-import controller.UpdatableObserver;
 
 /**
  * A Personalized White&DarkGrey JPanel, with a personalizable Layout

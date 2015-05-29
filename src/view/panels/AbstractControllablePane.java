@@ -4,10 +4,10 @@ import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import view.interfaces.Controllable;
+import view.interfaces.ControllerUser;
 
 /**
- * This class rapresents a Panel that can hold
+ * This class represents a Panel that can hold
  * and communicate with the attached
  * controller of type <C>
  * 
@@ -16,7 +16,7 @@ import view.interfaces.Controllable;
  * @param <C>
  */
 public abstract class AbstractControllablePane<C> extends PersonalJPanel 
-		implements Controllable<C> {
+		implements ControllerUser<C> {
 
 	private static final long serialVersionUID = 2742792723546786577L;
 	private C controller;

@@ -11,8 +11,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
-import controller.UpdatableObserver;
 
 /**
  * A personalized JTable with unresizable Header 

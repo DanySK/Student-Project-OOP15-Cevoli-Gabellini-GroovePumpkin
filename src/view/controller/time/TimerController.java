@@ -5,9 +5,9 @@ import static model.PlayerState.*;
 import javax.swing.JLabel;
 
 import view.config.Utility;
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
 import controller.Observable;
-import controller.UpdatableObserver;
 
 /**
  * This class rapresents a controller that communicates with a timer

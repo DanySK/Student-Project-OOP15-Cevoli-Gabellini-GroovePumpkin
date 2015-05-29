@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import view.interfaces.UpdatableObserver;
 import model.PlayerState;
 /**
  * This class manage the observers that implements the interface Updatable
