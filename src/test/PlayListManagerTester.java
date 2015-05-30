@@ -12,6 +12,12 @@ import java.util.List;
 import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
+/**
+ * That class is a Junit Test for the PlaylistManager
+ * 
+ * @author Matteo Gabellini
+ *
+ */
 public class PlayListManagerTester {
 	private static final String FIRST_SONG =  "/songForTest/sampled/Prova 1.wav";
 	private static final String SECOND_SONG = "/songForTest/sampled/Prova 2.wav";

@@ -22,7 +22,7 @@ public final class Main {
 			.createLoopableAndShuffableMP();
 	private static final GrooveBoxPlayer GBC = GrooveBoxController
 			.getInstance();
-
+	
 	@SuppressWarnings("unused")
 	public static void main(final String... args) {
 		final Configuration config= Configuration.getConfig();

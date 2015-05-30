@@ -10,7 +10,7 @@ import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
 /**
- * This is an automatic test with JUnit for my classes
+ * This is an automatic test with JUnit for the MusicPlayer
  * 
  * @author Matteo Gabellini
  *

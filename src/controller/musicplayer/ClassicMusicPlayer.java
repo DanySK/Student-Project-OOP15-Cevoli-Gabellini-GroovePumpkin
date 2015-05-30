@@ -20,12 +20,15 @@ import model.playlistmanager.PlaylistManager;
 public class ClassicMusicPlayer extends AbstractMusicPlayer implements PlaylistFeatureCommand{
 	private final PlaylistManager<URL> referenceToPL;
 	private Optional<PlaylistFeature<URL>> plFeatures;
+	
 	/**
 	 * Crete a new instance of ClassicMusicPlayer
 	 * @param plManager
 	 * 		the playlist manager used from the instance that will be created 
-	 * 		if this play list manager is a {@link package model.playlistmanager.ShuffablePlaylistManager}
-	 * 		through the method of the interface {@link controller.musicplayer.PlaylistFeatureCommand}
+	 * 		if this play list manager is a 
+	 * 		{@link package model.playlistmanager.ShuffablePlaylistFeature}
+	 * 		through the method of the interface 
+	 * 		{@link controller.musicplayer.PlaylistFeatureCommand}
 	 * 		the instance can be manage the shuffle mode
 	 */
 	public ClassicMusicPlayer(final PlaylistManager<URL> plManager, final PlaylistFeature<URL> features) {
