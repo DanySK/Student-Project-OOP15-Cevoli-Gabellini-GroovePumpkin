@@ -14,6 +14,7 @@ import controller.groovebox.GrooveBoxPlayer;
 
 
 /**
+ * The Main Frame for the Groove&Pumkin GUI
  * 
  * @author Alessandro
  *

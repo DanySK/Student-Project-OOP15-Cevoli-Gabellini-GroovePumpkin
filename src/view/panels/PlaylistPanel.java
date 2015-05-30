@@ -26,8 +26,8 @@ import view.tables.PersonalJTable;
 import controller.musicplayer.MusicPlayer;
 
 /**
- * Personalized Panel for the PlayBackPanel class, this class manages the
- * playlist, addition and removeal of songs from it.
+ * Personalized Panel for the PlayerPanel class, this class the GUI that
+ * manages the playlist and the addition and remotion of songs from it.
  * 
  * It also has by default a mouse listener that hadles the selection, the
  * playing and the remotion of songs from the JTable usign the mouse

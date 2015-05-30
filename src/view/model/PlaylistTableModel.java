@@ -19,7 +19,10 @@ public class PlaylistTableModel extends AbstractTableModel{
 	private final MusicPlayer controller;
 	
 	/**
-	 * @param playlist, the playlist to be associated with this table
+	 * The onstrustor take in input the playlist to be associated with this table
+	 * 
+	 * 
+	 * @param playlist
 	 */
 	public PlaylistTableModel(final MusicPlayer controller) {
 		super();

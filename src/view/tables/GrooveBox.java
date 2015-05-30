@@ -14,7 +14,7 @@ import view.model.AbstractMouseListener;
 import view.model.GrooveTableModel;
 
 /**
- * The Class that implements the groovebox table
+ * The Class that implements the GUI for the groovebox table
  * 
  * @author Alessandro
  *
@@ -40,7 +40,7 @@ public class GrooveBox extends PersonalJTable{
 		tableModel = tm;
 		
 		super.setColumnHeaderBounds(0, 120, 120);
-		for(int i=1; i< GrooveTableModel.GROOVE_TIME_VALUES.length; i++){
+		for(int i=1; i< GrooveTableModel.getGrooveTimeValues().length; i++){
 			super.setColumnHeaderBounds(i, 40, 40);
 		}
 		this.setAutoResizeMode(0);
@@ -58,7 +58,7 @@ public class GrooveBox extends PersonalJTable{
 			}
 		};
 		
-		for (int i = 1; i < GrooveTableModel.GROOVE_TIME_VALUES.length; i++) {
+		for (int i = 1; i < GrooveTableModel.getGrooveTimeValues().length; i++) {
 			this.getColumnModel().getColumn(i).setCellRenderer(renderer);
 		}
 		

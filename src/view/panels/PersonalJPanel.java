@@ -17,6 +17,7 @@ import controller.Observable;
 
 /**
  * A Personalized White&DarkGrey JPanel, with a personalizable Layout
+ * and able to show a TitledBorder
  * 
  * @author Alessandro
  *

@@ -19,7 +19,8 @@ import controller.musicplayer.PlaylistFeatureCommand;
 
 /**
  * Personalized JPanel for the PlayerPanel, 
- * this class "handles" the playing and
+ * this class "handles" GUI where are situated 
+ * the functions for playing and
  * pausing of a chosen song.
  * 
  * This class has by default: 
@@ -30,8 +31,6 @@ import controller.musicplayer.PlaylistFeatureCommand;
  * 
  * Optionally:
  * 
- * -Add a Loop button;
- * -Add a Shuffle button;
  * -Add a label for elapsed time;-> still in work
  * -Add a progrese bar (slider); -> still in work
  * 

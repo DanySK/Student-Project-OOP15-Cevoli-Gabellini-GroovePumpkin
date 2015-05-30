@@ -14,6 +14,7 @@ import static view.config.Configuration.*;
 
 /**
  * This class creates an already populated JTabbedPane for the SoundFrame class
+ * Composed by a player panel and a Groovebox Panel
  * 
  * @author Alessandro
  *

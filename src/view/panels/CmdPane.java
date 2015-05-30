@@ -12,10 +12,9 @@ import controller.Player;
 import controller.groovebox.GrooveBoxPlayer;
 
 /**
- * This class handle a single row of functional Buttons
- * 
- * This class implements the Builder Strategy for istanciate the
- * row of buttons (wrapped by a premade class) 
+ * This Panels handle a single row of functional Buttons
+ * using a wrapper
+ * This class implements the Builder Strategy to populates itself 
  * 
  * @author Alessandro
  *

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /**
- * A configuration class for to load Icons 
+ * A configuration class to load Icons 
  * and setting various elements of the default
  * L&F
  * 

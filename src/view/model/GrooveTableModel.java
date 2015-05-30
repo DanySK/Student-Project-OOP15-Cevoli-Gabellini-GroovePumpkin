@@ -19,14 +19,7 @@ public class GrooveTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = -8015327194349106508L;
 	
-	/**
-	 * 
-	 * The names of all the columns, i've used a static array instead of an
-	 * ArrayList because i was already sure it won't have changed
-	 * 
-	 * @GrooveTimeValues
-	 */
-	public static final String[] GROOVE_TIME_VALUES = new String[] {
+	private static final String[] GROOVE_TIME_VALUES = new String[] {
 			"-Instruments-", "#0", "A", "B", "C", "#1", "A", "B", "C", "#2",
 			"A", "B", "C", "#3", "A", "B", "C", "#4", "A", "B", "C", "#5", "A",
 			"B", "C", "#6", "A", "B", "C", "#7", "A", "B", "C", "#8", "A", "B",
@@ -41,6 +34,15 @@ public class GrooveTableModel extends AbstractTableModel {
 	public GrooveTableModel(final GrooveBoxPlayer controller) {
 		this.controller= controller;
 	}
+	
+	/**
+	 * 
+	 * @return Return the Array With the names fo the columns
+	 */
+	public static String[] getGrooveTimeValues(){
+		return GROOVE_TIME_VALUES;
+	}
+	
 	
 	@Override
 	public int getRowCount() {
