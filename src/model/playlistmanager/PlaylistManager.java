@@ -33,7 +33,7 @@ public interface PlaylistManager<X> {
 	
 	/**
 	 * This method change the current song with the next song
-	 * @retrun the X of the next song 
+	 * @return the X of the next song 
 	 */
 	Optional<X> changeToTheNextSong();
 

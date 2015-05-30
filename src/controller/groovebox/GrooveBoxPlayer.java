@@ -14,7 +14,7 @@ import controller.Player;
 public interface GrooveBoxPlayer extends Player,Loopable,Observable{
 	/**
 	 * Save the midi file of the created Groove
-	 * @param path 
+	 * @param pathName 
 	 * 			specify where the midi file will be saved,
 	 * 			the last word of the path is the name of the file
 	 * @return true if the file was saved otherwise false

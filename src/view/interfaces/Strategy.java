@@ -12,7 +12,7 @@ public interface Strategy<C> {
 	/**
 	 * Apply the desired strategy to the given object
 	 * 
-	 * @param t
+	 * @param c
 	 */
 	void doStrategy(final C c);
 }

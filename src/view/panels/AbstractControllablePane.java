@@ -9,7 +9,7 @@ import view.interfaces.ControllerUser;
 /**
  * This class represents a Panel that can hold
  * and communicate with the attached
- * controller of type <C>
+ * controller of type C
  * 
  * @author Alessandro
  *

@@ -59,7 +59,7 @@ public class MyFileFilter extends FileFilter implements FilenameFilter {
 		/**
 		 * Tests if a specified file should be included in a file list.
 		 * 
-		 * @param directory
+		 * @param dir
 		 * @param name
 		 * 
 		 * @return true if the value is acceptable, false otherwise

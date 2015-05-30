@@ -8,7 +8,7 @@ package controller.songplayer;
 public interface SongInfosManager {
 	/**
 	 * This method is used for set the position in the song open in the clip
-	 * @param the microsecond past from the begin of the song
+	 * @param time, the microsecond past from the begin of the song
 	 * @throws IllegalArgumentException if the parameter time is out of the range of the song
 	 */
 	void setPosition(final int time) throws IllegalArgumentException;

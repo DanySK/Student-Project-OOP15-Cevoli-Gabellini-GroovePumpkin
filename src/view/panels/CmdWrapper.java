@@ -72,7 +72,7 @@ public class CmdWrapper {
 	}
 
 	/**
-	 * @param return the save button
+	 * @return the save button
 	 */
 	public Optional<AbstractStratBtn<GrooveBoxPlayer>> getSave() {
 		return this.save;
@@ -102,7 +102,7 @@ public class CmdWrapper {
 	/**
 	 * Set a play button
 	 * 
-	 * @param play
+	 * @param b
 	 */
 	public void setPlay(final AbstractStratBtn<Player> b) {
 	
@@ -112,7 +112,7 @@ public class CmdWrapper {
 	/**
 	 * Set a stop button
 	 * 
-	 * @param stop
+	 * @param b
 	 */
 	public void setStop(final AbstractStratBtn<Player> b) {
 		
@@ -122,7 +122,7 @@ public class CmdWrapper {
 	/**
 	 * Set a loop button
 	 * 
-	 * @param loop
+	 * @param b
 	 */
 	public void setLoop(final AbstractStratBtn<Loopable> b) {
 		this.loop = Optional.ofNullable(b);
@@ -131,7 +131,7 @@ public class CmdWrapper {
 	/**
 	 * set a backward button
 	 * 
-	 * @param bw
+	 * @param b
 	 */
 	public void setBW(final AbstractStratBtn<MusicPlayer> b) {
 		this.bw = Optional.ofNullable(b);
@@ -140,7 +140,7 @@ public class CmdWrapper {
 	/**
 	 * set a Forward button
 	 * 
-	 * @param fw
+	 * @param b
 	 */
 	public void setFW(final AbstractStratBtn<MusicPlayer> b) {
 		this.fw = Optional.ofNullable(b);
@@ -149,7 +149,7 @@ public class CmdWrapper {
 	/**
 	 * set a shuffle button
 	 * 
-	 * @param shuffle
+	 * @param b
 	 */
 	public void setShuffle(final AbstractStratBtn<PlaylistFeatureCommand> b) {
 		this.shuffle = Optional.ofNullable(b);
@@ -158,7 +158,7 @@ public class CmdWrapper {
 	/**
 	 * Set a Save button
 	 * 
-	 * @param save
+	 * @param b
 	 */
 	public void setSave(final AbstractStratBtn<GrooveBoxPlayer> b){
 		this.save= Optional.ofNullable(b);
@@ -167,7 +167,7 @@ public class CmdWrapper {
 	/**
 	 * Set Add button into the button row
 	 * 
-	 * @param newAdd
+	 * @param b
 	 */
 	public void setAdd(final AbstractStratBtn<MusicPlayer> b){
 		this.add= Optional.ofNullable(b);
@@ -177,7 +177,7 @@ public class CmdWrapper {
 	/**
 	 * Set remove button into the button row
 	 * 
-	 * @param newRemove
+	 * @param b
 	 */
 	public void setRemove(final AbstractStratBtn<MusicPlayer> b){
 		this.remove= Optional.ofNullable(b);
@@ -186,7 +186,7 @@ public class CmdWrapper {
 	/**
 	 * Set reset button into the button row
 	 * 
-	 * @param newRemove
+	 * @param b
 	 */
 	public void setReset(final AbstractStratBtn<GrooveBoxPlayer> b) {
 		this.reset=Optional.ofNullable(b);

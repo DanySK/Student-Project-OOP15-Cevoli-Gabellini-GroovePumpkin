@@ -14,7 +14,7 @@ import model.SongPlayerState;
  * this class exhibits method for managing the reproduction (play, stop,
  * pause...) and the infos of a midi track
  * 
- * see also {@link controller.SongPlayer}
+ * see also {@link controller.songplayer}
  * 
  * @author Matteo Gabellini
  *

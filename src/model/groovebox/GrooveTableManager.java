@@ -119,7 +119,6 @@ public final class GrooveTableManager {
 	 * Creates a new GrooveBox data Structure if it wasn't 
 	 * present otherwise returns the already initialized groovebox
 	 * 
-	 * @param list
 	 * @return an initialized list
 	 */
 	public static List<GrooveValue> getGrooveBox() {

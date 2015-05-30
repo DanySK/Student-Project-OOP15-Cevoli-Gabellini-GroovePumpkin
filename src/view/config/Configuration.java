@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 /**
  * A configuration class to load Icons 
  * and setting various elements of the default
- * L&F
+ * LAndF
  * 
  * @author Alessandro
  *

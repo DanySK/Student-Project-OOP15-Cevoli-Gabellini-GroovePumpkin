@@ -7,7 +7,7 @@ import model.MidiSequenceCreationStrategy;
 
 /**
  * This class rappresent the logic for manage the data of a groove box. 
- * see: {@link #GrooveValues}
+ * see: {@link model.groovebox.GrooveValues}
  * 
  * @author Matteo Gabellini
  *

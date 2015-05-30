@@ -105,7 +105,7 @@ public class PersonalJButton<C> extends JButton implements UpdatableObserver, Co
 	/**
 	 * Set a title border on this button
 	 * 
-	 * @param name
+	 * @param title
 	 *            to be shown on the TitledBorder
 	 */ 
 	public void setTitledBorder(final String title) {

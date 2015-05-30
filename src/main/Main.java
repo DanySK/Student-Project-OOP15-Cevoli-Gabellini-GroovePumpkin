@@ -10,8 +10,8 @@ import controller.musicplayer.MusicPlayerFactory;
 /**
  * From this site you can convert .mp3/.aac/.m4a into .wav/.midi
  * 
- * @link{http://media.io/it/}
- * @link{http://audio.online-convert.com/} <- The best imho
+ * {@link http://media.io/it/}
+ * {@link http://audio.online-convert.com/} The best imho
  * 
  * @author Alessandro
  * @author Matteo Gabellini

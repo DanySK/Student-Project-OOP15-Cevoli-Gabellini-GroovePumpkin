@@ -17,8 +17,7 @@ import controller.groovebox.GrooveBoxPlayer;
  * This class implements the Builder Strategy to populates itself 
  * 
  * @author Alessandro
- *
- * @param <C>
+ * 
  */
 public class CmdPane extends PersonalJPanel {
 

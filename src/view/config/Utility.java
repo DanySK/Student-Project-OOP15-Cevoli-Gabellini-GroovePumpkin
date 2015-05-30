@@ -86,7 +86,7 @@ public final class Utility {
 	
 	/**
 	 * Thank you 
-	 * @link{http://stackoverflow.com/questions/4050087/how-to-obtain-the-last-path-segment-of-an-uri}
+	 * {@link http://stackoverflow.com/questions/4050087/how-to-obtain-the-last-path-segment-of-an-uri}
 	 * for the first replacement
 	 * 
 	 * This method expect a song name like type %Artist%-%Album%-%Title%

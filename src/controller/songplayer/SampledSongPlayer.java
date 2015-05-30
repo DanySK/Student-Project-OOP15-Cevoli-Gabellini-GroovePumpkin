@@ -28,7 +28,7 @@ public class SampledSongPlayer implements SongPlayer {
 	/**
 	 * This constructor create a new instance of a songPlayer
 	 * 
-	 * @param clip
+	 * @param song
 	 *            where the audio data will be loaded
 	 * @throws LineUnavailableException
 	 * @throws IOException

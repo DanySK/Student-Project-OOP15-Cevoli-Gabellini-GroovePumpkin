@@ -46,7 +46,7 @@ public interface MusicPlayerModel {
 	
 	/**
 	 * This method change the current song with the next song
-	 * @retrun the URL of the next song 
+	 * @return	the URL of the next song 
 	 */
 	Optional<URL> changeToTheNextSong();
 
@@ -66,7 +66,9 @@ public interface MusicPlayerModel {
 	/**
 	 * This method set the shuffle mode
 	 * 
-	 * @param true if we want to active the shuffle mode or false for deactive if was be already activated
+	 * @param active, 
+	 * 			true if we want to active the shuffle mode 
+	 * 			or false for deactive if was be already activated
 	 */
 	void setShuffleMode(boolean active);
 	
@@ -75,7 +77,9 @@ public interface MusicPlayerModel {
 	/**
 	 * This method set the Loop mode that is active the song repeat
 	 * 
-	 * @param true if we want activate the loop mode or false for deactive if was be already activated
+	 * @param active,
+	 * 			 true if we want activate the loop mode 
+	 * 				or false for deactive if was be already activated
 	 */
 	void setLoopMode(boolean active);
 	

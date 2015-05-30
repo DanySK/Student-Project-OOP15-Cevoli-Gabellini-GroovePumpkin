@@ -13,7 +13,6 @@ import static view.config.Configuration.*;
  * 
  * @author Alessandro
  *
- * @param <X>
  */
 public class GrooveTableModel extends AbstractTableModel {
 
@@ -28,8 +27,10 @@ public class GrooveTableModel extends AbstractTableModel {
 	private final GrooveBoxPlayer controller;
 	
 	/**
+	 * A constructor fo a GrooveTable model that take in input 
+	 * a GrooveboxPlayer controller
 	 * 
-	 * @param list
+	 * @param controller
 	 */
 	public GrooveTableModel(final GrooveBoxPlayer controller) {
 		this.controller= controller;

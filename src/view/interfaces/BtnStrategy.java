@@ -7,9 +7,12 @@ import javax.swing.Icon;
  * 
  * @author Alessandro
  *
- * @param <C>  -> Controller
- * @param <B>  -> Button
- * @param <S>  -> Command
+ * @param <C>  the Controller
+ * @param <B>  the Button
+ * @param <S>  the Command
+ * 
+ * Sounds like a Western film 
+ * 
  */
 public interface BtnStrategy<C, B, S> extends Strategy<C> {
 	

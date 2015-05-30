@@ -52,8 +52,8 @@ public final class ButtonFactory {
 	 * 
 	 * NOTE: Now It's fully generic!
 	 * 
-	 * @param Strategy
-	 *            the type of button to create -> choose between the given
+	 * @param strategy
+	 *            the type of button to create choosed between the given
 	 *            costants of this class
 	 * @param showTitle
 	 *            if the button have to show a TitledBorder or the built-in

@@ -31,8 +31,8 @@ import controller.musicplayer.PlaylistFeatureCommand;
  * 
  * Optionally:
  * 
- * -Add a label for elapsed time;-> still in work
- * -Add a progrese bar (slider); -> still in work
+ * -Add a label for elapsed time;
+ * -Add a progrese bar (slider); ( still in work)
  * 
  * @author Alessandro
  *

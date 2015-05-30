@@ -16,7 +16,7 @@ import model.PlayerState;
 import controller.Observable;
 
 /**
- * A Personalized White&DarkGrey JPanel, with a personalizable Layout
+ * A Personalized WhiteAndDarkGrey JPanel, with a personalizable Layout
  * and able to show a TitledBorder
  * 
  * @author Alessandro
@@ -30,7 +30,7 @@ public class PersonalJPanel extends JPanel implements UpdatableObserver, Observa
 	private final List<UpdatableObserver> observers = new ArrayList<>();
 
 	/**
-	 * A basic constructor for a White&Gray panel
+	 * A basic constructor for a WhiteAndGray panel
 	 * 
 	 */
 	public PersonalJPanel() {
