@@ -15,8 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.TableModel;
-
-import model.PlayerState;
 import view.buttons.strategies.PlaylistStrategy;
 import view.config.Utility;
 import view.model.AbstractMouseListener;
@@ -57,6 +55,7 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer>{
 		this.tableModel = new PlaylistTableModel(getController());
 		this.playlist = new PersonalJTable(tableModel, MULTIPLE_INTERVAL_SELECTION);
 		this.playlist.setColumnHeaderBounds(0, 30, 30);
+		this.addUpdatableObservers(playlist);
 		jsp.setViewportView(playlist);
 		jsp.setBackground(WHITE);
 		jsp.setForeground(DARK_GRAY);
@@ -121,14 +120,6 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer>{
 				}
 			}
 		});
-	}
-
-	@Override
-	public void updateStatus(final PlayerState status) {
-		//build a new table
-		if (status == PlayerState.RELOAD) {
-			playlist.updateStatus(status);
-		}
 	}
 
 	/**

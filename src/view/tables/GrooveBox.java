@@ -96,7 +96,7 @@ public class GrooveBox extends PersonalJTable{
 							for (int r=0; r< tableModel.getRowCount(); r++){
 									tableModel.setValueAt(null,	r, c);
 							}
-						//GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
+						GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
 					});
 					jpm.add(setCol);
 					

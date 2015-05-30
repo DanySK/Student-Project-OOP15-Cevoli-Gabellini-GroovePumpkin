@@ -9,15 +9,12 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.event.TableModelEvent;
-
-import model.PlayerState;
 import view.model.GrooveTableModel;
 import view.tables.GrooveBox;
 import controller.groovebox.GrooveBoxPlayer;
 import static view.buttons.ButtonFactory.*;
 import static view.config.Utility.*;
 import static view.config.Configuration.*;
-import static model.PlayerState.*;
 
 /**
  * This class rapresents the GUI space for the groovebox
@@ -108,15 +105,5 @@ public class GrooveBoxPanel extends AbstractControllablePane<GrooveBoxPlayer>{
 		this.jsp.removeAll();
 		this.jsp.setViewportView(gb);
 		grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
-	}
-	
-	@Override
-	public void updateStatus(final PlayerState status) {
-		
-		super.updateStatus(status);
-		
-		if(status.equals(RELOAD)){
-			grooveBox.tableChanged(new TableModelEvent(grooveBox.getModel()));
-		}
 	}
 }
