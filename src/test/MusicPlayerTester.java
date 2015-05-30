@@ -16,10 +16,10 @@ import controller.musicplayer.MusicPlayerFactory;
  *
  */
 public class MusicPlayerTester {
-	private static final String FIRST_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
-	private static final String SECOND_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
-	private static final String FIRST_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
-	private static final String SECOND_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/jashisth.mid";
+	private static final String FIRST_SAMPLED_SONG = "/songForTest/sampled/Prova 1.wav";
+	private static final String SECOND_SAMPLED_SONG = "/songForTest/sampled/Prova 2.wav";
+	private static final String FIRST_MIDI_SONG = "/songForTest/midi/chango.mid";
+	private static final String SECOND_MIDI_SONG = "/songForTest/midi/jashisth.mid";
 	
 	
 	
@@ -27,10 +27,10 @@ public class MusicPlayerTester {
 	public void testSampledMusicPlayer() {
 		final MusicPlayer lettore = MusicPlayerFactory.createClassicMusicPlayer();
 		try {
-			lettore.addSong(new URL(FIRST_SAMPLED_SONG));
-			lettore.addSong(new URL(SECOND_SAMPLED_SONG));
-			lettore.addSong(new URL(FIRST_MIDI_SONG));
-			lettore.addSong(new URL(SECOND_MIDI_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_SAMPLED_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + SECOND_SAMPLED_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_MIDI_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + SECOND_MIDI_SONG));
 		} catch (IllegalArgumentException e1) {
 			e1.printStackTrace();
 		} catch (MalformedURLException e1) {

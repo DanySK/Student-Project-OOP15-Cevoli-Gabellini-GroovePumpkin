@@ -23,11 +23,10 @@ import controller.musicplayer.PlaylistFeatureCommand;
 
 public class ShuffleTester {
 	private final int WAIT_TIME = 5000;
-	private static final String FIRST_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
-	private static final String SECOND_SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
-	private static final String FIRST_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
-	private static final String SECOND_MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/jashisth.mid";
-	
+	private static final String FIRST_SAMPLED_SONG = "/songForTest/sampled/Prova 1.wav";
+	private static final String SECOND_SAMPLED_SONG = "/songForTest/sampled/Prova 2.wav";
+	private static final String FIRST_MIDI_SONG = "/songForTest/midi/chango.mid";
+	private static final String SECOND_MIDI_SONG = "/songForTest/midi/jashisth.mid";
 	
 	PlayerState statoRiproduttore = PlayerState.STOPPED;
 	
@@ -45,14 +44,14 @@ public class ShuffleTester {
 		riproduttore.addUpdatableObservers(component);
 		try {
 			riproduttore
-					.addSong(new URL(FIRST_SAMPLED_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_SAMPLED_SONG));
 			riproduttore
-					.addSong(new URL(FIRST_MIDI_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_MIDI_SONG));
 			riproduttore
-					.addSong(new URL(SECOND_SAMPLED_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + SECOND_SAMPLED_SONG));
 
 			riproduttore
-					.addSong(new URL(SECOND_MIDI_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + SECOND_MIDI_SONG));
 
 		} catch (IllegalArgumentException e1) {
 			fail(e1.getMessage());

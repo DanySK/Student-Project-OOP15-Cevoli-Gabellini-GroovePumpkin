@@ -13,8 +13,8 @@ import controller.musicplayer.MusicPlayer;
 import controller.musicplayer.MusicPlayerFactory;
 
 public class PlayListManagerTester {
-	private static final String FIRST_SONG =  "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
-	private static final String SECOND_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
+	private static final String FIRST_SONG =  "/songForTest/sampled/Prova 1.wav";
+	private static final String SECOND_SONG = "/songForTest/sampled/Prova 2.wav";
 	
 	@org.junit.Test
 	public void testAddAndRemoveSong() {
@@ -24,8 +24,8 @@ public class PlayListManagerTester {
 		try {
 			// Aggiungo una canzone alla checkList e alla playList del lettore
 			checkList
-					.add(new URL(FIRST_SONG));
-			lettore.addSong(new URL(FIRST_SONG));
+					.add(new URL("file:" + System.getProperty("user.dir") + FIRST_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -45,8 +45,8 @@ public class PlayListManagerTester {
 		try {
 			// Aggiungo una canzone alla checkList e alla playList del lettore
 			checkList
-					.add(new URL(FIRST_SONG));
-			lettore.addSong(new URL(FIRST_SONG));
+					.add(new URL("file:" + System.getProperty("user.dir") + FIRST_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + FIRST_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -57,8 +57,8 @@ public class PlayListManagerTester {
 
 		try {
 			checkList
-					.add(new URL(SECOND_SONG));
-			lettore.addSong(new URL(SECOND_SONG));
+					.add(new URL("file:" + System.getProperty("user.dir") + SECOND_SONG));
+			lettore.addSong(new URL("file:" + System.getProperty("user.dir") + SECOND_SONG));
 		} catch (IllegalArgumentException e1) {
 			// TODO Auto-generated catch block
 			fail(e1.getMessage());

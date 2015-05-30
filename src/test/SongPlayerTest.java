@@ -28,13 +28,14 @@ import controller.songplayer.SongPlayer;
  *
  */
 public class SongPlayerTest {
-	private static final String SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/NACCARENA master (STEVE).wav";
-	private static final String MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
+	private static final String SAMPLED_SONG = "/songForTest/sampled/Prova 1.wav";
+	private static final String MIDI_SONG = "/songForTest/midi/chango.mid";
+	
 	@org.junit.Test
 	public void testSampledSongPlayer() {
 		URL songPath = null;
 		try {
-			songPath = new URL(SAMPLED_SONG);
+			songPath = new URL("file:" + System.getProperty("user.dir") + SAMPLED_SONG);
 		} catch (MalformedURLException e1) {
 			fail();
 		}
@@ -67,7 +68,7 @@ public class SongPlayerTest {
 	public void testMidiSongPlayer(){
 		URL songPath = null;
 		try {
-			songPath = new URL(MIDI_SONG);
+			songPath = new URL("file:" + System.getProperty("user.dir") + MIDI_SONG);
 		} catch (MalformedURLException e1) {
 			fail();
 		}

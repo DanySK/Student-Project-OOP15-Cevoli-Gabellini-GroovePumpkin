@@ -12,12 +12,14 @@ import controller.musicplayer.MusicPlayerFactory;
 
 /**
  * This is a test for the loop 
- * @author matteogabellini
+ * @author Matteo Gabellini
  *
  */
 public class LoopTester {
-	private static final String SAMPLED_SONG = "file:/Users/matteogabellini/Music/iTunes/iTunes Media/Music/Unknown Artist/Unknown Album/GHETTO STORY.wav";
-	private static final String MIDI_SONG = "file:/Users/matteogabellini/Documents/Materiale Università/2ANNO/Object Oriented Programming/Progetto/chango.mid";
+	private static final String SAMPLED_SONG = "/songForTest/sampled/Prova 1.wav";
+	private static final String MIDI_SONG = "/songForTest/midi/chango.mid";
+	
+	
 	
 	@org.junit.Test
 	public void testLoopMode() {
@@ -25,13 +27,15 @@ public class LoopTester {
 				.createLoopableMusicPlayer();
 		try {
 			riproduttore
-					.addSong(new URL(SAMPLED_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + SAMPLED_SONG));
+			
 			riproduttore
-					.addSong(new URL(MIDI_SONG));
+					.addSong(new URL("file:" + System.getProperty("user.dir") + MIDI_SONG));
 		} catch (IllegalArgumentException e1) {
 			fail(e1.getMessage());
-		} catch (MalformedURLException e1) {
-			fail(e1.getMessage());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		final LoopableMusicPlayer lmpTmp = (LoopableMusicPlayer) riproduttore;
