@@ -14,7 +14,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.TableModel;
 
 import model.PlayerState;
@@ -126,9 +125,9 @@ public class PlaylistPanel extends AbstractControllablePane<MusicPlayer>{
 
 	@Override
 	public void updateStatus(final PlayerState status) {
-		// ricrea la nuova tabella
+		//build a new table
 		if (status == PlayerState.RELOAD) {
-			playlist.tableChanged(new TableModelEvent(this.tableModel));
+			playlist.updateStatus(status);
 		}
 	}
 

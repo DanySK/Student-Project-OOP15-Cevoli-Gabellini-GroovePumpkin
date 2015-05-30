@@ -96,7 +96,7 @@ public class GrooveBox extends PersonalJTable{
 							for (int r=0; r< tableModel.getRowCount(); r++){
 									tableModel.setValueAt(null,	r, c);
 							}
-						GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
+						//GrooveBox.this.tableChanged(new TableModelEvent(tableModel));
 					});
 					jpm.add(setCol);
 					
@@ -135,7 +135,7 @@ public class GrooveBox extends PersonalJTable{
 	 * 
 	 */
 	private int getRow() {
-
+		
 		return GrooveBox.this.getMousePosition() == null ? -1
 				: GrooveBox.this.rowAtPoint(GrooveBox.this
 						.getMousePosition());
